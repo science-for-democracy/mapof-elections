@@ -8,8 +8,8 @@
 
 import os
 import sys
+# sys.path.insert(0, os.path.abspath(os.path.join("..","..","src","mapof")))
 sys.path.insert(0, os.path.abspath(os.path.join("..", "..")))
-
 
 project = 'mapof-elections'
 copyright = '2024, Stanisław Szufa and Andrzej Kaczmarczyk'
@@ -20,10 +20,10 @@ release = '2024'
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 extensions = [
+    "sphinx.ext.autodoc",
     "sphinx.ext.doctest",
     "sphinx.ext.napoleon",
     "sphinx.ext.viewcode",
-    "sphinx.ext.autodoc",
     "sphinx.ext.imgmath",
 ]
 

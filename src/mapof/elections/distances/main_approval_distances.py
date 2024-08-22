@@ -3,7 +3,7 @@
 from typing import Callable
 
 
-from mapof.elections.objects.ApprovalElection import ApprovalElection
+from src.mapof.elections.objects.ApprovalElection import ApprovalElection
 
 
 # MAIN APPROVAL DISTANCES

@@ -12,5 +12,5 @@ Some text.
 .. toctree::
     :hidden:
 
-    reference/index
+    tmp
 

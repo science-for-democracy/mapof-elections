@@ -4,13 +4,13 @@ from abc import ABC
 from collections import Counter
 
 from matplotlib import pyplot as plt
-from mapof.elections.cultures_ import generate_approval_votes
-from mapof.elections.objects.Election import Election
-from mapof.core.inner_distances import hamming
-from mapof.core.utils import *
-import mapof.elections.persistence.election_imports as imports
-import mapof.elections.persistence.election_exports as exports
-from mapof.elections.cultures.params import *
+from src.mapof.elections.cultures_ import generate_approval_votes
+from src.mapof.elections.objects.Election import Election
+from src.mapof.core.inner_distances import hamming
+from src.mapof.core.utils import *
+import src.mapof.elections.persistence.election_imports as imports
+import src.mapof.elections.persistence.election_exports as exports
+from src.mapof.elections.cultures.params import *
 
 
 class ApprovalElection(Election, ABC):

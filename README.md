@@ -1,60 +1,51 @@
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/szufix/mapel/HEAD)
+# Mapel-elections
+This pacakge is a plugin for [mapel](https://pypi.org/project/mapel/) extending
+it with capabilities of drawing maps of various elections intances.
 
-# Mapel
-
-The repo of mapel and its plugins containing the code of
-the mapel ecosystem:  
-1. [mapel-core](https://pypi.org/project/mapel-core/)
-1. [mapel-elections](https://pypi.org/project/mapel-elections/)
-1. [mapel-roommates](https://pypi.org/project/mapel-rommmates/)
-1. [mapel-marriages](https://pypi.org/project/mapel-marriages/)
-
-See the documentation of the above (on pypi) for further information on the
-whole ecosystem. You can also consult the materials from the 
-[AAAI'24 tutorial](https://home.agh.edu.pl/~pragma/tutorials/aaai24/)
-about using mapel.
-
-To install all packages listed above follow the instructions below.
-
+For the most recent version of mapel, visit its [git
+repo](https://pypi.org/project/mapel/).
 
 # Installation
+For a simple installation, type:
+`pip install mapel-elections`
+in the console.
 
-There are three major ways of using mapel:
-1. Copy-paste the sources into your python project and import different `.py`
-files directly;
-2. (Recommended for developers) [Documentation---TBD] Install mapel as an editable package, which
-simulates a full-fledged global package installation yet keeping track of all
-changes to the source code and applying the on the fly to the "library";
-3. (Recommended for library users) Install mapel as a normal package.
+For more complicated variants of installation, refer to the readme of mapel
+[here](https://github.com/szufix/mapel).
 
-The first point is considered to be only used temporarily and creates severe
-inconveniences with building the package. We only describe points 2 (not yet)
-and 3 in subsequent parts. For a better experience, our instructions assume
-usage of `venv`, which is optional, however recommended.
+## Extra dependencies
 
-## Editable Package
+For the full functionality of the package, it is recommended to also install
+extra dependencies. Doing this is covered in [this
+readme](https://pypi.org/project/mapel/). The extra dependencies contain:  
+```
+pulp~=2.5.1
+abcvoting~=2.0.0b0
+permanent
+```  
+which unlock approval based committee rules (which require solving I(L)P
+programs) and sampling a matrix using a permanent-based approach.
 
-TBD
+One can do it by invoking  
+`pip install mapel-elections[extras]`
 
-## Usual Package
+> :exclamation: Note that this library contains C++ extensions. So installing
+  this library from sources  might be a bit cumbersome. We will, one day, put
+  here an instruction how to do it.
 
-This variant is recommended for those, who plan to use mapel without modifying
-its source code. The instruction includes using `venv`, which is generally a
-good idea.
+## Testing Installation
 
-1. Install `pip` and `venv`. Make sure that you are using the newest possible
-`pip`, newer than `22.0.0`. To upgrade you pip run:
-`pip install --upgrade pip`
-1. Prepare a virtual environment running this command:
-`python3 -m venv <virtual_envirnonment_name>`
-By default the above command creates a directory `<virtual_environment_name>`,
-where the virtual environment files are stored
-1. Activate the virtual environment:
-`source <virtual_envirnment_path>/bin/activate`
-If successful, your prompt is now preceded with the name of the virtual environment.
-1. Run
-`pip install mapel`
+If the instalation was successfull, you should be able to mimic the following:  
 
+```
+(<virtual_envirnonment_name>) $ python
+...
+>>> import mapel.elections.metrics.cppdistances as d
+...
+>>> d.swapd([[0,1,2],[0,1,2]], [[0,1,2],[2,1,0]])
+3
+>>> exit()
+```
 
 # Acknowledgments
 

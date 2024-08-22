@@ -2,7 +2,7 @@ import numpy as np
 
 import pytest
 
-import mapel.elections as mapel
+import mapof.elections as mapel
 
 registered_approval_cultures_to_test = {
     'ic',

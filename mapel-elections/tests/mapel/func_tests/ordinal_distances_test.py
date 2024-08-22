@@ -1,7 +1,7 @@
 import pytest
 import numpy as np
 
-import mapel.elections as mapel
+import mapof.elections as mapel
 
 registered_ordinal_distances_to_test = {
     'emd-positionwise',

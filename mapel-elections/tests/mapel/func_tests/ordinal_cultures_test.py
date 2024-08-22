@@ -2,7 +2,7 @@
 import pytest
 import numpy as np
 
-import mapel.elections as mapel
+import mapof.elections as mapel
 
 
 registered_ordinal_cultures_to_test = {

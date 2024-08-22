@@ -1,4 +1,4 @@
-import mapel.elections as mapel
+import mapof.elections as mapel
 
 
 class TestSwapDistance:

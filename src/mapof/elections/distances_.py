@@ -77,11 +77,16 @@ def get_distance(election_1,
     """
     Computes distance between elections, (if applicable) optimal matching.
 
-    :param election_1: first election.
-    :param election_2: second election.
-    :param distance_id: name of the distance.
-    :return: distances, matching (if applicable).
+    Parameters
+    ----------
+        election_1
+            First election.
+        election_2
+            Second election.
+        distance_id
+            Name of the distance.
     """
+
     if type(election_1) is ApprovalElection and type(election_2) is ApprovalElection:
         return get_approval_distance(election_1, election_2, distance_id=distance_id)
     elif type(election_1) is OrdinalElection and type(election_2) is OrdinalElection:
@@ -95,11 +100,14 @@ def get_approval_distance(election_1: ApprovalElection, election_2: ApprovalElec
     """
     Computes distance between approval elections, (if applicable) optimal matching.
 
-    :param election_1: first election.
-    :param election_2: second election.
-    :param distance_id: name of the distance.
-    :param kwargs: additional arguments.
-    :return: distances, matching (if applicable).
+    Parameters
+    ----------
+        election_1
+            First election.
+        election_2
+            Second election.
+        distance_id
+            Name of the distance.
     """
 
     inner_distance, main_distance = _extract_distance_id(distance_id)
@@ -124,11 +132,14 @@ def get_ordinal_distance(election_1: OrdinalElection, election_2: OrdinalElectio
     """
     Computes distance between ordinal elections, (if applicable) optimal matching.
 
-    :param election_1: first election.
-    :param election_2: second election.
-    :param distance_id: name of the distance.
-    :param kwargs: additional arguments.
-    :return: distances, matching (if applicable).
+    Parameters
+    ----------
+        election_1
+            First election.
+        election_2
+            Second election.
+        distance_id
+            Name of the distance.
     """
 
     inner_distance, main_distance = _extract_distance_id(distance_id)
@@ -197,7 +208,9 @@ def run_multiple_processes(experiment: Experiment,
     """ Single process for computing distances """
 
     for instance_id_1, instance_id_2 in tqdm(instances_ids,
-                                             desc=f'Computing distances of thread {process_id}', position=process_id, leave = True):
+                                             desc=f'Computing distances of thread {process_id}',
+                                             position=process_id,
+                                             leave=True):
         start_time = time()
         distance = get_distance(copy.deepcopy(experiment.instances[instance_id_1]),
                                 copy.deepcopy(experiment.instances[instance_id_2]),

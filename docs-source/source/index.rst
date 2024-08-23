@@ -1,16 +1,16 @@
-.. mapof-elections documentation master file, created by
-   sphinx-quickstart on Thu Aug 22 17:37:12 2024.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+Mapof-elections
+===============
 
-mapof-elections documentation
-=============================
-
-Some text.
+Mapof-elections is the core package.
 
 
 .. toctree::
     :hidden:
 
-    tmp
+    Mapof-elections <self>
+    cultures/index
+    cultures
+    distances
+    features
+
 

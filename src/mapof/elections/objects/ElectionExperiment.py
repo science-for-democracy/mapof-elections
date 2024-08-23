@@ -9,6 +9,7 @@ import ast
 import time
 from tqdm import tqdm
 
+from mapof.elections.other.glossary import NOT_ABCVOTING_RULES
 from mapof.elections.objects.ElectionFeatures import ST_KEY, AN_KEY, ID_KEY, UN_KEY
 from mapof.elections.objects.ElectionFamily import ElectionFamily
 from mapof.elections.objects.OrdinalElection import OrdinalElection
@@ -18,8 +19,6 @@ import mapof.elections.other.rules as rules
 import mapof.elections.features_ as features
 from mapof.core.objects.Experiment import Experiment
 import mapof.core.printing as pr
-from mapof.core.utils import *
-from mapof.core.glossary import *
 
 import mapof.core.persistence.experiment_exports as exports
 
@@ -711,6 +710,7 @@ class ElectionExperiment(Experiment):
     def compute_rules(self, list_of_rules,
                       committee_size: int = 10,
                       resolute: bool = False) -> None:
+
         for rule_name in list_of_rules:
             print('Computing', rule_name)
             if rule_name in NOT_ABCVOTING_RULES:

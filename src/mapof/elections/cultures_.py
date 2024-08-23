@@ -21,7 +21,7 @@ import src.mapof.elections.cultures.euclidean as euclidean
 import src.mapof.elections.cultures.urn as urn
 import src.mapof.elections.cultures.identity as identity
 
-from src.mapof.core.glossary import *
+from mapof.elections.other.glossary import LIST_OF_FAKE_MODELS, LIST_OF_PREFLIB_MODELS
 
 import prefsampling.ordinal as pref_ordinal
 import prefsampling.approval as pref_approval

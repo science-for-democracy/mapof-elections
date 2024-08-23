@@ -1,8 +1,8 @@
 import csv
 from collections import Counter
 
-from mapof.core.glossary import *
 from mapof.core.utils import *
+from mapof.elections.other.glossary import APPROVAL_FAKE_MODELS
 
 
 def export_votes_to_file(election,

@@ -3,8 +3,7 @@ import numpy as np
 from scipy.stats import gamma
 import random as rand
 import mapof.core.features.mallows as mallows
-from mapof.core.glossary import *
-
+from mapof.elections.other.glossary import APPROVAL_MODELS, LIST_OF_PREFLIB_MODELS
 
 # Ordinal
 def update_params_ordinal_mallows(params):

@@ -4,6 +4,8 @@ import math
 import os
 import sys
 
+from mapof.elections.other.glossary import LIST_OF_FAKE_MODELS
+
 import numpy as np
 try:
     import pulp
@@ -19,7 +21,6 @@ except ImportError:
     abcrules = None
     preferences = None
 
-from mapof.core.glossary import *
 from mapof.elections.distances import ilp_other
 from mapof.elections.other import winners as win
 

@@ -4,6 +4,7 @@ from collections import Counter
 
 from matplotlib import pyplot as plt
 
+from mapof.elections.other.glossary import PATHS
 import mapof.elections.persistence.election_exports as exports
 import mapof.elections.persistence.election_imports as imports
 from mapof.core.inner_distances import swap_distance_between_potes, \

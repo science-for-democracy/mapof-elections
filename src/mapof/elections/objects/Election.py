@@ -16,6 +16,7 @@ from sklearn.manifold import MDS
 from mapof.elections.objects.ElectionFeatures import ElectionFeatures
 import mapof.elections.persistence.election_exports as exports
 import mapof.elections.persistence.election_imports as imports
+from mapof.elections.other.glossary import *
 from mapof.core.glossary import *
 from mapof.core.inner_distances import l2
 from mapof.core.objects.Instance import Instance

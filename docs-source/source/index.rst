@@ -9,6 +9,7 @@ Mapof-elections is the core package.
 
     Mapof-elections <self>
     cultures/index
+    objects/index
     cultures
     distances
     features

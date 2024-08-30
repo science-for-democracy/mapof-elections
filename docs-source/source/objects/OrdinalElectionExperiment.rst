@@ -1,6 +1,6 @@
 OrdinalElectionExperiment
 =========================
 
-.. automodule:: src.mapof.elections.objects.OrdinalElectionExperiment
+.. automodule:: mapof.elections.objects.OrdinalElectionExperiment
     :members:
 

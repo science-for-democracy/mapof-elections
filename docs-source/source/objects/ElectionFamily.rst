@@ -1,6 +1,6 @@
 ElectionFamily
 ==============
 
-.. automodule:: src.mapof.elections.objects.ElectionFamily
+.. automodule:: mapof.elections.objects.ElectionFamily
     :members:
 

@@ -1,6 +1,6 @@
 Cultures
 ========
 
-.. automodule:: src.mapof.elections.cultures_
+.. automodule:: mapof.elections.cultures_
     :members:
 

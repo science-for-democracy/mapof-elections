@@ -1,6 +1,6 @@
 Features
 ========
 
-.. automodule:: src.mapof.elections.features_
+.. automodule:: mapof.elections.features_
     :members:
 

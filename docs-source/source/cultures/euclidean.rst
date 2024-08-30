@@ -1,6 +1,6 @@
-Eucledian
+Euclidean
 =========
 
-.. automodule:: src.mapof.elections.cultures.euclidean
+.. automodule:: mapof.elections.cultures.euclidean
     :members:
 

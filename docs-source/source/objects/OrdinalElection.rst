@@ -1,6 +1,6 @@
 OrdinalElection
 ===============
 
-.. automodule:: src.mapof.elections.objects.OrdinalElection
+.. automodule:: mapof.elections.objects.OrdinalElection
     :members:
 

@@ -1,6 +1,6 @@
 ApprovalElection
 ================
 
-.. automodule:: src.mapof.elections.objects.ApprovalElection
+.. automodule:: mapof.elections.objects.ApprovalElection
     :members:
 

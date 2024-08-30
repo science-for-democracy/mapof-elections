@@ -7,12 +7,12 @@ from typing import Callable
 import numpy as np
 from tqdm import tqdm
 
-from src.mapof.elections.distances import main_approval_distances as mad
-from src.mapof.elections.distances import main_ordinal_distances as mod
-from src.mapof.elections.distances import positionwise_infty
-from src.mapof.elections.distances import feature_distance
-from src.mapof.elections.objects.ApprovalElection import ApprovalElection
-from src.mapof.elections.objects.OrdinalElection import OrdinalElection
+from mapof.elections.distances import main_approval_distances as mad
+from mapof.elections.distances import main_ordinal_distances as mod
+from mapof.elections.distances import positionwise_infty
+from mapof.elections.distances import feature_distance
+from mapof.elections.objects.ApprovalElection import ApprovalElection
+from mapof.elections.objects.OrdinalElection import OrdinalElection
 
 import mapof.core.persistence.experiment_exports as exports
 from mapof.core.inner_distances import map_str_to_func

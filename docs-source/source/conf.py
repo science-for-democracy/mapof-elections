@@ -9,7 +9,7 @@
 import os
 import sys
 # sys.path.insert(0, os.path.abspath(os.path.join("..","..","src","mapof")))
-sys.path.insert(0, os.path.abspath(os.path.join("..", "..")))
+sys.path.insert(0, os.path.abspath(os.path.join("..", "..", "src")))
 
 project = 'mapof-elections'
 copyright = '2024, Stanisław Szufa and Andrzej Kaczmarczyk'
@@ -55,4 +55,12 @@ doctest_path = [".."]
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = 'sphinx_book_theme'
-html_static_path = ['_static']
+# html_static_path = ['_static']
+
+#
+# html_title = "Map of Elections"
+# html_theme_options = {
+#     "repository_url": "https://github.com/science-for-democracy/mapof-elections",
+#     "use_repository_button": True,
+#     "navigation_with_keys": True,
+# }

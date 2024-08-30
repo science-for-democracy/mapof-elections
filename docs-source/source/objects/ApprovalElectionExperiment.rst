@@ -1,6 +1,6 @@
 ApprovalElectionExperiment
 ==========================
 
-.. automodule:: src.mapof.elections.objects.ApprovalElectionExperiment
+.. automodule:: mapof.elections.objects.ApprovalElectionExperiment
     :members:
 

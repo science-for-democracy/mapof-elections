@@ -3,7 +3,7 @@ import logging
 
 import numpy as np
 
-from src.mapof.core.features.mallows import mallows_votes
+from mapof.core.features.mallows import mallows_votes
 
 
 def generate_mallows_urn_votes(num_voters: int = None,

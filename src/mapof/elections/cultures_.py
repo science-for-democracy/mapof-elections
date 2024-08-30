@@ -4,22 +4,22 @@ import logging
 from typing import Union
 
 
-import src.mapof.elections.cultures.to_be_removed.mallows_urn as mallows_urn
+import mapof.elections.cultures.to_be_removed.mallows_urn as mallows_urn
 
-import src.mapof.elections.cultures.guardians as guardians
-import src.mapof.elections.cultures.guardians_plus as guardians_plus
-import src.mapof.elections.cultures.mallows as mallows
-import src.mapof.elections.cultures.matrices.single_peaked_matrices as sp_matrices
-import src.mapof.elections.cultures.unused as unused
+import mapof.elections.cultures.guardians as guardians
+import mapof.elections.cultures.guardians_plus as guardians_plus
+import mapof.elections.cultures.mallows as mallows
+import mapof.elections.cultures.matrices.single_peaked_matrices as sp_matrices
+import mapof.elections.cultures.unused as unused
 
-from src.mapof.elections.cultures.nonstandard.alliances import *
-import src.mapof.elections.cultures.nonstandard.field_experiment as fe
-from src.mapof.elections.cultures.preflib import generate_preflib_votes
+from mapof.elections.cultures.nonstandard.alliances import *
+import mapof.elections.cultures.nonstandard.field_experiment as fe
+from mapof.elections.cultures.preflib import generate_preflib_votes
 
-import src.mapof.elections.cultures.group_separable as group_separable
-import src.mapof.elections.cultures.euclidean as euclidean
-import src.mapof.elections.cultures.urn as urn
-import src.mapof.elections.cultures.identity as identity
+import mapof.elections.cultures.group_separable as group_separable
+import mapof.elections.cultures.euclidean as euclidean
+import mapof.elections.cultures.urn as urn
+import mapof.elections.cultures.identity as identity
 
 from mapof.elections.other.glossary import LIST_OF_FAKE_MODELS, LIST_OF_PREFLIB_MODELS
 

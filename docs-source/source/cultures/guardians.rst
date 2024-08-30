@@ -1,6 +1,6 @@
 Guardians
-========
+=========
 
-.. automodule:: src.mapof.elections.cultures.guardians
+.. automodule:: mapof.elections.cultures.guardians
     :members:
 

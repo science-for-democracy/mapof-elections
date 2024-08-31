@@ -58,9 +58,9 @@ html_theme = 'sphinx_book_theme'
 # html_static_path = ['_static']
 
 #
-# html_title = "Map of Elections"
-# html_theme_options = {
-#     "repository_url": "https://github.com/science-for-democracy/mapof-elections",
-#     "use_repository_button": True,
-#     "navigation_with_keys": True,
-# }
+html_title = "Map of Elections"
+html_theme_options = {
+    "repository_url": "https://github.com/science-for-democracy/mapof-elections",
+    "use_repository_button": True,
+    "navigation_with_keys": True,
+}

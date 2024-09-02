@@ -189,7 +189,7 @@ def import_real_new_soc_election(experiment_id: str = None,
     c = Counter(map(tuple, votes))
     counted_votes = [[count, list(row)] for row, count in c.items()]
     counted_votes = sorted(counted_votes, reverse=True)
-    quantites = [a[0] for a in counted_votes]
+    quantities = [a[0] for a in counted_votes]
     distinct_votes = [a[1] for a in counted_votes]
     num_options = len(counted_votes)
 
@@ -203,7 +203,7 @@ def import_real_new_soc_election(experiment_id: str = None,
            culture_id, \
            alliances, \
            num_options, \
-           quantites, \
+           quantities, \
            distinct_votes
 
 
@@ -248,11 +248,11 @@ def import_real_old_soc_election(experiment_id: str = None,
     votes = [[0 for _ in range(num_candidates)] for _ in range(num_voters)]
 
     it = 0
-    quantites = []
+    quantities = []
     for j in range(num_options):
         line = list(map(int, my_file.readline().rstrip("\n").split(',')))
         quantity = line[0]
-        quantites.append(quantity)
+        quantities.append(quantity)
 
         for k in range(quantity):
             votes[it] = line[1:num_candidates + 1]
@@ -261,7 +261,7 @@ def import_real_old_soc_election(experiment_id: str = None,
     c = Counter(map(tuple, votes))
     counted_votes = [[count, list(row)] for row, count in c.items()]
     counted_votes = sorted(counted_votes, reverse=True)
-    quantites = [a[0] for a in counted_votes]
+    quantities = [a[0] for a in counted_votes]
     distinct_votes = [a[1] for a in counted_votes]
     num_options = len(counted_votes)
 
@@ -276,7 +276,7 @@ def import_real_old_soc_election(experiment_id: str = None,
            culture_id, \
            alliances, \
            num_options, \
-           quantites, \
+           quantities, \
            distinct_votes
 
 
@@ -371,7 +371,7 @@ def import_real_new_app_election(experiment_id: str = None,
     c = Counter(map(tuple, votes))
     counted_votes = [[count, list(row)] for row, count in c.items()]
     counted_votes = sorted(counted_votes, reverse=True)
-    quantites = [a[0] for a in counted_votes]
+    quantities = [a[0] for a in counted_votes]
     distinct_votes = [a[1] for a in counted_votes]
     num_options = len(counted_votes)
 
@@ -386,7 +386,7 @@ def import_real_new_app_election(experiment_id: str = None,
            params, \
            culture_id, \
            num_options, \
-           quantites, \
+           quantities, \
            distinct_votes
 
 
@@ -442,7 +442,7 @@ def import_real_old_app_election(experiment_id: str, election_id: str, is_shifte
     c = Counter(map(tuple, votes))
     counted_votes = [[count, list(row)] for row, count in c.items()]
     counted_votes = sorted(counted_votes, reverse=True)
-    quantites = [a[0] for a in counted_votes]
+    quantities = [a[0] for a in counted_votes]
     distinct_votes = [a[1] for a in counted_votes]
     num_options = len(counted_votes)
 
@@ -452,7 +452,7 @@ def import_real_old_app_election(experiment_id: str, election_id: str, is_shifte
            params, \
            culture_id, \
            num_options, \
-           quantites, \
+           quantities, \
            distinct_votes
 
 

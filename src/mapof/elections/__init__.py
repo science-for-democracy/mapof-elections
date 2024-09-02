@@ -121,7 +121,7 @@ def generate_ordinal_election_from_votes(votes=None):
     c = Counter(map(tuple, votes))
     counted_votes = [[count, list(row)] for row, count in c.items()]
     counted_votes = sorted(counted_votes, reverse=True)
-    election.quantites = [a[0] for a in counted_votes]
+    election.quantities = [a[0] for a in counted_votes]
     election.distinct_votes = [a[1] for a in counted_votes]
     election.num_options = len(counted_votes)
     return election
@@ -139,7 +139,7 @@ def generate_approval_election_from_votes(votes=None, num_candidates=None):
     c = Counter(map(tuple, votes))
     counted_votes = [[count, list(row)] for row, count in c.items()]
     counted_votes = sorted(counted_votes, reverse=True)
-    election.quantites = [a[0] for a in counted_votes]
+    election.quantities = [a[0] for a in counted_votes]
     election.distinct_votes = [a[1] for a in counted_votes]
     election.num_options = len(counted_votes)
     return election

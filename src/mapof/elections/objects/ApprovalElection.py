@@ -46,7 +46,7 @@ class ApprovalElection(Election, ABC):
                         imports.import_fake_app_election(self.experiment_id, self.election_id)
                 else:
                     self.votes, self.num_voters, self.num_candidates, self.params, \
-                        self.culture_id, self.num_options, self.quantites, self.distinct_votes \
+                        self.culture_id, self.num_options, self.quantities, self.distinct_votes \
                         = imports.import_real_app_election(
                             experiment_id=self.experiment_id,
                             election_id=self.election_id,
@@ -91,11 +91,11 @@ class ApprovalElection(Election, ABC):
             c = Counter(map(tuple, self.votes))
             counted_votes = [[count, list(row)] for row, count in c.items()]
             counted_votes = sorted(counted_votes, reverse=True)
-            self.quantites = [a[0] for a in counted_votes]
+            self.quantities = [a[0] for a in counted_votes]
             self.distinct_votes = [a[1] for a in counted_votes]
             self.num_options = len(counted_votes)
         else:
-            self.quantites = [self.num_voters]
+            self.quantities = [self.num_voters]
             self.num_options = 1
 
         if is_exported:

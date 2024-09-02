@@ -4,7 +4,7 @@ from collections import Counter
 
 from matplotlib import pyplot as plt
 
-from mapof.elections.other.glossary import PATHS
+from mapof.elections.other.glossary import PATHS, LIST_OF_FAKE_MODELS
 import mapof.elections.persistence.election_exports as exports
 import mapof.elections.persistence.election_imports as imports
 from mapof.core.inner_distances import swap_distance_between_potes, \
@@ -80,8 +80,10 @@ class OrdinalElection(Election):
                 else:
 
                     try:
-                        self.fake = imports.check_if_fake(self.experiment_id, self.election_id,
-                                                          'soc')
+                        self.fake = imports.check_if_fake(
+                            self.experiment_id,
+                            self.election_id,
+                            'soc')
                     except:
                         self.fake = False
 
@@ -92,7 +94,7 @@ class OrdinalElection(Election):
                     else:
                         self.votes, self.num_voters, self.num_candidates, self.params, \
                         self.culture_id, self.alliances, \
-                        self.num_options, self.quantites, \
+                        self.num_options, self.quantities, \
                         self.distinct_votes = imports.import_real_soc_election(
                             experiment_id=self.experiment_id,
                             election_id=self.election_id,
@@ -172,7 +174,7 @@ class OrdinalElection(Election):
         elif self.culture_id in PATHS:
             vectors = get_fake_convex(self.culture_id, self.num_candidates, self.num_voters,
                                       self.params, get_fake_vectors_single)
-        elif self.culture_id == 'crate':
+        elif self.culture_id in ['crate']:
             vectors = get_fake_vectors_crate(num_candidates=self.num_candidates,
                                              fake_param=self.params)
         elif self.culture_id in ['from_approval']:
@@ -230,7 +232,8 @@ class OrdinalElection(Election):
         borda_vector = np.zeros([self.num_candidates])
         if self.fake:
             if self.culture_id in {'identity', 'uniformity', 'antagonism', 'stratification'}:
-                borda_vector = get_fake_borda_vector(self.culture_id, self.num_candidates,
+                borda_vector = get_fake_borda_vector(self.culture_id,
+                                                     self.num_candidates,
                                                      self.num_voters)
             elif self.culture_id in PATHS:
                 borda_vector = get_fake_convex(self.culture_id,
@@ -336,11 +339,11 @@ class OrdinalElection(Election):
             c = Counter(map(tuple, self.votes))
             counted_votes = [[count, list(row)] for row, count in c.items()]
             counted_votes = sorted(counted_votes, reverse=True)
-            self.quantites = [a[0] for a in counted_votes]
+            self.quantities = [a[0] for a in counted_votes]
             self.distinct_votes = [a[1] for a in counted_votes]
             self.num_options = len(counted_votes)
         else:
-            self.quantites = [self.num_voters]
+            self.quantities = [self.num_voters]
             self.num_options = 1
 
         if is_exported:
@@ -432,10 +435,8 @@ class OrdinalElection(Election):
             self,
             show=True,
             radius=None,
-            name=None,
             alpha=0.1,
             s=30,
-            circles=False,
             object_type=None,
             double_gradient=False,
             saveas=None,
@@ -480,7 +481,7 @@ class OrdinalElection(Election):
             else:
                 for i in range(len(X)):
                     plt.scatter(X[i], Y[i], color=color, alpha=alpha, marker=marker,
-                                s=self.quantites[i] * s)
+                                s=self.quantities[i] * s)
 
         elif object_type == 'candidate':
             for i in range(len(X)):
@@ -493,15 +494,12 @@ class OrdinalElection(Election):
         if radius:
             plt.xlim([avg_x - radius, avg_x + radius])
             plt.ylim([avg_y - radius, avg_y + radius])
-        # plt.title(election.label, size=38)
 
         try:
             plt.title(self.texify_label(self.label), size=title_size)  # tmp
         except:
             pass
 
-        # plt.title(election.texify_label(election.label), size=38, y=0.94)
-        # plt.title(election.label, size=title_size)
         plt.axis('off')
 
         if saveas is not None:

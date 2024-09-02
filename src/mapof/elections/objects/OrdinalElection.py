@@ -25,6 +25,7 @@ from mapof.elections.other.winners import get_borda_points
 
 
 class OrdinalElection(Election):
+    """ Ordinal Election class. """
 
     def __init__(self,
                  experiment_id=None,
@@ -59,6 +60,7 @@ class OrdinalElection(Election):
         self.import_ordinal_election()
 
     def import_ordinal_election(self):
+        """ Import ordinal election. """
 
         if self.is_imported and self.experiment_id != 'virtual':
 
@@ -129,21 +131,25 @@ class OrdinalElection(Election):
             pass
 
     def get_vectors(self):
+        """ Get vectors. """
         if self.vectors is not None and len(self.vectors) > 0:
             return self.vectors
         return self.votes_to_positionwise_vectors()
 
     def get_matrix(self):
+        """ Get matrix. """
         if self.matrix is not None and len(self.matrix) > 0:
             return self.matrix
         return self.votes_to_positionwise_matrix()
 
     def get_potes(self):
+        """ Get potes. """
         if self.potes is not None:
             return self.potes
         return self.compute_potes()
 
     def votes_to_positionwise_vectors(self):
+        """ Converts votes to positionwise vectors. """
         vectors = np.zeros([self.num_candidates, self.num_candidates])
 
         if self.culture_id == 'conitzer_matrix':
@@ -191,10 +197,11 @@ class OrdinalElection(Election):
         return vectors
 
     def votes_to_positionwise_matrix(self):
+        """ Convert votes to positionwise matrix. """
         return self.votes_to_positionwise_vectors().transpose()
 
     def votes_to_pairwise_matrix(self) -> np.ndarray:
-        """ convert VOTES to pairwise MATRIX """
+        """ Convert votes to pairwise matrix. """
         matrix = np.zeros([self.num_candidates, self.num_candidates])
         if self.fake:
             if self.culture_id in {'identity', 'uniformity', 'antagonism', 'stratification'}:
@@ -313,6 +320,7 @@ class OrdinalElection(Election):
             self.winners = generate_winners(election=self, num_winners=num_winners)
 
     def prepare_instance(self, is_exported=None, is_aggregated=True):
+        """ Prepares instance """
         if 'num_alliances' in self.params:
             self.votes, self.alliances = generate_ordinal_alliance_votes(
                 culture_id=self.culture_id,
@@ -514,7 +522,6 @@ class OrdinalElection(Election):
             plt.clf()
 
         plt.close()
-
 
 
 def convert_votes_to_potes(votes) -> np.array:

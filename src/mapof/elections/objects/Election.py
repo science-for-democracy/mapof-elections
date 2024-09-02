@@ -28,6 +28,7 @@ OBJECT_TYPES = ['vote', 'candidate']
 
 
 class Election(Instance):
+    """ (Abstract) Election class. """
 
     def __init__(self,
                  experiment_id=None,

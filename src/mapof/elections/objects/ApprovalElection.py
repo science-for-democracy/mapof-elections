@@ -14,6 +14,7 @@ from mapof.elections.cultures.params import *
 
 
 class ApprovalElection(Election, ABC):
+    """ Approval Election class. """
 
     def __init__(self,
                  experiment_id=None,
@@ -169,6 +170,7 @@ class ApprovalElection(Election, ABC):
             title_size=20,
             annotate=False
     ):
+        """ Print a map of the elections. """
 
         if object_type is None:
             object_type = self.object_type

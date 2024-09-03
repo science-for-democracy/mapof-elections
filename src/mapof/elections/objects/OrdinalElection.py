@@ -56,6 +56,7 @@ class OrdinalElection(Election):
         self.condorcet = None
         self.points = {}
         self.alliances = {}
+        self.quantities = None
 
         self.import_ordinal_election()
 

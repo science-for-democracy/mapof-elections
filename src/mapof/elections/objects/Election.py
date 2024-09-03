@@ -72,11 +72,13 @@ class Election(Instance):
         self.import_distances()
         self.import_coordinates()
 
-    def import_distances(self):
+    def import_distances(self) -> None:
         """
-        Import distances from a .csv file.
+        Imports distances from a .csv file.
 
-        :return: None
+        Returns
+        -------
+            None
         """
         self.distances = {}
         if not self.fast_import:
@@ -86,11 +88,13 @@ class Election(Instance):
                 except:
                     pass
 
-    def import_coordinates(self):
+    def import_coordinates(self) -> None:
         """
-        Import coordinates from a .csv file.
+        Imports coordinates from a .csv file.
 
-        :return: None
+        Returns
+        -------
+            None
         """
         self.coordinates = {}
         for object_type in OBJECT_TYPES:

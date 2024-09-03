@@ -16,8 +16,8 @@ import mapof.elections.features.proportionality_degree as prop_deg
 import mapof.elections.features.ranging_cc as ranging_cc
 import mapof.elections.features.scores as scores
 import mapof.elections.features.vc_diversity as vcd
-from mapof.core.features_main import get_main_local_feature, get_main_global_feature
 from mapof.core.glossary import MAIN_LOCAL_FEATUERS, MAIN_GLOBAL_FEATUERS
+import mapof.core.features as core_features
 
 registered_approval_features = {
     'max_approval_score': other.max_approval_score,
@@ -109,7 +109,7 @@ registered_ordinal_features = {
 def get_global_feature(feature_id):
     """ Global feature depends on all instances """
     if feature_id in MAIN_GLOBAL_FEATUERS:
-        return get_main_global_feature(feature_id)
+        return core_features.feature_id
 
     return {'clustering': clustering.clustering_v1,
             'clustering_kmeans': clustering.clustering_kmeans,
@@ -122,9 +122,7 @@ def get_global_feature(feature_id):
 def get_local_feature(feature_id):
     """ Local feature depends only on a single instance """
 
-    if feature_id in MAIN_LOCAL_FEATUERS:
-        return get_main_local_feature(feature_id)
-    elif feature_id in registered_approval_features:
+    if feature_id in registered_approval_features:
         return registered_approval_features.get(feature_id)
     elif feature_id in registered_ordinal_features:
         return registered_ordinal_features.get(feature_id)
@@ -132,23 +130,37 @@ def get_local_feature(feature_id):
         raise ValueError(f'Incorrect feature id: {feature_id}')
 
 
-def add_approval_feature(name, function):
+def add_approval_feature(name: str, function: callable) -> None:
     """
     Adds a new approval feature to the list of available approval features.
 
-    :param name: name of the feature.
-    :param function: function that calculates the feature.
-    :return: None.
+    Parameters
+    ----------
+        name : str
+            Name of the feature.
+        function : callable
+            function that calculates the feature.
+
+    Returns
+    -------
+        None
     """
     registered_approval_features[name] = function
 
 
-def add_ordinal_feature(name, function):
+def add_ordinal_feature(name: str, function: callable) -> None:
     """
     Adds a new approval feature to the list of available approval features.
 
-    :param name: name of the feature.
-    :param function: function that calculates the feature.
-    :return: None.
+    Parameters
+    ----------
+        name : str
+            Name of the feature.
+        function : callable
+            function that calculates the feature.
+
+    Returns
+    -------
+        None
     """
     registered_ordinal_features[name] = function

@@ -28,17 +28,16 @@ from mapof.elections.other import winners as win
 # MAIN FUNCTIONS
 def highest_borda_score(election) -> dict:
     """
-    Computes the highest Borda score of a given election
+    Computes the highest Borda score of a given election.
 
-        Parameters
-        ----------
+    Parameters
+    ----------
         election : OrdinalElection
 
-        Returns
-        -------
+    Returns
+    -------
         dict
             'value': highest Borda score
-
     """
     if election.culture_id in LIST_OF_FAKE_MODELS:
         return {'value': None}
@@ -56,17 +55,16 @@ def highest_borda_score(election) -> dict:
 
 def highest_plurality_score(election) -> dict:
     """
-    Computes the highest Plurality score of a given election
+    Computes the highest Plurality score of a given election.
 
-        Parameters
-        ----------
+    Parameters
+    ----------
         election : OrdinalElection
 
-        Returns
-        -------
+    Returns
+    -------
         dict
             'value': highest Plurality score
-
     """
     if election.culture_id in LIST_OF_FAKE_MODELS:
         return {'value': None}
@@ -76,14 +74,14 @@ def highest_plurality_score(election) -> dict:
 
 def highest_copeland_score(election) -> dict:
     """
-    Computes the highest Copeland score of a given election
+    Computes the highest Copeland score of a given election.
 
-        Parameters
-        ----------
+    Parameters
+    ----------
         election : OrdinalElection
 
-        Returns
-        -------
+    Returns
+    -------
         dict
             'value': highest Copeland score
 
@@ -115,15 +113,14 @@ def lowest_dodgson_score(election):
     """
     Computes the lowest Dodgson score of a given election
 
-        Parameters
-        ----------
+    Parameters
+    ----------
         election : OrdinalElection
 
-        Returns
-        -------
+    Returns
+    -------
         dict
             'value': lowest Dodgson score
-
     """
     if election.culture_id in LIST_OF_FAKE_MODELS:
         return {'value': None}

@@ -1,14 +1,13 @@
 import logging
-from typing import Callable, List, Union
 from itertools import combinations, permutations
+import numpy as np
 
-from mapof.core.matchings import *
+from mapof.core.matchings import solve_matching_vectors, solve_matching_matrices
 from mapof.elections.objects.OrdinalElection import OrdinalElection
 import mapof.core.utils as utils
 from mapof.core.inner_distances import swap_distance
 import mapof.elections.distances.ilp_isomorphic as ilp_iso
 import mapof.elections.distances.ilp_subelections as ilp_sub
-
 
 try:
     import mapof.elections.distances.cppdistances as cppd
@@ -19,7 +18,7 @@ except:
 
 # MAIN DISTANCES
 def compute_pos_swap_distance(election_1: OrdinalElection, election_2: OrdinalElection,
-                              inner_distance: Callable) -> (float, list):
+                              inner_distance: callable) -> (float, list):
     """ Compute Positionwise distance between ordinal elections """
     cost_table = get_matching_cost_positionwise(election_1, election_2, inner_distance)
     obj_val, matching = solve_matching_vectors(cost_table)
@@ -27,41 +26,116 @@ def compute_pos_swap_distance(election_1: OrdinalElection, election_2: OrdinalEl
     return solve_matching_vectors(cost_table)
 
 
-def compute_positionwise_distance(election_1: OrdinalElection, election_2: OrdinalElection,
-                                  inner_distance: Callable) -> (float, list):
-    """ Compute Positionwise distance between ordinal elections """
+def compute_positionwise_distance(
+        election_1: OrdinalElection,
+        election_2: OrdinalElection,
+        inner_distance: callable
+) -> (float, list):
+    """
+    Compute Positionwise distance between ordinal elections.
+
+    Parameters
+    ----------
+        election_1 : OrdinalElection
+            First election to compare.
+        election_2 : OrdinalElection.
+            Second election to compare.
+        inner_distance : callable
+            Inner distance to use.
+
+    Returns
+    -------
+        (float, list)
+            Positionwise distance between the two elections and the optimal matching.
+    """
     cost_table = get_matching_cost_positionwise(election_1, election_2, inner_distance)
     return solve_matching_vectors(cost_table)
 
 
 def compute_agg_voterlikeness_distance(election_1: OrdinalElection, election_2: OrdinalElection,
-                                       inner_distance: Callable) -> (float, list):
+                                       inner_distance: callable) -> (float, list):
     """ Compute Aggregated-Voterlikeness distance between ordinal elections """
     vector_1, num_possible_scores = election_1.votes_to_agg_voterlikeness_vector()
     vector_2, _ = election_2.votes_to_agg_voterlikeness_vector()
     return inner_distance(vector_1, vector_2, num_possible_scores)
 
 
-def compute_bordawise_distance(election_1: OrdinalElection, election_2: OrdinalElection,
-                               inner_distance: Callable) -> (float, list):
-    """ Compute Bordawise distance between ordinal elections """
+def compute_bordawise_distance(
+        election_1: OrdinalElection,
+        election_2: OrdinalElection,
+        inner_distance: callable
+) -> (float, None):
+    """
+    Computes Bordawise distance between ordinal elections.
+
+    Parameters
+    ----------
+        election_1 : OrdinalElection
+            First election to compare.
+        election_2 : OrdinalElection.
+            Second election to compare.
+        inner_distance : callable
+            Inner distance to use.
+
+    Returns
+    -------
+        (float, list | None)
+            Bordawise distance between the two elections.
+    """
     vector_1 = election_1.votes_to_bordawise_vector()
     vector_2 = election_2.votes_to_bordawise_vector()
     return inner_distance(vector_1, vector_2), None
 
 
-def compute_pairwise_distance(election_1: OrdinalElection, election_2: OrdinalElection,
-                              inner_distance: Callable) -> (float, list):
-    """ Compute Pairwise distance between ordinal elections """
+def compute_pairwise_distance(
+        election_1: OrdinalElection,
+        election_2: OrdinalElection,
+        inner_distance: callable
+) -> (float, None):
+    """
+    Compute Pairwise distance between ordinal elections.
+
+    Parameters
+    ----------
+        election_1 : OrdinalElection
+            First election to compare.
+        election_2 : OrdinalElection.
+            Second election to compare.
+        inner_distance : callable
+            Inner distance to use.
+
+    Returns
+    -------
+        (float, None)
+            Pairwise distance between the two elections.
+    """
     length = election_1.num_candidates
     matrix_1 = election_1.votes_to_pairwise_matrix()
     matrix_2 = election_2.votes_to_pairwise_matrix()
     return solve_matching_matrices(matrix_1, matrix_2, length, inner_distance), None
 
 
-def compute_voterlikeness_distance(election_1: OrdinalElection, election_2: OrdinalElection,
-                                   inner_distance: Callable) -> (float, list):
-    """ Compute Voterlikeness distance between elections """
+def compute_voterlikeness_distance(
+        election_1: OrdinalElection,
+        election_2: OrdinalElection,
+        inner_distance: callable
+) -> (float, list):
+    """ Compute Voterlikeness distance between elections.
+
+    Parameters
+    ----------
+        election_1 : OrdinalElection
+            First election to compare.
+        election_2 : OrdinalElection.
+            Second election to compare.
+        inner_distance : callable
+            Inner distance to use.
+
+    Returns
+    -------
+        (float, None)
+            Voterlikeness distance between the two elections.
+    """
     length = election_1.num_voters
     matrix_1 = election_1.votes_to_voterlikeness_matrix()
     matrix_2 = election_2.votes_to_voterlikeness_matrix()
@@ -88,10 +162,10 @@ def compute_swap_distance(election_1: OrdinalElection,
 
     if election_1.num_candidates < election_2.num_candidates:
         swapd = cppd.tswapd(election_1.votes.tolist(),
-                           election_2.votes.tolist())
+                            election_2.votes.tolist())
     elif election_1.num_candidates > election_2.num_candidates:
         swapd = cppd.tswapd(election_2.votes.tolist(),
-                           election_1.votes.tolist())
+                            election_1.votes.tolist())
     else:
         swapd = cppd.swapd(election_1.votes.tolist(),
                            election_2.votes.tolist())
@@ -100,7 +174,7 @@ def compute_swap_distance(election_1: OrdinalElection,
 
 
 def compute_truncated_swap_distance(election_1: OrdinalElection,
-                          election_2: OrdinalElection) -> (int, list):
+                                    election_2: OrdinalElection) -> (int, list):
     """ Compute truncated swap distance between elections """
     obj_values = []
     for mapping in permutations(range(election_1.num_candidates)):
@@ -120,8 +194,10 @@ def compute_spearman_distance(election_1: OrdinalElection,
 
 
 def compute_spearman_distance_fastmap(
-    election_1: OrdinalElection, election_2: OrdinalElection, method: str = "aa"
-) -> tuple[int, Union[list, None]]:
+        election_1: OrdinalElection,
+        election_2: OrdinalElection,
+        method: str = "aa"
+) -> tuple[int, list | None]:
     """Computes Isomorphic Spearman distance between elections using `fastmap` library.
 
     Args:
@@ -170,7 +246,7 @@ def compute_spearman_distance_fastmap(
 
     U, V = np.array(election_1.votes), np.array(election_2.votes)
     d = fastmap.spearman(U=U, V=V, method=method)
-    
+
     return d, None
 
 
@@ -219,7 +295,7 @@ def compute_candidate_subelection(election_1: OrdinalElection, election_2: Ordin
 
 # HELPER FUNCTIONS #
 def get_matching_cost_pos_swap(election_1: OrdinalElection, election_2: OrdinalElection,
-                               matching) -> List[list]:
+                               matching) -> list[list]:
     """ Return: Cost table """
     votes_1 = election_1.votes
     votes_2 = election_2.votes
@@ -229,7 +305,7 @@ def get_matching_cost_pos_swap(election_1: OrdinalElection, election_2: OrdinalE
 
 
 def get_matching_cost_positionwise(election_1: OrdinalElection, election_2: OrdinalElection,
-                                   inner_distance: Callable) -> List[list]:
+                                   inner_distance: callable) -> list[list]:
     """ Return: Cost table """
 
     vectors_1 = election_1.get_vectors()

@@ -2,21 +2,19 @@
 import copy
 import logging
 from time import time
-from typing import Callable
 
+import mapof.core.persistence.experiment_exports as exports
 import numpy as np
+from mapof.core.inner_distances import map_str_to_func
+from mapof.core.objects.Experiment import Experiment
 from tqdm import tqdm
 
+from mapof.elections.distances import feature_distance
 from mapof.elections.distances import main_approval_distances as mad
 from mapof.elections.distances import main_ordinal_distances as mod
 from mapof.elections.distances import positionwise_infty
-from mapof.elections.distances import feature_distance
 from mapof.elections.objects.ApprovalElection import ApprovalElection
 from mapof.elections.objects.OrdinalElection import OrdinalElection
-
-import mapof.core.persistence.experiment_exports as exports
-from mapof.core.inner_distances import map_str_to_func
-from mapof.core.objects.Experiment import Experiment
 
 registered_approval_distances = {
     'approvalwise': mad.compute_approvalwise,
@@ -49,31 +47,47 @@ registered_ordinal_distances = {
 }
 
 
-def add_approval_distance(name, function):
+def add_approval_distance(name: str, function: callable) -> None:
     """
     Adds a new approval distance to the list of approval distances.
 
-    :param name: name of the distance.
-    :param function: function that computes the distance.
-    :return: None.
+    Parameters
+    ----------
+        name
+            Name of the distance.
+        function
+            function that computes the distance.
+
+    Returns
+    -------
+        None.
     """
     registered_approval_distances[name] = function
 
 
-def add_ordinal_distance(name, function):
+def add_ordinal_distance(name: str, function: callable) -> None:
     """
     Adds a new ordinal distance to the list of ordinal distances.
 
-    :param name: name of the distance.
-    :param function: function that computes the distance.
-    :return: None.
+    Parameters
+    ----------
+        name
+            Name of the distance.
+        function
+            function that computes the distance.
+
+    Returns
+    -------
+        None.
     """
     registered_ordinal_distances[name] = function
 
 
-def get_distance(election_1,
-                 election_2,
-                 distance_id: str = None) -> float or (float, list):
+def get_distance(
+        election_1,
+        election_2,
+        distance_id: str = None
+) -> float or (float, list):
     """
     Computes distance between elections, (if applicable) optimal matching.
 
@@ -95,8 +109,12 @@ def get_distance(election_1,
         logging.warning('No such instance!')
 
 
-def get_approval_distance(election_1: ApprovalElection, election_2: ApprovalElection,
-                          distance_id: str = None, **kwargs) -> (float, list):
+def get_approval_distance(
+        election_1: ApprovalElection,
+        election_2: ApprovalElection,
+        distance_id: str = None,
+        **kwargs
+) -> (float, list):
     """
     Computes distance between approval elections, (if applicable) optimal matching.
 
@@ -127,8 +145,11 @@ def get_approval_distance(election_1: ApprovalElection, election_2: ApprovalElec
         logging.warning(f'No such distance as: {main_distance}!')
 
 
-def get_ordinal_distance(election_1: OrdinalElection, election_2: OrdinalElection,
-                         distance_id: str = None, **kwargs) -> float or (float, list):
+def get_ordinal_distance(
+        election_1: OrdinalElection,
+        election_2: OrdinalElection,
+        distance_id: str = None, **kwargs
+) -> float or (float, list):
     """
     Computes distance between ordinal elections, (if applicable) optimal matching.
 
@@ -159,7 +180,7 @@ def get_ordinal_distance(election_1: OrdinalElection, election_2: OrdinalElectio
         logging.warning(f'No such distance as: {main_distance}!')
 
 
-def _extract_distance_id(distance_id: str) -> (Callable, str):
+def _extract_distance_id(distance_id: str) -> (callable, str):
     """ Return: inner distance (distance between votes) name and main distance name """
     if '-' in distance_id:
         inner_distance, main_distance = distance_id.split('-')
@@ -170,12 +191,14 @@ def _extract_distance_id(distance_id: str) -> (Callable, str):
     return inner_distance, main_distance
 
 
-def run_single_process(exp: Experiment,
-                       instances_ids: list,
-                       distances: dict,
-                       times: dict,
-                       matchings: dict,
-                       safe_mode=False) -> None:
+def run_single_process(
+        exp: Experiment,
+        instances_ids: list,
+        distances: dict,
+        times: dict,
+        matchings: dict,
+        safe_mode: bool = False
+) -> None:
     """ Single process for computing distances """
 
     for instance_id_1, instance_id_2 in tqdm(instances_ids, desc='Computing distances'):
@@ -199,12 +222,14 @@ def run_single_process(exp: Experiment,
         times[instance_id_2][instance_id_1] = times[instance_id_1][instance_id_2]
 
 
-def run_multiple_processes(experiment: Experiment,
-                           instances_ids: list,
-                           distances: dict,
-                           times: dict,
-                           matchings: dict,
-                           process_id) -> None:
+def run_multiple_processes(
+        experiment: Experiment,
+        instances_ids: list,
+        distances: dict,
+        times: dict,
+        matchings: dict,
+        process_id: int
+) -> None:
     """ Single process for computing distances """
 
     for instance_id_1, instance_id_2 in tqdm(instances_ids,

@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 
 import logging
-from typing import Union
-
 
 import mapof.elections.cultures.to_be_removed.mallows_urn as mallows_urn
 
@@ -113,7 +111,7 @@ def generate_approval_votes(
         num_voters: int = None,
         num_candidates: int = None,
         params: dict = None
-) -> Union[list, np.ndarray]:
+) -> list | np.ndarray:
     """
     Generates approval votes according to the given culture id.
 
@@ -142,7 +140,7 @@ def generate_ordinal_votes(
         num_voters: int = None,
         params: dict = None,
         **kwargs
-) -> Union[list, np.ndarray]:
+) -> list | np.ndarray:
     """
     Generates approval votes according to the given culture id.
 

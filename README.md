@@ -1,3 +1,6 @@
+[![codecov](https://codecov.io/github/science-for-democracy/mapof-elections/branch/main/graph/badge.svg?token=XQ2W6SBI0V)](https://codecov.io/github/science-for-democracy/mapof-elections)
+
+
 # Mapel-elections
 This pacakge is a plugin for [mapel](https://pypi.org/project/mapel/) extending
 it with capabilities of drawing maps of various elections intances.

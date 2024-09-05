@@ -1,16 +1,14 @@
-[![codecov](https://codecov.io/github/science-for-democracy/mapof-elections/branch/main/graph/badge.svg?token=XQ2W6SBI0V)](https://codecov.io/github/science-for-democracy/mapof-elections)
 
-
-# Mapel-elections
-This pacakge is a plugin for [mapel](https://pypi.org/project/mapel/) extending
+# Mapof-elections
+This pacakge is a plugin for [Mapof](https://pypi.org/project/mapof/) extending
 it with capabilities of drawing maps of various elections intances.
 
-For the most recent version of mapel, visit its [git
-repo](https://pypi.org/project/mapel/).
+For the most recent version of Mapof, visit its [git
+repo](https://pypi.org/project/mapof/).
 
 # Installation
 For a simple installation, type:
-`pip install mapel-elections`
+`pip install mapof-elections`
 in the console.
 
 For more complicated variants of installation, refer to the readme of mapel
@@ -36,19 +34,6 @@ One can do it by invoking
   this library from sources  might be a bit cumbersome. We will, one day, put
   here an instruction how to do it.
 
-## Testing Installation
-
-If the instalation was successfull, you should be able to mimic the following:  
-
-```
-(<virtual_envirnonment_name>) $ python
-...
->>> import mapel.elections.metrics.cppdistances as d
-...
->>> d.swapd([[0,1,2],[0,1,2]], [[0,1,2],[2,1,0]])
-3
->>> exit()
-```
 
 # Acknowledgments
 

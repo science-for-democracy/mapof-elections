@@ -1,3 +1,4 @@
+[![Tests](https://github.com/science-for-democracy/mapof-elections/actions/workflows/python-tests.yml/badge.svg?branch=main)](https://github.com/science-for-democracy/mapof-elections/actions/workflows/python-tests.yml)
 [![codecov](https://codecov.io/github/science-for-democracy/mapof-elections/graph/badge.svg?token=EDMLWNYCTP)](https://codecov.io/github/science-for-democracy/mapof-elections)
 
 

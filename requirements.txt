@@ -1,1 +1,1 @@
-git+https://github.com/science-for-democracy/mapof.git#egg=mapof
+mapof @ git+https://github.com/science-for-democracy/mapof.git#egg=mapof

@@ -1,1 +1,2 @@
 mapof @ git+https://github.com/science-for-democracy/mapof.git#egg=mapof
+tqdm==4.66.5

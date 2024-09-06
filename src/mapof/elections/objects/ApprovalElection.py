@@ -78,7 +78,7 @@ class ApprovalElection(Election, ABC):
                                   for c in range(self.num_candidates)]
 
     def get_reverse_approvals(self):
-        if self.reverse_approvalsis is None or self.reverse_approvals == []:
+        if self.reverse_approvals is None or self.reverse_approvals == []:
             self.compute_reverse_approvals()
         return self.reverse_approvals
 

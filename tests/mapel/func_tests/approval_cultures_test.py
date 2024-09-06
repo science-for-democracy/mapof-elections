@@ -60,7 +60,5 @@ class TestCultures:
                                                     num_voters=num_voters,
                                                     num_candidates=num_candidates)
 
-
-
-        # assert election.num_candidates == num_candidates
-        # assert election.num_voters == num_voters
+        assert election.num_candidates == num_candidates
+        assert election.num_voters == num_voters

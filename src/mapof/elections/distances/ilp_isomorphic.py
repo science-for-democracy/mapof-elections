@@ -195,4 +195,4 @@ def solve_ilp_swap_distance(votes_1, votes_2, params):
     if model.status != GRB.OPTIMAL:
         logging.warning("No optimal solution found")
 
-    return model.objVal
+    return model.ObjVal

@@ -162,7 +162,15 @@ def solve_ilp_swap_distance(votes_1, votes_2, params):
                     model.addConstr(P[k, l, i, j] <= M[i, j], name=f"P_M_{k}_{l}_{i}_{j}")
 
     # All swaps constraint
-    model.addConstr(sum(R[k, l, i1, j1, i2, j2] for k in range(params['voters']) for l in range(params['voters']) for i1 in range(params['candidates']) for j1 in range(params['candidates']) for i2 in range(i1 + 1, params['candidates']) for j2 in range(params['candidates']) if (i1 != i2 and j1 != j2)) == all_swaps, name="All_swaps")
+    model.addConstr(
+            sum(R[k, l, i1, j1, i2, j2]
+                for k in range(params['voters'])
+                for l in range(params['voters'])
+                for i1 in range(params['candidates'])
+                for j1 in range(params['candidates'])
+                for i2 in range(i1 + 1, params['candidates'])
+                for j2 in range(params['candidates']) if ((i1 != i2) and (j1 != j2)))
+            == all_swaps, name="All_swaps")
 
     # R<P constraints
     for k in range(params['voters']):

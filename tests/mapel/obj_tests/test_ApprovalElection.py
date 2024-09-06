@@ -7,8 +7,8 @@ class TestApprovalElection:
 
     def test_vote_microscope(self):
 
-        num_voters = np.random.randint(10, 100)
-        num_candidates = np.random.randint(10, 100)
+        num_voters = np.random.randint(10, 50)
+        num_candidates = np.random.randint(10, 20)
         culture_id = 'resampling'
 
         election = mapel.generate_approval_election(culture_id=culture_id,
@@ -20,14 +20,15 @@ class TestApprovalElection:
         assert type(election) is mapel.ApprovalElection
 
         election.object_type = 'vote'
-        election.compute_distances()
-        election.embed()
-        election.print_map(show=False)
+        for distance_id in ['hamming', 'jaccard']:
+            election.compute_distances(distance_id=distance_id)
+            election.embed()
+            election.print_map(show=False)
 
     def test_candidate_microscope(self):
 
-        num_voters = np.random.randint(10, 100)
-        num_candidates = np.random.randint(10, 100)
+        num_voters = np.random.randint(10, 50)
+        num_candidates = np.random.randint(10, 20)
         culture_id = 'resampling'
 
         election = mapel.generate_approval_election(culture_id=culture_id,
@@ -39,9 +40,10 @@ class TestApprovalElection:
         assert type(election) is mapel.ApprovalElection
 
         election.object_type = 'candidate'
-        election.compute_distances()
-        election.embed()
-        election.print_map(show=False)
+        for distance_id in ['hamming', 'jaccard']:
+            election.compute_distances(distance_id=distance_id)
+            election.embed()
+            election.print_map(show=False)
 
 
 

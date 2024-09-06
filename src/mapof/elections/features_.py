@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 
+from mapof.core.glossary import MAIN_LOCAL_FEATUERS, MAIN_GLOBAL_FEATUERS
+import mapof.core.features as core_features
+
 import mapof.elections.features.approx as approx
 import mapof.elections.features.banzhaf_cc as banzhaf_cc
 import mapof.elections.features.clustering as clustering
@@ -16,8 +19,7 @@ import mapof.elections.features.proportionality_degree as prop_deg
 import mapof.elections.features.ranging_cc as ranging_cc
 import mapof.elections.features.scores as scores
 import mapof.elections.features.vc_diversity as vcd
-from mapof.core.glossary import MAIN_LOCAL_FEATUERS, MAIN_GLOBAL_FEATUERS
-import mapof.core.features as core_features
+
 
 registered_approval_features = {
     'max_approval_score': other.max_approval_score,

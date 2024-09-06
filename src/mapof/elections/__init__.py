@@ -1,11 +1,12 @@
 from collections import Counter
 
-from .distances_ import get_distance
 import mapof.core.printing as pr
-from .objects.ApprovalElectionExperiment import ApprovalElectionExperiment
-from .objects.OrdinalElection import OrdinalElection
-from .objects.ApprovalElection import ApprovalElection
-from .objects.OrdinalElectionExperiment import OrdinalElectionExperiment
+
+from mapof.elections.distances_ import get_distance
+from mapof.elections.objects.ApprovalElectionExperiment import ApprovalElectionExperiment
+from mapof.elections.objects.OrdinalElection import OrdinalElection
+from mapof.elections.objects.ApprovalElection import ApprovalElection
+from mapof.elections.objects.OrdinalElectionExperiment import OrdinalElectionExperiment
 
 
 def prepare_online_ordinal_experiment(**kwargs):

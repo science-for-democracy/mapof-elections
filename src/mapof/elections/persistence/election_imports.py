@@ -26,7 +26,7 @@ def import_distances(experiment,
 
     Parameters
     ----------
-        experiment
+        experiment : Experiment
             Experiment.
         object_type : str
             Object type.

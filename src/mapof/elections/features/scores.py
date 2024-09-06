@@ -43,12 +43,11 @@ def highest_borda_score(election) -> dict:
         return {'value': None}
     n = election.num_voters
     m = election.num_candidates
-    vectors = election.get_vectors()
     scores = [0 for _ in range(m)]
 
     for i in range(n):
         for j in range(m):
-            scores[vectors[i][j]] += m - j - 1
+            scores[int(election.votes[i][j])] += m - j - 1
 
     return {'value': max(scores) * election.num_voters}
 

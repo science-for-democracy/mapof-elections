@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/github/science-for-democracy/mapof-elections/graph/badge.svg?token=EDMLWNYCTP)](https://codecov.io/github/science-for-democracy/mapof-elections)
+
 
 # Mapof-elections
 This pacakge is a plugin for [Mapof](https://pypi.org/project/mapof/) extending

@@ -111,7 +111,7 @@ def solve_ilp_swap_distance(votes_1, votes_2, params):
 
                                 R[k, l, i1, j1, i2, j2] = model.addVar(vtype=GRB.BINARY, name=f"R_{k}_{l}_{i1}_{j1}_{i2}_{j2}", obj=1)
                             else:
-                                R[k, l, i1, j1, i2, j2] = model.addVar(vtype=GRB.BINARY, name=f"R_{k}_{l}_{i1}_{j1}_{i2}_{j2}", obj=0, lb=0, ub=0)
+                                R[k, l, i1, j1, i2, j2] = model.addVar(vtype=GRB.BINARY, name=f"R_{k}_{l}_{i1}_{j1}_{i2}_{j2}", obj=0, lb=1, ub=1)
                                 #Such variables are anyway removed by
                                 #Gurobi during the presolve step
                                 #but it simplifies implementation

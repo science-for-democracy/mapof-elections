@@ -306,7 +306,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -322,6 +324,17 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.features_.add_approval_feature"><code class="docutils literal notranslate"><span class="pre">add_approval_feature()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.features_.add_ordinal_feature"><code class="docutils literal notranslate"><span class="pre">add_ordinal_feature()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.features_.get_global_feature"><code class="docutils literal notranslate"><span class="pre">get_global_feature()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.features_.get_local_feature"><code class="docutils literal notranslate"><span class="pre">get_local_feature()</span></code></a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -331,8 +344,54 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="features">
-<h1>Features<a class="headerlink" href="#features" title="Link to this heading">#</a></h1>
+  <section id="module-mapof.elections.features_">
+<span id="features"></span><h1>Features<a class="headerlink" href="#module-mapof.elections.features_" title="Link to this heading">#</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="mapof.elections.features_.add_approval_feature">
+<span class="sig-name descname"><span class="pre">add_approval_feature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">callable</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/mapof/elections/features_.html#add_approval_feature"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.features_.add_approval_feature" title="Link to this definition">#</a></dt>
+<dd><p>Adds a new approval feature to the list of available approval features.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – Name of the feature.</p></li>
+<li><p><strong>function</strong> (<em>callable</em>) – function that calculates the feature.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>None</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mapof.elections.features_.add_ordinal_feature">
+<span class="sig-name descname"><span class="pre">add_ordinal_feature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">callable</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/mapof/elections/features_.html#add_ordinal_feature"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.features_.add_ordinal_feature" title="Link to this definition">#</a></dt>
+<dd><p>Adds a new approval feature to the list of available approval features.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – Name of the feature.</p></li>
+<li><p><strong>function</strong> (<em>callable</em>) – function that calculates the feature.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>None</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mapof.elections.features_.get_global_feature">
+<span class="sig-name descname"><span class="pre">get_global_feature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">feature_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mapof/elections/features_.html#get_global_feature"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.features_.get_global_feature" title="Link to this definition">#</a></dt>
+<dd><p>Global feature depends on all instances</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mapof.elections.features_.get_local_feature">
+<span class="sig-name descname"><span class="pre">get_local_feature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">feature_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mapof/elections/features_.html#get_local_feature"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.features_.get_local_feature" title="Link to this definition">#</a></dt>
+<dd><p>Local feature depends only on a single instance</p>
+</dd></dl>
+
 </section>
 
 
@@ -361,6 +420,24 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.features_.add_approval_feature"><code class="docutils literal notranslate"><span class="pre">add_approval_feature()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.features_.add_ordinal_feature"><code class="docutils literal notranslate"><span class="pre">add_ordinal_feature()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.features_.get_global_feature"><code class="docutils literal notranslate"><span class="pre">get_global_feature()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.features_.get_local_feature"><code class="docutils literal notranslate"><span class="pre">get_local_feature()</span></code></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

@@ -142,10 +142,12 @@ def compute_voterlikeness_distance(
     return solve_matching_matrices(matrix_1, matrix_2, length, inner_distance), None
 
 
-# DEPRECATED
 def compute_swap_distance_bf(election_1: OrdinalElection,
                              election_2: OrdinalElection) -> (int, list):
-    """ Compute swap distance between elections (using brute force) """
+    """ Compute swap distance between elections via brute force, in Python.
+    This is mostly as a fallback to the C++ implementation, which might
+    ocassionally be unavailable for some due to envorinoment issues
+    (lack of proper tools under MS Windows, old compilers, etc.)"""
     obj_values = []
     for mapping in permutations(range(election_1.num_candidates)):
         cost_table = get_matching_cost_swap_bf(election_1, election_2, mapping)
@@ -157,8 +159,8 @@ def compute_swap_distance(election_1: OrdinalElection,
                           election_2: OrdinalElection) -> (int, list):
     """ Compute swap distance between elections (using the C++ extension) """
     if not utils.is_module_loaded("mapof.elections.distances.cppdistances"):
-        print("Using ILP instead of C++ BF")
-        return compute_swap_distance_ilp_py(election_1, election_2), None
+        logging.warning("Using Python implementation instead of the C++ one")
+        return compute_swap_distance_bf(election_1, election_2), None
 
     if election_1.num_candidates < election_2.num_candidates:
         swapd = cppd.tswapd(election_1.votes.tolist(),
@@ -259,19 +261,6 @@ def compute_spearman_distance_ilp_py(election_1: OrdinalElection,
               'candidates': election_1.num_candidates}
 
     objective_value = ilp_iso.solve_ilp_spearman_distance(votes_1, votes_2, params)
-    objective_value = int(round(objective_value, 0))
-    return objective_value, None
-
-
-def compute_swap_distance_ilp_py(election_1: OrdinalElection,
-                                 election_2: OrdinalElection) -> (int, list):
-    """ Compute Spearman distance between elections """
-    votes_1 = election_1.votes
-    votes_2 = election_2.votes
-    params = {'voters': election_1.num_voters,
-              'candidates': election_1.num_candidates}
-
-    objective_value = ilp_iso.solve_ilp_swap_distance(votes_1, votes_2, params)
     objective_value = int(round(objective_value, 0))
     return objective_value, None
 

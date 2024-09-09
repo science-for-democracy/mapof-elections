@@ -9,12 +9,11 @@ import mapof.elections.persistence.election_exports as exports
 def convert_pb_to_app(experiment, num_candidates=100, num_voters=100, model='pabulib',
                       aggregated=True, num_instances=1):
 
-    main_path = os.path.join(os.getcwd(), "election", experiment.experiment_id, "source")
+    main_path = os.path.join(os.getcwd(), "experiment", experiment.experiment_id, "source")
 
     paths = []
     for name in os.listdir(main_path):
-        # print(name)
-        paths.append(f'election/{experiment.experiment_id}/source/{name}')
+        paths.append(f'experiment/{experiment.experiment_id}/source/{name}')
 
     for p in range(num_instances):
 
@@ -72,7 +71,6 @@ def convert_pb_to_app(experiment, num_candidates=100, num_voters=100, model='pab
 
         # cut the voters:
         perm = np.random.permutation(len(votes))
-        # print(len(perm))
         final_approval_votes_cut = []
 
         ctr = 0
@@ -86,12 +84,9 @@ def convert_pb_to_app(experiment, num_candidates=100, num_voters=100, model='pab
             if ctr == num_voters:
                 break
 
-
         # is_exported in .app file
         name = name.replace('.pb', '')
         path = f'election/{experiment.experiment_id}/elections/{model}_{p}.app'
-        # num_candidates = num_candidates
-        # num_voters = len(votes)
         params = {}
         ballot = 'approval'
 

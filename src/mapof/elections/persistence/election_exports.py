@@ -5,15 +5,17 @@ from mapof.core.utils import *
 from mapof.elections.other.glossary import APPROVAL_FAKE_MODELS
 
 
-def export_votes_to_file(election,
-                         culture_id: str,
-                         num_candidates: int,
-                         num_voters: int,
-                         params: dict,
-                         path,
-                         ballot_type,
-                         votes=None,
-                         is_aggregated=True):
+def export_votes_to_file(
+        election,
+        culture_id: str,
+        num_candidates: int,
+        num_voters: int,
+        params: dict,
+        path,
+        ballot_type,
+        votes=None,
+        is_aggregated=True
+) -> None:
     """
     Exports votes to a file.
 
@@ -37,6 +39,10 @@ def export_votes_to_file(election,
             Votes.
         is_aggregated : bool
             If True then votes are stored in aggregated way.
+
+    Returns
+    -------
+        None
     """
     if votes is None:
         votes = election.votes
@@ -103,8 +109,10 @@ def export_votes_to_file(election,
                     file_.write("\n")
 
 
-def export_approval_election(election,
-                             is_aggregated: bool = True):
+def export_approval_election(
+        election,
+        is_aggregated: bool = True
+):
     """
     Exports approval election in an .app file
 

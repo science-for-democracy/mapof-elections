@@ -19,21 +19,31 @@ regex_culture_id = r"# CULTURE ID:"
 regex_params = r"# PARAMS:"
 
 
-def import_distances(experiment,
-                     object_type: str = 'vote'):
+def import_distances(
+        experiment_id: str,
+        election_id: str,
+        object_type: str = 'vote'
+) -> np.ndarray:
     """
     Imports distances from a csv file.
 
     Parameters
     ----------
-        experiment : Experiment
-            Experiment.
+        experiment_id : str
+            Name of the experiment.
+        election_id : str
+            Name of the election.
         object_type : str
             Object type.
+
+    Returns
+    -------
+        np.ndarray
+            Distances.
     """
 
-    file_name = f'{experiment.election_id}_{object_type}.csv'
-    path = os.path.join(os.getcwd(), 'experiments', experiment.experiment_id, 'distances',
+    file_name = f'{election_id}_{object_type}.csv'
+    path = os.path.join(os.getcwd(), 'experiments', experiment_id, 'distances',
                         file_name)
 
     with open(path, 'r', newline='') as csv_file:
@@ -50,21 +60,31 @@ def import_distances(experiment,
     return distances
 
 
-def import_coordinates(experiment,
-                       object_type: str = 'vote'):
+def import_coordinates(
+        experiment_id: str,
+        election_id: str,
+        object_type: str = 'vote'
+) -> np.ndarray:
     """
     Imports coordinates from a csv file.
 
     Parameters
     ----------
-        experiment
-            Experiment.
+        experiment_id : str
+            Name of the experiment.
+        election_id : str
+            Name of the election.
         object_type : str
             Object type.
+
+    Returns
+    -------
+        np.ndarray
+            Distances.
     """
 
-    file_name = f'{experiment.election_id}_{object_type}.csv'
-    path = os.path.join(os.getcwd(), 'experiments', experiment.experiment_id, 'coordinates',
+    file_name = f'{election_id}_{object_type}.csv'
+    path = os.path.join(os.getcwd(), 'experiments', experiment_id, 'coordinates',
                         file_name)
 
     with open(path, 'r', newline='') as csv_file:
@@ -80,7 +100,7 @@ def import_coordinates(experiment,
     return coordinates
 
 
-def process_soc_line(line: str, votes: list):
+def _process_soc_line(line: str, votes: list):
     tokens = line.split(':')
     nr_this_vote = int(tokens[0])
     vote = [int(x) for x in tokens[1].split(',')]
@@ -90,7 +110,7 @@ def process_soc_line(line: str, votes: list):
     pass
 
 
-def process_app_line(line: str, votes: list):
+def _process_app_line(line: str, votes: list):
     tokens = line.split(':')
     nr_this_vote = int(tokens[0])
     vote = set(ast.literal_eval(" ".join(tokens[1])))
@@ -99,22 +119,24 @@ def process_app_line(line: str, votes: list):
     pass
 
 
-def process_soi_line(line: str, votes: list):
+def _process_soi_line(line: str, votes: list):
     pass
 
 
-def process_toc_line(line: str, votes: list):
+def _process_toc_line(line: str, votes: list):
     pass
 
 
-def process_toi_line(line: str, votes: list):
+def _process_toi_line(line: str, votes: list):
     pass
 
 
-def import_real_new_soc_election(experiment_id: str = None,
-                                 election_id: str = None,
-                                 is_shifted=False,
-                                 file_ending=4):
+def import_real_new_soc_election(
+        experiment_id: str = None,
+        election_id: str = None,
+        is_shifted=False,
+        file_ending=4
+):
     """ Import real ordinal election form .soc file """
 
     file_name = f'{election_id}.soc'
@@ -136,13 +158,13 @@ def import_real_new_soc_election(experiment_id: str = None,
             line = line[:-1]
         if line[0] != '#':
             if from_file_data_type == 'soc':
-                process_soc_line(line, votes)
+                _process_soc_line(line, votes)
             elif from_file_data_type == 'soi':
-                process_soi_line(line, votes)
+                _process_soi_line(line, votes)
             elif from_file_data_type == 'toc':
-                process_toc_line(line, votes)
+                _process_toc_line(line, votes)
             elif from_file_data_type == 'toi':
-                process_toi_line(line, votes)
+                _process_toi_line(line, votes)
             else:
                 print("Unknown data format.")
             break
@@ -169,16 +191,16 @@ def import_real_new_soc_election(experiment_id: str = None,
 
     if from_file_data_type == 'soc':
         for line in file:
-            process_soc_line(line, votes)
+            _process_soc_line(line, votes)
     elif from_file_data_type == 'soi':
         for line in file:
-            process_soi_line(line, votes)
+            _process_soi_line(line, votes)
     elif from_file_data_type == 'toc':
         for line in file:
-            process_toc_line(line, votes)
+            _process_toc_line(line, votes)
     elif from_file_data_type == 'toi':
         for line in file:
-            process_toi_line(line, votes)
+            _process_toi_line(line, votes)
     else:
         print("Unknown data format.")
 
@@ -207,9 +229,11 @@ def import_real_new_soc_election(experiment_id: str = None,
            distinct_votes
 
 
-def import_real_old_soc_election(experiment_id: str = None,
-                                 election_id: str = None,
-                                 is_shifted=False):
+def import_real_old_soc_election(
+        experiment_id: str = None,
+        election_id: str = None,
+        is_shifted=False
+):
     """ Import real ordinal election form .soc file """
 
     file_name = f'{election_id}.soc'
@@ -287,7 +311,7 @@ def import_real_soc_election(**kwargs):
         return import_real_new_soc_election(**kwargs)
 
 
-def import_fake_soc_election(experiment_id, name):
+def import_fake_soc_election(experiment_id: str, name: str):
     """ Import fake ordinal election form .soc file """
 
     file_name = f'{name}.soc'
@@ -310,10 +334,12 @@ def import_fake_soc_election(experiment_id, name):
     return culture_id, params, num_voters, num_candidates
 
 
-def import_real_new_app_election(experiment_id: str = None,
-                                 election_id: str = None,
-                                 is_shifted: bool = False,
-                                 file_ending=4):
+def import_real_new_app_election(
+        experiment_id: str = None,
+        election_id: str = None,
+        is_shifted: bool = False,
+        file_ending=4
+):
     """ Import real approval election form .app file """
 
     file_name = f'{election_id}.app'
@@ -362,7 +388,7 @@ def import_real_new_app_election(experiment_id: str = None,
     # read votes
     if from_file_data_type == 'app':
         for line in file:
-            process_app_line(line, votes)
+            _process_app_line(line, votes)
     else:
         print("Unknown data format.")
 
@@ -390,7 +416,11 @@ def import_real_new_app_election(experiment_id: str = None,
            distinct_votes
 
 
-def import_real_old_app_election(experiment_id: str, election_id: str, is_shifted=False):
+def import_real_old_app_election(
+        experiment_id: str,
+        election_id: str,
+        is_shifted: bool = False
+):
     """ Import real approval election from .app file """
 
     file_name = f'{election_id}.app'
@@ -483,8 +513,12 @@ def import_fake_app_election(experiment_id: str, name: str):
     return fake_culture_id, params, num_voters, num_candidates
 
 
-def check_if_fake(experiment_id, name, extention):
-    file_name = f'{name}.{extention}'
+def check_if_fake(
+        experiment_id: str,
+        name: str,
+        extension: str
+) -> bool:
+    file_name = f'{name}.{extension}'
     path = os.path.join(os.getcwd(), "experiments", experiment_id, "elections", file_name)
     my_file = open(path, 'r')
     line = my_file.readline().strip()
@@ -492,7 +526,7 @@ def check_if_fake(experiment_id, name, extention):
     return line[0] == '$'
 
 
-def _old_name_extractor(first_line):
+def _old_name_extractor(first_line: str) -> str:
     if len(first_line) == 4:
         culture_id = f'{first_line[1]} {first_line[2]} {first_line[3]}'
     elif len(first_line) == 3:

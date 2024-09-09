@@ -84,7 +84,8 @@ class Election(Instance):
         if not self.fast_import:
             for object_type in OBJECT_TYPES:
                 try:
-                    self.distances[object_type] = imports.import_distances(self, object_type)
+                    self.distances[object_type] = \
+                        imports.import_distances(self.experiment_id, self.election_id, object_type)
                 except:
                     pass
 
@@ -107,7 +108,8 @@ class Election(Instance):
         try:
             return self.distances[object_type]
         except:
-            self.distances[object_type] = imports.import_distances(self, object_type)
+            self.distances[object_type] = \
+                imports.import_distances(self.experiment_id, self.election_id, object_type)
             return self.distances[object_type]
 
     def get_coordiantes(self, object_type):

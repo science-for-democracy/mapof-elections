@@ -151,24 +151,42 @@
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="index.html">Mapof-elections</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="cultures/index.html">Cultures</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="cultures/euclidean.html">Euclidean</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cultures/guardians.html">Guardians</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Mapof-Elections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="reference/index.html">Code Reference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="reference/cultures/index.html">Cultures</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="reference/cultures/euclidean.html">Euclidean</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/cultures/guardians.html">Guardians</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="objects/index.html">Objects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="objects/Election.html">Election</a></li>
-<li class="toctree-l2"><a class="reference internal" href="objects/ApprovalElection.html">ApprovalElection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="objects/ApprovalElectionExperiment.html">ApprovalElectionExperiment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="objects/OrdinalElection.html">OrdinalElection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="objects/OrdinalElectionExperiment.html">OrdinalElectionExperiment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="objects/ElectionFamily.html">ElectionFamily</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="reference/distances/index.html">Distances</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="reference/distances/main_approval_distances.html">Approval Distances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/distances/main_ordinal_distances.html">Ordinal Distances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/distances/committee_distances.html">Committee Distances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/distances/feature_distance.html">Feature Distance</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="cultures.html">Cultures</a></li>
-<li class="toctree-l1"><a class="reference internal" href="distances.html">Distances</a></li>
-<li class="toctree-l1"><a class="reference internal" href="features.html">Features</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="reference/objects/index.html">Objects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="reference/objects/Election.html">Election</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/objects/ApprovalElection.html">ApprovalElection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/objects/ApprovalElectionExperiment.html">ApprovalElectionExperiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/objects/OrdinalElection.html">OrdinalElection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/objects/OrdinalElectionExperiment.html">OrdinalElectionExperiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/objects/ElectionFamily.html">ElectionFamily</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="reference/persistence/index.html">Persistence</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="reference/persistence/election_imports.html">Election Imports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/persistence/election_exports.html">Election Exports</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/cultures.html">Cultures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/distances.html">Distances</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/features.html">Features</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="citation.html">Citation Policy</a></li>
 </ul>
 
     </div>
@@ -306,52 +324,82 @@ document.write(`
      <tr class="cg-1">
        <td></td>
        <td>&#160;&#160;&#160;
-       <a href="cultures/euclidean.html#module-mapof.elections.cultures.euclidean"><code class="xref">mapof.elections.cultures.euclidean</code></a></td><td>
+       <a href="reference/cultures/euclidean.html#module-mapof.elections.cultures.euclidean"><code class="xref">mapof.elections.cultures.euclidean</code></a></td><td>
        <em></em></td></tr>
      <tr class="cg-1">
        <td></td>
        <td>&#160;&#160;&#160;
-       <a href="cultures/guardians.html#module-mapof.elections.cultures.guardians"><code class="xref">mapof.elections.cultures.guardians</code></a></td><td>
+       <a href="reference/cultures/guardians.html#module-mapof.elections.cultures.guardians"><code class="xref">mapof.elections.cultures.guardians</code></a></td><td>
        <em></em></td></tr>
      <tr class="cg-1">
        <td></td>
        <td>&#160;&#160;&#160;
-       <a href="cultures.html#module-mapof.elections.cultures_"><code class="xref">mapof.elections.cultures_</code></a></td><td>
+       <a href="reference/cultures.html#module-mapof.elections.cultures_"><code class="xref">mapof.elections.cultures_</code></a></td><td>
        <em></em></td></tr>
      <tr class="cg-1">
        <td></td>
        <td>&#160;&#160;&#160;
-       <a href="distances.html#module-mapof.elections.distances_"><code class="xref">mapof.elections.distances_</code></a></td><td>
+       <a href="reference/distances/committee_distances.html#module-mapof.elections.distances.committee_distances"><code class="xref">mapof.elections.distances.committee_distances</code></a></td><td>
        <em></em></td></tr>
      <tr class="cg-1">
        <td></td>
        <td>&#160;&#160;&#160;
-       <a href="features.html#module-mapof.elections.features_"><code class="xref">mapof.elections.features_</code></a></td><td>
+       <a href="reference/distances/feature_distance.html#module-mapof.elections.distances.feature_distance"><code class="xref">mapof.elections.distances.feature_distance</code></a></td><td>
        <em></em></td></tr>
      <tr class="cg-1">
        <td></td>
        <td>&#160;&#160;&#160;
-       <a href="objects/ApprovalElection.html#module-mapof.elections.objects.ApprovalElection"><code class="xref">mapof.elections.objects.ApprovalElection</code></a></td><td>
+       <a href="reference/distances/main_approval_distances.html#module-mapof.elections.distances.main_approval_distances"><code class="xref">mapof.elections.distances.main_approval_distances</code></a></td><td>
        <em></em></td></tr>
      <tr class="cg-1">
        <td></td>
        <td>&#160;&#160;&#160;
-       <a href="objects/ApprovalElectionExperiment.html#module-mapof.elections.objects.ApprovalElectionExperiment"><code class="xref">mapof.elections.objects.ApprovalElectionExperiment</code></a></td><td>
+       <a href="reference/distances/main_ordinal_distances.html#module-mapof.elections.distances.main_ordinal_distances"><code class="xref">mapof.elections.distances.main_ordinal_distances</code></a></td><td>
        <em></em></td></tr>
      <tr class="cg-1">
        <td></td>
        <td>&#160;&#160;&#160;
-       <a href="objects/ElectionFamily.html#module-mapof.elections.objects.ElectionFamily"><code class="xref">mapof.elections.objects.ElectionFamily</code></a></td><td>
+       <a href="reference/distances.html#module-mapof.elections.distances_"><code class="xref">mapof.elections.distances_</code></a></td><td>
        <em></em></td></tr>
      <tr class="cg-1">
        <td></td>
        <td>&#160;&#160;&#160;
-       <a href="objects/OrdinalElection.html#module-mapof.elections.objects.OrdinalElection"><code class="xref">mapof.elections.objects.OrdinalElection</code></a></td><td>
+       <a href="reference/features.html#module-mapof.elections.features_"><code class="xref">mapof.elections.features_</code></a></td><td>
        <em></em></td></tr>
      <tr class="cg-1">
        <td></td>
        <td>&#160;&#160;&#160;
-       <a href="objects/OrdinalElectionExperiment.html#module-mapof.elections.objects.OrdinalElectionExperiment"><code class="xref">mapof.elections.objects.OrdinalElectionExperiment</code></a></td><td>
+       <a href="reference/objects/ApprovalElection.html#module-mapof.elections.objects.ApprovalElection"><code class="xref">mapof.elections.objects.ApprovalElection</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="reference/objects/ApprovalElectionExperiment.html#module-mapof.elections.objects.ApprovalElectionExperiment"><code class="xref">mapof.elections.objects.ApprovalElectionExperiment</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="reference/objects/ElectionFamily.html#module-mapof.elections.objects.ElectionFamily"><code class="xref">mapof.elections.objects.ElectionFamily</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="reference/objects/OrdinalElection.html#module-mapof.elections.objects.OrdinalElection"><code class="xref">mapof.elections.objects.OrdinalElection</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="reference/objects/OrdinalElectionExperiment.html#module-mapof.elections.objects.OrdinalElectionExperiment"><code class="xref">mapof.elections.objects.OrdinalElectionExperiment</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="reference/persistence/election_exports.html#module-mapof.elections.persistence.election_exports"><code class="xref">mapof.elections.persistence.election_exports</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="reference/persistence/election_imports.html#module-mapof.elections.persistence.election_imports"><code class="xref">mapof.elections.persistence.election_imports</code></a></td><td>
        <em></em></td></tr>
    </table>
 

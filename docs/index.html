@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Mapof-elections &#8212; Map of Elections</title>
+    <title>Mapof-Elections &#8212; Map of Elections</title>
   
   
   
@@ -43,7 +43,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Cultures" href="cultures/index.html" />
+    <link rel="next" title="Installation" href="installation.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -150,24 +150,42 @@
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Mapof-elections</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="cultures/index.html">Cultures</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="cultures/euclidean.html">Euclidean</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cultures/guardians.html">Guardians</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Mapof-Elections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="reference/index.html">Code Reference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="reference/cultures/index.html">Cultures</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="reference/cultures/euclidean.html">Euclidean</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/cultures/guardians.html">Guardians</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="objects/index.html">Objects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="objects/Election.html">Election</a></li>
-<li class="toctree-l2"><a class="reference internal" href="objects/ApprovalElection.html">ApprovalElection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="objects/ApprovalElectionExperiment.html">ApprovalElectionExperiment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="objects/OrdinalElection.html">OrdinalElection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="objects/OrdinalElectionExperiment.html">OrdinalElectionExperiment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="objects/ElectionFamily.html">ElectionFamily</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="reference/distances/index.html">Distances</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="reference/distances/main_approval_distances.html">Approval Distances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/distances/main_ordinal_distances.html">Ordinal Distances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/distances/committee_distances.html">Committee Distances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/distances/feature_distance.html">Feature Distance</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="cultures.html">Cultures</a></li>
-<li class="toctree-l1"><a class="reference internal" href="distances.html">Distances</a></li>
-<li class="toctree-l1"><a class="reference internal" href="features.html">Features</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="reference/objects/index.html">Objects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="reference/objects/Election.html">Election</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/objects/ApprovalElection.html">ApprovalElection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/objects/ApprovalElectionExperiment.html">ApprovalElectionExperiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/objects/OrdinalElection.html">OrdinalElection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/objects/OrdinalElectionExperiment.html">OrdinalElectionExperiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/objects/ElectionFamily.html">ElectionFamily</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="reference/persistence/index.html">Persistence</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="reference/persistence/election_imports.html">Election Imports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/persistence/election_exports.html">Election Exports</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/cultures.html">Cultures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/distances.html">Distances</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/features.html">Features</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="citation.html">Citation Policy</a></li>
 </ul>
 
     </div>
@@ -319,7 +337,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Mapof-elections</h1>
+    <h1>Mapof-Elections</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -334,8 +352,8 @@ document.write(`
                 <article class="bd-article">
                   
   <section id="mapof-elections">
-<h1>Mapof-elections<a class="headerlink" href="#mapof-elections" title="Link to this heading">#</a></h1>
-<p>Mapof-elections is the core package.</p>
+<h1>Mapof-Elections<a class="headerlink" href="#mapof-elections" title="Link to this heading">#</a></h1>
+<p>Mapof-elections package.</p>
 <div class="toctree-wrapper compound">
 </div>
 </section>
@@ -352,11 +370,11 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="right-next"
-       href="cultures/index.html"
+       href="installation.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Cultures</p>
+        <p class="prev-next-title">Installation</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

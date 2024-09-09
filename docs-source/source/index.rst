@@ -1,17 +1,15 @@
-Mapof-elections
+Mapof-Elections
 ===============
 
-Mapof-elections is the core package.
+Mapof-elections package.
 
 
 .. toctree::
     :hidden:
 
-    Mapof-elections <self>
-    cultures/index
-    objects/index
-    cultures
-    distances
-    features
-
+    Mapof-Elections <self>
+    installation
+    quickstart
+    reference/index
+    citation
 

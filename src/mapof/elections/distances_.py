@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 import copy
 import logging
 from time import time
@@ -38,7 +37,6 @@ registered_ordinal_distances = {
     'blank': mod.compute_blank_distance,
 
     'ilp_spearman': mod.compute_spearman_distance_ilp_py,  # unsupported distance
-    'ilp_swap': mod.compute_swap_distance_ilp_py,  # unsupported distance
     'voterlikeness': mod.compute_voterlikeness_distance,  # unsupported distance
     'agg_voterlikeness': mod.compute_agg_voterlikeness_distance,  # unsupported distance
     'pos_swap': mod.compute_pos_swap_distance,  # unsupported distance

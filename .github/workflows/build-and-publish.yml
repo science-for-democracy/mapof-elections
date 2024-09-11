@@ -57,8 +57,9 @@ jobs:
       - name: Build mapof-elections wheels
         uses: pypa/cibuildwheel@v2.20.0
         env:
-          # We skip old versions of cPython and pyPython
-          CIBW_SKIP: "cp36-* cp37-* cp38-* cp39-* pp37-* pp38-*  pp38-*"
+          # We skip old versions of cPython, and all PyPy
+          # because the C++ extension is incompatible with PyPy
+          CIBW_SKIP: "cp36-* cp37-* cp38-* cp39-* pp37-* pp38-*  pp39-* pp310-*"
           CIBW_BUILD_FRONTEND: "build"
         with:
           output-dir: '${{ env.WHL_HOUSE }}'

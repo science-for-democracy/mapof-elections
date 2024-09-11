@@ -12,18 +12,17 @@ on:
 env:
   WHL_HOUSE: wheelhouse
   MAPEL_EL_ARTS: mapel-election-artifacts
-  MAPEL_REST_ARTS: mapel-rest-artifacts
-
+  
 permissions:
   contents: read
 
 jobs:
-  build-python-wheels-and-sdists:
+  build-sdist:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Set up Python
-      uses: actions/setup-python@v3
+      uses: actions/setup-python@v5
       with:
         python-version: '3.11'
     - name: Install dependencies
@@ -33,23 +32,12 @@ jobs:
       run: |
         mkdir -p $WHL_HOUSE
         python -m pip install build 
-        python -m build --sdist --outdir $WHL_HOUSE ./mapel-all/
-        python -m build --sdist --outdir $WHL_HOUSE ./mapel-core/
-        python -m build --sdist --outdir $WHL_HOUSE ./mapel-elections/ 
-        python -m build --sdist --outdir $WHL_HOUSE ./mapel-roommates/
-        python -m build --sdist --outdir $WHL_HOUSE ./mapel-marriages/
+        python -m build --sdist --outdir $WHL_HOUSE .
         ls ./$WHL_HOUSE # Listing the contents of ./$WHL_HOUSE for a sanity check
-    - name: Build pure-Python wheels
-      run: |
-        pip wheel ./mapel-all --no-deps -w $WHL_HOUSE
-        pip wheel ./mapel-core --no-deps -w $WHL_HOUSE
-        pip wheel ./mapel-roommates --no-deps -w $WHL_HOUSE
-        pip wheel ./mapel-marriages --no-deps -w $WHL_HOUSE
-        ls ./$WHL_HOUSE # Listing the contents of ./$WHL_HOUSE for a sanity check
-    - name: Artifactize pure-python wheels and sdists
+    - name: Artifactize sdist
       uses: actions/upload-artifact@v3
       with:
-        name: ${{ env.MAPEL_REST_ARTS }}
+        name: ${{ env.MAPEL_EL_ARTS }}
         path: ${{ env.WHL_HOUSE }} 
 
   build-compiled-python-wheels:
@@ -65,14 +53,14 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Build mapel-elections wheels
-        uses: pypa/cibuildwheel@v2.16.5
-        # env:
-        #   CIBW_SOME_OPTION: value
-        #    ...
+        uses: pypa/cibuildwheel@v2.20.0
+        env:
+          # We skip old versions of cPython and pyPython
+          CIBW_SKIP: "cp36-* cp37-* cp38-* cp39-* pp37-* pp38-*  pp38-*"
         with:
-          package-dir: 'mapel-elections'
+          package-dir: '.'
           output-dir: '${{ env.WHL_HOUSE }}'
       - name: Artifactize compiled-python wheels
         uses: actions/upload-artifact@v3
@@ -81,7 +69,7 @@ jobs:
           path: ${{ env.WHL_HOUSE }}
 
   publish:
-    needs: [build-compiled-python-wheels, build-python-wheels-and-sdists]
+    needs: [build-compiled-python-wheels, build-sdist]
     name: Publishing to PyPI
     runs-on: ubuntu-latest
     steps: 
@@ -101,9 +89,9 @@ jobs:
       - name: Display all artifacts
         run: ls -R
         working-directory: ${{ env.WHL_HOUSE }}
-      - name: Publish distribution 📦 to PyPI
+      - name: Publish package to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
-          password: ${{ secrets.PYPI_API_TOKEN }}
           packages_dir: ${{ env.WHL_HOUSE }}/
           verbose: true
+          repository-url: https://test.pypi.org/legacy/

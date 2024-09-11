@@ -87,10 +87,8 @@ jobs:
         working-directory: ${{ env.WHL_HOUSE }}
       - name: Prepare the distrib directory
         run: |
-          mv $MAPEL_EL_ARTS/* .
-          mv $MAPEL_REST_ARTS/* .
-          rm -r  $MAPEL_EL_ARTS
-          rm -r $MAPEL_REST_ARTS
+          mv ${{ env.MAPEL_EL_ARTS }}/* .
+          rm -r  ${{ env.MAPEL_EL_ARTS }}
         working-directory: ${{ env.WHL_HOUSE }}
       - name: Display all artifacts
         run: ls -R

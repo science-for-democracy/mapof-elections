@@ -61,7 +61,6 @@ jobs:
           CIBW_SKIP: "cp36-* cp37-* cp38-* cp39-* pp37-* pp38-*  pp38-*"
           CIBW_BUILD_FRONTEND: "build"
         with:
-          package-dir: './${{ env.WHL_HOUSE }}'
           output-dir: '${{ env.WHL_HOUSE }}'
       - name: Artifactize compiled-python wheels
         uses: actions/upload-artifact@v3

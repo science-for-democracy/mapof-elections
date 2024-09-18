@@ -62,10 +62,10 @@ registered_ordinal_features_to_test = {
 }
 
 
-class TestFeatures:
+class TestFeaturesSanity:
 
     @pytest.mark.parametrize("feature_id", registered_ordinal_features_to_test)
-    def test_ordinal_features(self, feature_id):
+    def test_ordinal_features_sanity(self, feature_id):
 
         num_voters = np.random.randint(10, 20)
         num_candidates = np.random.randint(5, 10)

@@ -35,7 +35,7 @@ jobs:
         python -m build --sdist --outdir $WHL_HOUSE .
         ls ./$WHL_HOUSE # Listing the contents of ./$WHL_HOUSE for a sanity check
     - name: Artifactize sdist
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: ${{ env.MAPEL_EL_ARTS }}
         path: ${{ env.WHL_HOUSE }} 
@@ -59,14 +59,14 @@ jobs:
         env:
           # We skip old versions of cPython, and all PyPy
           # because the C++ extension is incompatible with PyPy
-          CIBW_SKIP: "cp36-* cp37-* cp38-* cp39-* pp37-* pp38-*  pp39-* pp310-*"
+          CIBW_SKIP: "cp36-* cp37-* cp38-* cp39-* cp310-* cp311-* pp*"
           CIBW_BUILD_FRONTEND: "build"
         with:
           output-dir: '${{ env.WHL_HOUSE }}'
       - name: Artifactize compiled-python wheels
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.MAPEL_EL_ARTS }}
+          name: ${{ env.MAPEL_EL_ARTS }}-${{ matrix.os }}
           path: ${{ env.WHL_HOUSE }}
 
   test-pypi-update:
@@ -79,17 +79,18 @@ jobs:
       id-token: write  # IMPORTANT: this permission is mandatory for trusted publishing
     runs-on: ubuntu-latest
     steps: 
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           path: ${{ env.WHL_HOUSE }}
+          merge-multiple: true
       - name: Display structure of downloaded files
         run: ls -R
         working-directory: ${{ env.WHL_HOUSE }}
-      - name: Prepare the distrib directory
-        run: |
-          mv ${{ env.MAPEL_EL_ARTS }}/* .
-          rm -r  ${{ env.MAPEL_EL_ARTS }}
-        working-directory: ${{ env.WHL_HOUSE }}
+          #      - name: Prepare the distrib directory
+          #        run: |
+          #          mv ${{ env.MAPEL_EL_ARTS }}/* .
+          #          rm -r  ${{ env.MAPEL_EL_ARTS }}
+          #        working-directory: ${{ env.WHL_HOUSE }}
       - name: Display all artifacts
         run: ls -R
         working-directory: ${{ env.WHL_HOUSE }}

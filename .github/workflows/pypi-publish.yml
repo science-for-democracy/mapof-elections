@@ -1,4 +1,4 @@
-name: Package to Test PyPi
+name: Package to PyPi
 
 on: workflow_dispatch
 
@@ -68,10 +68,8 @@ jobs:
 
   test-pypi-update:
     needs: [build-compiled-python-wheels, build-sdist]
-    name: Publish to Test PyPI
-    environment:
-      name: test-pypi-upload
-      url: https://test.pypi.org/p/mapof-elections
+    name: Publish to PyPI
+    environment: pypi-upload
     permissions:
       id-token: write  # IMPORTANT: this permission is mandatory for trusted publishing
     runs-on: ubuntu-latest
@@ -86,9 +84,8 @@ jobs:
       - name: Display all artifacts
         run: ls -R
         working-directory: ${{ env.WHL_HOUSE }}
-      - name: Publish package to test PyPI
+      - name: Publish package to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           packages-dir: ${{ env.WHL_HOUSE }}/
           verbose: true
-          repository-url: https://test.pypi.org/legacy/

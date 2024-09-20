@@ -1,6 +1,8 @@
 name: Package to PyPi
 
-on: workflow_dispatch
+on:
+  release:
+    types: [published]
 
 env:
   WHL_HOUSE: wheelhouse

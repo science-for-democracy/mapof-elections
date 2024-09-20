@@ -54,12 +54,14 @@ jobs:
         os: [ubuntu-latest, windows-latest, macos-latest]
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Build mapof-elections wheels
         uses: pypa/cibuildwheel@v2.20.0
         env:
           # We skip old versions of cPython, and all PyPy
           # because the C++ extension is incompatible with PyPy
-          CIBW_SKIP: "cp36-* cp37-* cp38-* cp39-* cp310-* cp311-* pp*"
+          CIBW_SKIP: "cp36-* cp37-* cp38-* cp39-* cp310-* cp311-* cp312-* pp*"
           CIBW_BUILD_FRONTEND: "build"
         with:
           output-dir: '${{ env.WHL_HOUSE }}'
@@ -97,6 +99,6 @@ jobs:
       - name: Publish package to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
-          packages_dir: ${{ env.WHL_HOUSE }}/
+          packages-dir: ${{ env.WHL_HOUSE }}/
           verbose: true
           repository-url: https://test.pypi.org/legacy/

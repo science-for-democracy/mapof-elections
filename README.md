@@ -4,39 +4,36 @@
 
 # Mapof-elections
 This pacakge is a plugin for [Mapof](https://pypi.org/project/mapof/) extending
-it with capabilities of drawing maps of various elections intances.
+it with capabilities of drawing maps of various election intances.
 
 For the most recent version of Mapof, visit its [git
 repo](https://pypi.org/project/mapof/).
 
+> [!WARNING!] This library contains C++ extensions. Installing it without
+> any package manager that uses the PyPi repository requires compiling the C++
+> extension from sources. It might be a bit cumbersome as is far beyond the
+> scope of this small manual.
+
 # Installation
-For a simple installation, type:
+For a simple installation, type
 `pip install mapof-elections`
 in the console.
 
 For more complicated variants of installation, refer to the readme of mapel
-[here](https://github.com/szufix/mapel).
+[here](https://github.com/science-for-democracy/mapof).
 
 ## Extra dependencies
 
 For the full functionality of the package, it is recommended to also install
-extra dependencies. Doing this is covered in [this
-readme](https://pypi.org/project/mapel/). The extra dependencies contain:  
+extra dependencies executing `pip install mapel-elections[extras]`. The extra
+dependencies contain 
 ```
 pulp~=2.5.1
 abcvoting~=2.0.0b0
 permanent
 ```  
 which unlock approval based committee rules (which require solving I(L)P
-programs) and sampling a matrix using a permanent-based approach.
-
-One can do it by invoking  
-`pip install mapel-elections[extras]`
-
-> :exclamation: Note that this library contains C++ extensions. So installing
-  this library from sources  might be a bit cumbersome. We will, one day, put
-  here an instruction how to do it.
-
+programs) and sampling matrices using a permanent-based approach.
 
 # Acknowledgments
 

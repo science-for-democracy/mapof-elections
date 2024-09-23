@@ -87,8 +87,8 @@ def export_votes_to_file(
                     file_.write("\n")
         else:
 
-            file_.write(str(num_voters) + ', ' + str(num_voters) + ', ' +
-                        str(num_voters) + "\n")
+            # file_.write(str(num_voters) + ', ' + str(num_voters) + ', ' +
+            #             str(num_voters) + "\n")
 
             if ballot_type == 'approval':
                 for i in range(len(votes)):
@@ -231,7 +231,7 @@ def export_coordinates(experiment,
     with open(path, 'w', newline='') as csv_file:
         writer = csv.writer(csv_file, delimiter=';')
         writer.writerow(["vote_id", "x", "y"])
-        for vote_id in range(length):
+        for vote_id in range(len(experiment.coordinates[object_type])):
             x = str(experiment.coordinates[object_type][vote_id][0])
             y = str(experiment.coordinates[object_type][vote_id][1])
             writer.writerow([vote_id, x, y])

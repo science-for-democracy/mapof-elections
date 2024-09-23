@@ -230,8 +230,9 @@ class ApprovalElection(Election, ABC):
             if saveas == 'default':
 
                 saveas = f'{self.label}_{object_type}'
-                file_name = os.path.join(os.getcwd(), "images", name, f'{saveas}.png')
-                plt.savefig(file_name, bbox_inches='tight', dpi=100)
+
+            file_name = os.path.join(os.getcwd(), "images", name, f'{saveas}.png')
+            plt.savefig(file_name, bbox_inches='tight', dpi=100)
 
         if show:
             plt.show()

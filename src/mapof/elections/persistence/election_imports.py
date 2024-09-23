@@ -113,7 +113,7 @@ def _process_soc_line(line: str, votes: list):
 def _process_app_line(line: str, votes: list):
     tokens = line.split(':')
     nr_this_vote = int(tokens[0])
-    vote = set(ast.literal_eval(" ".join(tokens[1])))
+    vote = set(eval(tokens[1]))
     for i in range(0, nr_this_vote):
         votes.append(vote)
     pass
@@ -361,6 +361,10 @@ def import_real_new_app_election(
         if line[-1] == '\n':
             line = line[:-1]
         if line[0] != '#':
+            if from_file_data_type == 'app':
+                _process_app_line(line, votes)
+            else:
+                print("Unknown data format.")
             break
         elif re.search(regex_file_name, line):
             from_file_file_name = line.split(':')[1][1:-file_ending]

@@ -512,8 +512,9 @@ class OrdinalElection(Election):
                     os.mkdir(os.path.join(os.getcwd(), dir))
 
                 saveas = f'{self.label}_{object_type}'
-                file_name = os.path.join(os.getcwd(), "images", self.experiment_id, f'{saveas}.png')
-                plt.savefig(file_name, bbox_inches='tight', dpi=100)
+
+            file_name = os.path.join(os.getcwd(), "images", self.experiment_id, f'{saveas}.png')
+            plt.savefig(file_name, bbox_inches='tight', dpi=100)
 
         if show:
             plt.show()

@@ -25,7 +25,7 @@ For more complicated variants of installation, refer to the readme of mapel
 ## Extra dependencies
 
 For the full functionality of the package, it is recommended to also install
-extra dependencies executing `pip install mapel-elections[extras]`. The extra
+extra dependencies executing `pip install mapof-elections[extras]`. The extra
 dependencies contain 
 ```
 pulp~=2.5.1

@@ -369,8 +369,13 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-election-as-part-of-experiment">Generate Election as Part of Experiment</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-family-of-elections">Generate Family of Elections</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-map-of-ordinal-elections">Create Map of Ordinal Elections</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-map-of-approval-elections">Create Map of Approval Elections</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#coloring-map-of-elections">Coloring Map of Elections</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#offline-experiment">Offline Experiment</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#other">Other</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#map-of-preferences-aka-microscope">Map of Preferences (aka Microscope)</a></li>
 </ul>
             </nav>
         </div>
@@ -701,6 +706,163 @@ A list of all implemented distances is available in <a class="reference internal
 </figure>
 <p>The picture created by the improved version is presented in <a class="reference internal" href="#fig-ex-2"><span class="std std-ref">Example 2.</span></a>. Moreover, for illustrative purposes, in <a class="reference internal" href="#fig-original"><span class="std std-ref">Example 3</span></a> we present the map for the 10x100 dataset of Szufa et al. [2020]. Note that the labels and arrows are created in PowerPoint and are not part of the mapof software.</p>
 </section>
+<section id="create-map-of-approval-elections">
+<h3>Create Map of Approval Elections<a class="headerlink" href="#create-map-of-approval-elections" title="Link to this heading">#</a></h3>
+<p>Creating a map of approval elections works similarly to creating a map of ordinal elections. The only differences are the statistical cultures and distances used.</p>
+</section>
+<section id="coloring-map-of-elections">
+<h3>Coloring Map of Elections<a class="headerlink" href="#coloring-map-of-elections" title="Link to this heading">#</a></h3>
+<p>It is interesting to color the map according to certain statistics, referred to as features.</p>
+<p class="rubric">Basic</p>
+<p>We offer several pre-implemented features. For example, if you would like to compute the highest plurality score for all elections, you can write:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span><span class="o">.</span><span class="n">compute_feature</span><span class="p">(</span><span class="n">feature_id</span><span class="o">=</span><span class="s1">&#39;highest_plurality_score&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To print it, use the <code class="docutils literal notranslate"><span class="pre">feature</span></code> argument:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span><span class="o">.</span><span class="n">print_map_2d_colored_by_feature</span><span class="p">(</span><span class="n">feature_id</span><span class="o">=</span><span class="s1">&#39;highest_plurality_score&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To access the computed values, type:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span><span class="o">.</span><span class="n">features</span><span class="p">[</span><span class="s1">&#39;highest_plurality_score&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>List of all the available features can be found in the <a class="reference internal" href="reference/features/list_of_features.html#list-of-features"><span class="std std-ref">List of Features</span></a>.</p>
+<p class="rubric">Printing</p>
+<p>Basic arguments for the <code class="docutils literal notranslate"><span class="pre">print_map_2d</span></code> function are the following:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">saveas</span><span class="o">=</span><span class="nb">str</span>    <span class="c1"># save file as xyz.png</span>
+<span class="n">title</span><span class="o">=</span><span class="nb">str</span>     <span class="c1"># title of the image</span>
+<span class="n">legend</span><span class="o">=</span><span class="nb">bool</span>   <span class="c1"># (by default True) if False then hide the legend</span>
+<span class="n">ms</span><span class="o">=</span><span class="nb">int</span>        <span class="c1"># (by default 20) size of the marker</span>
+<span class="n">show</span><span class="o">=</span><span class="nb">bool</span>     <span class="c1"># (by default True) if False then hide the map</span>
+<span class="n">cmap</span>          <span class="c1"># cmap (only for printing features)</span>
+</pre></div>
+</div>
+<p>For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span><span class="o">.</span><span class="n">print_map_2d</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;My First Map&#39;</span><span class="p">,</span> <span class="n">saveas</span><span class="o">=</span><span class="s1">&#39;tmp&#39;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="offline-experiment">
+<h3>Offline Experiment<a class="headerlink" href="#offline-experiment" title="Link to this heading">#</a></h3>
+<p>Offline experiments are similar to online experiments but offer the possibility to export/import files with elections, distances, coordinates, features, etc.</p>
+<p class="rubric">Prepare Experiment</p>
+<p>To prepare an offline experiment, run:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span> <span class="o">=</span> <span class="n">mapof</span><span class="o">.</span><span class="n">prepare_offline_ordinal_experiment</span><span class="p">(</span>
+                        <span class="n">experiment_id</span><span class="o">=</span><span class="s1">&#39;name_of_the_experiment&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The function above will create the experiment structure as follows:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>experiment_id/
+├── coordinates/
+├── distances/
+├── elections/
+├── features/
+├── matrices/
+└── map.csv
+</pre></div>
+</div>
+<p class="rubric">Prepare Elections</p>
+<p>To prepare elections, run:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span><span class="o">.</span><span class="n">prepare_elections</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Elections are generated according to the <cite>map.csv</cite> file. An example <cite>map.csv</cite> file is created automatically when preparing the experiment.</p>
+<p>All prepared elections are stored in the <code class="docutils literal notranslate"><span class="pre">elections</span></code> folder in a <code class="docutils literal notranslate"><span class="pre">soc</span></code> format. The definition of the <code class="docutils literal notranslate"><span class="pre">soc</span></code> format can be found at <a class="reference external" href="https://www.preflib.org/data/types#soc">Preflib</a>.</p>
+<p class="rubric">map.csv</p>
+<p>The controlling <cite>map.csv</cite> file usually consists of:</p>
+<ul class="simple">
+<li><p><strong>size</strong>: Number of elections to be generated from a given culture</p></li>
+<li><p><strong>num_candidates</strong>: Number of candidates</p></li>
+<li><p><strong>num_voters</strong>: Number of voters/votes</p></li>
+<li><p><strong>culture_id</strong>: Code of the culture; all cultures are described in detail in the next section</p></li>
+<li><p><strong>params</strong>: Dictionary with parameters of a given culture</p></li>
+<li><p><strong>color</strong>: Color of the point(s) on the map</p></li>
+<li><p><strong>alpha</strong>: Transparency of the point(s)</p></li>
+<li><p><strong>marker</strong>: Marker of the point(s)</p></li>
+<li><p><strong>ms</strong>: Marker size</p></li>
+<li><p><strong>label</strong>: Label that will be printed in the legend</p></li>
+<li><p><strong>family_id</strong>: Family ID</p></li>
+<li><p><strong>path</strong>: Dictionary with parameters for generating a path of elections</p></li>
+</ul>
+<p class="rubric">Imports</p>
+<p>If some parts of your experiment are already precomputed, you can import them while preparing the experiment. Ensure they are in the proper files. If they were precomputed using mapof, no additional steps are required.</p>
+<p>If you want to import specific elements (different from default), specify them while preparing the experiment. For transparency, it is recommended to always define them.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span> <span class="o">=</span> <span class="n">mapof</span><span class="o">.</span><span class="n">prepare_offline_ordinal_experiment</span><span class="p">(</span>
+                        <span class="n">experiment_id</span><span class="o">=</span><span class="s1">&#39;name_of_the_experiment&#39;</span><span class="p">,</span>
+                        <span class="n">distance_id</span><span class="o">=</span><span class="s2">&quot;emd-positionwise&quot;</span><span class="p">,</span>
+                        <span class="n">embedding_id</span><span class="o">=</span><span class="s2">&quot;kk&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Regarding features, if they are precomputed, the program will import them while printing the map.</p>
+</section>
+<section id="other">
+<h3>Other<a class="headerlink" href="#other" title="Link to this heading">#</a></h3>
+<p class="rubric">Own Cultures</p>
+<p>If you want to add your own culture, you can do this by using the <code class="docutils literal notranslate"><span class="pre">add_culture()</span></code> function.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span><span class="o">.</span><span class="n">add_culture</span><span class="p">(</span><span class="s2">&quot;my_name&quot;</span><span class="p">,</span> <span class="n">my_func</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The function takes two arguments: The first one is the name of the new culture, and the second one is the function that generates the votes. The function that generates the votes can take any number of arguments, but among others, it must take <code class="docutils literal notranslate"><span class="pre">num_candidates</span></code> and <code class="docutils literal notranslate"><span class="pre">num_voters</span></code> parameters. Moreover, the function should return a numpy array with votes.</p>
+<p class="rubric">Own Features</p>
+<p>If you want to add your own feature, you can do this by using the <code class="docutils literal notranslate"><span class="pre">add_feature()</span></code> function.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="s2">&quot;my_name&quot;</span><span class="p">,</span> <span class="n">my_func</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The function takes two arguments: the first is the name of the new feature, and the second is the function that computes that feature. The function that computes the feature can take any number of arguments, but the first must be an election. Moreover, the function should return a dictionary (usually in the format <code class="docutils literal notranslate"><span class="pre">{'value':</span> <span class="pre">value}</span></code>, but it can contain several keys, for example, <code class="docutils literal notranslate"><span class="pre">{'value':</span> <span class="pre">value,</span> <span class="pre">'std':</span> <span class="pre">std}</span></code>).</p>
+<p class="rubric">Own Distances</p>
+<p>If you want to add your own distance, you can do this by using the <code class="docutils literal notranslate"><span class="pre">add_distance()</span></code> function.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span><span class="o">.</span><span class="n">add_distance</span><span class="p">(</span><span class="s2">&quot;my_name&quot;</span><span class="p">,</span> <span class="n">my_func</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The function takes two arguments: the first is the name of the new distance, and the second is the function that computes that distance. The function that computes the distance can take any number of arguments, but the first two must be elections. Moreover, the function should return a pair (a float and a list). The first returned value is the distance, and the second is the mapping witnessing that distance; if the distance does not use a mapping, then it should return <code class="docutils literal notranslate"><span class="pre">None</span></code> instead.</p>
+<p class="rubric">Remark</p>
+<p>Functions that store data in files will overwrite the previous data when rerun. For example, if the elections are already created but the command <code class="docutils literal notranslate"><span class="pre">mapof.prepare_elections()</span></code> is executed again, the old elections will be overwritten. The same is true for other functions such as <code class="docutils literal notranslate"><span class="pre">compute_distances()</span></code> or <code class="docutils literal notranslate"><span class="pre">embed_2d()</span></code>.</p>
+</section>
+</section>
+<section id="map-of-preferences-aka-microscope">
+<h2>Map of Preferences (aka Microscope)<a class="headerlink" href="#map-of-preferences-aka-microscope" title="Link to this heading">#</a></h2>
+<p>A <em>map of preferences</em> is similar to the map of elections; however, now each point represents a single voter (or candidate) instead of representing the whole election.</p>
+<p>There are four possible microscopes that one can create: Ordinal-Voters, Ordinal-Candidates, Approval-Voters, and Approval-Candidates. In the following description, we mainly focus on the Ordinal-Voters variant. Given an election, we first have to compute the distances between the votes (<code class="docutils literal notranslate"><span class="pre">compute_distances()</span></code>). For that, we use the swap distance (optionally the Spearman distance). Next, we perform the embedding (<code class="docutils literal notranslate"><span class="pre">embed()</span></code>). Finally, we print the microscope (<code class="docutils literal notranslate"><span class="pre">print_map()</span></code>). For all these functions, we need to set the <code class="docutils literal notranslate"><span class="pre">object_type</span></code> argument, which can be set to either <code class="docutils literal notranslate"><span class="pre">vote</span></code> or <code class="docutils literal notranslate"><span class="pre">candidate</span></code>. Below is the code that generates a microscope from scratch.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">election</span> <span class="o">=</span> <span class="n">mapof</span><span class="o">.</span><span class="n">generate_ordinal_election</span><span class="p">(</span><span class="n">culture_id</span><span class="o">=</span><span class="s1">&#39;norm-mallows&#39;</span><span class="p">,</span>
+                                           <span class="n">num_candidates</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+                                           <span class="n">num_voters</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+                                           <span class="n">normphi</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+
+<span class="n">election</span><span class="o">.</span><span class="n">compute_distances</span><span class="p">(</span><span class="n">distance_id</span><span class="o">=</span><span class="s1">&#39;swap&#39;</span><span class="p">,</span> <span class="n">object_type</span><span class="o">=</span><span class="s1">&#39;vote&#39;</span><span class="p">)</span>
+<span class="n">election</span><span class="o">.</span><span class="n">embed</span><span class="p">(</span><span class="n">object_type</span><span class="o">=</span><span class="s1">&#39;vote&#39;</span><span class="p">)</span>
+<span class="n">election</span><span class="o">.</span><span class="n">print_map</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">object_type</span><span class="o">=</span><span class="s1">&#39;vote&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="rubric">Available Distances</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id5">
+<caption><span class="caption-text">Available Distances</span><a class="headerlink" href="#id5" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Vote Type</p></th>
+<th class="head"><p>Object Type</p></th>
+<th class="head"><p>Distances</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Ordinal</p></td>
+<td><p>vote</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">swap</span></code>, <code class="docutils literal notranslate"><span class="pre">spearman</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Ordinal</p></td>
+<td><p>candidate</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">domination</span></code>, <code class="docutils literal notranslate"><span class="pre">position</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Approval</p></td>
+<td><p>vote</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">hamming</span></code>, <code class="docutils literal notranslate"><span class="pre">jaccard</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Approval</p></td>
+<td><p>candidate</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">hamming</span></code>, <code class="docutils literal notranslate"><span class="pre">jaccard</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>More details about the microscope can be found in the <a class="reference external" href="https://doi.org/10.24963/ijcai.2023/299">Diversity, Agreement, and Polarization in Elections</a> paper.</p>
 </section>
 </section>
 
@@ -763,8 +925,13 @@ A list of all implemented distances is available in <a class="reference internal
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-election-as-part-of-experiment">Generate Election as Part of Experiment</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-family-of-elections">Generate Family of Elections</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-map-of-ordinal-elections">Create Map of Ordinal Elections</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-map-of-approval-elections">Create Map of Approval Elections</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#coloring-map-of-elections">Coloring Map of Elections</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#offline-experiment">Offline Experiment</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#other">Other</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#map-of-preferences-aka-microscope">Map of Preferences (aka Microscope)</a></li>
 </ul>
   </nav></div>
 

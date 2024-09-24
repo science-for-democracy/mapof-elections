@@ -484,3 +484,206 @@ As a result of the code above, you will see two separate black clouds of points 
     Example 3: A map for the 10x100 dataset of Szufa et al. [2020].
 
 The picture created by the improved version is presented in :ref:`fig_ex_2`. Moreover, for illustrative purposes, in :ref:`Example 3 <fig_original>` we present the map for the 10x100 dataset of Szufa et al. [2020]. Note that the labels and arrows are created in PowerPoint and are not part of the mapof software.
+
+
+Create Map of Approval Elections
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Creating a map of approval elections works similarly to creating a map of ordinal elections. The only differences are the statistical cultures and distances used.
+
+Coloring Map of Elections
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+It is interesting to color the map according to certain statistics, referred to as features.
+
+.. rubric:: Basic
+
+We offer several pre-implemented features. For example, if you would like to compute the highest plurality score for all elections, you can write:
+
+.. code-block:: python
+
+    experiment.compute_feature(feature_id='highest_plurality_score')
+
+To print it, use the ``feature`` argument:
+
+.. code-block:: python
+
+    experiment.print_map_2d_colored_by_feature(feature_id='highest_plurality_score')
+
+To access the computed values, type:
+
+.. code-block:: python
+
+    experiment.features['highest_plurality_score']
+
+
+List of all the available features can be found in the :ref:`list_of_features`.
+
+.. rubric:: Printing
+
+Basic arguments for the ``print_map_2d`` function are the following:
+
+.. code-block:: python
+
+    saveas=str    # save file as xyz.png
+    title=str     # title of the image
+    legend=bool   # (by default True) if False then hide the legend
+    ms=int        # (by default 20) size of the marker
+    show=bool     # (by default True) if False then hide the map
+    cmap          # cmap (only for printing features)
+
+For example:
+
+.. code-block:: python
+
+    experiment.print_map_2d(title='My First Map', saveas='tmp', ms=30)
+
+Offline Experiment
+~~~~~~~~~~~~~~~~~~
+
+Offline experiments are similar to online experiments but offer the possibility to export/import files with elections, distances, coordinates, features, etc.
+
+.. rubric:: Prepare Experiment
+
+To prepare an offline experiment, run:
+
+.. code-block:: python
+
+    experiment = mapof.prepare_offline_ordinal_experiment(
+                            experiment_id='name_of_the_experiment')
+
+The function above will create the experiment structure as follows:
+
+.. code-block:: none
+
+    experiment_id/
+    ├── coordinates/
+    ├── distances/
+    ├── elections/
+    ├── features/
+    ├── matrices/
+    └── map.csv
+
+.. rubric:: Prepare Elections
+
+To prepare elections, run:
+
+.. code-block:: python
+
+    experiment.prepare_elections()
+
+Elections are generated according to the `map.csv` file. An example `map.csv` file is created automatically when preparing the experiment.
+
+All prepared elections are stored in the ``elections`` folder in a ``soc`` format. The definition of the ``soc`` format can be found at `Preflib <https://www.preflib.org/data/types#soc>`_.
+
+.. rubric:: map.csv
+
+The controlling `map.csv` file usually consists of:
+
+- **size**: Number of elections to be generated from a given culture
+- **num_candidates**: Number of candidates
+- **num_voters**: Number of voters/votes
+- **culture_id**: Code of the culture; all cultures are described in detail in the next section
+- **params**: Dictionary with parameters of a given culture
+- **color**: Color of the point(s) on the map
+- **alpha**: Transparency of the point(s)
+- **marker**: Marker of the point(s)
+- **ms**: Marker size
+- **label**: Label that will be printed in the legend
+- **family_id**: Family ID
+- **path**: Dictionary with parameters for generating a path of elections
+
+.. rubric:: Imports
+
+If some parts of your experiment are already precomputed, you can import them while preparing the experiment. Ensure they are in the proper files. If they were precomputed using mapof, no additional steps are required.
+
+If you want to import specific elements (different from default), specify them while preparing the experiment. For transparency, it is recommended to always define them.
+
+.. code-block:: python
+
+    experiment = mapof.prepare_offline_ordinal_experiment(
+                            experiment_id='name_of_the_experiment',
+                            distance_id="emd-positionwise",
+                            embedding_id="kk")
+
+Regarding features, if they are precomputed, the program will import them while printing the map.
+
+Other
+~~~~~
+
+.. rubric:: Own Cultures
+
+If you want to add your own culture, you can do this by using the ``add_culture()`` function.
+
+.. code-block:: python
+
+    experiment.add_culture("my_name", my_func)
+
+The function takes two arguments: The first one is the name of the new culture, and the second one is the function that generates the votes. The function that generates the votes can take any number of arguments, but among others, it must take ``num_candidates`` and ``num_voters`` parameters. Moreover, the function should return a numpy array with votes.
+
+.. rubric:: Own Features
+
+If you want to add your own feature, you can do this by using the ``add_feature()`` function.
+
+.. code-block:: python
+
+    experiment.add_feature("my_name", my_func)
+
+The function takes two arguments: the first is the name of the new feature, and the second is the function that computes that feature. The function that computes the feature can take any number of arguments, but the first must be an election. Moreover, the function should return a dictionary (usually in the format ``{'value': value}``, but it can contain several keys, for example, ``{'value': value, 'std': std}``).
+
+.. rubric:: Own Distances
+
+If you want to add your own distance, you can do this by using the ``add_distance()`` function.
+
+.. code-block:: python
+
+    experiment.add_distance("my_name", my_func)
+
+The function takes two arguments: the first is the name of the new distance, and the second is the function that computes that distance. The function that computes the distance can take any number of arguments, but the first two must be elections. Moreover, the function should return a pair (a float and a list). The first returned value is the distance, and the second is the mapping witnessing that distance; if the distance does not use a mapping, then it should return ``None`` instead.
+
+.. rubric:: Remark
+
+Functions that store data in files will overwrite the previous data when rerun. For example, if the elections are already created but the command ``mapof.prepare_elections()`` is executed again, the old elections will be overwritten. The same is true for other functions such as ``compute_distances()`` or ``embed_2d()``.
+
+Map of Preferences (aka Microscope)
+-----------------------------------
+
+A *map of preferences* is similar to the map of elections; however, now each point represents a single voter (or candidate) instead of representing the whole election.
+
+There are four possible microscopes that one can create: Ordinal-Voters, Ordinal-Candidates, Approval-Voters, and Approval-Candidates. In the following description, we mainly focus on the Ordinal-Voters variant. Given an election, we first have to compute the distances between the votes (``compute_distances()``). For that, we use the swap distance (optionally the Spearman distance). Next, we perform the embedding (``embed()``). Finally, we print the microscope (``print_map()``). For all these functions, we need to set the ``object_type`` argument, which can be set to either ``vote`` or ``candidate``. Below is the code that generates a microscope from scratch.
+
+.. code-block:: python
+
+    election = mapof.generate_ordinal_election(culture_id='norm-mallows',
+                                               num_candidates=10,
+                                               num_voters=100,
+                                               normphi=0.4)
+
+    election.compute_distances(distance_id='swap', object_type='vote')
+    election.embed(object_type='vote')
+    election.print_map(alpha=0.2, object_type='vote')
+
+
+.. rubric:: Available Distances
+
+
+.. list-table:: Available Distances
+   :header-rows: 1
+
+   * - Vote Type
+     - Object Type
+     - Distances
+   * - Ordinal
+     - vote
+     - ``swap``, ``spearman``
+   * - Ordinal
+     - candidate
+     - ``domination``, ``position``
+   * - Approval
+     - vote
+     - ``hamming``, ``jaccard``
+   * - Approval
+     - candidate
+     - ``hamming``, ``jaccard``
+
+More details about the microscope can be found in the `Diversity, Agreement, and Polarization in Elections <https://doi.org/10.24963/ijcai.2023/299>`_ paper.

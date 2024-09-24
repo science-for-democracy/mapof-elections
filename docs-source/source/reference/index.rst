@@ -9,8 +9,5 @@ Code Reference
     distances/index
     objects/index
     persistence/index
-    cultures
-    distances
-    features
 
 

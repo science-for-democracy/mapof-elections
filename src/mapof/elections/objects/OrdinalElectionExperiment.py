@@ -3,9 +3,10 @@ import os
 from abc import ABC
 
 from mapof.elections.objects.ElectionExperiment import ElectionExperiment
-import mapof.elections.cultures_ as cultures
-import mapof.elections.features_ as features
-import mapof.elections.distances_ as distances
+
+import mapof.elections.cultures as cultures
+import mapof.elections.features as features
+import mapof.elections.distances as distances
 
 try:
     from sklearn.manifold import MDS

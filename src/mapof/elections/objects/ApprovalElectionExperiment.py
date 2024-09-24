@@ -8,9 +8,10 @@ from mapof.core.utils import *
 import numpy as np
 import csv
 
-import mapof.elections.cultures_ as cultures
-import mapof.elections.features_ as features
-import mapof.elections.distances_ as distances
+import mapof.elections.cultures as cultures
+import mapof.elections.features as features
+import mapof.elections.distances as distances
+
 from tqdm import tqdm
 
 try:

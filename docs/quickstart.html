@@ -154,11 +154,13 @@
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Quick Start</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="reference/index.html">Code Reference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="reference/cultures/index.html">Cultures</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="reference/cultures/main.html">Main</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/cultures/euclidean.html">Euclidean</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/cultures/guardians.html">Guardians</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="reference/distances/index.html">Distances</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="reference/distances/main.html">Main</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/distances/main_approval_distances.html">Approval Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/distances/main_ordinal_distances.html">Ordinal Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/distances/committee_distances.html">Committee Distances</a></li>
@@ -179,9 +181,6 @@
 <li class="toctree-l3"><a class="reference internal" href="reference/persistence/election_exports.html">Election Exports</a></li>
 </ul>
 </details></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/cultures.html">Cultures</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/distances.html">Distances</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/features.html">Features</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="citation.html">Citation Policy</a></li>
@@ -348,7 +347,16 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#organisation-of-the-package">Organisation of the package</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import">Import</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#general-tasks">General Tasks</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-ordinal-election-from-statistical-culture">Generate Ordinal Election from Statistical Culture</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-approval-election-from-statistical-culture">Generate Approval Election from Statistical Culture</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-ordinal-election-from-votes">Generate Ordinal Election from Votes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-approval-election-from-votes">Generate Approval Election from Votes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-borda-score">Compute Borda Score</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-distance-between-two-elections">Compute Distance between Two Elections</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -362,9 +370,140 @@ document.write(`
                   
   <section id="quick-start">
 <span id="quickstart"></span><h1>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading">#</a></h1>
-<section id="organisation-of-the-package">
-<h2>Organisation of the package<a class="headerlink" href="#organisation-of-the-package" title="Link to this heading">#</a></h2>
-<p>To be updated.</p>
+<section id="import">
+<h2>Import<a class="headerlink" href="#import" title="Link to this heading">#</a></h2>
+<p>To import mapof-elections python package:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mapof.elections</span> <span class="k">as</span> <span class="nn">mapof</span>
+</pre></div>
+</div>
+</section>
+<section id="general-tasks">
+<h2>General Tasks<a class="headerlink" href="#general-tasks" title="Link to this heading">#</a></h2>
+<section id="generate-ordinal-election-from-statistical-culture">
+<span id="generate-ordinal-election"></span><h3>Generate Ordinal Election from Statistical Culture<a class="headerlink" href="#generate-ordinal-election-from-statistical-culture" title="Link to this heading">#</a></h3>
+<p>In this section, you will learn how to generate ordinal elections from different statistical cultures. We will start by defining what we mean by an election.</p>
+<p>Formally, an ordinal election is a pair <span class="math">E=(C,V)</span> that consists of a set of candidates <span class="math">C</span> and a collection of voters <span class="math">V</span>, where each voter has a strict preference order (vote), that is, each voter ranks all the candidates in <span class="math">C</span> from the most to the least desirable one. We use terms voter and vote interchangeably. In practice, an <code class="docutils literal notranslate"><span class="pre">OrdinalElection</span></code> is an abstract object that, among other fields, contains:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">election</span><span class="o">.</span><span class="n">num_candidates</span>     <span class="c1"># number of candidates</span>
+<span class="n">election</span><span class="o">.</span><span class="n">num_voters</span>         <span class="c1"># number of voters</span>
+<span class="n">election</span><span class="o">.</span><span class="n">votes</span>              <span class="c1"># preference orders</span>
+</pre></div>
+</div>
+<p>By <code class="docutils literal notranslate"><span class="pre">votes</span></code>, we refer to a two-dimensional array, where each row represents a single vote.</p>
+<p class="rubric" id="example-oridnal-election">Example</p>
+<p>E.g., <code class="docutils literal notranslate"><span class="pre">votes</span> <span class="pre">=</span> <span class="pre">[[0,1,2,3],[2,0,3,1],[3,1,2,0]]</span></code> refers to an election with three following votes:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>0 ≻ 1 ≻ 2 ≻ 3
+2 ≻ 0 ≻ 3 ≻ 1
+3 ≻ 1 ≻ 2 ≻ 0
+</pre></div>
+</div>
+<p><strong>Objective:</strong>
+Generate impartial culture election with 5 candidates and 50 voters.</p>
+<p><strong>Solution:</strong>
+To generate an election we use the <code class="docutils literal notranslate"><span class="pre">generate_ordinal_election()</span></code> function:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">election</span> <span class="o">=</span> <span class="n">mapof</span><span class="o">.</span><span class="n">generate_ordinal_election</span><span class="p">(</span>
+                                    <span class="n">culture_id</span><span class="o">=</span><span class="s1">&#39;ic&#39;</span><span class="p">,</span>
+                                    <span class="n">num_candidates</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+                                    <span class="n">num_voters</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="generate-approval-election-from-statistical-culture">
+<span id="generate-approval-election"></span><h3>Generate Approval Election from Statistical Culture<a class="headerlink" href="#generate-approval-election-from-statistical-culture" title="Link to this heading">#</a></h3>
+<p>In this section, you will learn how to generate approval elections from different statistical cultures. We will start by defining what we mean by an election.</p>
+<p>Formally, an approval election is a pair <span class="math">E=(C,V)</span> that consists of a set of candidates <span class="math">C</span> and a collection of voters <span class="math">V</span>, where each voter approves a certain subset of candidates. In practice, an <code class="docutils literal notranslate"><span class="pre">ApprovalElection</span></code> is an abstract object that, among others, contains the following fields:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">election</span><span class="o">.</span><span class="n">num_candidates</span>     <span class="c1"># number of candidates</span>
+<span class="n">election</span><span class="o">.</span><span class="n">num_voters</span>         <span class="c1"># number of voters</span>
+<span class="n">election</span><span class="o">.</span><span class="n">votes</span>              <span class="c1"># list of sets</span>
+</pre></div>
+</div>
+<p>By <code class="docutils literal notranslate"><span class="pre">votes</span></code>, we refer to a list of sets, where each set represents a single vote.</p>
+<p class="rubric" id="example-approval-election">Example</p>
+<p>For example, <code class="docutils literal notranslate"><span class="pre">votes</span> <span class="pre">=</span> <span class="pre">[{0,1},{1,2,3},{2}]</span></code> refers to an election with three following votes:</p>
+<p class="centered">
+<strong><span class="math">{0, 1}</span>,
+<span class="math">{1, 2, 3}</span>,
+<span class="math">{2}</span>.</strong></p><p><strong>Objective:</strong>
+Generate impartial culture election with 20 candidates and 100 voters</p>
+<p><strong>Solution:</strong>
+To generate an election, we use the <code class="docutils literal notranslate"><span class="pre">generate_approval_election()</span></code> function:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">election</span> <span class="o">=</span> <span class="n">mapof</span><span class="o">.</span><span class="n">generate_approval_election</span><span class="p">(</span>
+                                   <span class="n">culture_id</span><span class="o">=</span><span class="s1">&#39;ic&#39;</span><span class="p">,</span>
+                                   <span class="n">num_candidates</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+                                   <span class="n">num_voters</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="generate-ordinal-election-from-votes">
+<h3>Generate Ordinal Election from Votes<a class="headerlink" href="#generate-ordinal-election-from-votes" title="Link to this heading">#</a></h3>
+<p>Instead of using a statistical culture, you can also generate elections based on your own votes using the <code class="code highlight python docutils literal highlight-python"><span class="n">generate_ordinal_election_from_votes</span></code> function.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">votes</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span>
+<span class="n">election</span> <span class="o">=</span> <span class="n">mapof</span><span class="o">.</span><span class="n">generate_ordinal_election_from_votes</span><span class="p">(</span><span class="n">votes</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="generate-approval-election-from-votes">
+<h3>Generate Approval Election from Votes<a class="headerlink" href="#generate-approval-election-from-votes" title="Link to this heading">#</a></h3>
+<p>Instead of using a statistical culture, you can also generate elections based on your own votes using the <code class="code highlight python docutils literal highlight-python"><span class="n">generate_approval_election_from_votes</span></code> function.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">votes</span> <span class="o">=</span> <span class="p">[{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">},</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">},</span> <span class="p">{</span><span class="mi">2</span><span class="p">}]</span>
+<span class="n">election</span> <span class="o">=</span> <span class="n">mapof</span><span class="o">.</span><span class="n">generate_approval_election_from_votes</span><span class="p">(</span><span class="n">votes</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="compute-borda-score">
+<h3>Compute Borda Score<a class="headerlink" href="#compute-borda-score" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong>
+Implement a function that, for a given ordinal election, returns Borda scores of all candidates.</p>
+<p>First, we need to create a <code class="docutils literal notranslate"><span class="pre">scores</span></code> list and fill it with zeros.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">scores</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">election</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>Second, we need to iterate through all the votes and add appropriate points to candidates.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">vote</span> <span class="ow">in</span> <span class="n">election</span><span class="o">.</span><span class="n">votes</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">election</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">):</span>
+        <span class="n">scores</span><span class="p">[</span><span class="n">vote</span><span class="p">[</span><span class="n">c</span><span class="p">]]</span> <span class="o">+=</span> <span class="n">election</span><span class="o">.</span><span class="n">num_candidates</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">c</span>
+</pre></div>
+</div>
+<p><strong>Solution:</strong>
+The complete function looks as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">compute_borda_scores</span><span class="p">(</span><span class="n">election</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Returns list with all Borda scores &quot;&quot;&quot;</span>
+    <span class="n">scores</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">election</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">)]</span>
+    <span class="k">for</span> <span class="n">vote</span> <span class="ow">in</span> <span class="n">election</span><span class="o">.</span><span class="n">votes</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">election</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">):</span>
+            <span class="n">scores</span><span class="p">[</span><span class="n">vote</span><span class="p">[</span><span class="n">c</span><span class="p">]]</span> <span class="o">+=</span> <span class="n">election</span><span class="o">.</span><span class="n">num_candidates</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">c</span>
+    <span class="k">return</span> <span class="n">scores</span>
+</pre></div>
+</div>
+</section>
+<section id="compute-distance-between-two-elections">
+<h3>Compute Distance between Two Elections<a class="headerlink" href="#compute-distance-between-two-elections" title="Link to this heading">#</a></h3>
+<p><strong>Objective:</strong>
+Compute the EMD-Positionwise distance between two ordinal elections.</p>
+<p>To compute a distance, use the <code class="docutils literal notranslate"><span class="pre">compute_distance</span></code> function, which takes two elections and a <code class="docutils literal notranslate"><span class="pre">distance_id</span></code> as input.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span><span class="p">,</span> <span class="n">mapping</span> <span class="o">=</span> <span class="n">mapof</span><span class="o">.</span><span class="n">compute_distance</span><span class="p">(</span>
+                                    <span class="n">election_1</span><span class="p">,</span>
+                                    <span class="n">election_2</span><span class="p">,</span>
+                                    <span class="n">distance_id</span><span class="o">=</span><span class="s1">&#39;emd-positionwise&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This function returns a tuple containing the distance and the mapping that witnesses this distance. If a given distance does not use a mapping, it returns <code class="docutils literal notranslate"><span class="pre">None</span></code> instead.</p>
+<p><strong>Solution:</strong>
+We start by generating two elections, and then we compute the distance:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">election_1</span> <span class="o">=</span> <span class="n">mapof</span><span class="o">.</span><span class="n">generate_ordinal_election</span><span class="p">(</span>
+                                        <span class="n">culture_id</span><span class="o">=</span><span class="s1">&#39;ic&#39;</span><span class="p">,</span>
+                                        <span class="n">num_voters</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+                                        <span class="n">num_candidates</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">election_2</span> <span class="o">=</span> <span class="n">mapof</span><span class="o">.</span><span class="n">generate_ordinal_election</span><span class="p">(</span>
+                                        <span class="n">culture_id</span><span class="o">=</span><span class="s1">&#39;ic&#39;</span><span class="p">,</span>
+                                        <span class="n">num_voters</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+                                        <span class="n">num_candidates</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">distance</span><span class="p">,</span> <span class="n">mapping</span> <span class="o">=</span> <span class="n">mapof</span><span class="o">.</span><span class="n">compute_distance</span><span class="p">(</span>
+                                        <span class="n">election_1</span><span class="p">,</span>
+                                        <span class="n">election_2</span><span class="p">,</span>
+                                        <span class="n">distance_id</span><span class="o">=</span><span class="s1">&#39;emd-positionwise&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
 </section>
 </section>
 
@@ -413,7 +552,16 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#organisation-of-the-package">Organisation of the package</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import">Import</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#general-tasks">General Tasks</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-ordinal-election-from-statistical-culture">Generate Ordinal Election from Statistical Culture</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-approval-election-from-statistical-culture">Generate Approval Election from Statistical Culture</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-ordinal-election-from-votes">Generate Ordinal Election from Votes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-approval-election-from-votes">Generate Approval Election from Votes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-borda-score">Compute Borda Score</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-distance-between-two-elections">Compute Distance between Two Elections</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

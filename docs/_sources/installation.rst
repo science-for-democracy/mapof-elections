@@ -3,7 +3,7 @@
 Installation
 ============
 
-PrefSampling is hosted on `PyPI <https://pypi.org/project/mapof-elections/>`_ you can thus
+Mapof-election is hosted on `PyPI <https://pypi.org/project/mapof-elections/>`_ you can thus
 easily install it by using:
 
 .. code-block:: shell

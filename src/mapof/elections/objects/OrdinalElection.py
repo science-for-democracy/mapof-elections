@@ -14,7 +14,7 @@ from mapof.elections.cultures.fake import *
 from mapof.elections.cultures.matrices.group_separable_matrices import get_gs_caterpillar_vectors
 from mapof.elections.cultures.preflib import get_sushi_vectors
 from mapof.elections.cultures.matrices.single_crossing_matrices import get_single_crossing_vectors
-from mapof.elections.cultures_ import generate_ordinal_votes, \
+from mapof.elections.cultures import generate_ordinal_votes, \
     from_approval, generate_ordinal_alliance_votes
 from mapof.elections.features.other import is_condorcet
 from mapof.elections.objects.Election import Election

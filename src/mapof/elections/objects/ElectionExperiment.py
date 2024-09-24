@@ -14,9 +14,9 @@ from mapof.elections.objects.ElectionFeatures import ST_KEY, AN_KEY, ID_KEY, UN_
 from mapof.elections.objects.ElectionFamily import ElectionFamily
 from mapof.elections.objects.OrdinalElection import OrdinalElection
 from mapof.elections.objects.ApprovalElection import ApprovalElection
-import mapof.elections.distances_ as metr
+import mapof.elections.distances as metr
 import mapof.elections.other.rules as rules
-import mapof.elections.features_ as features
+import mapof.elections.features as features
 from mapof.core.objects.Experiment import Experiment
 import mapof.core.printing as pr
 

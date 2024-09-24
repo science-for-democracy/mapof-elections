@@ -4,7 +4,7 @@ from abc import ABC
 from collections import Counter
 
 from matplotlib import pyplot as plt
-from mapof.elections.cultures_ import generate_approval_votes
+from mapof.elections.cultures import generate_approval_votes
 from mapof.elections.objects.Election import Election
 from mapof.core.inner_distances import hamming
 from mapof.core.utils import *

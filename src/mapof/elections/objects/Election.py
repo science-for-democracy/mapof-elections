@@ -20,7 +20,7 @@ from mapof.elections.other.glossary import *
 from mapof.core.glossary import *
 from mapof.core.inner_distances import l2
 from mapof.core.objects.Instance import Instance
-from mapof.elections.features_ import get_local_feature
+from mapof.elections.features import get_local_feature
 from mapof.elections.other.winners import compute_sntv_winners, compute_borda_winners, \
     compute_stv_winners
 

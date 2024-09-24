@@ -2,7 +2,7 @@ from collections import Counter
 
 import mapof.core.printing as pr
 
-from mapof.elections.distances_ import get_distance
+from mapof.elections.distances import get_distance
 from mapof.elections.objects.ApprovalElectionExperiment import ApprovalElectionExperiment
 from mapof.elections.objects.OrdinalElection import OrdinalElection
 from mapof.elections.objects.ApprovalElection import ApprovalElection

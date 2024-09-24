@@ -166,3 +166,11 @@ def add_ordinal_feature(name: str, function: callable) -> None:
         None
     """
     registered_ordinal_features[name] = function
+
+
+__all__ = [
+    'get_global_feature',
+    'get_local_feature',
+    'add_approval_feature',
+    'add_ordinal_feature'
+]

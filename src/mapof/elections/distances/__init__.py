@@ -258,6 +258,9 @@ def run_multiple_processes(
 
 
 __all__ = [
-    'add_approval_distance',
-    'add_ordinal_distance',
+    'get_distance',
+    'get_approval_distance',
+    'get_ordinal_distance',
+    'run_single_process',
+    'run_multiple_processes'
 ]

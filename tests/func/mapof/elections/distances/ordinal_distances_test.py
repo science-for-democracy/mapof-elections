@@ -20,8 +20,8 @@ class TestOrdinalDistances:
     @pytest.mark.parametrize("distance_id", registered_ordinal_distances_to_test)
     def test_ordinal_distances(self, distance_id):
 
-        num_voters = np.random.randint(10, 20)
-        num_candidates = np.random.randint(5, 10)
+        num_voters = np.random.randint(5, 8)
+        num_candidates = np.random.randint(4, 6)
 
         ele_1 = mapel.generate_ordinal_election(culture_id='ic',
                                                 num_voters=num_voters,

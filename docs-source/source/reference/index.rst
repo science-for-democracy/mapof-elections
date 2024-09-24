@@ -9,5 +9,3 @@ Code Reference
     distances/index
     objects/index
     persistence/index
-
-

@@ -324,7 +324,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -340,6 +342,18 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.distances.get_approval_distance"><code class="docutils literal notranslate"><span class="pre">get_approval_distance()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.distances.get_distance"><code class="docutils literal notranslate"><span class="pre">get_distance()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.distances.get_ordinal_distance"><code class="docutils literal notranslate"><span class="pre">get_ordinal_distance()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.distances.run_multiple_processes"><code class="docutils literal notranslate"><span class="pre">run_multiple_processes()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.distances.run_single_process"><code class="docutils literal notranslate"><span class="pre">run_single_process()</span></code></a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -349,8 +363,65 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="main">
-<h1>Main<a class="headerlink" href="#main" title="Link to this heading">#</a></h1>
+  <section id="module-mapof.elections.distances">
+<span id="main"></span><h1>Main<a class="headerlink" href="#module-mapof.elections.distances" title="Link to this heading">#</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="mapof.elections.distances.get_approval_distance">
+<span class="sig-name descname"><span class="pre">get_approval_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">election_1:</span> <span class="pre">~mapof.elections.objects.ApprovalElection.ApprovalElection</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">election_2:</span> <span class="pre">~mapof.elections.objects.ApprovalElection.ApprovalElection</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distance_id:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs)</span> <span class="pre">-&gt;</span> <span class="pre">(&lt;class</span> <span class="pre">'float'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">&lt;class</span> <span class="pre">'list'&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mapof/elections/distances.html#get_approval_distance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.distances.get_approval_distance" title="Link to this definition">#</a></dt>
+<dd><p>Computes distance between approval elections, (if applicable) optimal matching.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>election_1</strong> – First election.</p></li>
+<li><p><strong>election_2</strong> – Second election.</p></li>
+<li><p><strong>distance_id</strong> – Name of the distance.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mapof.elections.distances.get_distance">
+<span class="sig-name descname"><span class="pre">get_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">election_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">election_2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distance_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../../_modules/mapof/elections/distances.html#get_distance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.distances.get_distance" title="Link to this definition">#</a></dt>
+<dd><p>Computes distance between elections, (if applicable) optimal matching.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>election_1</strong> – First election.</p></li>
+<li><p><strong>election_2</strong> – Second election.</p></li>
+<li><p><strong>distance_id</strong> – Name of the distance.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mapof.elections.distances.get_ordinal_distance">
+<span class="sig-name descname"><span class="pre">get_ordinal_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">election_1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../objects/OrdinalElection.html#mapof.elections.objects.OrdinalElection.OrdinalElection" title="mapof.elections.objects.OrdinalElection.OrdinalElection"><span class="pre">OrdinalElection</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">election_2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../objects/OrdinalElection.html#mapof.elections.objects.OrdinalElection.OrdinalElection" title="mapof.elections.objects.OrdinalElection.OrdinalElection"><span class="pre">OrdinalElection</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">distance_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../../_modules/mapof/elections/distances.html#get_ordinal_distance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.distances.get_ordinal_distance" title="Link to this definition">#</a></dt>
+<dd><p>Computes distance between ordinal elections, (if applicable) optimal matching.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>election_1</strong> – First election.</p></li>
+<li><p><strong>election_2</strong> – Second election.</p></li>
+<li><p><strong>distance_id</strong> – Name of the distance.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mapof.elections.distances.run_multiple_processes">
+<span class="sig-name descname"><span class="pre">run_multiple_processes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">experiment</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Experiment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instances_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distances</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">times</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">matchings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">process_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../../_modules/mapof/elections/distances.html#run_multiple_processes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.distances.run_multiple_processes" title="Link to this definition">#</a></dt>
+<dd><p>Single process for computing distances</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mapof.elections.distances.run_single_process">
+<span class="sig-name descname"><span class="pre">run_single_process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Experiment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instances_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distances</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">times</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">matchings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">safe_mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../../_modules/mapof/elections/distances.html#run_single_process"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.distances.run_single_process" title="Link to this definition">#</a></dt>
+<dd><p>Single process for computing distances</p>
+</dd></dl>
+
 </section>
 
 
@@ -388,6 +459,25 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.distances.get_approval_distance"><code class="docutils literal notranslate"><span class="pre">get_approval_distance()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.distances.get_distance"><code class="docutils literal notranslate"><span class="pre">get_distance()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.distances.get_ordinal_distance"><code class="docutils literal notranslate"><span class="pre">get_ordinal_distance()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.distances.run_multiple_processes"><code class="docutils literal notranslate"><span class="pre">run_multiple_processes()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.distances.run_single_process"><code class="docutils literal notranslate"><span class="pre">run_single_process()</span></code></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

@@ -267,6 +267,7 @@ def add_ordinal_culture(name, function):
     """
     registered_ordinal_cultures[name] = function
 
+
 __all__ = [
     'generate_approval_votes',
     'generate_ordinal_votes',

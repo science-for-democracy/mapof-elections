@@ -1,5 +1,5 @@
 Main
 ====
 
-.. automodule:: mapof.elections.distances.main
+.. automodule:: mapof.elections.distances
     :members:

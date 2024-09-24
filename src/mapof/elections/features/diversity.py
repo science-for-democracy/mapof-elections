@@ -133,6 +133,7 @@ def cand_dom_dist_mean(election) -> dict:
 
 
 def agreement_index(election) -> dict:
+    """ Calculates the agreement index of the election."""
     if election.fake:
         return {'value': None}
     distances = calculate_cand_dom_dist(election)
@@ -383,6 +384,7 @@ def local_search_kKemeny(election, l, starting=None) -> dict:
 
 
 def diversity_index(election) -> dict:
+    """ Calculates the diversity index of the election."""
     if election.fake:
         return {'value': None}
     max_dist = election.num_candidates * (election.num_candidates - 1) / 2
@@ -482,6 +484,7 @@ def polarization_1by2Kemenys(election) -> dict:
 
 
 def polarization_index(election) -> dict:
+    """ Calculates the polarization index of the election."""
     if election.fake:
         return {'value': None}
     distances = calculate_vote_swap_dist(election)

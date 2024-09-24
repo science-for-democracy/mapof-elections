@@ -7,8 +7,8 @@ registered_ordinal_distances_to_test = {
     'emd-positionwise',
     'l1-positionwise',
     'emd-bordawise',
-    'l1-bordawise',
-    # 'l1-pairwise',
+    'l1-pairwise',
+
     'discrete',
     'swap',
     'spearman',

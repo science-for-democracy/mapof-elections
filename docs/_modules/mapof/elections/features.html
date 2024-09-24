@@ -1,0 +1,568 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mapof.elections.features &#8212; Map of Elections</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js?v=dea914ae"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/mapof/elections/features';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Map of Elections</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Mapof-Elections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quick Start</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../reference/index.html">Code Reference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../reference/cultures/index.html">Cultures</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cultures/main.html">Main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cultures/euclidean.html">Euclidean</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cultures/guardians.html">Guardians</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../reference/distances/index.html">Distances</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/distances/list_of_distances.html">List of Distances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/distances/main.html">Main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/distances/main_approval_distances.html">Approval Distances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/distances/main_ordinal_distances.html">Ordinal Distances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/distances/committee_distances.html">Committee Distances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/distances/feature_distance.html">Feature Distance</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../reference/features/index.html">Features</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features/list_of_features.html">List of Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features/main.html">Main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features/scores.html">Scores</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features/diversity.html">Diversity</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../reference/objects/index.html">Objects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/objects/Election.html">Election</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/objects/ApprovalElection.html">ApprovalElection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/objects/ApprovalElectionExperiment.html">ApprovalElectionExperiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/objects/OrdinalElection.html">OrdinalElection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/objects/OrdinalElectionExperiment.html">OrdinalElectionExperiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/objects/ElectionFamily.html">ElectionFamily</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../reference/persistence/index.html">Persistence</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/persistence/election_imports.html">Election Imports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/persistence/election_exports.html">Election Exports</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../citation.html">Citation Policy</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/science-for-democracy/mapof-elections" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for mapof.elections.features</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="kn">from</span> <span class="nn">mapof.core.glossary</span> <span class="kn">import</span> <span class="n">MAIN_LOCAL_FEATUERS</span><span class="p">,</span> <span class="n">MAIN_GLOBAL_FEATUERS</span>
+<span class="kn">import</span> <span class="nn">mapof.core.features</span> <span class="k">as</span> <span class="nn">core_features</span>
+
+<span class="kn">import</span> <span class="nn">mapof.elections.features.approx</span> <span class="k">as</span> <span class="nn">approx</span>
+<span class="kn">import</span> <span class="nn">mapof.elections.features.banzhaf_cc</span> <span class="k">as</span> <span class="nn">banzhaf_cc</span>
+<span class="kn">import</span> <span class="nn">mapof.elections.features.clustering</span> <span class="k">as</span> <span class="nn">clustering</span>
+<span class="kn">import</span> <span class="nn">mapof.elections.features.cohesive</span> <span class="k">as</span> <span class="nn">cohesive</span>
+<span class="kn">import</span> <span class="nn">mapof.elections.features.dimensionality</span> <span class="k">as</span> <span class="nn">dimensionality</span>
+<span class="kn">import</span> <span class="nn">mapof.elections.features.distortion</span> <span class="k">as</span> <span class="nn">distortion</span>
+<span class="kn">import</span> <span class="nn">mapof.elections.features.diversity</span> <span class="k">as</span> <span class="nn">diversity</span>
+<span class="kn">import</span> <span class="nn">mapof.elections.features.entropy</span> <span class="k">as</span> <span class="nn">entropy</span>
+<span class="kn">import</span> <span class="nn">mapof.elections.features.dap_approximate</span> <span class="k">as</span> <span class="nn">dap_approx</span>
+<span class="kn">import</span> <span class="nn">mapof.elections.features.justified_representation</span> <span class="k">as</span> <span class="nn">jr</span>
+<span class="kn">import</span> <span class="nn">mapof.elections.features.other</span> <span class="k">as</span> <span class="nn">other</span>
+<span class="kn">import</span> <span class="nn">mapof.elections.features.partylist</span> <span class="k">as</span> <span class="nn">partylist</span>
+<span class="kn">import</span> <span class="nn">mapof.elections.features.proportionality_degree</span> <span class="k">as</span> <span class="nn">prop_deg</span>
+<span class="kn">import</span> <span class="nn">mapof.elections.features.ranging_cc</span> <span class="k">as</span> <span class="nn">ranging_cc</span>
+<span class="kn">import</span> <span class="nn">mapof.elections.features.scores</span> <span class="k">as</span> <span class="nn">scores</span>
+<span class="kn">import</span> <span class="nn">mapof.elections.features.vc_diversity</span> <span class="k">as</span> <span class="nn">vcd</span>
+
+
+<span class="n">registered_approval_features</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;max_approval_score&#39;</span><span class="p">:</span> <span class="n">other</span><span class="o">.</span><span class="n">max_approval_score</span><span class="p">,</span>
+    <span class="s1">&#39;number_of_cohesive_groups&#39;</span><span class="p">:</span> <span class="n">cohesive</span><span class="o">.</span><span class="n">count_number_of_cohesive_groups</span><span class="p">,</span>
+    <span class="s1">&#39;number_of_cohesive_groups_brute&#39;</span><span class="p">:</span> <span class="n">cohesive</span><span class="o">.</span><span class="n">count_number_of_cohesive_groups_brute</span><span class="p">,</span>
+    <span class="s1">&#39;proportionality_degree_av&#39;</span><span class="p">:</span> <span class="n">prop_deg</span><span class="o">.</span><span class="n">proportionality_degree_av</span><span class="p">,</span>
+    <span class="s1">&#39;proportionality_degree_pav&#39;</span><span class="p">:</span> <span class="n">prop_deg</span><span class="o">.</span><span class="n">proportionality_degree_pav</span><span class="p">,</span>
+    <span class="s1">&#39;proportionality_degree_cc&#39;</span><span class="p">:</span> <span class="n">prop_deg</span><span class="o">.</span><span class="n">proportionality_degree_cc</span><span class="p">,</span>
+
+    <span class="s1">&#39;cohesiveness&#39;</span><span class="p">:</span> <span class="n">cohesive</span><span class="o">.</span><span class="n">count_largest_cohesiveness_level_l_of_cohesive_group</span><span class="p">,</span>
+    <span class="c1"># unsupported feature</span>
+    <span class="s1">&#39;ejr&#39;</span><span class="p">:</span> <span class="n">jr</span><span class="o">.</span><span class="n">test_ejr</span><span class="p">,</span>  <span class="c1"># unsupported feature</span>
+<span class="p">}</span>
+
+<span class="n">registered_ordinal_features</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;highest_borda_score&#39;</span><span class="p">:</span> <span class="n">scores</span><span class="o">.</span><span class="n">highest_borda_score</span><span class="p">,</span>
+    <span class="s1">&#39;highest_plurality_score&#39;</span><span class="p">:</span> <span class="n">scores</span><span class="o">.</span><span class="n">highest_plurality_score</span><span class="p">,</span>
+    <span class="s1">&#39;highest_copeland_score&#39;</span><span class="p">:</span> <span class="n">scores</span><span class="o">.</span><span class="n">highest_copeland_score</span><span class="p">,</span>
+    <span class="s1">&#39;lowest_dodgson_score&#39;</span><span class="p">:</span> <span class="n">scores</span><span class="o">.</span><span class="n">lowest_dodgson_score</span><span class="p">,</span>
+    <span class="s1">&#39;highest_cc_score&#39;</span><span class="p">:</span> <span class="n">scores</span><span class="o">.</span><span class="n">highest_cc_score</span><span class="p">,</span>
+    <span class="s1">&#39;highest_hb_score&#39;</span><span class="p">:</span> <span class="n">scores</span><span class="o">.</span><span class="n">highest_hb_score</span><span class="p">,</span>
+    <span class="s1">&#39;highest_pav_score&#39;</span><span class="p">:</span> <span class="n">scores</span><span class="o">.</span><span class="n">highest_pav_score</span><span class="p">,</span>
+    <span class="s1">&#39;greedy_approx_cc_score&#39;</span><span class="p">:</span> <span class="n">approx</span><span class="o">.</span><span class="n">get_greedy_approx_cc_score</span><span class="p">,</span>
+    <span class="s1">&#39;removal_approx_cc_score&#39;</span><span class="p">:</span> <span class="n">approx</span><span class="o">.</span><span class="n">get_removal_approx_cc_score</span><span class="p">,</span>
+    <span class="s1">&#39;greedy_approx_hb_score&#39;</span><span class="p">:</span> <span class="n">approx</span><span class="o">.</span><span class="n">get_greedy_approx_hb_score</span><span class="p">,</span>
+    <span class="s1">&#39;removal_approx_hb_score&#39;</span><span class="p">:</span> <span class="n">approx</span><span class="o">.</span><span class="n">get_removal_approx_hb_score</span><span class="p">,</span>
+    <span class="s1">&#39;greedy_approx_pav_score&#39;</span><span class="p">:</span> <span class="n">approx</span><span class="o">.</span><span class="n">get_greedy_approx_pav_score</span><span class="p">,</span>
+    <span class="s1">&#39;removal_approx_pav_score&#39;</span><span class="p">:</span> <span class="n">approx</span><span class="o">.</span><span class="n">get_removal_approx_pav_score</span><span class="p">,</span>
+    <span class="s1">&#39;banzhaf_cc_score&#39;</span><span class="p">:</span> <span class="n">banzhaf_cc</span><span class="o">.</span><span class="n">get_banzhaf_cc_score</span><span class="p">,</span>
+    <span class="s1">&#39;ranging_cc_score&#39;</span><span class="p">:</span> <span class="n">ranging_cc</span><span class="o">.</span><span class="n">get_ranging_cc_score</span><span class="p">,</span>
+    <span class="s1">&#39;num_of_diff_votes&#39;</span><span class="p">:</span> <span class="n">vcd</span><span class="o">.</span><span class="n">num_of_diff_votes</span><span class="p">,</span>
+    <span class="s1">&#39;voterlikeness_sqrt&#39;</span><span class="p">:</span> <span class="n">vcd</span><span class="o">.</span><span class="n">voterlikeness_sqrt</span><span class="p">,</span>
+    <span class="s1">&#39;voterlikeness_harmonic&#39;</span><span class="p">:</span> <span class="n">vcd</span><span class="o">.</span><span class="n">voterlikeness_harmonic</span><span class="p">,</span>
+    <span class="s1">&#39;borda_diversity&#39;</span><span class="p">:</span> <span class="n">vcd</span><span class="o">.</span><span class="n">borda_diversity</span><span class="p">,</span>
+    <span class="s1">&#39;borda_std&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">borda_std</span><span class="p">,</span>
+    <span class="s1">&#39;borda_range&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">borda_range</span><span class="p">,</span>
+    <span class="s1">&#39;borda_gini&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">borda_gini</span><span class="p">,</span>
+    <span class="s1">&#39;borda_meandev&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">borda_meandev</span><span class="p">,</span>
+    <span class="s1">&#39;cand_dom_dist_mean&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">cand_dom_dist_mean</span><span class="p">,</span>
+    <span class="s1">&#39;cand_dom_dist_std&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">cand_dom_dist_std</span><span class="p">,</span>
+    <span class="s1">&#39;cand_pos_dist_std&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">cand_pos_dist_std</span><span class="p">,</span>
+    <span class="s1">&#39;cand_pos_dist_gini&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">cand_pos_dist_gini</span><span class="p">,</span>
+    <span class="s1">&#39;cand_pos_dist_meandev&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">cand_pos_dist_meandev</span><span class="p">,</span>
+    <span class="s1">&#39;med_cands_summed&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">med_cands_summed</span><span class="p">,</span>
+    <span class="s1">&#39;vote_dist_mean&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">vote_dist_mean</span><span class="p">,</span>
+    <span class="s1">&#39;vote_dist_max&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">vote_dist_max</span><span class="p">,</span>
+    <span class="s1">&#39;vote_dist_med&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">vote_dist_med</span><span class="p">,</span>
+    <span class="s1">&#39;vote_dist_gini&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">vote_dist_gini</span><span class="p">,</span>
+    <span class="s1">&#39;vote_sqr_dist_mean&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">vote_sqr_dist_mean</span><span class="p">,</span>
+    <span class="s1">&#39;vote_sqr_dist_med&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">vote_sqr_dist_med</span><span class="p">,</span>
+    <span class="s1">&#39;vote_diversity_Karpov&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">vote_diversity_Karpov</span><span class="p">,</span>
+    <span class="s1">&#39;greedy_kKemenys_summed&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">greedy_kKemenys_summed</span><span class="p">,</span>
+    <span class="s1">&#39;greedy_2kKemenys_summed&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">greedy_2kKemenys_summed</span><span class="p">,</span>
+    <span class="s1">&#39;greedy_kKemenys_divk_summed&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">greedy_kKemenys_divk_summed</span><span class="p">,</span>
+    <span class="s1">&#39;polarization_1by2Kemenys&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">polarization_1by2Kemenys</span><span class="p">,</span>
+    <span class="s1">&#39;greedy_kmeans_summed&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">greedy_kmeans_summed</span><span class="p">,</span>
+    <span class="s1">&#39;support_pairs&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">support_pairs</span><span class="p">,</span>
+    <span class="s1">&#39;support_triplets&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">support_triplets</span><span class="p">,</span>
+    <span class="s1">&#39;support_votes&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">support_votes</span><span class="p">,</span>
+    <span class="s1">&#39;support_diversity_summed&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">support_diversity_summed</span><span class="p">,</span>
+    <span class="s1">&#39;support_diversity_normed_summed&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">support_diversity_normed_summed</span><span class="p">,</span>
+    <span class="s1">&#39;support_diversity_normed2_summed&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">support_diversity_normed2_summed</span><span class="p">,</span>
+    <span class="s1">&#39;support_diversity_normed3_summed&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">support_diversity_normed3_summed</span><span class="p">,</span>
+    <span class="s1">&#39;dist_to_Borda_mean&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">dist_to_Borda_mean</span><span class="p">,</span>
+    <span class="s1">&#39;dist_to_Kemeny_mean&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">dist_to_Kemeny_mean</span><span class="p">,</span>
+    <span class="s1">&#39;borda_spread&#39;</span><span class="p">:</span> <span class="n">scores</span><span class="o">.</span><span class="n">borda_spread</span><span class="p">,</span>
+    <span class="s1">&#39;Entropy&#39;</span><span class="p">:</span> <span class="n">entropy</span><span class="o">.</span><span class="n">entropy</span><span class="p">,</span>
+    <span class="s1">&#39;Agreement&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">agreement_index</span><span class="p">,</span>
+    <span class="s1">&#39;Diversity&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">diversity_index</span><span class="p">,</span>
+    <span class="s1">&#39;Polarization&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">polarization_index</span><span class="p">,</span>
+    <span class="s1">&#39;AgreementApprox&#39;</span><span class="p">:</span> <span class="n">dap_approx</span><span class="o">.</span><span class="n">agreement_index</span><span class="p">,</span>
+    <span class="s1">&#39;DiversityApprox&#39;</span><span class="p">:</span> <span class="n">dap_approx</span><span class="o">.</span><span class="n">diversity_index</span><span class="p">,</span>
+    <span class="s1">&#39;PolarizationApprox&#39;</span><span class="p">:</span> <span class="n">dap_approx</span><span class="o">.</span><span class="n">polarization_index</span><span class="p">,</span>
+    <span class="s1">&#39;avg_distortion_from_guardians&#39;</span><span class="p">:</span> <span class="n">distortion</span><span class="o">.</span><span class="n">avg_distortion_from_guardians</span><span class="p">,</span>
+    <span class="c1"># unsupported feature</span>
+    <span class="s1">&#39;worst_distortion_from_guardians&#39;</span><span class="p">:</span> <span class="n">distortion</span><span class="o">.</span><span class="n">worst_distortion_from_guardians</span><span class="p">,</span>
+    <span class="c1"># unsupported feature</span>
+    <span class="s1">&#39;abstract&#39;</span><span class="p">:</span> <span class="n">other</span><span class="o">.</span><span class="n">abstract</span><span class="p">,</span>  <span class="c1"># unsupported feature</span>
+    <span class="s1">&#39;distortion&#39;</span><span class="p">:</span> <span class="n">distortion</span><span class="p">,</span>  <span class="c1"># unsupported feature</span>
+    <span class="s1">&#39;monotonicity_triplets&#39;</span><span class="p">:</span> <span class="n">distortion</span><span class="o">.</span><span class="n">monotonicity_triplets</span><span class="p">,</span>  <span class="c1"># unsupported feature</span>
+    <span class="s1">&#39;partylist&#39;</span><span class="p">:</span> <span class="n">partylist</span><span class="o">.</span><span class="n">partylistdistance</span><span class="p">,</span>  <span class="c1"># unsupported feature</span>
+    <span class="s1">&#39;pav_time&#39;</span><span class="p">:</span> <span class="n">partylist</span><span class="o">.</span><span class="n">pav_time</span><span class="p">,</span>  <span class="c1"># unsupported feature</span>
+    <span class="s1">&#39;justified_ratio&#39;</span><span class="p">:</span> <span class="n">other</span><span class="o">.</span><span class="n">justified_ratio</span><span class="p">,</span>  <span class="c1"># unsupported feature</span>
+    <span class="s1">&#39;rand_approx_pav_score&#39;</span><span class="p">:</span> <span class="n">approx</span><span class="o">.</span><span class="n">get_rand_approx_pav_score</span><span class="p">,</span>  <span class="c1"># unsupported feature</span>
+    <span class="s1">&#39;min_dim&#39;</span><span class="p">:</span> <span class="n">dimensionality</span><span class="o">.</span><span class="n">min_dim</span><span class="p">,</span>  <span class="c1"># unsupported feature</span>
+<span class="p">}</span>
+
+
+<div class="viewcode-block" id="get_global_feature">
+<a class="viewcode-back" href="../../../reference/features/main.html#mapof.elections.features.get_global_feature">[docs]</a>
+<span class="k">def</span> <span class="nf">get_global_feature</span><span class="p">(</span><span class="n">feature_id</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Global feature depends on all instances &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">feature_id</span> <span class="ow">in</span> <span class="n">MAIN_GLOBAL_FEATUERS</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">core_features</span><span class="o">.</span><span class="n">feature_id</span>
+
+    <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;clustering&#39;</span><span class="p">:</span> <span class="n">clustering</span><span class="o">.</span><span class="n">clustering_v1</span><span class="p">,</span>
+            <span class="s1">&#39;clustering_kmeans&#39;</span><span class="p">:</span> <span class="n">clustering</span><span class="o">.</span><span class="n">clustering_kmeans</span><span class="p">,</span>
+            <span class="s1">&#39;distortion_from_all&#39;</span><span class="p">:</span> <span class="n">distortion</span><span class="o">.</span><span class="n">distortion_from_all</span><span class="p">,</span>
+            <span class="s1">&#39;id_vs_un&#39;</span><span class="p">:</span> <span class="n">clustering</span><span class="o">.</span><span class="n">id_vs_un</span><span class="p">,</span>
+            <span class="s1">&#39;an_vs_st&#39;</span><span class="p">:</span> <span class="n">clustering</span><span class="o">.</span><span class="n">an_vs_st</span><span class="p">,</span>
+            <span class="p">}</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">feature_id</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="get_local_feature">
+<a class="viewcode-back" href="../../../reference/features/main.html#mapof.elections.features.get_local_feature">[docs]</a>
+<span class="k">def</span> <span class="nf">get_local_feature</span><span class="p">(</span><span class="n">feature_id</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Local feature depends only on a single instance &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">feature_id</span> <span class="ow">in</span> <span class="n">registered_approval_features</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">registered_approval_features</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">feature_id</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">feature_id</span> <span class="ow">in</span> <span class="n">registered_ordinal_features</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">registered_ordinal_features</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">feature_id</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Incorrect feature id: </span><span class="si">{</span><span class="n">feature_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="add_approval_feature">
+<a class="viewcode-back" href="../../../reference/features/main.html#mapof.elections.features.add_approval_feature">[docs]</a>
+<span class="k">def</span> <span class="nf">add_approval_feature</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">function</span><span class="p">:</span> <span class="nb">callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Adds a new approval feature to the list of available approval features.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">        name : str</span>
+<span class="sd">            Name of the feature.</span>
+<span class="sd">        function : callable</span>
+<span class="sd">            function that calculates the feature.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">        None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">registered_approval_features</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">function</span></div>
+
+
+
+<div class="viewcode-block" id="add_ordinal_feature">
+<a class="viewcode-back" href="../../../reference/features/main.html#mapof.elections.features.add_ordinal_feature">[docs]</a>
+<span class="k">def</span> <span class="nf">add_ordinal_feature</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">function</span><span class="p">:</span> <span class="nb">callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Adds a new approval feature to the list of available approval features.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">        name : str</span>
+<span class="sd">            Name of the feature.</span>
+<span class="sd">        function : callable</span>
+<span class="sd">            function that calculates the feature.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">        None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">registered_ordinal_features</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">function</span></div>
+
+
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;get_global_feature&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;get_local_feature&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;add_approval_feature&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;add_ordinal_feature&#39;</span>
+<span class="p">]</span>
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Stanisław Szufa and Andrzej Kaczmarczyk
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024, Stanisław Szufa and Andrzej Kaczmarczyk.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

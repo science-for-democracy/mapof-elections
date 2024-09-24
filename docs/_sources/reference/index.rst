@@ -7,5 +7,6 @@ Code Reference
 
     cultures/index
     distances/index
+    features/index
     objects/index
     persistence/index

@@ -1,0 +1,663 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mapof.elections.cultures &#8212; Map of Elections</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js?v=dea914ae"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/mapof/elections/cultures';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Map of Elections</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Mapof-Elections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quick Start</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../reference/index.html">Code Reference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../reference/cultures/index.html">Cultures</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cultures/main.html">Main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cultures/euclidean.html">Euclidean</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cultures/guardians.html">Guardians</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../reference/distances/index.html">Distances</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/distances/main.html">Main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/distances/main_approval_distances.html">Approval Distances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/distances/main_ordinal_distances.html">Ordinal Distances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/distances/committee_distances.html">Committee Distances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/distances/feature_distance.html">Feature Distance</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../reference/objects/index.html">Objects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/objects/Election.html">Election</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/objects/ApprovalElection.html">ApprovalElection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/objects/ApprovalElectionExperiment.html">ApprovalElectionExperiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/objects/OrdinalElection.html">OrdinalElection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/objects/OrdinalElectionExperiment.html">OrdinalElectionExperiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/objects/ElectionFamily.html">ElectionFamily</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../reference/persistence/index.html">Persistence</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/persistence/election_imports.html">Election Imports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/persistence/election_exports.html">Election Exports</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../citation.html">Citation Policy</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/science-for-democracy/mapof-elections" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for mapof.elections.cultures</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="kn">import</span> <span class="nn">mapof.elections.cultures.to_be_removed.mallows_urn</span> <span class="k">as</span> <span class="nn">mallows_urn</span>
+
+<span class="kn">import</span> <span class="nn">mapof.elections.cultures.guardians</span> <span class="k">as</span> <span class="nn">guardians</span>
+<span class="kn">import</span> <span class="nn">mapof.elections.cultures.guardians_plus</span> <span class="k">as</span> <span class="nn">guardians_plus</span>
+<span class="kn">import</span> <span class="nn">mapof.elections.cultures.mallows</span> <span class="k">as</span> <span class="nn">mallows</span>
+<span class="kn">import</span> <span class="nn">mapof.elections.cultures.matrices.single_peaked_matrices</span> <span class="k">as</span> <span class="nn">sp_matrices</span>
+<span class="kn">import</span> <span class="nn">mapof.elections.cultures.unused</span> <span class="k">as</span> <span class="nn">unused</span>
+
+<span class="kn">from</span> <span class="nn">mapof.elections.cultures.nonstandard.alliances</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">mapof.elections.cultures.nonstandard.field_experiment</span> <span class="k">as</span> <span class="nn">fe</span>
+<span class="kn">from</span> <span class="nn">mapof.elections.cultures.preflib</span> <span class="kn">import</span> <span class="n">generate_preflib_votes</span>
+
+<span class="kn">import</span> <span class="nn">mapof.elections.cultures.group_separable</span> <span class="k">as</span> <span class="nn">group_separable</span>
+<span class="kn">import</span> <span class="nn">mapof.elections.cultures.euclidean</span> <span class="k">as</span> <span class="nn">euclidean</span>
+<span class="kn">import</span> <span class="nn">mapof.elections.cultures.urn</span> <span class="k">as</span> <span class="nn">urn</span>
+<span class="kn">import</span> <span class="nn">mapof.elections.cultures.identity</span> <span class="k">as</span> <span class="nn">identity</span>
+
+<span class="kn">from</span> <span class="nn">mapof.elections.other.glossary</span> <span class="kn">import</span> <span class="n">LIST_OF_FAKE_MODELS</span><span class="p">,</span> <span class="n">LIST_OF_PREFLIB_MODELS</span>
+
+<span class="kn">import</span> <span class="nn">prefsampling.ordinal</span> <span class="k">as</span> <span class="nn">pref_ordinal</span>
+<span class="kn">import</span> <span class="nn">prefsampling.approval</span> <span class="k">as</span> <span class="nn">pref_approval</span>
+
+<span class="n">registered_approval_cultures</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;impartial&#39;</span><span class="p">:</span> <span class="n">pref_approval</span><span class="o">.</span><span class="n">impartial</span><span class="p">,</span>
+    <span class="s1">&#39;impartial_culture&#39;</span><span class="p">:</span> <span class="n">pref_approval</span><span class="o">.</span><span class="n">impartial</span><span class="p">,</span>
+    <span class="s1">&#39;ic&#39;</span><span class="p">:</span> <span class="n">pref_approval</span><span class="o">.</span><span class="n">impartial</span><span class="p">,</span>
+    <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">identity</span><span class="o">.</span><span class="n">identity_mask</span><span class="p">,</span>
+
+    <span class="s1">&#39;resampling&#39;</span><span class="p">:</span> <span class="n">pref_approval</span><span class="o">.</span><span class="n">resampling</span><span class="p">,</span>
+    <span class="s1">&#39;disjoint_resampling&#39;</span><span class="p">:</span> <span class="n">pref_approval</span><span class="o">.</span><span class="n">disjoint_resampling</span><span class="p">,</span>
+    <span class="s1">&#39;moving_resampling&#39;</span><span class="p">:</span> <span class="n">pref_approval</span><span class="o">.</span><span class="n">moving_resampling</span><span class="p">,</span>
+    <span class="s1">&#39;noise&#39;</span><span class="p">:</span> <span class="n">pref_approval</span><span class="o">.</span><span class="n">noise</span><span class="p">,</span>
+    <span class="s1">&#39;euclidean&#39;</span><span class="p">:</span> <span class="n">euclidean</span><span class="o">.</span><span class="n">euclidean_app_mask</span><span class="p">,</span>
+    <span class="s1">&#39;full&#39;</span><span class="p">:</span> <span class="n">pref_approval</span><span class="o">.</span><span class="n">full</span><span class="p">,</span>
+    <span class="s1">&#39;empty&#39;</span><span class="p">:</span> <span class="n">pref_approval</span><span class="o">.</span><span class="n">empty</span><span class="p">,</span>
+    <span class="s1">&#39;truncated_urn&#39;</span><span class="p">:</span> <span class="n">urn</span><span class="o">.</span><span class="n">truncated_urn_mask</span><span class="p">,</span>
+    <span class="s1">&#39;urn_partylist&#39;</span><span class="p">:</span> <span class="n">pref_approval</span><span class="o">.</span><span class="n">urn_partylist</span><span class="p">,</span>
+
+    <span class="s1">&#39;field&#39;</span><span class="p">:</span> <span class="n">fe</span><span class="o">.</span><span class="n">generate_approval_field_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
+    <span class="s1">&#39;truncated_mallows&#39;</span><span class="p">:</span> <span class="n">mallows</span><span class="o">.</span><span class="n">generate_approval_truncated_mallows_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
+
+    <span class="s1">&#39;approval_full&#39;</span><span class="p">:</span> <span class="n">pref_approval</span><span class="o">.</span><span class="n">full</span><span class="p">,</span>  <span class="c1"># deprecated name</span>
+    <span class="s1">&#39;approval_empty&#39;</span><span class="p">:</span> <span class="n">pref_approval</span><span class="o">.</span><span class="n">empty</span><span class="p">,</span>  <span class="c1"># deprecated name</span>
+<span class="p">}</span>
+
+<span class="n">registered_ordinal_cultures</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;identity&#39;</span><span class="p">:</span> <span class="n">pref_ordinal</span><span class="o">.</span><span class="n">identity</span><span class="p">,</span>
+    <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">pref_ordinal</span><span class="o">.</span><span class="n">identity</span><span class="p">,</span>
+    <span class="s1">&#39;impartial_culture&#39;</span><span class="p">:</span> <span class="n">pref_ordinal</span><span class="o">.</span><span class="n">impartial</span><span class="p">,</span>
+    <span class="s1">&#39;impartial&#39;</span><span class="p">:</span> <span class="n">pref_ordinal</span><span class="o">.</span><span class="n">impartial</span><span class="p">,</span>
+    <span class="s1">&#39;ic&#39;</span><span class="p">:</span> <span class="n">pref_ordinal</span><span class="o">.</span><span class="n">impartial</span><span class="p">,</span>
+    <span class="s1">&#39;iac&#39;</span><span class="p">:</span> <span class="n">pref_ordinal</span><span class="o">.</span><span class="n">impartial_anonymous</span><span class="p">,</span>
+    <span class="s1">&#39;real_antagonism&#39;</span><span class="p">:</span> <span class="n">guardians</span><span class="o">.</span><span class="n">generate_real_antagonism_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
+    <span class="s1">&#39;antagonism&#39;</span><span class="p">:</span> <span class="n">guardians</span><span class="o">.</span><span class="n">generate_real_antagonism_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
+    <span class="s1">&#39;an&#39;</span><span class="p">:</span> <span class="n">guardians</span><span class="o">.</span><span class="n">generate_real_antagonism_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
+
+    <span class="s1">&#39;urn&#39;</span><span class="p">:</span> <span class="n">pref_ordinal</span><span class="o">.</span><span class="n">urn</span><span class="p">,</span>
+    <span class="s1">&#39;single-crossing&#39;</span><span class="p">:</span> <span class="n">pref_ordinal</span><span class="o">.</span><span class="n">single_crossing</span><span class="p">,</span>
+    <span class="s1">&#39;conitzer&#39;</span><span class="p">:</span> <span class="n">pref_ordinal</span><span class="o">.</span><span class="n">single_peaked_conitzer</span><span class="p">,</span>
+    <span class="s1">&#39;walsh&#39;</span><span class="p">:</span> <span class="n">pref_ordinal</span><span class="o">.</span><span class="n">single_peaked_walsh</span><span class="p">,</span>
+    <span class="s1">&#39;spoc&#39;</span><span class="p">:</span> <span class="n">pref_ordinal</span><span class="o">.</span><span class="n">single_peaked_circle</span><span class="p">,</span>
+    <span class="s1">&#39;stratification&#39;</span><span class="p">:</span> <span class="n">pref_ordinal</span><span class="o">.</span><span class="n">stratification</span><span class="p">,</span>
+    <span class="s1">&#39;mallows&#39;</span><span class="p">:</span> <span class="n">pref_ordinal</span><span class="o">.</span><span class="n">mallows</span><span class="p">,</span>
+    <span class="s1">&#39;didi&#39;</span><span class="p">:</span> <span class="n">pref_ordinal</span><span class="o">.</span><span class="n">didi</span><span class="p">,</span>
+
+    <span class="s1">&#39;group-separable&#39;</span><span class="p">:</span> <span class="n">group_separable</span><span class="o">.</span><span class="n">gs_mask</span><span class="p">,</span>
+    <span class="s1">&#39;euclidean&#39;</span><span class="p">:</span> <span class="n">euclidean</span><span class="o">.</span><span class="n">euclidean_ord_mask</span><span class="p">,</span>
+
+    <span class="s1">&#39;norm-mallows&#39;</span><span class="p">:</span> <span class="n">mallows</span><span class="o">.</span><span class="n">generate_mallows_votes</span><span class="p">,</span>
+    <span class="s1">&#39;real_identity&#39;</span><span class="p">:</span> <span class="n">guardians</span><span class="o">.</span><span class="n">generate_real_identity_votes</span><span class="p">,</span>
+
+    <span class="s1">&#39;plackett-luce&#39;</span><span class="p">:</span> <span class="n">pref_ordinal</span><span class="o">.</span><span class="n">plackett_luce</span><span class="p">,</span>
+
+    <span class="s1">&#39;mallows_urn&#39;</span><span class="p">:</span> <span class="n">mallows_urn</span><span class="o">.</span><span class="n">generate_mallows_urn_votes</span><span class="p">,</span>
+    <span class="s1">&#39;idan_part&#39;</span><span class="p">:</span> <span class="n">guardians_plus</span><span class="o">.</span><span class="n">generate_idan_part_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
+    <span class="s1">&#39;idun_part&#39;</span><span class="p">:</span> <span class="n">guardians_plus</span><span class="o">.</span><span class="n">generate_idun_part_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
+    <span class="s1">&#39;idst_part&#39;</span><span class="p">:</span> <span class="n">guardians_plus</span><span class="o">.</span><span class="n">generate_idst_part_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
+    <span class="s1">&#39;anun_part&#39;</span><span class="p">:</span> <span class="n">guardians_plus</span><span class="o">.</span><span class="n">generate_anun_part_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
+    <span class="s1">&#39;anst_part&#39;</span><span class="p">:</span> <span class="n">guardians_plus</span><span class="o">.</span><span class="n">generate_anst_part_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
+    <span class="s1">&#39;unst_part&#39;</span><span class="p">:</span> <span class="n">guardians_plus</span><span class="o">.</span><span class="n">generate_unst_part_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
+    <span class="s1">&#39;idan_mallows&#39;</span><span class="p">:</span> <span class="n">guardians_plus</span><span class="o">.</span><span class="n">generate_idan_mallows_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
+    <span class="s1">&#39;idst_mallows&#39;</span><span class="p">:</span> <span class="n">guardians_plus</span><span class="o">.</span><span class="n">generate_idst_mallows_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
+    <span class="s1">&#39;anun_mallows&#39;</span><span class="p">:</span> <span class="n">guardians_plus</span><span class="o">.</span><span class="n">generate_anun_mallows_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
+    <span class="s1">&#39;unst_mallows&#39;</span><span class="p">:</span> <span class="n">guardians_plus</span><span class="o">.</span><span class="n">generate_unst_mallows_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
+    <span class="s1">&#39;unst_topsize&#39;</span><span class="p">:</span> <span class="n">guardians_plus</span><span class="o">.</span><span class="n">generate_unst_topsize_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
+    <span class="s1">&#39;idst_blocks&#39;</span><span class="p">:</span> <span class="n">guardians_plus</span><span class="o">.</span><span class="n">generate_idst_blocks_votes</span><span class="p">,</span>
+    <span class="s1">&#39;norm-mallows_mixture&#39;</span><span class="p">:</span> <span class="n">mallows</span><span class="o">.</span><span class="n">generate_norm_mallows_mixture_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
+    <span class="s1">&#39;walsh_mallows&#39;</span><span class="p">:</span> <span class="n">sp_matrices</span><span class="o">.</span><span class="n">generate_walsh_mallows_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
+    <span class="s1">&#39;conitzer_mallows&#39;</span><span class="p">:</span> <span class="n">sp_matrices</span><span class="o">.</span><span class="n">generate_conitzer_mallows_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
+    <span class="s1">&#39;mallows_triangle&#39;</span><span class="p">:</span> <span class="n">mallows</span><span class="o">.</span><span class="n">generate_mallows_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
+    <span class="s1">&#39;walsh_party&#39;</span><span class="p">:</span> <span class="n">unused</span><span class="o">.</span><span class="n">generate_sp_party</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
+    <span class="s1">&#39;conitzer_party&#39;</span><span class="p">:</span> <span class="n">unused</span><span class="o">.</span><span class="n">generate_sp_party</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
+    <span class="s1">&#39;mallows_party&#39;</span><span class="p">:</span> <span class="n">mallows</span><span class="o">.</span><span class="n">generate_mallows_party</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
+    <span class="s1">&#39;ic_party&#39;</span><span class="p">:</span> <span class="n">unused</span><span class="o">.</span><span class="n">generate_ic_party</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
+    <span class="s1">&#39;real_uniformity&#39;</span><span class="p">:</span> <span class="n">guardians</span><span class="o">.</span><span class="n">generate_real_uniformity_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
+    <span class="s1">&#39;real_stratification&#39;</span><span class="p">:</span> <span class="n">guardians</span><span class="o">.</span><span class="n">generate_real_stratification_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
+    <span class="s1">&#39;un_from_matrix&#39;</span><span class="p">:</span> <span class="n">guardians_plus</span><span class="o">.</span><span class="n">generate_un_from_matrix_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
+    <span class="s1">&#39;un_from_list&#39;</span><span class="p">:</span> <span class="n">guardians_plus</span><span class="o">.</span><span class="n">generate_un_from_list</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
+
+    <span class="s1">&#39;urn_model&#39;</span><span class="p">:</span> <span class="n">pref_ordinal</span><span class="o">.</span><span class="n">urn</span><span class="p">,</span>  <span class="c1"># deprecated name</span>
+    <span class="s1">&#39;weighted_stratification&#39;</span><span class="p">:</span> <span class="n">pref_ordinal</span><span class="o">.</span><span class="n">stratification</span><span class="p">,</span>  <span class="c1"># deprecated name</span>
+<span class="p">}</span>
+
+
+<div class="viewcode-block" id="generate_approval_votes">
+<a class="viewcode-back" href="../../../reference/cultures/main.html#mapof.elections.cultures.generate_approval_votes">[docs]</a>
+<span class="k">def</span> <span class="nf">generate_approval_votes</span><span class="p">(</span>
+        <span class="n">culture_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">num_voters</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generates approval votes according to the given culture id.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">        culture_id : str</span>
+<span class="sd">            Name of the culture.</span>
+<span class="sd">        num_voters : int</span>
+<span class="sd">            Number of Voters.</span>
+<span class="sd">        num_candidates : int</span>
+<span class="sd">            Number of Candidates</span>
+<span class="sd">        params : dict</span>
+<span class="sd">            Culture parameters.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">culture_id</span> <span class="ow">in</span> <span class="n">registered_approval_cultures</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">registered_approval_cultures</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">culture_id</span><span class="p">)(</span><span class="n">num_voters</span><span class="p">,</span> <span class="n">num_candidates</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;No such culture id: </span><span class="si">{</span><span class="n">culture_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[]</span></div>
+
+
+
+<div class="viewcode-block" id="generate_ordinal_votes">
+<a class="viewcode-back" href="../../../reference/cultures/main.html#mapof.elections.cultures.generate_ordinal_votes">[docs]</a>
+<span class="k">def</span> <span class="nf">generate_ordinal_votes</span><span class="p">(</span>
+        <span class="n">culture_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">num_voters</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generates approval votes according to the given culture id.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">        culture_id : str</span>
+<span class="sd">            Name of the culture.</span>
+<span class="sd">        num_voters : int</span>
+<span class="sd">            Number of Voters.</span>
+<span class="sd">        num_candidates : int</span>
+<span class="sd">            Number of Candidates</span>
+<span class="sd">        params : dict</span>
+<span class="sd">            Culture parameters.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">culture_id</span> <span class="ow">in</span> <span class="n">LIST_OF_PREFLIB_MODELS</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">votes</span> <span class="o">=</span> <span class="n">generate_preflib_votes</span><span class="p">(</span><span class="n">culture_id</span><span class="o">=</span><span class="n">culture_id</span><span class="p">,</span>
+                                           <span class="n">num_candidates</span><span class="o">=</span><span class="n">num_candidates</span><span class="p">,</span>
+                                           <span class="n">num_voters</span><span class="o">=</span><span class="n">num_voters</span><span class="p">,</span>
+                                           <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">votes</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s1">&#39;You are trying to create an election based on Preflib &#39;</span>
+                <span class="sa">f</span><span class="s1">&#39;without having the original source election. &#39;</span>
+                <span class="sa">f</span><span class="s1">&#39;Please use different culture_id than: </span><span class="si">{</span><span class="n">culture_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">culture_id</span> <span class="ow">in</span> <span class="n">registered_ordinal_cultures</span><span class="p">:</span>
+        <span class="n">votes</span> <span class="o">=</span> <span class="n">registered_ordinal_cultures</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">culture_id</span><span class="p">)(</span><span class="n">num_voters</span><span class="o">=</span><span class="n">num_voters</span><span class="p">,</span>
+                                                            <span class="n">num_candidates</span><span class="o">=</span><span class="n">num_candidates</span><span class="p">,</span>
+                                                            <span class="o">**</span><span class="n">params</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">culture_id</span> <span class="ow">in</span> <span class="n">LIST_OF_FAKE_MODELS</span><span class="p">:</span>
+        <span class="n">votes</span> <span class="o">=</span> <span class="p">[</span><span class="n">culture_id</span><span class="p">,</span> <span class="n">num_candidates</span><span class="p">,</span> <span class="n">num_voters</span><span class="p">,</span> <span class="n">params</span><span class="p">]</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">votes</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s1">&#39;No such culture id: </span><span class="si">{</span><span class="n">culture_id</span><span class="si">}</span><span class="s1"> </span><span class="se">\n</span><span class="s1">&#39;</span>
+            <span class="sa">f</span><span class="s1">&#39;If you are using your own instances then ignore this warning.&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">culture_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">LIST_OF_FAKE_MODELS</span><span class="p">:</span>
+        <span class="n">votes</span> <span class="o">=</span> <span class="p">[[</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">row</span><span class="p">]</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">votes</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">votes</span><span class="p">)</span></div>
+
+
+
+<span class="k">def</span> <span class="nf">approval_votes_to_vectors</span><span class="p">(</span><span class="n">votes</span><span class="p">,</span> <span class="n">num_candidates</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">num_voters</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">vectors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">num_candidates</span><span class="p">,</span> <span class="n">num_candidates</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">vote</span> <span class="ow">in</span> <span class="n">votes</span><span class="p">:</span>
+        <span class="n">denom_in</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">vote</span><span class="p">)</span>
+        <span class="n">denom_out</span> <span class="o">=</span> <span class="n">num_candidates</span> <span class="o">-</span> <span class="n">denom_in</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">vote</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">denom_in</span><span class="p">):</span>
+                    <span class="n">vectors</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">denom_in</span> <span class="o">/</span> <span class="n">num_voters</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">denom_out</span><span class="p">):</span>
+                    <span class="n">vectors</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">denom_in</span> <span class="o">+</span> <span class="n">j</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">denom_out</span> <span class="o">/</span> <span class="n">num_voters</span>
+    <span class="k">return</span> <span class="n">vectors</span>
+
+
+<span class="k">def</span> <span class="nf">from_approval</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                  <span class="n">num_voters</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                  <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="n">votes</span> <span class="o">=</span> <span class="n">generate_approval_votes</span><span class="p">(</span><span class="n">culture_id</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;culture_id&#39;</span><span class="p">],</span>
+                                    <span class="n">num_candidates</span><span class="o">=</span><span class="n">num_candidates</span><span class="p">,</span> <span class="n">num_voters</span><span class="o">=</span><span class="n">num_voters</span><span class="p">,</span>
+                                    <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">approval_votes_to_vectors</span><span class="p">(</span><span class="n">votes</span><span class="p">,</span> <span class="n">num_candidates</span><span class="o">=</span><span class="n">num_candidates</span><span class="p">,</span> <span class="n">num_voters</span><span class="o">=</span><span class="n">num_voters</span><span class="p">)</span>
+
+
+<span class="n">LIST_OF_ORDINAL_ALLIANCE_MODELS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;ic&#39;</span><span class="p">:</span> <span class="n">generate_ordinal_alliance_ic_votes</span><span class="p">,</span>
+    <span class="s1">&#39;urn&#39;</span><span class="p">:</span> <span class="n">generate_ordinal_alliance_urn_votes</span><span class="p">,</span>
+    <span class="s1">&#39;euc&#39;</span><span class="p">:</span> <span class="n">generate_ordinal_alliance_euclidean_votes</span><span class="p">,</span>
+    <span class="s1">&#39;allied_euc&#39;</span><span class="p">:</span> <span class="n">generate_ordinal_alliance_allied_euclidean_votes</span><span class="p">,</span>
+    <span class="s1">&#39;norm-mallows&#39;</span><span class="p">:</span> <span class="n">generate_ordinal_alliance_norm_mallows_votes</span><span class="p">,</span>
+<span class="p">}</span>
+
+
+<span class="k">def</span> <span class="nf">generate_ordinal_alliance_votes</span><span class="p">(</span><span class="n">culture_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                                    <span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                                    <span class="n">num_voters</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                                    <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">culture_id</span> <span class="ow">in</span> <span class="n">LIST_OF_ORDINAL_ALLIANCE_MODELS</span><span class="p">:</span>
+        <span class="n">votes</span><span class="p">,</span> <span class="n">alliances</span> <span class="o">=</span> <span class="n">LIST_OF_ORDINAL_ALLIANCE_MODELS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">culture_id</span><span class="p">)(</span>
+            <span class="n">num_voters</span><span class="o">=</span><span class="n">num_voters</span><span class="p">,</span>
+            <span class="n">num_candidates</span><span class="o">=</span><span class="n">num_candidates</span><span class="p">,</span>
+            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">votes</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">alliances</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;No such culture id: </span><span class="si">{</span><span class="n">culture_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">votes</span><span class="p">),</span> <span class="n">alliances</span>
+
+
+<div class="viewcode-block" id="add_approval_culture">
+<a class="viewcode-back" href="../../../reference/cultures/main.html#mapof.elections.cultures.add_approval_culture">[docs]</a>
+<span class="k">def</span> <span class="nf">add_approval_culture</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">function</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Adds a new approval culture to the list of available approval cultures.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">        name:</span>
+<span class="sd">            Name of the culture, which will be used as culture id.</span>
+<span class="sd">        function : str</span>
+<span class="sd">            Function that generates the votes.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">registered_approval_cultures</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">function</span></div>
+
+
+
+<div class="viewcode-block" id="add_ordinal_culture">
+<a class="viewcode-back" href="../../../reference/cultures/main.html#mapof.elections.cultures.add_ordinal_culture">[docs]</a>
+<span class="k">def</span> <span class="nf">add_ordinal_culture</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">function</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Adds a new ordinal culture to the list of available ordinal cultures.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">        name:</span>
+<span class="sd">            Name of the culture, which will be used as culture id.</span>
+<span class="sd">        function : str</span>
+<span class="sd">            Function that generates the votes.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">registered_ordinal_cultures</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">function</span></div>
+
+
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;generate_approval_votes&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;generate_ordinal_votes&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;generate_ordinal_alliance_votes&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;add_approval_culture&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;add_ordinal_culture&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;approval_votes_to_vectors&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;from_approval&#39;</span>
+<span class="p">]</span>
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Stanisław Szufa and Andrzej Kaczmarczyk
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024, Stanisław Szufa and Andrzej Kaczmarczyk.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -17,9 +17,9 @@ from mapof.elections.distances import main_ordinal_distances as mod
 from mapof.elections.distances import positionwise_infty
 
 registered_approval_distances = {
-    'approvalwise': mad.compute_approvalwise,
+    'approvalwise': mad.compute_approvalwise_distance,
 
-    'hamming': mad.compute_hamming,  # unsupported distance
+    'hamming': mad.compute_approvalwise_distance,  # unsupported distance
 }
 
 registered_ordinal_distances = {

@@ -7,7 +7,7 @@ from mapof.elections.objects.ApprovalElection import ApprovalElection
 
 
 # MAIN APPROVAL DISTANCES
-def compute_approvalwise(election_1: ApprovalElection, election_2: ApprovalElection,
+def compute_approvalwise_distance(election_1: ApprovalElection, election_2: ApprovalElection,
                          inner_distance: Callable) -> (float, list):
     """ Return: approvalwise distance """
     election_1.votes_to_approvalwise_vector()
@@ -16,7 +16,7 @@ def compute_approvalwise(election_1: ApprovalElection, election_2: ApprovalElect
 
 
 # WAITING FOR UPDATE
-def compute_hamming(election_1: ApprovalElection, election_2: ApprovalElection) -> float:
+def compute_hamming_distance(election_1: ApprovalElection, election_2: ApprovalElection) -> float:
     """ Return: Hamming distance """
     return -1
 

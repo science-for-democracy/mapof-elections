@@ -22,6 +22,13 @@ General Tasks
 Generate Ordinal Election from Statistical Culture
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+.. raw:: html
+
+    <div style="background-color: #cce0ff; padding: 5px; border-radius: 5px;">
+        <strong>Objective</strong>
+        <em>Generate impartial culture election with 5 candidates and 50 voters.</em>
+    </div>
+
 In this section, you will learn how to generate ordinal elections from different statistical cultures. We will start by defining what we mean by an election.
 
 Formally, an ordinal election is a pair :math:`E=(C,V)` that consists of a set of candidates :math:`C` and a collection of voters :math:`V`, where each voter has a strict preference order (vote), that is, each voter ranks all the candidates in :math:`C` from the most to the least desirable one. We use terms voter and vote interchangeably. In practice, an ``OrdinalElection`` is an abstract object that, among other fields, contains:
@@ -46,12 +53,12 @@ E.g., ``votes = [[0,1,2,3],[2,0,3,1],[3,1,2,0]]`` refers to an election with thr
     2 ≻ 0 ≻ 3 ≻ 1
     3 ≻ 1 ≻ 2 ≻ 0
 
+.. raw:: html
 
-**Objective:**
-Generate impartial culture election with 5 candidates and 50 voters.
-
-**Solution:**
-To generate an election we use the ``generate_ordinal_election()`` function:
+    <div style="background-color: #ccffcc; padding: 5px; border-radius: 5px;">
+    <strong>Solution</strong>
+    To generate an election we use the ``generate_ordinal_election()`` function:
+    </div>
 
 .. code-block:: python
 
@@ -67,6 +74,13 @@ To generate an election we use the ``generate_ordinal_election()`` function:
 
 Generate Approval Election from Statistical Culture
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. raw:: html
+
+    <div style="background-color: #cce0ff; padding: 5px; border-radius: 5px;">
+        <strong>Objective</strong>
+        <em>Generate impartial culture election with 20 candidates and 100 voters</em>
+    </div>
 
 .. role:: python(code)
    :language: python
@@ -96,12 +110,12 @@ For example, ``votes = [{0,1},{1,2,3},{2}]`` refers to an election with three fo
    :math:`{2}`.
 
 
-**Objective:**
-Generate impartial culture election with 20 candidates and 100 voters
+.. raw:: html
 
-
-**Solution:**
-To generate an election, we use the ``generate_approval_election()`` function:
+    <div style="background-color: #ccffcc; padding: 5px; border-radius: 5px;">
+    <strong>Solution</strong>
+    To generate an election, we use the ``generate_approval_election()`` function:
+    </div>
 
 .. code-block:: python
 
@@ -133,8 +147,13 @@ Instead of using a statistical culture, you can also generate elections based on
 
 Compute Borda Score
 ~~~~~~~~~~~~~~~~~~~
-**Objective:**
-Implement a function that, for a given ordinal election, returns Borda scores of all candidates.
+
+.. raw:: html
+
+    <div style="background-color: #cce0ff; padding: 5px; border-radius: 5px;">
+        <strong>Objective</strong>
+        <em>Compute Borda scores for a given ordinal election.</em>
+    </div>
 
 First, we need to create a ``scores`` list and fill it with zeros.
 
@@ -152,8 +171,12 @@ Second, we need to iterate through all the votes and add appropriate points to c
 
 
 
-**Solution:**
-The complete function looks as follows:
+.. raw:: html
+
+    <div style="background-color: #ccffcc; padding: 5px; border-radius: 5px;">
+    <strong>Solution</strong>
+    The complete function looks as follows:
+    </div>
 
 .. code-block:: python
 
@@ -168,8 +191,12 @@ The complete function looks as follows:
 Compute Distance between Two Elections
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-**Objective:**
-Compute the EMD-Positionwise distance between two ordinal elections.
+.. raw:: html
+
+    <div style="background-color: #cce0ff; padding: 5px; border-radius: 5px;">
+    <strong>Objective</strong>
+    <em>Compute the EMD-Positionwise distance between two ordinal elections.</em>
+    </div>
 
 To compute a distance, use the ``compute_distance`` function, which takes two elections and a ``distance_id`` as input.
 
@@ -182,8 +209,12 @@ To compute a distance, use the ``compute_distance`` function, which takes two el
 
 This function returns a tuple containing the distance and the mapping that witnesses this distance. If a given distance does not use a mapping, it returns ``None`` instead.
 
-**Solution:**
-We start by generating two elections, and then we compute the distance:
+.. raw:: html
+
+    <div style="background-color: #ccffcc; padding: 5px; border-radius: 5px;">
+    <strong>Solution</strong>
+    We start by generating two elections, and then we compute the distance:
+    </div>
 
 .. code-block:: python
 
@@ -200,3 +231,256 @@ We start by generating two elections, and then we compute the distance:
                                            election_2,
                                            distance_id='emd-positionwise')
 
+
+Computing distances between approval elections works in the same way.
+A list of all implemented distances is available in :ref:`list_of_distances`.
+
+.. _experiments:
+
+Experiments
+-----------
+
+Generate Election as Part of Experiment
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. raw:: html
+
+    <div style="background-color: #cce0ff; padding: 5px; border-radius: 5px;">
+    <strong>Objective</strong>
+    <em>Generate impartial culture election with 5 candidates and 50 voters</em>
+    </div>
+
+In this section, we introduce an abstract object called ``Experiment``, which helps us keep things clear. Finally, we generate elections using the ``Experiment`` object.
+
+An ``Experiment`` is an abstract object, which, for now, can be seen as a black box in which all the computation takes place. At first, it might be confusing, but in the long run, it simplifies things. Before carrying out any other operations we need to create an empty ``Experiment``. For this, we use the function ``prepare_online_ordinal_experiment()``, which returns an empty ``Experiment``. So, in order to prepare an empty ``Experiment``, type:
+
+.. code-block:: python
+
+    experiment = mapof.prepare_online_ordinal_experiment()
+
+To give you a hint of what the ``Experiment`` is, we present some of its fields and methods:
+
+.. code-block:: python
+
+    experiment.elections
+    experiment.distances
+    experiment.coordinates
+    experiment.features
+
+    experiment.add_election()
+    experiment.add_family()
+    experiment.compute_distances()
+    experiment.embed_2d()
+    experiment.compute_feature()
+    experiment.print_map_2d()
+
+Now, we will focus on the ``add_election()`` method. In order to generate an election, it suffices to run the ``add_election()`` method, and specify the ``culture_id``. For example, if we want to generate an election from impartial culture, we type:
+
+.. code-block:: python
+
+    experiment.add_election(culture_id='ic')
+
+All elections added to the experiment are stored in an ``experiment.elections`` dictionary, where the key is the ``election_id``, and the value is the ``Election`` object. If you want to specify your own ``election_id``, you can do so using the ``election_id`` argument, for example:
+
+.. code-block:: python
+
+    experiment.add_election(culture_id='ic', election_id='IC')
+
+By default, the generated election will have 10 candidates and 100 voters. However, if you want to generate an election with a different number of candidates and voters, use the ``num_candidates`` and ``num_voters`` arguments:
+
+.. code-block:: python
+
+    experiment.add_election(culture_id='ic',
+                            num_candidates=5,
+                            num_voters=50)
+
+If you want to change the default values not for a single election, but for all elections generated in the future, type:
+
+.. code-block:: python
+
+    experiment.set_default_num_candidates(5)
+    experiment.set_default_num_voters(50)
+
+.. raw:: html
+
+    <div style="background-color: #ccffcc; padding: 5px; border-radius: 5px;">
+    <strong>Solution</strong> Our aim was to generate an impartial culture election (with 5 candidates and 50 voters) within the experiment. Below we present the code with the solution.
+    </div>
+
+.. code-block:: python
+
+    experiment = mapof.prepare_online_ordinal_experiment()
+    experiment.add_election(culture_id='ic',
+                            num_candidates=5,
+                            num_voters=50)
+
+Generate Family of Elections
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. raw:: html
+
+    <div style="background-color: #cce0ff; padding: 5px; border-radius: 5px;">
+    <strong>Objective</strong> <em>Generate 20 elections from Normalized Mallows culture with norm-ϕ = 0.5</em>
+    </div>
+
+If you would like to add many elections from the same culture, instead of adding them one by one, you can add them as one family of elections.
+
+.. code-block:: python
+
+    experiment.add_family(culture_id='ic', size=10)
+
+The main difference between ``add_election`` and ``add_family`` is the fact that the latter function has an additional argument called size, which specifies how many elections from a given distribution will be created.
+
+Moreover, note that instead of impartial culture, we want to generate Normalized Mallows elections, which are parameterized by norm-ϕ. To generate a single Normalized Mallows election with norm-ϕ = 0.5, we should type:
+
+.. code-block:: python
+
+    experiment.add_election(culture_id='norm-mallows', normphi=0.5)
+
+.. raw:: html
+
+    <div style="background-color: #ccffcc; padding: 5px; border-radius: 5px;">
+    <strong>Solution</strong> Joining the upper two things together we obtain the solution.
+    </div>
+
+.. code-block:: python
+
+    experiment = mapof.prepare_online_ordinal_experiment()
+    experiment.add_family(culture_id='norm-mallows', size=10, normphi=0.5)
+
+Create Map of Ordinal Elections
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. raw:: html
+
+    <div style="background-color: #cce0ff; padding: 5px; border-radius: 5px;">
+    <strong>Objective</strong> <em>Create a map of elections (from impartial and Norm-Mallows cultures)</em>
+    </div>
+
+Creating a map of elections is an ultimate tool of this package. We divide the procedure into four major steps, which we describe in detail one by one, with the exception of the first step which was described before. The steps are the following:
+
+1. Generate elections
+2. Compute distances
+3. Embed in 2D
+4. Print the map
+
+.. rubric:: Compute Distances
+
+In order to compute distances between elections, use the following function:
+
+.. code-block:: python
+
+    experiment.compute_distances(distance_id='emd-positionwise')
+
+The distances are stored in the ``distances`` field, which is a dictionary of dictionaries. If you want to access the distances, just type:
+
+.. code-block:: python
+
+    experiment.distances
+
+**Example**
+
+Let us assume that we have three elections generated from impartial culture with the following ids: ``ic_0, ic_1, ic_2``. Then, the ``distances`` (dictionary of dictionaries) look as follows:
+
+.. code-block:: python
+
+    {'ic_0': {'ic_1': 2.3, 'ic_2': 1.7},
+     'ic_1': {'ic_0': 2.3, 'ic_2': 1.9},
+     'ic_2': {'ic_0': 1.7, 'ic_1': 1.9}}
+
+.. rubric:: Embedding
+
+In order to embed the elections into 2D Euclidean space, run:
+
+.. code-block:: python
+
+    experiment.embed_2d(embedding_id='kk')
+
+The coordinates are stored in the ``coordinates`` field, which is a dictionary of lists. If you want to access the coordinates, just type:
+
+.. code-block:: python
+
+    experiment.coordinates
+
+More information about different embedding algorithms is available in TBU.
+
+**Example**
+
+Let us assume that we have four elections generated from Normalized Mallows culture with the following ids: ``mal_0, mal_1, mal_2, mal_3``. Then, the ``coordinates`` (dictionary of lists) look as follows:
+
+.. code-block:: python
+
+    {'mal_1': [0.2, 0.8],
+     'mal_2': [0.4, 0.4],
+     'mal_3': [0.3, 0.1],
+     'mal_4': [0.9, 0.7]}
+
+.. rubric:: Printing
+
+In order to print the map, run:
+
+.. code-block:: python
+
+    experiment.print_map_2d()
+
+.. _fig_ex_1:
+
+.. figure:: img/examples/ex_1.png
+    :width: 50%
+    :align: center
+
+    Example 1.
+
+.. _fig_ex_2:
+
+.. figure:: img/examples/ex_2.png
+    :width: 50%
+    :align: center
+
+    Example 2.
+
+.. raw:: html
+
+    <div style="background-color: #ccffcc; padding: 5px; border-radius: 5px;">
+    <strong>Initial Solution</strong> After combining four steps described above we obtain the following code:
+    </div>
+
+.. code-block:: python
+
+    experiment = mapof.prepare_online_ordinal_experiment()
+    experiment.add_family(culture_id='ic', size=10)
+    experiment.add_family(culture_id='norm-mallows', size=10, normphi=0.5)
+    experiment.compute_distances(distance_id='emd-positionwise')
+    experiment.embed_2d(embedding_id='fr')
+    experiment.print_map_2d()
+
+As a result of the code above, you will see two separate black clouds of points (see :ref:`fig_ex_1`). In order to make the map more pleasing, we can specify the colors/markers/label of each election or family of elections separately. We do it via ``color``, ``marker``, ``label`` arguments.
+
+.. raw:: html
+
+    <div style="background-color: #ccffcc; padding: 5px; border-radius: 5px;">
+    <strong>Improved Solution</strong>
+    </div>
+
+.. code-block:: python
+
+    experiment = mapof.prepare_online_ordinal_experiment()
+    experiment.add_family(culture_id='ic', size=10,
+                                   color='green', marker='x', label='IC')
+    experiment.add_family(culture_id='norm-mallows', size=10,
+                                   normphi=0.5,
+                                   color='blue', marker='o',
+                                   label='Norm-Mallows')
+    experiment.compute_distances(distance_id='emd-positionwise')
+    experiment.embed_2d(embedding_id='fr')
+    experiment.print_map_2d()
+
+.. _fig_original:
+
+.. figure:: img/original.png
+    :width: 50%
+    :align: center
+
+    Example 3: A map for the 10x100 dataset of Szufa et al. [2020].
+
+The picture created by the improved version is presented in :ref:`fig_ex_2`. Moreover, for illustrative purposes, in :ref:`Example 3 <fig_original>` we present the map for the 10x100 dataset of Szufa et al. [2020]. Note that the labels and arrows are created in PowerPoint and are not part of the mapof software.

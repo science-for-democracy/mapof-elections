@@ -160,7 +160,7 @@ def lowest_dodgson_score(election):
         if score < min_score:
             min_score = score
 
-    return min_score
+    return {'value': min_score}
 
 
 def highest_cc_score(election, committee_size=1):

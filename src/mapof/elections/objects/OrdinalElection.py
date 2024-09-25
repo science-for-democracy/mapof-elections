@@ -16,7 +16,7 @@ from mapof.elections.cultures.preflib import get_sushi_vectors
 from mapof.elections.cultures.matrices.single_crossing_matrices import get_single_crossing_vectors
 from mapof.elections.cultures import generate_ordinal_votes, \
     from_approval, generate_ordinal_alliance_votes
-from mapof.elections.features.other import is_condorcet
+from mapof.elections.features.simple_ordinal import is_condorcet
 from mapof.elections.objects.Election import Election
 from mapof.elections.other.winners import compute_sntv_winners, compute_borda_winners, \
     compute_stv_winners

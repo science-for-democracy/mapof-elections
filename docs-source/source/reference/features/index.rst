@@ -9,4 +9,7 @@ Features
     main
     scores
     diversity
+    dap_approximate
+    simple_ordinal
+    simple_approval
 

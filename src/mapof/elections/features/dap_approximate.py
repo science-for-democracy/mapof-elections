@@ -82,7 +82,20 @@ def get_candidate_dists(election):
         election.candidate_dists = distances
         return distances
 
+
 def agreement_index(election) -> dict:
+    """
+    Calculates the approx. agreement index of the election.
+
+    Parameters
+    ----------
+        election : OrdinalElection
+
+    Returns
+    -------
+        dict
+            'value': approx. agreement index
+    """
     if election.fake:
         return {'value': None}
     potes = get_potes(election)
@@ -156,7 +169,20 @@ def local_search_kKemeny_single_k(election, k, l, starting=None) -> dict:
         # print()
     return {'value': d}
 
+
 def polarization_index(election) -> dict:
+    """
+    Calculates the approx. polarization index of the election.
+
+    Parameters
+    ----------
+        election : OrdinalElection
+
+    Returns
+    -------
+        dict
+            'value': approx. polarization index
+    """
     if election.fake:
         return {'value': None}
 
@@ -169,7 +195,20 @@ def polarization_index(election) -> dict:
     max_dist = (election.num_candidates) * (election.num_candidates - 1) / 2
     return {'value': 2 * (first_kemeny - second_kemeny) / election.num_voters / max_dist}
 
+
 def diversity_index(election) -> dict:
+    """
+    Calculates the approx. diversity index of the election.
+
+    Parameters
+    ----------
+        election : OrdinalElection
+
+    Returns
+    -------
+        dict
+            'value': approx. diversity index
+    """
     if election.fake:
         return {'value': None}
 

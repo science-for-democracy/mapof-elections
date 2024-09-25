@@ -13,7 +13,8 @@ import mapof.elections.features.diversity as diversity
 import mapof.elections.features.entropy as entropy
 import mapof.elections.features.dap_approximate as dap_approx
 import mapof.elections.features.justified_representation as jr
-import mapof.elections.features.other as other
+import mapof.elections.features.simple_ordinal as simple_ordinal
+import mapof.elections.features.simple_approval as simple_approval
 import mapof.elections.features.partylist as partylist
 import mapof.elections.features.proportionality_degree as prop_deg
 import mapof.elections.features.ranging_cc as ranging_cc
@@ -22,9 +23,11 @@ import mapof.elections.features.vc_diversity as vcd
 
 
 registered_approval_features = {
-    'max_approval_score': other.max_approval_score,
+    'max_approval_score': simple_approval.max_approval_score,
+
     'number_of_cohesive_groups': cohesive.count_number_of_cohesive_groups,
     'number_of_cohesive_groups_brute': cohesive.count_number_of_cohesive_groups_brute,
+
     'proportionality_degree_av': prop_deg.proportionality_degree_av,
     'proportionality_degree_pav': prop_deg.proportionality_degree_pav,
     'proportionality_degree_cc': prop_deg.proportionality_degree_cc,
@@ -32,6 +35,8 @@ registered_approval_features = {
     'cohesiveness': cohesive.count_largest_cohesiveness_level_l_of_cohesive_group,
     # unsupported feature
     'ejr': jr.test_ejr,  # unsupported feature
+    'justified_ratio': simple_approval.justified_ratio,  # unsupported feature
+    'abstract': simple_approval.abstract,  # unsupported feature
 }
 
 registered_ordinal_features = {
@@ -97,12 +102,10 @@ registered_ordinal_features = {
     # unsupported feature
     'worst_distortion_from_guardians': distortion.worst_distortion_from_guardians,
     # unsupported feature
-    'abstract': other.abstract,  # unsupported feature
     'distortion': distortion,  # unsupported feature
     'monotonicity_triplets': distortion.monotonicity_triplets,  # unsupported feature
     'partylist': partylist.partylistdistance,  # unsupported feature
     'pav_time': partylist.pav_time,  # unsupported feature
-    'justified_ratio': other.justified_ratio,  # unsupported feature
     'rand_approx_pav_score': approx.get_rand_approx_pav_score,  # unsupported feature
     'min_dim': dimensionality.min_dim,  # unsupported feature
 }

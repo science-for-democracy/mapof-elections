@@ -96,7 +96,7 @@ def count_largest_cohesiveness_level_l_of_cohesive_group(election, feature_param
 
 
 def solve_ilp_instance(election, committee_size: int, l: int = 1) -> bool:
-    pulp.getSolver('CPLEX_CMD')
+    pulp.getSolver('GUROBI')
     model = pulp.LpProblem("cohesiveness_level_l", pulp.LpMaximize)
     X = [pulp.LpVariable("x_" + str(i), cat='Binary') for i in
          range(election.num_voters)]  # X[i] = 1 if we select i-th voter, otherwise 0

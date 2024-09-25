@@ -59,6 +59,9 @@ registered_ordinal_features_to_test = {
     'Agreement',
     'Diversity',
     'Polarization',
+    'AgreementApprox',
+    'DiversityApprox',
+    'PolarizationApprox',
 }
 
 

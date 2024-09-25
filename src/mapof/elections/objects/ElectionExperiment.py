@@ -212,16 +212,20 @@ class ElectionExperiment(Experiment):
         if self.families is None:
             self.families = {}
 
+        if params is None:
+            params = {}
+
         if family_id is None:
             family_id = culture_id + '_' + str(num_candidates) + '_' + str(num_voters)
-            if culture_id in {'urn'} and params['alpha'] is not None:
+            if culture_id in {'urn'} and params.get('alpha') is not None:
                 family_id += '_' + str(float(params['alpha']))
-            elif culture_id in {'mallows'} and params['phi'] is not None:
+            elif culture_id in {'mallows'} and params.get('phi') is not None:
                 family_id += '_' + str(float(params['phi']))
             elif culture_id in {'norm-mallows', 'norm-mallows_matrix'} \
-                    and params['normphi'] is not None:
+                    and params.get('normphi') is not None:
                 family_id += '_' + str(float(params['normphi']))
-            elif culture_id in {'euclidean'} and params['dim'] is not None and params['space'] is not None:
+            elif culture_id in {'euclidean'} and params.get('dim') is not None \
+                    and params.get('space') is not None:
                 family_id += '_' + str(int(params['dim'])) + '_' + str(params['space'])
 
         elif label is None:

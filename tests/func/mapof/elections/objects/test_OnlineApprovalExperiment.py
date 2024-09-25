@@ -2,9 +2,9 @@
 import mapof.elections as mapof
 
 
-class TestApprovalExperiment:
+class TestOnlineApprovalExperiment:
 
-    def test_online_approval_experiment(self):
+    def test_experiment_creation(self):
 
         experiment = mapof.prepare_online_approval_experiment()
 

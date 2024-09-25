@@ -84,7 +84,7 @@ def get_fake_convex(fake_model_name, num_candidates, num_voters, params, functio
 
 
 def convex_combination(base_1, base_2, length=0, params=None):
-    alpha = params['alpha']
+    alpha = params.get('alpha', 1)
     if base_1.ndim == 1:
         output = np.zeros([length])
         for i in range(length):

@@ -46,14 +46,6 @@ class ElectionExperiment(Experiment):
         pass
 
     @abstractmethod
-    def prepare_instances(self):
-        pass
-
-    @abstractmethod
-    def add_instance(self):
-        pass
-
-    @abstractmethod
     def add_feature(self, name, function):
         pass
 
@@ -788,6 +780,12 @@ class ElectionExperiment(Experiment):
             election[1].election_features.num_voters = election[1].num_voters
             election[1].election_features.features_vector = self.calculate_features_vector(election[1].election_id,
                                                                                            features)
+
+    def prepare_instances(self):
+        return self.prepare_elections()
+
+    def add_instance(self):
+        return self.add_election()
 
     def __getstate__(self):
             return self.__dict__

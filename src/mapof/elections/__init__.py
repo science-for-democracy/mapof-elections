@@ -10,68 +10,90 @@ from mapof.elections.objects.OrdinalElectionExperiment import OrdinalElectionExp
 
 
 def prepare_online_ordinal_experiment(**kwargs):
-    return prepare_experiment(**kwargs, instance_type='ordinal',
-                              is_exported=False, is_imported=False)
+    return prepare_experiment(
+        instance_type='ordinal',
+        is_exported=False,
+        is_imported=False,
+        **kwargs
+    )
 
 
 def prepare_offline_ordinal_experiment(**kwargs):
-    return prepare_experiment(**kwargs, instance_type='ordinal',
-                              is_exported=True, is_imported=True)
+    return prepare_experiment(
+        instance_type='ordinal',
+        is_exported=True,
+        is_imported=True,
+        **kwargs
+    )
 
 
 def prepare_online_approval_experiment(**kwargs):
-    return prepare_experiment(**kwargs, instance_type='approval',
-                              is_exported=False, is_imported=False)
+    return prepare_experiment(
+        instance_type='approval',
+        is_exported=False,
+        is_imported=False,
+        **kwargs
+    )
 
 
 def prepare_offline_approval_experiment(**kwargs):
-    return prepare_experiment(**kwargs, instance_type='approval',
-                              is_exported=True, is_imported=True)
+    return prepare_experiment(
+        instance_type='approval',
+        is_exported=True,
+        is_imported=True,
+        **kwargs
+    )
 
 
-def prepare_experiment(experiment_id=None,
-                       instances=None,
-                       distances=None,
-                       instance_type=None,
-                       coordinates=None,
-                       distance_id=None,
-                       is_imported=False,
-                       is_shifted=False,
-                       is_exported=True,
-                       coordinates_names=None,
-                       embedding_id=None,
-                       fast_import=False,
-                       with_matrix=False,
-                       dim=2):
+def prepare_experiment(
+        experiment_id=None,
+        instances=None,
+        distances=None,
+        instance_type=None,
+        coordinates=None,
+        distance_id=None,
+        is_imported=False,
+        is_shifted=False,
+        is_exported=True,
+        coordinates_names=None,
+        embedding_id=None,
+        fast_import=False,
+        with_matrix=False,
+        dim=2
+):
     if instance_type == 'ordinal':
-        return OrdinalElectionExperiment(experiment_id=experiment_id,
-                                         is_shifted=is_shifted,
-                                         instances=instances,
-                                         is_exported=is_exported,
-                                         is_imported=is_imported,
-                                         distances=distances,
-                                         coordinates=coordinates,
-                                         distance_id=distance_id,
-                                         coordinates_names=coordinates_names,
-                                         embedding_id=embedding_id,
-                                         fast_import=fast_import,
-                                         with_matrix=with_matrix,
-                                         instance_type=instance_type,
-                                         dim=dim)
+        return OrdinalElectionExperiment(
+            experiment_id=experiment_id,
+            is_shifted=is_shifted,
+            instances=instances,
+            is_exported=is_exported,
+            is_imported=is_imported,
+            distances=distances,
+            coordinates=coordinates,
+            distance_id=distance_id,
+            coordinates_names=coordinates_names,
+            embedding_id=embedding_id,
+            fast_import=fast_import,
+            with_matrix=with_matrix,
+            instance_type=instance_type,
+            dim=dim
+        )
     elif instance_type in ['approval', 'rule']:
-        return ApprovalElectionExperiment(experiment_id=experiment_id,
-                                          is_shifted=is_shifted,
-                                          instances=instances,
-                                          is_exported=is_exported,
-                                          is_imported=is_imported,
-                                          distances=distances,
-                                          coordinates=coordinates,
-                                          distance_id=distance_id,
-                                          coordinates_names=coordinates_names,
-                                          embedding_id=embedding_id,
-                                          fast_import=fast_import,
-                                          instance_type=instance_type,
-                                          dim=dim)
+        return ApprovalElectionExperiment(
+            experiment_id=experiment_id,
+            is_shifted=is_shifted,
+            instances=instances,
+            is_exported=is_exported,
+            is_imported=is_imported,
+            distances=distances,
+            coordinates=coordinates,
+            distance_id=distance_id,
+            coordinates_names=coordinates_names,
+            embedding_id=embedding_id,
+            fast_import=fast_import,
+            instance_type=instance_type,
+            dim=dim
+        )
 
 
 def print_approvals_histogram(*args):
@@ -86,7 +108,6 @@ def print_matrix(**kwargs):
     pr.print_matrix(**kwargs)
 
 
-### WITHOUT EXPERIMENT ###
 def generate_election(**kwargs):
     election = OrdinalElection(**kwargs)
     election.prepare_instance()
@@ -148,3 +169,22 @@ def generate_approval_election_from_votes(votes=None, num_candidates=None):
 
 def compute_distance(*args, **kwargs):
     return get_distance(*args, **kwargs)
+
+
+__all__ = [
+    'prepare_online_ordinal_experiment',
+    'prepare_offline_ordinal_experiment',
+    'prepare_online_approval_experiment',
+    'prepare_offline_approval_experiment',
+    'prepare_experiment',
+    'print_approvals_histogram',
+    'custom_div_cmap',
+    'print_matrix',
+    'generate_election',
+    'generate_ordinal_election',
+    'generate_approval_election',
+    'generate_election_from_votes',
+    'generate_ordinal_election_from_votes',
+    'generate_approval_election_from_votes',
+    'compute_distance'
+]

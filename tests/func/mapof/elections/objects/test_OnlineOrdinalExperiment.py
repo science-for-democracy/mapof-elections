@@ -44,7 +44,6 @@ class TestOnlineOrdinalExperiment:
             label='Norm-Mallows'
         )
 
-
     def test_experiment_creation(self):
         assert self.experiment is not None, "Experiment should be created successfully"
 

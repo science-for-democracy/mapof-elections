@@ -35,7 +35,7 @@ class TestCultures:
                                                         num_voters=num_voters,
                                                         num_candidates=num_candidates,
                                                         phi=0.4,
-                                                        p=0.4,)
+                                                        p=0.4)
         elif culture_id in ['truncated_urn']:
             election = mapel.generate_approval_election(culture_id=culture_id,
                                                     num_voters=num_voters,

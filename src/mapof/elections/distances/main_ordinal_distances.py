@@ -27,8 +27,8 @@ def compute_pos_swap_distance(election_1: OrdinalElection, election_2: OrdinalEl
 
 
 def compute_positionwise_distance(
-        election_1: OrdinalElection,
-        election_2: OrdinalElection,
+        election_1,
+        election_2,
         inner_distance: callable
 ) -> (float, list):
     """
@@ -38,7 +38,7 @@ def compute_positionwise_distance(
     ----------
         election_1 : OrdinalElection
             First election to compare.
-        election_2 : OrdinalElection.
+        election_2 : OrdinalElection
             Second election to compare.
         inner_distance : callable
             Inner distance to use.

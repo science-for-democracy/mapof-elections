@@ -107,8 +107,6 @@ def _process_soc_line(line: str, votes: list):
     vote = np.array(vote)
     for i in range(0, nr_this_vote):
         votes.append(vote)
-    pass
-
 
 def _process_app_line(line: str, votes: list):
     tokens = line.split(':')
@@ -116,8 +114,6 @@ def _process_app_line(line: str, votes: list):
     vote = set(eval(tokens[1]))
     for i in range(0, nr_this_vote):
         votes.append(vote)
-    pass
-
 
 def _process_soi_line(line: str, votes: list):
     pass

@@ -307,7 +307,7 @@ class Election(Instance):
             pass
 
         if self.is_exported and not virtual:
-            exports.export_coordinates(self, object_type=object_type, length=length)
+            exports.export_coordinates(self, object_type=object_type)
 
     def all_dist_zeros(self, object_type):
         if np.abs(self.distances[object_type]).sum():

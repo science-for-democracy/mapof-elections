@@ -2,7 +2,7 @@ import csv
 from collections import Counter
 
 from mapof.core.utils import *
-from mapof.elections.other.glossary import APPROVAL_FAKE_MODELS
+from mapof.elections.other.glossary import APPROVAL_FAKE_MODELS, LIST_OF_FAKE_MODELS
 
 
 def export_votes_to_file(
@@ -181,57 +181,55 @@ def export_ordinal_election(election,
                              is_aggregated=is_aggregated)
 
 
-def export_distances(experiment,
-                     object_type: str = 'vote',
-                     length: int = None):
+def export_distances(
+        election,
+        object_type: str = 'vote'
+) -> None:
     """
     Exports distances to a csv file.
 
     Parameters
     ----------
-        experiment
-            Experiment.
+        election
+            Election.
         object_type : str
             Object type.
-        length : int
-            Number of elections.
     """
 
-    file_name = f'{experiment.election_id}_{object_type}.csv'
-    path = os.path.join(os.getcwd(), "experiments", experiment.experiment_id, "distances",
+    file_name = f'{election.election_id}_{object_type}.csv'
+    path = os.path.join(os.getcwd(), "experiments", election.experiment_id, "distances",
                         file_name)
     with open(path, 'w', newline='') as csv_file:
         writer = csv.writer(csv_file, delimiter=';')
         writer.writerow(["v1", "v2", "distance"])
-        for v1 in range(length):
-            for v2 in range(length):
-                distance = str(experiment.distances[object_type][v1][v2])
+        for v1 in range(len(election.distances[object_type])):
+            for v2 in range(len(election.distances[object_type])):
+                distance = str(election.distances[object_type][v1][v2])
                 writer.writerow([v1, v2, distance])
 
 
-def export_coordinates(experiment,
-                       object_type: str = 'vote',
-                       length: int = None):
+def export_coordinates(
+        election,
+        object_type: str = 'vote'
+) -> None:
     """
     Exports coordinates to a csv file.
 
     Parameters
     ----------
-        experiment
-            Experiment.
+        election
+            Election
         object_type : str
             Object type.
-        length : int
-            Number of elections.
     """
 
-    file_name = f'{experiment.election_id}_{object_type}.csv'
-    path = os.path.join(os.getcwd(), "experiments", experiment.experiment_id, "coordinates",
+    file_name = f'{election.election_id}_{object_type}.csv'
+    path = os.path.join(os.getcwd(), "experiments", election.experiment_id, "coordinates",
                         file_name)
     with open(path, 'w', newline='') as csv_file:
         writer = csv.writer(csv_file, delimiter=';')
         writer.writerow(["vote_id", "x", "y"])
-        for vote_id in range(len(experiment.coordinates[object_type])):
-            x = str(experiment.coordinates[object_type][vote_id][0])
-            y = str(experiment.coordinates[object_type][vote_id][1])
+        for vote_id in range(len(election.coordinates[object_type])):
+            x = str(election.coordinates[object_type][vote_id][0])
+            y = str(election.coordinates[object_type][vote_id][1])
             writer.writerow([vote_id, x, y])

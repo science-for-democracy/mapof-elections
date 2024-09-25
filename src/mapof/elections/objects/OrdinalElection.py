@@ -394,7 +394,7 @@ class OrdinalElection(Election):
             length = self.num_candidates
 
         if self.is_exported:
-            exports.export_distances(self, object_type=object_type, length=length)
+            exports.export_distances(self, object_type=object_type)
 
     def is_condorcet(self):
         """ Check if election witness Condorcet winner"""

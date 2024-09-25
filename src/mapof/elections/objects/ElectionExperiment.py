@@ -632,65 +632,51 @@ class ElectionExperiment(Experiment):
         else:
             feature_dict = {'value': {}, 'time': {}}
 
-        if feature_id in MAIN_GLOBAL_FEATUERS or feature_id in ELECTION_GLOBAL_FEATURES:
+        feature = features.get_local_feature(feature_id)
 
-            feature = features.get_global_feature(feature_id)
+        for instance_id in tqdm(self.instances, desc=f"{feature_long_id}"):
+            instance = self.elections[instance_id]
 
-            values = feature(self, election_ids=list(self.instances), **kwargs)
+            start = time.time()
+            solution = None
+            for _ in range(num_iterations):
 
-            for instance_id in tqdm(self.instances, desc='Computing feature'):
-                feature_dict['value'][instance_id] = values[instance_id]
-                if values[instance_id] is None:
-                    feature_dict['time'][instance_id] = None
+                if feature_id in ['monotonicity_1',
+                                  'monotonicity_triplets']:
+                    value = feature(self, instance)
+
+                elif feature_id in {'avg_distortion_from_guardians',
+                                    'worst_distortion_from_guardians',
+                                    'distortion_from_all',
+                                    'distortion_from_top_100'}:
+                    value = feature(self, instance_id)
+                elif feature_id in ['ejr',
+                                    'core',
+                                    'pareto',
+                                    'priceability',
+                                    'cohesiveness']:
+                    value = instance.get_feature(feature_id, feature_long_id,
+                                                 feature_params=feature_params)
                 else:
-                    feature_dict['time'][instance_id] = 0
+                    solution = instance.get_feature(feature_id, feature_long_id,
+                                                    overwrite=overwrite, **kwargs)
+                    value = None
 
-        else:
-            feature = features.get_local_feature(feature_id)
+            total_time = time.time() - start
+            total_time /= num_iterations
 
-            for instance_id in tqdm(self.instances, desc=f"{feature_long_id}"):
-                instance = self.elections[instance_id]
-
-                start = time.time()
-                solution = None
-                for _ in range(num_iterations):
-
-                    if feature_id in ['monotonicity_1',
-                                      'monotonicity_triplets']:
-                        value = feature(self, instance)
-
-                    elif feature_id in {'avg_distortion_from_guardians',
-                                        'worst_distortion_from_guardians',
-                                        'distortion_from_all',
-                                        'distortion_from_top_100'}:
-                        value = feature(self, instance_id)
-                    elif feature_id in ['ejr',
-                                        'core',
-                                        'pareto',
-                                        'priceability',
-                                        'cohesiveness']:
-                        value = instance.get_feature(feature_id, feature_long_id,
-                                                     feature_params=feature_params)
-                    else:
-                        solution = instance.get_feature(feature_id, feature_long_id,
-                                                        overwrite=overwrite, **kwargs)
-                        value = None
-
-                total_time = time.time() - start
-                total_time /= num_iterations
-
-                if solution is not None:
-                    if type(solution) is dict:
-                        for key in solution:
-                            if key not in feature_dict:
-                                feature_dict[key] = {}
-                            feature_dict[key][instance_id] = solution[key]
-                    else:
-                        feature_dict['value'][instance_id] = solution
-                    feature_dict['time'][instance_id] = total_time
+            if solution is not None:
+                if type(solution) is dict:
+                    for key in solution:
+                        if key not in feature_dict:
+                            feature_dict[key] = {}
+                        feature_dict[key][instance_id] = solution[key]
                 else:
-                    feature_dict['value'][instance_id] = value
-                    feature_dict['time'][instance_id] = total_time
+                    feature_dict['value'][instance_id] = solution
+                feature_dict['time'][instance_id] = total_time
+            else:
+                feature_dict['value'][instance_id] = value
+                feature_dict['time'][instance_id] = total_time
 
         if saveas is None:
             saveas = feature_long_id

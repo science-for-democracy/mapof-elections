@@ -153,17 +153,29 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../quickstart.html">Quick Start</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../../reference/index.html">Code Reference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/cultures/index.html">Cultures</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/list_of_cultures.html">List of Cultures</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/main.html">Main</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/euclidean.html">Euclidean</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/guardians.html">Guardians</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/distances/index.html">Distances</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/list_of_distances.html">List of Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/main.html">Main</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/main_approval_distances.html">Approval Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/main_ordinal_distances.html">Ordinal Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/committee_distances.html">Committee Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/feature_distance.html">Feature Distance</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/features/index.html">Features</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/list_of_features.html">List of Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/main.html">Main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/scores.html">Scores</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/diversity.html">Diversity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/dap_approximate.html">Diversity Approximate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/simple_ordinal.html">Simple Ordinal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/simple_approval.html">Simple Approval</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/objects/index.html">Objects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -310,15 +322,17 @@ document.write(`
 
 <div class="viewcode-block" id="export_votes_to_file">
 <a class="viewcode-back" href="../../../../reference/persistence/election_exports.html#mapof.elections.persistence.election_exports.export_votes_to_file">[docs]</a>
-<span class="k">def</span> <span class="nf">export_votes_to_file</span><span class="p">(</span><span class="n">election</span><span class="p">,</span>
-                         <span class="n">culture_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-                         <span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-                         <span class="n">num_voters</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-                         <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
-                         <span class="n">path</span><span class="p">,</span>
-                         <span class="n">ballot_type</span><span class="p">,</span>
-                         <span class="n">votes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                         <span class="n">is_aggregated</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">export_votes_to_file</span><span class="p">(</span>
+        <span class="n">election</span><span class="p">,</span>
+        <span class="n">culture_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">num_voters</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+        <span class="n">path</span><span class="p">,</span>
+        <span class="n">ballot_type</span><span class="p">,</span>
+        <span class="n">votes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">is_aggregated</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Exports votes to a file.</span>
 
@@ -342,6 +356,10 @@ document.write(`
 <span class="sd">            Votes.</span>
 <span class="sd">        is_aggregated : bool</span>
 <span class="sd">            If True then votes are stored in aggregated way.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">        None</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">votes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">votes</span> <span class="o">=</span> <span class="n">election</span><span class="o">.</span><span class="n">votes</span>
@@ -386,8 +404,8 @@ document.write(`
                     <span class="n">file_</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
 
-            <span class="n">file_</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">num_voters</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">num_voters</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span> <span class="o">+</span>
-                        <span class="nb">str</span><span class="p">(</span><span class="n">num_voters</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="c1"># file_.write(str(num_voters) + &#39;, &#39; + str(num_voters) + &#39;, &#39; +</span>
+            <span class="c1">#             str(num_voters) + &quot;\n&quot;)</span>
 
             <span class="k">if</span> <span class="n">ballot_type</span> <span class="o">==</span> <span class="s1">&#39;approval&#39;</span><span class="p">:</span>
                 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">votes</span><span class="p">)):</span>
@@ -411,8 +429,10 @@ document.write(`
 
 <div class="viewcode-block" id="export_approval_election">
 <a class="viewcode-back" href="../../../../reference/persistence/election_exports.html#mapof.elections.persistence.election_exports.export_approval_election">[docs]</a>
-<span class="k">def</span> <span class="nf">export_approval_election</span><span class="p">(</span><span class="n">election</span><span class="p">,</span>
-                             <span class="n">is_aggregated</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">export_approval_election</span><span class="p">(</span>
+        <span class="n">election</span><span class="p">,</span>
+        <span class="n">is_aggregated</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Exports approval election in an .app file</span>
 
@@ -540,7 +560,7 @@ document.write(`
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">csv_file</span><span class="p">:</span>
         <span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">csv_file</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
         <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">([</span><span class="s2">&quot;vote_id&quot;</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">])</span>
-        <span class="k">for</span> <span class="n">vote_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">length</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">vote_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">experiment</span><span class="o">.</span><span class="n">coordinates</span><span class="p">[</span><span class="n">object_type</span><span class="p">])):</span>
             <span class="n">x</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">experiment</span><span class="o">.</span><span class="n">coordinates</span><span class="p">[</span><span class="n">object_type</span><span class="p">][</span><span class="n">vote_id</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
             <span class="n">y</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">experiment</span><span class="o">.</span><span class="n">coordinates</span><span class="p">[</span><span class="n">object_type</span><span class="p">][</span><span class="n">vote_id</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
             <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">([</span><span class="n">vote_id</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">])</span></div>

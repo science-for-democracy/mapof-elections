@@ -25,10 +25,11 @@ import prefsampling.ordinal as pref_ordinal
 import prefsampling.approval as pref_approval
 
 registered_approval_cultures = {
+    'identity': identity.identity_mask,
+    'id': identity.identity_mask,
+    'ic': pref_approval.impartial,
     'impartial': pref_approval.impartial,
     'impartial_culture': pref_approval.impartial,
-    'ic': pref_approval.impartial,
-    'id': identity.identity_mask,
 
     'resampling': pref_approval.resampling,
     'disjoint_resampling': pref_approval.disjoint_resampling,
@@ -50,9 +51,10 @@ registered_approval_cultures = {
 registered_ordinal_cultures = {
     'identity': pref_ordinal.identity,
     'id': pref_ordinal.identity,
-    'impartial_culture': pref_ordinal.impartial,
-    'impartial': pref_ordinal.impartial,
     'ic': pref_ordinal.impartial,
+    'impartial': pref_ordinal.impartial,
+    'impartial_culture': pref_ordinal.impartial,
+
     'iac': pref_ordinal.impartial_anonymous,
     'real_antagonism': guardians.generate_real_antagonism_votes,  # unsupported culture
     'antagonism': guardians.generate_real_antagonism_votes,  # unsupported culture

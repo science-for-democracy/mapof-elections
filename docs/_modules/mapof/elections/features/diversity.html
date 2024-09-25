@@ -153,6 +153,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../quickstart.html">Quick Start</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../../reference/index.html">Code Reference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/cultures/index.html">Cultures</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/list_of_cultures.html">List of Cultures</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/main.html">Main</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/euclidean.html">Euclidean</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/guardians.html">Guardians</a></li>
@@ -172,6 +173,9 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/main.html">Main</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/scores.html">Scores</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/diversity.html">Diversity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/dap_approximate.html">Diversity Approximate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/simple_ordinal.html">Simple Ordinal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/simple_approval.html">Simple Approval</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/objects/index.html">Objects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -316,6 +320,7 @@ document.write(`
 
 
 <span class="k">def</span> <span class="nf">kemeny_ranking</span><span class="p">(</span><span class="n">election</span><span class="p">):</span>
+
     <span class="n">m</span> <span class="o">=</span> <span class="n">election</span><span class="o">.</span><span class="n">num_candidates</span>
     <span class="n">wmg</span> <span class="o">=</span> <span class="n">election</span><span class="o">.</span><span class="n">votes_to_pairwise_matrix</span><span class="p">()</span>
     <span class="n">best_d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">infty</span>
@@ -452,7 +457,18 @@ document.write(`
 <div class="viewcode-block" id="agreement_index">
 <a class="viewcode-back" href="../../../../reference/features/diversity.html#mapof.elections.features.diversity.agreement_index">[docs]</a>
 <span class="k">def</span> <span class="nf">agreement_index</span><span class="p">(</span><span class="n">election</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; Calculates the agreement index of the election.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates the agreement index of the election.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">        election : OrdinalElection</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">        dict</span>
+<span class="sd">            &#39;value&#39;: agreement index</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">election</span><span class="o">.</span><span class="n">fake</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
     <span class="n">distances</span> <span class="o">=</span> <span class="n">calculate_cand_dom_dist</span><span class="p">(</span><span class="n">election</span><span class="p">)</span>
@@ -706,7 +722,18 @@ document.write(`
 <div class="viewcode-block" id="diversity_index">
 <a class="viewcode-back" href="../../../../reference/features/diversity.html#mapof.elections.features.diversity.diversity_index">[docs]</a>
 <span class="k">def</span> <span class="nf">diversity_index</span><span class="p">(</span><span class="n">election</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; Calculates the diversity index of the election.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates the diversity index of the election.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">        election : OrdinalElection</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">        dict</span>
+<span class="sd">            &#39;value&#39;: diversity index</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">election</span><span class="o">.</span><span class="n">fake</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
     <span class="n">max_dist</span> <span class="o">=</span> <span class="n">election</span><span class="o">.</span><span class="n">num_candidates</span> <span class="o">*</span> <span class="p">(</span><span class="n">election</span><span class="o">.</span><span class="n">num_candidates</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
@@ -809,7 +836,18 @@ document.write(`
 <div class="viewcode-block" id="polarization_index">
 <a class="viewcode-back" href="../../../../reference/features/diversity.html#mapof.elections.features.diversity.polarization_index">[docs]</a>
 <span class="k">def</span> <span class="nf">polarization_index</span><span class="p">(</span><span class="n">election</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; Calculates the polarization index of the election.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates the polarization index of the election.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">        election : OrdinalElection</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">        dict</span>
+<span class="sd">            &#39;value&#39;: polarization index</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">election</span><span class="o">.</span><span class="n">fake</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
     <span class="n">distances</span> <span class="o">=</span> <span class="n">calculate_vote_swap_dist</span><span class="p">(</span><span class="n">election</span><span class="p">)</span>

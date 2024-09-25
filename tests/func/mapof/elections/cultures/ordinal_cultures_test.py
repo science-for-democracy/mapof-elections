@@ -8,17 +8,17 @@ import mapof.elections as mapel
 registered_ordinal_cultures_to_test = {
     'ic',
     'iac',
-    'euclidean',
-    # 'urn',
-    ## 'group-separable',
+    'urn',
     'single-crossing',
-    ## 'stratification',
+    'stratification',
     'mallows',
     'norm-mallows',
     'conitzer',
     'spoc_conitzer',
     'walsh',
     'real_identity',
+    # 'euclidean',
+    ## 'group-separable',
 }
 
 

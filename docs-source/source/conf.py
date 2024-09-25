@@ -25,6 +25,7 @@ extensions = [
     "sphinx.ext.napoleon",
     "sphinx.ext.viewcode",
     "sphinx.ext.imgmath",
+    'sphinx.ext.intersphinx'
 ]
 
 
@@ -63,4 +64,8 @@ html_theme_options = {
     "repository_url": "https://github.com/science-for-democracy/mapof-elections",
     "use_repository_button": True,
     "navigation_with_keys": True,
+}
+
+intersphinx_mapping = {
+    'prefsampling': ('https://comsoc-community.github.io/prefsampling/', None),
 }

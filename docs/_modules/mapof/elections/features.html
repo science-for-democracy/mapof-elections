@@ -153,6 +153,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quick Start</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../reference/index.html">Code Reference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../reference/cultures/index.html">Cultures</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cultures/list_of_cultures.html">List of Cultures</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/cultures/main.html">Main</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/cultures/euclidean.html">Euclidean</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/cultures/guardians.html">Guardians</a></li>
@@ -172,6 +173,9 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/features/main.html">Main</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/features/scores.html">Scores</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/features/diversity.html">Diversity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features/dap_approximate.html">Diversity Approximate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features/simple_ordinal.html">Simple Ordinal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features/simple_approval.html">Simple Approval</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../reference/objects/index.html">Objects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -324,7 +328,8 @@ document.write(`
 <span class="kn">import</span> <span class="nn">mapof.elections.features.entropy</span> <span class="k">as</span> <span class="nn">entropy</span>
 <span class="kn">import</span> <span class="nn">mapof.elections.features.dap_approximate</span> <span class="k">as</span> <span class="nn">dap_approx</span>
 <span class="kn">import</span> <span class="nn">mapof.elections.features.justified_representation</span> <span class="k">as</span> <span class="nn">jr</span>
-<span class="kn">import</span> <span class="nn">mapof.elections.features.other</span> <span class="k">as</span> <span class="nn">other</span>
+<span class="kn">import</span> <span class="nn">mapof.elections.features.simple_ordinal</span> <span class="k">as</span> <span class="nn">simple_ordinal</span>
+<span class="kn">import</span> <span class="nn">mapof.elections.features.simple_approval</span> <span class="k">as</span> <span class="nn">simple_approval</span>
 <span class="kn">import</span> <span class="nn">mapof.elections.features.partylist</span> <span class="k">as</span> <span class="nn">partylist</span>
 <span class="kn">import</span> <span class="nn">mapof.elections.features.proportionality_degree</span> <span class="k">as</span> <span class="nn">prop_deg</span>
 <span class="kn">import</span> <span class="nn">mapof.elections.features.ranging_cc</span> <span class="k">as</span> <span class="nn">ranging_cc</span>
@@ -333,9 +338,11 @@ document.write(`
 
 
 <span class="n">registered_approval_features</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;max_approval_score&#39;</span><span class="p">:</span> <span class="n">other</span><span class="o">.</span><span class="n">max_approval_score</span><span class="p">,</span>
+    <span class="s1">&#39;max_approval_score&#39;</span><span class="p">:</span> <span class="n">simple_approval</span><span class="o">.</span><span class="n">max_approval_score</span><span class="p">,</span>
+
     <span class="s1">&#39;number_of_cohesive_groups&#39;</span><span class="p">:</span> <span class="n">cohesive</span><span class="o">.</span><span class="n">count_number_of_cohesive_groups</span><span class="p">,</span>
     <span class="s1">&#39;number_of_cohesive_groups_brute&#39;</span><span class="p">:</span> <span class="n">cohesive</span><span class="o">.</span><span class="n">count_number_of_cohesive_groups_brute</span><span class="p">,</span>
+
     <span class="s1">&#39;proportionality_degree_av&#39;</span><span class="p">:</span> <span class="n">prop_deg</span><span class="o">.</span><span class="n">proportionality_degree_av</span><span class="p">,</span>
     <span class="s1">&#39;proportionality_degree_pav&#39;</span><span class="p">:</span> <span class="n">prop_deg</span><span class="o">.</span><span class="n">proportionality_degree_pav</span><span class="p">,</span>
     <span class="s1">&#39;proportionality_degree_cc&#39;</span><span class="p">:</span> <span class="n">prop_deg</span><span class="o">.</span><span class="n">proportionality_degree_cc</span><span class="p">,</span>
@@ -343,6 +350,8 @@ document.write(`
     <span class="s1">&#39;cohesiveness&#39;</span><span class="p">:</span> <span class="n">cohesive</span><span class="o">.</span><span class="n">count_largest_cohesiveness_level_l_of_cohesive_group</span><span class="p">,</span>
     <span class="c1"># unsupported feature</span>
     <span class="s1">&#39;ejr&#39;</span><span class="p">:</span> <span class="n">jr</span><span class="o">.</span><span class="n">test_ejr</span><span class="p">,</span>  <span class="c1"># unsupported feature</span>
+    <span class="s1">&#39;justified_ratio&#39;</span><span class="p">:</span> <span class="n">simple_approval</span><span class="o">.</span><span class="n">justified_ratio</span><span class="p">,</span>  <span class="c1"># unsupported feature</span>
+    <span class="s1">&#39;abstract&#39;</span><span class="p">:</span> <span class="n">simple_approval</span><span class="o">.</span><span class="n">abstract</span><span class="p">,</span>  <span class="c1"># unsupported feature</span>
 <span class="p">}</span>
 
 <span class="n">registered_ordinal_features</span> <span class="o">=</span> <span class="p">{</span>
@@ -408,12 +417,10 @@ document.write(`
     <span class="c1"># unsupported feature</span>
     <span class="s1">&#39;worst_distortion_from_guardians&#39;</span><span class="p">:</span> <span class="n">distortion</span><span class="o">.</span><span class="n">worst_distortion_from_guardians</span><span class="p">,</span>
     <span class="c1"># unsupported feature</span>
-    <span class="s1">&#39;abstract&#39;</span><span class="p">:</span> <span class="n">other</span><span class="o">.</span><span class="n">abstract</span><span class="p">,</span>  <span class="c1"># unsupported feature</span>
     <span class="s1">&#39;distortion&#39;</span><span class="p">:</span> <span class="n">distortion</span><span class="p">,</span>  <span class="c1"># unsupported feature</span>
     <span class="s1">&#39;monotonicity_triplets&#39;</span><span class="p">:</span> <span class="n">distortion</span><span class="o">.</span><span class="n">monotonicity_triplets</span><span class="p">,</span>  <span class="c1"># unsupported feature</span>
     <span class="s1">&#39;partylist&#39;</span><span class="p">:</span> <span class="n">partylist</span><span class="o">.</span><span class="n">partylistdistance</span><span class="p">,</span>  <span class="c1"># unsupported feature</span>
     <span class="s1">&#39;pav_time&#39;</span><span class="p">:</span> <span class="n">partylist</span><span class="o">.</span><span class="n">pav_time</span><span class="p">,</span>  <span class="c1"># unsupported feature</span>
-    <span class="s1">&#39;justified_ratio&#39;</span><span class="p">:</span> <span class="n">other</span><span class="o">.</span><span class="n">justified_ratio</span><span class="p">,</span>  <span class="c1"># unsupported feature</span>
     <span class="s1">&#39;rand_approx_pav_score&#39;</span><span class="p">:</span> <span class="n">approx</span><span class="o">.</span><span class="n">get_rand_approx_pav_score</span><span class="p">,</span>  <span class="c1"># unsupported feature</span>
     <span class="s1">&#39;min_dim&#39;</span><span class="p">:</span> <span class="n">dimensionality</span><span class="o">.</span><span class="n">min_dim</span><span class="p">,</span>  <span class="c1"># unsupported feature</span>
 <span class="p">}</span>

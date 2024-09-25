@@ -153,17 +153,29 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quick Start</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../reference/index.html">Code Reference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../reference/cultures/index.html">Cultures</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cultures/list_of_cultures.html">List of Cultures</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/cultures/main.html">Main</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/cultures/euclidean.html">Euclidean</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/cultures/guardians.html">Guardians</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../reference/distances/index.html">Distances</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/distances/list_of_distances.html">List of Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/distances/main.html">Main</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/distances/main_approval_distances.html">Approval Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/distances/main_ordinal_distances.html">Ordinal Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/distances/committee_distances.html">Committee Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/distances/feature_distance.html">Feature Distance</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../reference/features/index.html">Features</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features/list_of_features.html">List of Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features/main.html">Main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features/scores.html">Scores</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features/diversity.html">Diversity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features/dap_approximate.html">Diversity Approximate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features/simple_ordinal.html">Simple Ordinal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features/simple_approval.html">Simple Approval</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../reference/objects/index.html">Objects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -328,10 +340,11 @@ document.write(`
 <span class="kn">import</span> <span class="nn">prefsampling.approval</span> <span class="k">as</span> <span class="nn">pref_approval</span>
 
 <span class="n">registered_approval_cultures</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;identity&#39;</span><span class="p">:</span> <span class="n">identity</span><span class="o">.</span><span class="n">identity_mask</span><span class="p">,</span>
+    <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">identity</span><span class="o">.</span><span class="n">identity_mask</span><span class="p">,</span>
+    <span class="s1">&#39;ic&#39;</span><span class="p">:</span> <span class="n">pref_approval</span><span class="o">.</span><span class="n">impartial</span><span class="p">,</span>
     <span class="s1">&#39;impartial&#39;</span><span class="p">:</span> <span class="n">pref_approval</span><span class="o">.</span><span class="n">impartial</span><span class="p">,</span>
     <span class="s1">&#39;impartial_culture&#39;</span><span class="p">:</span> <span class="n">pref_approval</span><span class="o">.</span><span class="n">impartial</span><span class="p">,</span>
-    <span class="s1">&#39;ic&#39;</span><span class="p">:</span> <span class="n">pref_approval</span><span class="o">.</span><span class="n">impartial</span><span class="p">,</span>
-    <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">identity</span><span class="o">.</span><span class="n">identity_mask</span><span class="p">,</span>
 
     <span class="s1">&#39;resampling&#39;</span><span class="p">:</span> <span class="n">pref_approval</span><span class="o">.</span><span class="n">resampling</span><span class="p">,</span>
     <span class="s1">&#39;disjoint_resampling&#39;</span><span class="p">:</span> <span class="n">pref_approval</span><span class="o">.</span><span class="n">disjoint_resampling</span><span class="p">,</span>
@@ -353,9 +366,10 @@ document.write(`
 <span class="n">registered_ordinal_cultures</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">&#39;identity&#39;</span><span class="p">:</span> <span class="n">pref_ordinal</span><span class="o">.</span><span class="n">identity</span><span class="p">,</span>
     <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">pref_ordinal</span><span class="o">.</span><span class="n">identity</span><span class="p">,</span>
-    <span class="s1">&#39;impartial_culture&#39;</span><span class="p">:</span> <span class="n">pref_ordinal</span><span class="o">.</span><span class="n">impartial</span><span class="p">,</span>
-    <span class="s1">&#39;impartial&#39;</span><span class="p">:</span> <span class="n">pref_ordinal</span><span class="o">.</span><span class="n">impartial</span><span class="p">,</span>
     <span class="s1">&#39;ic&#39;</span><span class="p">:</span> <span class="n">pref_ordinal</span><span class="o">.</span><span class="n">impartial</span><span class="p">,</span>
+    <span class="s1">&#39;impartial&#39;</span><span class="p">:</span> <span class="n">pref_ordinal</span><span class="o">.</span><span class="n">impartial</span><span class="p">,</span>
+    <span class="s1">&#39;impartial_culture&#39;</span><span class="p">:</span> <span class="n">pref_ordinal</span><span class="o">.</span><span class="n">impartial</span><span class="p">,</span>
+
     <span class="s1">&#39;iac&#39;</span><span class="p">:</span> <span class="n">pref_ordinal</span><span class="o">.</span><span class="n">impartial_anonymous</span><span class="p">,</span>
     <span class="s1">&#39;real_antagonism&#39;</span><span class="p">:</span> <span class="n">guardians</span><span class="o">.</span><span class="n">generate_real_antagonism_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
     <span class="s1">&#39;antagonism&#39;</span><span class="p">:</span> <span class="n">guardians</span><span class="o">.</span><span class="n">generate_real_antagonism_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>

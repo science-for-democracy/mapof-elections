@@ -153,6 +153,7 @@
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="reference/index.html">Code Reference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="reference/cultures/index.html">Cultures</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="reference/cultures/list_of_cultures.html">List of Cultures</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/cultures/main.html">Main</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/cultures/euclidean.html">Euclidean</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/cultures/guardians.html">Guardians</a></li>
@@ -172,6 +173,9 @@
 <li class="toctree-l3"><a class="reference internal" href="reference/features/main.html">Main</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/features/scores.html">Scores</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/features/diversity.html">Diversity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/features/dap_approximate.html">Diversity Approximate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/features/simple_ordinal.html">Simple Ordinal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/features/simple_approval.html">Simple Approval</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="reference/objects/index.html">Objects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -338,12 +342,16 @@ document.write(`
 </li>
       <li><a href="reference/cultures/main.html#mapof.elections.cultures.add_ordinal_culture">add_ordinal_culture() (in module mapof.elections.cultures)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/features/main.html#mapof.elections.features.add_ordinal_feature">add_ordinal_feature() (in module mapof.elections.features)</a>
 </li>
-      <li><a href="reference/features/diversity.html#mapof.elections.features.diversity.agreement_index">agreement_index() (in module mapof.elections.features.diversity)</a>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/features/dap_approximate.html#mapof.elections.features.dap_approximate.agreement_index">agreement_index() (in module mapof.elections.features.dap_approximate)</a>
+
+      <ul>
+        <li><a href="reference/features/diversity.html#mapof.elections.features.diversity.agreement_index">(in module mapof.elections.features.diversity)</a>
 </li>
+      </ul></li>
       <li><a href="reference/objects/ApprovalElection.html#mapof.elections.objects.ApprovalElection.ApprovalElection">ApprovalElection (class in mapof.elections.objects.ApprovalElection)</a>
 </li>
       <li><a href="reference/objects/ApprovalElectionExperiment.html#mapof.elections.objects.ApprovalElectionExperiment.ApprovalElectionExperiment">ApprovalElectionExperiment (class in mapof.elections.objects.ApprovalElectionExperiment)</a>
@@ -410,8 +418,12 @@ document.write(`
 <h2 id="D">D</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="reference/features/diversity.html#mapof.elections.features.diversity.diversity_index">diversity_index() (in module mapof.elections.features.diversity)</a>
+      <li><a href="reference/features/dap_approximate.html#mapof.elections.features.dap_approximate.diversity_index">diversity_index() (in module mapof.elections.features.dap_approximate)</a>
+
+      <ul>
+        <li><a href="reference/features/diversity.html#mapof.elections.features.diversity.diversity_index">(in module mapof.elections.features.diversity)</a>
 </li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -456,10 +468,12 @@ document.write(`
 </li>
       <li><a href="reference/distances/main.html#mapof.elections.distances.get_distance">get_distance() (in module mapof.elections.distances)</a>
 </li>
-      <li><a href="reference/features/main.html#mapof.elections.features.get_global_feature">get_global_feature() (in module mapof.elections.features)</a>
+      <li><a href="reference/features/simple_ordinal.html#mapof.elections.features.simple_ordinal.get_effective_num_candidates">get_effective_num_candidates() (in module mapof.elections.features.simple_ordinal)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/features/main.html#mapof.elections.features.get_global_feature">get_global_feature() (in module mapof.elections.features)</a>
+</li>
       <li><a href="reference/features/main.html#mapof.elections.features.get_local_feature">get_local_feature() (in module mapof.elections.features)</a>
 </li>
       <li><a href="reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.get_matching_cost_pos_swap">get_matching_cost_pos_swap() (in module mapof.elections.distances.main_ordinal_distances)</a>
@@ -526,8 +540,12 @@ document.write(`
 </li>
       <li><a href="reference/persistence/election_imports.html#mapof.elections.persistence.election_imports.import_real_old_soc_election">import_real_old_soc_election() (in module mapof.elections.persistence.election_imports)</a>
 </li>
-      <li><a href="reference/objects/OrdinalElection.html#mapof.elections.objects.OrdinalElection.OrdinalElection.is_condorcet">is_condorcet() (OrdinalElection method)</a>
+      <li><a href="reference/features/simple_ordinal.html#mapof.elections.features.simple_ordinal.is_condorcet">is_condorcet() (in module mapof.elections.features.simple_ordinal)</a>
+
+      <ul>
+        <li><a href="reference/objects/OrdinalElection.html#mapof.elections.objects.OrdinalElection.OrdinalElection.is_condorcet">(OrdinalElection method)</a>
 </li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -606,6 +624,13 @@ document.write(`
 </li>
       </ul></li>
       <li>
+    mapof.elections.features.dap_approximate
+
+      <ul>
+        <li><a href="reference/features/dap_approximate.html#module-mapof.elections.features.dap_approximate">module</a>
+</li>
+      </ul></li>
+      <li>
     mapof.elections.features.diversity
 
       <ul>
@@ -617,6 +642,20 @@ document.write(`
 
       <ul>
         <li><a href="reference/features/scores.html#module-mapof.elections.features.scores">module</a>
+</li>
+      </ul></li>
+      <li>
+    mapof.elections.features.simple_approval
+
+      <ul>
+        <li><a href="reference/features/simple_approval.html#module-mapof.elections.features.simple_approval">module</a>
+</li>
+      </ul></li>
+      <li>
+    mapof.elections.features.simple_ordinal
+
+      <ul>
+        <li><a href="reference/features/simple_ordinal.html#module-mapof.elections.features.simple_ordinal">module</a>
 </li>
       </ul></li>
       <li>
@@ -640,6 +679,8 @@ document.write(`
         <li><a href="reference/objects/Election.html#module-mapof.elections.objects.Election">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     mapof.elections.objects.ElectionFamily
 
@@ -647,8 +688,6 @@ document.write(`
         <li><a href="reference/objects/ElectionFamily.html#module-mapof.elections.objects.ElectionFamily">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     mapof.elections.objects.OrdinalElection
 
@@ -677,6 +716,8 @@ document.write(`
         <li><a href="reference/persistence/election_imports.html#module-mapof.elections.persistence.election_imports">module</a>
 </li>
       </ul></li>
+      <li><a href="reference/features/simple_approval.html#mapof.elections.features.simple_approval.max_approval_score">max_approval_score() (in module mapof.elections.features.simple_approval)</a>
+</li>
       <li>
     module
 
@@ -699,9 +740,15 @@ document.write(`
 </li>
         <li><a href="reference/features/main.html#module-mapof.elections.features">mapof.elections.features</a>
 </li>
+        <li><a href="reference/features/dap_approximate.html#module-mapof.elections.features.dap_approximate">mapof.elections.features.dap_approximate</a>
+</li>
         <li><a href="reference/features/diversity.html#module-mapof.elections.features.diversity">mapof.elections.features.diversity</a>
 </li>
         <li><a href="reference/features/scores.html#module-mapof.elections.features.scores">mapof.elections.features.scores</a>
+</li>
+        <li><a href="reference/features/simple_approval.html#module-mapof.elections.features.simple_approval">mapof.elections.features.simple_approval</a>
+</li>
+        <li><a href="reference/features/simple_ordinal.html#module-mapof.elections.features.simple_ordinal">mapof.elections.features.simple_ordinal</a>
 </li>
         <li><a href="reference/objects/ApprovalElection.html#module-mapof.elections.objects.ApprovalElection">mapof.elections.objects.ApprovalElection</a>
 </li>
@@ -738,8 +785,12 @@ document.write(`
 <h2 id="P">P</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="reference/features/diversity.html#mapof.elections.features.diversity.polarization_index">polarization_index() (in module mapof.elections.features.diversity)</a>
+      <li><a href="reference/features/dap_approximate.html#mapof.elections.features.dap_approximate.polarization_index">polarization_index() (in module mapof.elections.features.dap_approximate)</a>
+
+      <ul>
+        <li><a href="reference/features/diversity.html#mapof.elections.features.diversity.polarization_index">(in module mapof.elections.features.diversity)</a>
 </li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/objects/OrdinalElection.html#mapof.elections.objects.OrdinalElection.OrdinalElection.prepare_instance">prepare_instance() (OrdinalElection method)</a>
@@ -752,8 +803,12 @@ document.write(`
 <h2 id="R">R</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="reference/features/diversity.html#mapof.elections.features.diversity.remove_diag">remove_diag() (in module mapof.elections.features.diversity)</a>
+      <li><a href="reference/features/dap_approximate.html#mapof.elections.features.dap_approximate.remove_diag">remove_diag() (in module mapof.elections.features.dap_approximate)</a>
+
+      <ul>
+        <li><a href="reference/features/diversity.html#mapof.elections.features.diversity.remove_diag">(in module mapof.elections.features.diversity)</a>
 </li>
+      </ul></li>
       <li><a href="reference/objects/Election.html#mapof.elections.objects.Election.Election.rotate">rotate() (Election method)</a>
 </li>
   </ul></td>
@@ -770,8 +825,12 @@ document.write(`
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="reference/features/diversity.html#mapof.elections.features.diversity.swap_distance_between_potes">swap_distance_between_potes() (in module mapof.elections.features.diversity)</a>
+      <li><a href="reference/features/dap_approximate.html#mapof.elections.features.dap_approximate.swap_distance_between_potes">swap_distance_between_potes() (in module mapof.elections.features.dap_approximate)</a>
+
+      <ul>
+        <li><a href="reference/features/diversity.html#mapof.elections.features.diversity.swap_distance_between_potes">(in module mapof.elections.features.diversity)</a>
 </li>
+      </ul></li>
   </ul></td>
 </tr></table>
 

@@ -20,7 +20,7 @@ List of Ordinal Distances
    * - ``emd-bordawise``
      - :py:func:`~mapof.elections.distances.main_ordinal_distances.compute_bordawise_distance`
    * - ``l1-pairwise``
-     - :py:func:`~mapof.elections.distances.main_ordinal_distances.compute_bordawise_distance`
+     - :py:func:`~mapof.elections.distances.main_ordinal_distances.compute_pairwise_distance`
 
 
 List of Approval Distances

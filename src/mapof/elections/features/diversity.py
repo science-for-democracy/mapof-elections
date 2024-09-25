@@ -5,6 +5,7 @@ import itertools
 
 
 def kemeny_ranking(election):
+
     m = election.num_candidates
     wmg = election.votes_to_pairwise_matrix()
     best_d = np.infty
@@ -133,7 +134,18 @@ def cand_dom_dist_mean(election) -> dict:
 
 
 def agreement_index(election) -> dict:
-    """ Calculates the agreement index of the election."""
+    """
+    Calculates the agreement index of the election.
+
+    Parameters
+    ----------
+        election : OrdinalElection
+
+    Returns
+    -------
+        dict
+            'value': agreement index
+    """
     if election.fake:
         return {'value': None}
     distances = calculate_cand_dom_dist(election)
@@ -384,7 +396,18 @@ def local_search_kKemeny(election, l, starting=None) -> dict:
 
 
 def diversity_index(election) -> dict:
-    """ Calculates the diversity index of the election."""
+    """
+    Calculates the diversity index of the election.
+
+    Parameters
+    ----------
+        election : OrdinalElection
+
+    Returns
+    -------
+        dict
+            'value': diversity index
+    """
     if election.fake:
         return {'value': None}
     max_dist = election.num_candidates * (election.num_candidates - 1) / 2
@@ -484,7 +507,18 @@ def polarization_1by2Kemenys(election) -> dict:
 
 
 def polarization_index(election) -> dict:
-    """ Calculates the polarization index of the election."""
+    """
+    Calculates the polarization index of the election.
+
+    Parameters
+    ----------
+        election : OrdinalElection
+
+    Returns
+    -------
+        dict
+            'value': polarization index
+    """
     if election.fake:
         return {'value': None}
     distances = calculate_vote_swap_dist(election)

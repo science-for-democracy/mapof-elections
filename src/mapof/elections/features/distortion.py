@@ -5,9 +5,11 @@ from mapof.core.inner_distances import l2
 
 from itertools import combinations
 
+
 def map_diameter(c: int) -> float:
     """ Compute the diameter """
     return 1. / 3. * (c + 1) * (c - 1)
+
 
 def distortion_from_guardians(experiment, election_id) -> np.ndarray:
     values = np.array([])
@@ -71,68 +73,6 @@ def distortion_from_all(experiment, election_ids):
     return all_values
 
 
-# def distortion_from_all(election, election_id) -> np.ndarray:
-#     values = np.array([])
-#     election_id_1 = election_id
-#
-#     for election_id_2 in election.elections:
-#         if election_id_1 != election_id_2:
-#             m = election.elections[election_id_1].num_candidates
-#             true_distance = election.distances[election_id_1][election_id_2]
-#             true_distance /= map_diameter(m)
-#             embedded_distance = l2(np.array(election.coordinates[election_id_1]),
-#                                    np.array(election.coordinates[election_id_2]))
-#
-#             embedded_distance /= \
-#                 l2(np.array(election.coordinates['core_800']),
-#                    np.array(election.coordinates['core_849']))
-#             try:
-#                 ratio = float(embedded_distance) / float(true_distance)
-#             except:
-#                 ratio = 1.
-#             values = np.append(values, ratio)
-#
-#     return np.mean(abs(1.-values))
-
-
-# def distortion_from_top_100(election, election_id) -> np.ndarray:
-#     values = np.array([])
-#     election_id_1 = election_id
-#
-#     euc_dist = {}
-#     for election_id_2 in election.elections:
-#         if election_id_1 != election_id_2:
-#             euc_dist[election_id_2] = l2(np.array(election.coordinates[election_id_1]),
-#                                            np.array(election.coordinates[election_id_2]))
-#
-#     all = (sorted(euc_dist.items(), key=lambda item: item[1]))
-#     top_100 = [x for x,_ in all[0:100]]
-#
-#
-#     # all = (sorted(election.distances[election_id_1].items(), key=lambda item: item[1]))
-#     # top_100 = [x for x,_ in all[0:100]]
-#
-#     for election_id_2 in election.elections:
-#         if election_id_1 != election_id_2:
-#             if election_id_2 in top_100:
-#                 m = election.elections[election_id_1].num_candidates
-#                 true_distance = election.distances[election_id_1][election_id_2]
-#                 true_distance /= map_diameter(m)
-#                 embedded_distance = l2(np.array(election.coordinates[election_id_1]),
-#                                        np.array(election.coordinates[election_id_2]))
-#
-#                 embedded_distance /= \
-#                     l2(np.array(election.coordinates['core_800']),
-#                        np.array(election.coordinates['core_849']))
-#                 try:
-#                     ratio = float(embedded_distance) / float(true_distance)
-#                 except:
-#                     ratio = 1.
-#                 values = np.append(values, ratio)
-#
-#     return np.mean(abs(1.-values))
-
-
 def avg_distortion_from_guardians(experiment, election_id):
     values = distortion_from_guardians(experiment, election_id)
     return np.mean(values)
@@ -141,7 +81,6 @@ def avg_distortion_from_guardians(experiment, election_id):
 def worst_distortion_from_guardians(experiment, election_id):
     values = distortion_from_guardians(experiment, election_id)
     return np.max(values)
-
 
 
 def distortion(experiment, election) -> float:

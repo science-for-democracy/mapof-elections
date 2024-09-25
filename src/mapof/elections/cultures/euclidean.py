@@ -9,6 +9,7 @@ def euclidean_ord_mask(num_voters=None,
                        space=None,
                        dim=2,
                        **kwargs):
+    """ Euclidean Ordinal Masked"""
 
     num_dimensions = dim
 
@@ -41,6 +42,7 @@ def euclidean_app_mask(num_voters=None,
                        dim=2,
                        radius=0.2,
                        **kwargs):
+    """ Euclidean Approval Masked"""
 
     num_dimensions = dim
 

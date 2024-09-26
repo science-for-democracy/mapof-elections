@@ -651,7 +651,7 @@ class ElectionExperiment(Experiment):
         else:
             feature = features.get_local_feature(feature_id)
 
-            for instance_id in tqdm(self.instances):
+            for instance_id in tqdm(self.instances, desc=f"{feature_long_id}"):
                 instance = self.elections[instance_id]
 
                 start = time.time()

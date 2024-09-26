@@ -1,3 +1,11 @@
+ELECTION_GLOBAL_FEATURES = {
+    'clustering',
+    'clustering_kmeans',
+    'distortion_from_all',
+    'id_vs_un',
+    'an_vs_st'
+}
+
 NOT_ABCVOTING_RULES = {'borda_c4', 'random'}
 
 APPROVAL_FAKE_MODELS = {'approval_half_1', 'approval_half_2', 'approval_skeleton'}

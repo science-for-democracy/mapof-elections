@@ -23,6 +23,9 @@ from mapof.elections.objects.ElectionFeatures import ST_KEY, AN_KEY, ID_KEY, UN_
 from mapof.elections.objects.OrdinalElection import OrdinalElection
 from mapof.elections.other.glossary import NOT_ABCVOTING_RULES
 
+from mapof.core.glossary import MAIN_GLOBAL_FEATUERS
+from mapof.elections.other.glossary import ELECTION_GLOBAL_FEATURES
+
 try:
     from sklearn.manifold import MDS
     from sklearn.manifold import TSNE

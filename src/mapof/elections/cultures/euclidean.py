@@ -1,7 +1,11 @@
+import logging
+
 import prefsampling.ordinal as pref_ordinal
 import prefsampling.approval as pref_approval
 
 from prefsampling.point import cube, sphere_uniform, gaussian, ball_uniform
+
+from prefsampling.core.euclidean import EuclideanSpace
 
 
 def euclidean_ord_mask(num_voters=None,
@@ -15,24 +19,26 @@ def euclidean_ord_mask(num_voters=None,
 
     if type(space) is str:
         if space.lower() == 'uniform':
-            point_sampler = cube
+            point_sampler = EuclideanSpace.UNIFORM_CUBE
         elif space.lower() == 'sphere':
-            point_sampler = sphere_uniform
-        elif space.lower() == 'gaussian':
-            point_sampler = gaussian
+            point_sampler = EuclideanSpace.UNIFORM_SPHERE
         elif space.lower() == 'ball':
-            point_sampler = ball_uniform
+            point_sampler = EuclideanSpace.UNIFORM_BALL
+        elif space.lower() == 'gaussian':
+            point_sampler = EuclideanSpace.GAUSSIAN_CUBE
+        else:
+            logging.warning("Invalid space type. Using default uniform cube.")
+            point_sampler = EuclideanSpace.UNIFORM_CUBE
 
     if space is None:
-        point_sampler = cube
+        point_sampler = EuclideanSpace.UNIFORM_CUBE
 
     return pref_ordinal.euclidean(
         num_voters=num_voters,
         num_candidates=num_candidates,
-        point_sampler=point_sampler,
-        point_sampler_args={
-                            'num_dimensions': num_dimensions,
-                            'center_point': [0 for _ in range(num_dimensions)]},
+        num_dimensions=num_dimensions,
+        voters_positions=point_sampler,
+        candidates_positions=point_sampler,
         **kwargs)
 
 
@@ -48,24 +54,26 @@ def euclidean_app_mask(num_voters=None,
 
     if type(space) is str:
         if space.lower() == 'uniform':
-            point_sampler = cube
+            point_sampler = EuclideanSpace.UNIFORM_CUBE
         elif space.lower() == 'sphere':
-            point_sampler = sphere_uniform
-        elif space.lower() == 'gaussian':
-            point_sampler = gaussian
+            point_sampler = EuclideanSpace.UNIFORM_SPHERE
         elif space.lower() == 'ball':
-            point_sampler = ball_uniform
+            point_sampler = EuclideanSpace.UNIFORM_BALL
+        elif space.lower() == 'gaussian':
+            point_sampler = EuclideanSpace.GAUSSIAN_CUBE
+        else:
+            logging.warning("Invalid space type. Using default uniform cube.")
+            point_sampler = EuclideanSpace.UNIFORM_CUBE
 
     if space is None:
-        point_sampler = cube
+        point_sampler = EuclideanSpace.UNIFORM_CUBE
 
     return pref_approval.euclidean_vcr(
         num_voters=num_voters,
         num_candidates=num_candidates,
         voters_radius=radius,
         candidates_radius=0,
-        point_sampler=point_sampler,
-        point_sampler_args={
-                            'num_dimensions': num_dimensions,
-                            'center_point': [0 for _ in range(num_dimensions)]},
+        num_dimensions=num_dimensions,
+        voters_positions=point_sampler,
+        candidates_positions=point_sampler,
         **kwargs)

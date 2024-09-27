@@ -11,7 +11,7 @@ registered_approval_cultures_to_test = {
     'disjoint_resampling',
     'moving_resampling',
     'noise',
-    # 'euclidean',
+    'euclidean',
     'truncated_urn',
     'urn_partylist',
     'full',

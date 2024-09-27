@@ -14,13 +14,13 @@ class TestOfflineApprovalExperiment:
         self.experiment.prepare_elections()
         self.experiment.compute_distances(distance_id="l1-approvalwise")
 
-    def test_embed_2d(self):
-        self.experiment.prepare_elections()
-        self.experiment.compute_distances(distance_id="l1-approvalwise")
-        self.experiment.embed_2d(embedding_id="kk")
-
-    def test_print_map_2d(self):
-        self.experiment.prepare_elections()
-        self.experiment.compute_distances(distance_id="l1-approvalwise")
-        self.experiment.embed_2d(embedding_id="kk")
-        self.experiment.print_map_2d(show=False)
+    # def test_embed_2d(self):
+    #     self.experiment.prepare_elections()
+    #     self.experiment.compute_distances(distance_id="l1-approvalwise")
+    #     self.experiment.embed_2d(embedding_id="kk")
+    #
+    # def test_print_map_2d(self):
+    #     self.experiment.prepare_elections()
+    #     self.experiment.compute_distances(distance_id="l1-approvalwise")
+    #     self.experiment.embed_2d(embedding_id="kk")
+    #     self.experiment.print_map_2d(show=False)

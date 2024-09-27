@@ -6,7 +6,6 @@ import mapof.core.features as core_features
 import mapof.elections.features.approx as approx
 import mapof.elections.features.banzhaf_cc as banzhaf_cc
 import mapof.elections.features.cohesive as cohesive
-import mapof.elections.features.dimensionality as dimensionality
 import mapof.elections.features.distortion as distortion
 import mapof.elections.features.diversity as diversity
 import mapof.elections.features.entropy as entropy
@@ -99,7 +98,6 @@ registered_ordinal_features = {
 
     'partylist': partylist.partylistdistance,  # unsupported feature
     'rand_approx_pav_score': approx.get_rand_approx_pav_score,  # unsupported feature
-    'min_dim': dimensionality.min_dim,  # unsupported feature
 }
 
 

@@ -64,7 +64,6 @@ registered_ordinal_features_to_test = {
     'PolarizationApprox',
     ## 'partylist', # fix this one
     ## 'rand_approx_pav_score', # fix this one
-    'min_dim',
 }
 
 

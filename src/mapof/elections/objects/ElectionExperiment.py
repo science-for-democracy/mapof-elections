@@ -509,7 +509,6 @@ class ElectionExperiment(Experiment):
                                              distance_id,
                                              distances,
                                              times,
-                                             self_distances,
                                              ids=ids)
 
         self.distances = distances

@@ -5,7 +5,6 @@ import mapof.core.features as core_features
 
 import mapof.elections.features.approx as approx
 import mapof.elections.features.banzhaf_cc as banzhaf_cc
-import mapof.elections.features.clustering as clustering
 import mapof.elections.features.cohesive as cohesive
 import mapof.elections.features.dimensionality as dimensionality
 import mapof.elections.features.distortion as distortion
@@ -20,7 +19,6 @@ import mapof.elections.features.proportionality_degree as prop_deg
 import mapof.elections.features.ranging_cc as ranging_cc
 import mapof.elections.features.scores as scores
 import mapof.elections.features.vc_diversity as vcd
-
 
 registered_approval_features = {
     'max_approval_score': simple_approval.max_approval_score,
@@ -98,14 +96,8 @@ registered_ordinal_features = {
     'AgreementApprox': dap_approx.agreement_index,
     'DiversityApprox': dap_approx.diversity_index,
     'PolarizationApprox': dap_approx.polarization_index,
-    'avg_distortion_from_guardians': distortion.avg_distortion_from_guardians,
-    # unsupported feature
-    'worst_distortion_from_guardians': distortion.worst_distortion_from_guardians,
-    # unsupported feature
-    'distortion': distortion,  # unsupported feature
-    'monotonicity_triplets': distortion.monotonicity_triplets,  # unsupported feature
+
     'partylist': partylist.partylistdistance,  # unsupported feature
-    'pav_time': partylist.pav_time,  # unsupported feature
     'rand_approx_pav_score': approx.get_rand_approx_pav_score,  # unsupported feature
     'min_dim': dimensionality.min_dim,  # unsupported feature
 }
@@ -116,11 +108,14 @@ def get_global_feature(feature_id):
     if feature_id in MAIN_GLOBAL_FEATUERS:
         return core_features.feature_id
 
-    return {'clustering': clustering.clustering_v1,
-            'clustering_kmeans': clustering.clustering_kmeans,
-            'distortion_from_all': distortion.distortion_from_all,
-            'id_vs_un': clustering.id_vs_un,
-            'an_vs_st': clustering.an_vs_st,
+    return {
+            'distortion_from_all': distortion.distortion_from_all, # unsupported feature
+            'avg_distortion_from_guardians': distortion.avg_distortion_from_guardians,
+            # unsupported feature
+            'worst_distortion_from_guardians': distortion.worst_distortion_from_guardians,
+            # unsupported feature
+            'distortion': distortion,  # unsupported feature
+            'monotonicity_triplets': distortion.monotonicity_triplets,  # unsupported feature
             }.get(feature_id)
 
 

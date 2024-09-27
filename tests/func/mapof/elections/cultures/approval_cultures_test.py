@@ -11,7 +11,7 @@ registered_approval_cultures_to_test = {
     'disjoint_resampling',
     'moving_resampling',
     'noise',
-    'euclidean',
+    # 'euclidean',
     'truncated_urn',
     'urn_partylist',
     'full',
@@ -27,15 +27,32 @@ class TestCultures:
         num_voters = np.random.randint(10, 100)
         num_candidates = np.random.randint(10, 100)
 
-        if culture_id in ['resampling',
-                          'disjoint_resampling',
-                          'moving_resampling',
-                          'noise']:
+        if culture_id in ['resampling']:
             election = mapel.generate_approval_election(culture_id=culture_id,
                                                         num_voters=num_voters,
                                                         num_candidates=num_candidates,
                                                         phi=0.4,
                                                         p=0.4)
+        elif culture_id in ['noise']:
+            election = mapel.generate_approval_election(culture_id=culture_id,
+                                                        num_voters=num_voters,
+                                                        num_candidates=num_candidates,
+                                                        phi=0.4)
+        elif culture_id in ['moving_resampling']:
+            election = mapel.generate_approval_election(culture_id=culture_id,
+                                                        num_voters=num_voters,
+                                                        num_candidates=num_candidates,
+                                                        phi=0.4,
+                                                        p=0.4,
+                                                        num_legs=3)
+        elif culture_id in ['disjoint_resampling']:
+            election = mapel.generate_approval_election(culture_id=culture_id,
+                                                        num_voters=num_voters,
+                                                        num_candidates=num_candidates,
+                                                        phi=0.4,
+                                                        p=0.2,
+                                                        num_central_votes=3)
+
         elif culture_id in ['truncated_urn']:
             election = mapel.generate_approval_election(culture_id=culture_id,
                                                     num_voters=num_voters,

@@ -28,6 +28,9 @@ def convert_election_to_profile(election):
 
 def partylistdistance(election, feature_params=None):
 
+    if feature_params is None:
+        feature_params = {}
+
     if 'largepartysize' in feature_params:
         largepartysize = feature_params['largepartysize']
     else:
@@ -121,15 +124,3 @@ def partylistdistance(election, feature_params=None):
     print(model.objVal, model.objbound, num_large_parties)
     return model.objVal, model.objbound, num_large_parties
 
-
-def pav_time(election):
-
-    profile = Profile(election.num_candidates)
-    profile.add_voters(election.votes)
-    committee_size = 10
-    resolute = True
-    rule_name = 'pav'
-    start = time.time()
-    winning_committees = abcrules.compute(rule_name, profile, committee_size,
-                                          algorithm="gurobi", resolute=resolute)
-    return time.time() - start

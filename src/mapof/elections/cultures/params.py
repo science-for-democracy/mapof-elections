@@ -138,6 +138,13 @@ def update_params_ordinal(params, printing_params, variable, culture_id, num_can
 
 
 # Approval #
+def update_params_approval_rel_size_central_vote(params, culture_id):
+    if 'p' in params and culture_id in \
+            ['resampling', 'disjoint_resampling', 'moving_resampling', 'noise']:
+        params['rel_size_central_vote'] = params['p']
+        params.pop('p')
+
+
 def update_params_approval_alpha(printing_params):
     if 'alpha' not in printing_params:
         printing_params['alpha'] = 1
@@ -195,6 +202,7 @@ def update_params_approval(params, printing_params, variable, culture_id, num_ca
         elif culture_id in APPROVAL_MODELS:
             update_params_approval_p(params)
         update_params_approval_alpha(printing_params)
+        update_params_approval_rel_size_central_vote(params, culture_id.lower())
 
     if 'p' in params and culture_id in ['empty',
                                         'full',

@@ -2,7 +2,7 @@
 import pytest
 import numpy as np
 
-import mapof.elections as mapel
+import mapof.elections as mapof
 
 registered_ordinal_features_to_test = {
     'highest_borda_score',
@@ -62,6 +62,9 @@ registered_ordinal_features_to_test = {
     'AgreementApprox',
     'DiversityApprox',
     'PolarizationApprox',
+    ## 'partylist', # fix this one
+    ## 'rand_approx_pav_score', # fix this one
+    'min_dim',
 }
 
 
@@ -73,7 +76,7 @@ class TestFeaturesSanity:
         num_voters = np.random.randint(10, 20)
         num_candidates = np.random.randint(5, 10)
 
-        election = mapel.generate_ordinal_election(culture_id='ic',
+        election = mapof.generate_ordinal_election(culture_id='ic',
                                                    num_voters=num_voters,
                                                    num_candidates=num_candidates)
         election.compute_feature(feature_id)

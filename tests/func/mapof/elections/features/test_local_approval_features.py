@@ -1,7 +1,7 @@
 import pytest
 import numpy as np
 
-import mapof.elections as mapel
+import mapof.elections as mapof
 
 
 registered_approval_features_to_test = {
@@ -22,7 +22,7 @@ class TestFeatures:
         num_voters = np.random.randint(10, 20)
         num_candidates = np.random.randint(5, 10)
 
-        election = mapel.generate_approval_election(culture_id='ic',
+        election = mapof.generate_approval_election(culture_id='ic',
                                                     num_voters=num_voters,
                                                     num_candidates=num_candidates,
                                                     p=0.5,)

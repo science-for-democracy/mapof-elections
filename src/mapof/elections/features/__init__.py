@@ -95,6 +95,7 @@ registered_ordinal_features = {
     'AgreementApprox': dap_approx.agreement_index,
     'DiversityApprox': dap_approx.diversity_index,
     'PolarizationApprox': dap_approx.polarization_index,
+
     'partylist': partylist.partylistdistance,
 
     'rand_approx_pav_score': approx.get_rand_approx_pav_score,  # unsupported feature

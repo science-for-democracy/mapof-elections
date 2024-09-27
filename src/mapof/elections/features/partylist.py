@@ -1,13 +1,19 @@
+import logging
 import sys
 import os
 
 try:
     sys.path.append(os.environ["PATH"])
-    from abcvoting import fileio
     import gurobipy as gb
+except ImportError:
+    logging.warning("Gurobi library not found. Some features may not work.")
+
+try:
+    sys.path.append(os.environ["PATH"])
+    from abcvoting import fileio
     from abcvoting.preferences import Profile, Voter
 except ImportError:
-    pass
+    logging.warning("ABC Voting library not found. Some features may not work.")
 
 
 def convert_election_to_profile(election):
@@ -30,12 +36,12 @@ def partylistdistance(election, feature_params=None):
     if 'largepartysize' in feature_params:
         largepartysize = feature_params['largepartysize']
     else:
-        largepartysize = 5
+        largepartysize = 2
 
     if 'time_limit' in feature_params:
         time_limit = feature_params['time_limit']
     else:
-        time_limit = 5
+        time_limit = 10
 
     profile = convert_election_to_profile(election)
 

@@ -62,7 +62,7 @@ registered_ordinal_features_to_test = {
     'AgreementApprox',
     'DiversityApprox',
     'PolarizationApprox',
-    'partylist',
+    'partylist',  # works only onsite
     ## 'rand_approx_pav_score',  # fix this one
 }
 

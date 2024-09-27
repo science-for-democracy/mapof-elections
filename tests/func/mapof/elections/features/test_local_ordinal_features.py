@@ -63,7 +63,7 @@ registered_ordinal_features_to_test = {
     'DiversityApprox',
     'PolarizationApprox',
 
-    # 'partylist',   # abcvoting not working on github test
+    'partylist',   # abcvoting not working on github test
 
     ## 'rand_approx_pav_score',  # fix this one
 }

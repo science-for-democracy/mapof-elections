@@ -3,13 +3,11 @@ import sys
 import os
 
 try:
-    sys.path.append(os.environ["PATH"])
     import gurobipy as gb
 except ImportError:
     logging.warning("Gurobi library not found. Some features may not work.")
 
 try:
-    sys.path.append(os.environ["PATH"])
     from abcvoting import fileio
     from abcvoting.preferences import Profile, Voter
 except ImportError:

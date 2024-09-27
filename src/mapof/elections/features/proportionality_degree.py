@@ -10,7 +10,6 @@ except Exception:
     pulp = None
 
 try:
-    sys.path.append(os.environ["PATH"])
     from abcvoting import abcrules, preferences
 except ImportError:
     logging.warning("ABC Voting library not found. Some features may not work.")

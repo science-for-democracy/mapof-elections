@@ -18,10 +18,13 @@ from mapof.elections.cultures import generate_ordinal_votes, \
     from_approval, generate_ordinal_alliance_votes
 from mapof.elections.features.simple_ordinal import is_condorcet
 from mapof.elections.objects.Election import Election
-from mapof.elections.other.winners import compute_sntv_winners, compute_borda_winners, \
-    compute_stv_winners
-from mapof.elections.other.winners import generate_winners
-from mapof.elections.other.winners import get_borda_points
+from mapof.elections.other.winners import (
+    compute_sntv_winners,
+    compute_borda_winners,
+    compute_stv_winners,
+    generate_winners,
+    get_borda_points
+)
 
 
 class OrdinalElection(Election):

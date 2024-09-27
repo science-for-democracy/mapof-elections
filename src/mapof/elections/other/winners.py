@@ -16,11 +16,9 @@ def randomize(vector, num_winners):
     right = num_winners
     while right < len(scores) and scores[right] == last_value:
         right += 1
-    # print(left, right)
     if left < right:
         ranking[left:right] = np.random.choice(ranking[left:right], right - left,
                                                replace=False)
-    # print(ranking)
     return ranking
 
 
@@ -51,7 +49,7 @@ def compute_borda_winners(election=None, num_winners=1):
 def compute_stv_winners(election=None, num_winners=1):
     """ Compute STV winners for a given election """
 
-    winners = [] #[0] * params['orders']
+    winners = []
     active = [True] * election.num_candidates
 
     droop_quota = math.floor(election.num_voters / (num_winners + 1.) ) + 1
@@ -61,7 +59,6 @@ def compute_stv_winners(election=None, num_winners=1):
         votes_on_1[election.votes[i][0]] += 1
 
     v_power = [1.] * election.num_voters
-
 
     while len(winners) + sum(active) > num_winners:
 
@@ -111,7 +108,6 @@ def compute_stv_winners(election=None, num_winners=1):
                     break
         active[loser_id] = False
 
-
     for i in range(election.num_candidates):
         if active[i]:
             winners += [i]
@@ -120,14 +116,10 @@ def compute_stv_winners(election=None, num_winners=1):
 
     return winners
 
-###
 
 def get_borda_points(votes, num_voters, num_candidates):
     points = np.zeros([num_candidates])
-    scoring = [1. for _ in range(num_candidates)]
-
-    for i in range(len(scoring)):
-        scoring[i] = len(scoring) - i - 1
+    scoring = [num_candidates - i - 1 for i in range(num_candidates)]
 
     for i in range(num_voters):
         for j in range(num_candidates):
@@ -199,13 +191,6 @@ def get_ordinal_winners(params, votes, rule):
         # print(winners)
         return all_winners, total_time
 
-    elif rule['type_id'] == 'stv':
-        all_winners = []
-        for i in range(params['elections']):
-            winners = get_winners_stv(params, votes[i], params['candidates'])
-            all_winners += winners
-        return all_winners
-
     elif rule['type_id'] == 'election':
         all_winners = []
         for i in range(params['elections']):
@@ -233,6 +218,7 @@ def get_ordinal_winners(params, votes, rule):
     #     winners = get_winners_approx_pav(votes, params, 'greedy')
     #     all_winners += winners
     #     return all_winners
+
 
 def get_rule(name, length):
 
@@ -306,84 +292,3 @@ def get_winners_borda_owa(params, votes, owa):
 
 def get_winners_bloc_owa(params, votes, owa, t_bloc):
     return lp.solve_lp_bloc_owa(params, votes, owa, t_bloc)
-
-
-def get_winners_stv(params, votes, candidates):
-
-    winners = []
-    active = [True] * params['candidates']
-
-    droop_quota = math.floor(params['voters'] / (params['orders'] + 1.) ) + 1
-
-    votes_on_1 = [0.] * params['candidates']
-    for i in range(params['voters']):
-        votes_on_1[votes[i][0]] += 1
-
-    v_power = [1.] * params['voters']
-
-    while len(winners) + sum(active) > params['orders']:
-
-        ctr = params['candidates']
-        winner_id = 0
-        while ctr > 0:
-
-            if active[winner_id] and votes_on_1[winner_id] >= droop_quota:
-
-                if params['pure']:
-                    winners += [winner_id]
-                else:
-                    winners += [candidates[winner_id]]
-
-
-                total = 0
-                for i in range(params['voters']):
-                    for j in range(params['candidates']):
-                        if active[votes[i][j]]:
-                            if votes[i][j] == winner_id:
-                                for k in range(j + 1, params['candidates']):
-                                    if active[votes[i][k]]:
-                                        v_power[i] *= float(votes_on_1[winner_id] - droop_quota) / float(votes_on_1[winner_id])
-                                        votes_on_1[votes[i][k]] += 1. * v_power[i]
-                                        total += 1. * v_power[i]
-                                        ctr = params['candidates']
-                                        break
-                            break
-
-                votes_on_1[winner_id] = 0
-                active[winner_id] = False
-
-            ctr -= 1
-            winner_id += 1
-            winner_id %= params['candidates']
-
-        loser_votes = droop_quota
-        loser_id = 0
-        for i in range(params['candidates']):
-            if active[i] and votes_on_1[i] < loser_votes:
-                loser_votes = votes_on_1[i]
-                loser_id = i
-
-        votes_on_1[loser_id] = 0
-        for i in range(params['voters']):
-            for j in range(params['candidates']):
-                if active[votes[i][j]]:
-                    if votes[i][j] == loser_id:
-                        for k in range(j+1, params['candidates']):
-                            if active[votes[i][k]]:
-                                votes_on_1[votes[i][k]] += 1. * v_power[i]
-                                break
-                    break
-        active[loser_id] = False
-
-    for i in range(params['candidates']):
-        if active[i]:
-            if params['pure']:
-                winners += [i]
-            else:
-                winners += [candidates[i]]
-
-    winners = sorted(winners)
-
-    return winners
-
-

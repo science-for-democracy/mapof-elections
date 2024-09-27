@@ -1,7 +1,7 @@
 import pytest
 import numpy as np
 
-import mapof.elections as mapel
+import mapof.elections as mapof
 
 registered_ordinal_distances_to_test = {
     'emd-positionwise',
@@ -12,6 +12,11 @@ registered_ordinal_distances_to_test = {
     'discrete',
     'swap',
     'spearman',
+
+    'blank',
+    'positionwise_infty',
+    'l1-voterlikeness',
+    'ilp_spearman',
 }
 
 
@@ -23,13 +28,13 @@ class TestOrdinalDistances:
         num_voters = np.random.randint(5, 8)
         num_candidates = np.random.randint(4, 6)
 
-        ele_1 = mapel.generate_ordinal_election(culture_id='ic',
+        ele_1 = mapof.generate_ordinal_election(culture_id='ic',
                                                 num_voters=num_voters,
                                                 num_candidates=num_candidates)
 
-        ele_2 = mapel.generate_ordinal_election(culture_id='ic',
+        ele_2 = mapof.generate_ordinal_election(culture_id='ic',
                                                 num_voters=num_voters,
                                                 num_candidates=num_candidates)
 
-        distance, mapping = mapel.compute_distance(ele_1, ele_2, distance_id=distance_id)
+        distance, mapping = mapof.compute_distance(ele_1, ele_2, distance_id=distance_id)
         assert type(float(distance)) is float

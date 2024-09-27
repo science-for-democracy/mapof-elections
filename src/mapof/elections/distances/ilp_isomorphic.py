@@ -20,7 +20,7 @@ def solve_ilp_spearman_distance(votes_1, votes_2, params):
         for l in range(params['voters']):
             for i in range(params['candidates']):
                 for j in range(params['candidates']):
-                    weight = abs(votes_1[k].index(i) - votes_2[l].index(j))
+                    weight = abs(list(votes_1[k]).index(i) - list(votes_2[l]).index(j))
                     P[k, l, i, j] = model.addVar(vtype=GRB.BINARY, name=f"P_{k}_{l}_{i}_{j}", obj=weight)
 
     # Define the M variables

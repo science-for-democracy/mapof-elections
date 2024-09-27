@@ -92,16 +92,19 @@ def solve_ilp_candidate_subelection(election_1, election_2) -> int:
                   election_2.num_candidates,
                   election_1.num_candidates, election_2.num_candidates])
 
+    potes_1 = election_1.get_potes()
+    potes_2 = election_2.get_potes()
+
     for v in range(election_1.num_voters):
         for u in range(election_2.num_voters):
             for c1 in range(election_1.num_candidates):
                 for d1 in range(election_2.num_candidates):
                     for c2 in range(election_1.num_candidates):
                         for d2 in range(election_2.num_candidates):
-                            if (election_1.potes[v][c1] > election_1.potes[v][c2] and
-                                election_2.potes[u][d1] > election_2.potes[u][d2]) or \
-                                    (election_1.potes[v][c1] < election_1.potes[v][c2] and
-                                     election_2.potes[u][d1] < election_2.potes[u][d2]):
+                            if (potes_1[v][c1] > potes_1[v][c2] and
+                                potes_2[u][d1] > potes_2[u][d2]) or \
+                                    (potes_1[v][c1] < potes_1[v][c2] and
+                                     potes_2[u][d1] < potes_2[u][d2]):
                                 P[v][u][c1][d1][c2][d2] = 1
 
     # Initialize Gurobi model

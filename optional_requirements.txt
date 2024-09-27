@@ -1,4 +1,4 @@
-abcvoting~=2.0.0b0
+abcvoting~=2.11.0
 gurobipy
-pulp~=2.5.1
+pulp~=2.9.0
 permanent

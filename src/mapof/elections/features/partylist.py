@@ -1,15 +1,11 @@
 import sys
-import time
 import os
 
 try:
-    from dotenv import load_dotenv
-    load_dotenv()
     sys.path.append(os.environ["PATH"])
-    from abcvoting import fileio, genprofiles
+    from abcvoting import fileio
     import gurobipy as gb
     from abcvoting.preferences import Profile, Voter
-    from abcvoting import abcrules
 except ImportError:
     pass
 
@@ -120,7 +116,5 @@ def partylistdistance(election, feature_params=None):
         if support >= largepartysize:
             num_large_parties += 1
 
-
-    print(model.objVal, model.objbound, num_large_parties)
     return model.objVal, model.objbound, num_large_parties
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from mapof.core.glossary import MAIN_LOCAL_FEATUERS, MAIN_GLOBAL_FEATUERS
+from mapof.core.glossary import MAIN_GLOBAL_FEATUERS
 import mapof.core.features as core_features
 
 import mapof.elections.features.approx as approx
@@ -95,8 +95,8 @@ registered_ordinal_features = {
     'AgreementApprox': dap_approx.agreement_index,
     'DiversityApprox': dap_approx.diversity_index,
     'PolarizationApprox': dap_approx.polarization_index,
+    'partylist': partylist.partylistdistance,
 
-    'partylist': partylist.partylistdistance,  # unsupported feature
     'rand_approx_pav_score': approx.get_rand_approx_pav_score,  # unsupported feature
 }
 

@@ -327,7 +327,6 @@ def solve_rand_approx_pav(election, committee_size, W, C, ctr=0, fixed=None):
         for i in range(election.num_candidates):
             values[i] = model.getVarByName(f'y_{i}').x
 
-        # Assuming `approx_rand_tree` is a function you have defined elsewhere
         final_values = approx_rand_tree(values)
 
         winner_id = 0

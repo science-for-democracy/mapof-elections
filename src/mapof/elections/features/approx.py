@@ -16,7 +16,7 @@ def get_rand_approx_pav_score(election, committee_size=1):
             C[i][c] = j
     # is C equivalent to potes?
 
-    return solve_rand_approx_pav(election, committee_size, W, C)
+    return {'value': solve_rand_approx_pav(election, committee_size, W, C)}
 
 
 # GREEDY

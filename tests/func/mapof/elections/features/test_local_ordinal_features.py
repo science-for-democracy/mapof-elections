@@ -62,8 +62,8 @@ registered_ordinal_features_to_test = {
     'AgreementApprox',
     'DiversityApprox',
     'PolarizationApprox',
-    ## 'partylist', # fix this one
-    ## 'rand_approx_pav_score', # fix this one
+    'partylist',
+    ## 'rand_approx_pav_score',  # fix this one
 }
 
 

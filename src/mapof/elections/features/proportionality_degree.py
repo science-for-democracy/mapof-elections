@@ -1,3 +1,5 @@
+import logging
+
 from numpy import ceil
 import sys
 import os
@@ -8,12 +10,10 @@ except Exception:
     pulp = None
 
 try:
-    from dotenv import load_dotenv
-
-    load_dotenv()
     sys.path.append(os.environ["PATH"])
     from abcvoting import abcrules, preferences
 except ImportError:
+    logging.warning("ABC Voting library not found. Some features may not work.")
     abcrules = None
     preferences = None
 

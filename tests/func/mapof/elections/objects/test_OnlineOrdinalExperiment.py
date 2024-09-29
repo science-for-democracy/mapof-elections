@@ -88,11 +88,8 @@ class TestOnlineOrdinalExperiment:
         feature_id = 'highest_borda_score'
         self.experiment.compute_feature(feature_id=feature_id)
         self.experiment.print_map_2d_colored_by_feature(
-            show=True,
-            feature_id=feature_id,
-            upper_limit=100,
-            lower_limit=0,
-            rounding=0)
+            show=False,
+            feature_id=feature_id)
 
 
 

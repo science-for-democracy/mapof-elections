@@ -70,7 +70,7 @@ class TestOnlineOrdinalExperiment:
         self.add_families()
         self.experiment.compute_distances(distance_id='emd-positionwise')
         self.experiment.embed_2d(embedding_id='fr')
-        self.experiment.print_map_2d(show=True)
+        self.experiment.print_map_2d(show=False)
 
     def test_compute_feature(self):
         self.add_families()
@@ -78,7 +78,7 @@ class TestOnlineOrdinalExperiment:
         self.experiment.embed_2d(embedding_id='fr')
 
         feature_id = 'highest_borda_score'
-        self.experiment.compute_feature(show=False, feature_id=feature_id)
+        self.experiment.compute_feature(feature_id=feature_id)
 
     def test_print_map_colored_by_feature(self):
         self.add_families()

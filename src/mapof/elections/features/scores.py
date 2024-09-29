@@ -48,8 +48,7 @@ def highest_borda_score(election) -> dict:
     for i in range(n):
         for j in range(m):
             scores[int(election.votes[i][j])] += m - j - 1
-
-    return {'value': max(scores) * election.num_voters}
+    return {'value': max(scores)}
 
 
 def highest_plurality_score(election) -> dict:
@@ -68,7 +67,7 @@ def highest_plurality_score(election) -> dict:
     if election.culture_id in LIST_OF_FAKE_MODELS:
         return {'value': None}
     first_pos = election.get_matrix()[0]
-    return {'value': max(first_pos) * election.num_voters}
+    return {'value': max(first_pos)}
 
 
 def highest_copeland_score(election) -> dict:

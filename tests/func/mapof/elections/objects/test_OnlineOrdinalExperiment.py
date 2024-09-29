@@ -26,7 +26,7 @@ class TestOnlineOrdinalExperiment:
         self.experiment.add_family(
             culture_id='ic',
             num_candidates=5,
-            num_voters=50,
+            num_voters=10,
             size=10,
             color='green',
             marker='x',
@@ -36,7 +36,7 @@ class TestOnlineOrdinalExperiment:
         self.experiment.add_family(
             culture_id='norm-mallows',
             num_candidates=5,
-            num_voters=50,
+            num_voters=10,
             size=10,
             normphi=0.5,
             color='blue',
@@ -70,7 +70,29 @@ class TestOnlineOrdinalExperiment:
         self.add_families()
         self.experiment.compute_distances(distance_id='emd-positionwise')
         self.experiment.embed_2d(embedding_id='fr')
-        self.experiment.print_map_2d(show=False)
+        self.experiment.print_map_2d(show=True)
+
+    def test_compute_feature(self):
+        self.add_families()
+        self.experiment.compute_distances(distance_id='emd-positionwise')
+        self.experiment.embed_2d(embedding_id='fr')
+
+        feature_id = 'highest_borda_score'
+        self.experiment.compute_feature(feature_id=feature_id)
+
+    def test_print_map_colored_by_feature(self):
+        self.add_families()
+        self.experiment.compute_distances(distance_id='emd-positionwise')
+        self.experiment.embed_2d(embedding_id='fr')
+
+        feature_id = 'highest_borda_score'
+        self.experiment.compute_feature(feature_id=feature_id)
+        self.experiment.print_map_2d_colored_by_feature(
+            show=True,
+            feature_id=feature_id,
+            upper_limit=100,
+            lower_limit=0,
+            rounding=0)
 
 
 

@@ -20,8 +20,8 @@ For a simple installation, type
 `pip install mapof-elections`
 in the console.
 
-For more complicated variants of installation, refer to the readme of mapel
-[here](https://github.com/science-for-democracy/mapof).
+For more complicated variants of installation, refer to the [readme of
+Mapof](https://github.com/science-for-democracy/mapof).
 
 ## Extra dependencies
 

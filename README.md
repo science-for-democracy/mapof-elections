@@ -9,11 +9,12 @@ it with capabilities of drawing maps of various election intances.
 For the most recent version of Mapof, visit its [git
 repo](https://pypi.org/project/mapof/).
 
-> [!WARNING!] This library contains C++ extensions. Installing it without
+> [!WARNING]
+> This library contains C++ extensions. Installing it without
 > any package manager that uses the PyPi repository requires compiling the C++
 > extension from sources. It might be a bit cumbersome as is far beyond the
 > scope of this small manual.
-
+ 
 # Installation
 For a simple installation, type
 `pip install mapof-elections`

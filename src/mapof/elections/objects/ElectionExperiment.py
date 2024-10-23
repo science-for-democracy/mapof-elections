@@ -14,6 +14,7 @@ from mapof.core.objects.Experiment import Experiment
 from mapof.core.utils import get_instance_id
 from tqdm import tqdm
 
+
 import mapof.elections.distances as metr
 import mapof.elections.features as features
 import mapof.elections.other.rules as rules
@@ -25,6 +26,7 @@ from mapof.elections.other.glossary import NOT_ABCVOTING_RULES
 
 from mapof.core.glossary import MAIN_GLOBAL_FEATUERS
 from mapof.elections.other.glossary import ELECTION_GLOBAL_FEATURES
+from mapof.elections.cultures import registered_ordinal_cultures, registered_pseudo_ordinal_cultures
 
 try:
     from sklearn.manifold import MDS
@@ -141,17 +143,18 @@ class ElectionExperiment(Experiment):
                      params=None,
                      label=None,
                      color="black",
-                     alpha=1.,
-                     show=True,
+                     alpha: float = 1.,
+                     show: bool = True,
                      marker='x',
                      ms=20,
-                     starting_from=0,
-                     size=1,
-                     num_candidates=None,
-                     num_voters=None,
+                     starting_from: int = 0,
+                     size: int = 1,
+                     num_candidates: int = None,
+                     num_voters: int = None,
                      election_id=None,  # deprecated
                      instance_id=None,
                      frequency_matrix=None,
+                     is_temporary: bool = False,
                      **kwargs):
         """ Add election to the experiment """
 
@@ -178,6 +181,7 @@ class ElectionExperiment(Experiment):
                                num_candidates=num_candidates,
                                num_voters=num_voters,
                                frequency_matrix=frequency_matrix,
+                               is_temporary=is_temporary,
                                single=True,
                                **kwargs)
 
@@ -199,6 +203,7 @@ class ElectionExperiment(Experiment):
                    path: dict = None,
                    election_id: str = None,
                    frequency_matrix=None,
+                   is_temporary: bool = False,
                    **kwargs) -> list:
         """ Add family of elections to the experiment """
 
@@ -249,6 +254,7 @@ class ElectionExperiment(Experiment):
                                                   single=single,
                                                   instance_type=self.instance_type,
                                                   frequency_matrix=frequency_matrix,
+                                                  is_temporary=is_temporary,
                                                   **kwargs)
 
         self.num_families = len(self.families)
@@ -265,7 +271,7 @@ class ElectionExperiment(Experiment):
 
         self.families[family_id].instance_ids = list(new_instances.keys())
 
-        if self.is_exported:
+        if self.is_exported and not is_temporary:
             self.update_map_csv()
 
         return list(new_instances.keys())
@@ -317,14 +323,14 @@ class ElectionExperiment(Experiment):
 
         families = {}
 
-        path = os.path.join(os.getcwd(), 'experiments', self.experiment_id, 'map.csv')
-        with open(path, 'w', newline='') as csv_file:
+        path_to_file = os.path.join(os.getcwd(), 'experiments', self.experiment_id, 'map.csv')
+        with open(path_to_file, 'w', newline='') as csv_file:
             writer = csv.writer(csv_file, delimiter=';')
 
             all_fields = ['size',
                           'num_candidates',
                           'num_voters',
-                          'pseudo_culture_id',
+                          'culture_id',
                           'params',
                           'family_id',
                           'label',
@@ -338,20 +344,21 @@ class ElectionExperiment(Experiment):
             writer.writerow(all_fields)
 
             for family in self.families.values():
-                all_values = [family.size,
-                              family.num_candidates,
-                              family.num_voters,
-                              family.culture_id,
-                              family.params,
-                              family.family_id,
-                              family.label,
-                              family.color,
-                              family.alpha,
-                              family.marker,
-                              family.ms,
-                              family.path]
+                if not family.is_temporary:
+                    all_values = [family.size,
+                                  family.num_candidates,
+                                  family.num_voters,
+                                  family.culture_id,
+                                  family.params,
+                                  family.family_id,
+                                  family.label,
+                                  family.color,
+                                  family.alpha,
+                                  family.marker,
+                                  family.ms,
+                                  family.path]
 
-                writer.writerow(all_values)
+                    writer.writerow(all_values)
 
         return families
 
@@ -396,6 +403,10 @@ class ElectionExperiment(Experiment):
             self.instances = {}
 
         for family_id in tqdm(self.families, desc="Preparing instances"):
+
+            if self.families[family_id].culture_id not in registered_pseudo_ordinal_cultures and \
+                    self.families[family_id].culture_id not in registered_pseudo_ordinal_cultures:
+                continue
 
             new_instances = self.families[family_id].prepare_family(
                 is_exported=self.is_exported,

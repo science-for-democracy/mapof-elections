@@ -34,6 +34,7 @@ class ElectionFamily(Family):
                  election_ids=None,
 
                  frequency_matrix=None,
+                 is_temporary: bool = False,
                  **kwargs):
 
         super().__init__(culture_id=culture_id,
@@ -56,6 +57,7 @@ class ElectionFamily(Family):
         self.num_voters = num_voters
         self.instance_type = instance_type
         self.frequency_matrix = frequency_matrix
+        self.is_temporary = is_temporary
 
     def __getattr__(self, attr):
         if attr == 'election_ids':

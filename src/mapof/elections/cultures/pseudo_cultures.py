@@ -5,6 +5,49 @@ from mapof.elections.cultures.matrices.single_peaked_matrices \
 from mapof.elections.cultures.params import *
 
 
+def pseudo_uniformity(num_candidates, params=None):
+    return get_pseudo_matrix_single('pseudo_uniformity', num_candidates, params)
+
+
+def pseudo_identity(num_candidates, params=None):
+    return get_pseudo_matrix_single('pseudo_identity', num_candidates, params)
+
+
+def pseudo_stratification(num_candidates, params=None):
+    return get_pseudo_matrix_single('pseudo_stratification', num_candidates, params)
+
+
+def pseudo_antagonism(num_candidates, params=None):
+    return get_pseudo_matrix_single('pseudo_antagonism', num_candidates, params)
+
+
+def pseudo_unid(num_candidates, params=None):
+    return get_pseudo_convex('pseudo_unid', num_candidates, params, get_frequency_matrix_for_guardian)
+
+
+def pseudo_anid(num_candidates, params=None):
+    return get_pseudo_convex('pseudo_unid', num_candidates, params, get_frequency_matrix_for_guardian)
+
+
+def pseudo_stid(num_candidates, params=None):
+    return get_pseudo_convex('pseudo_unid', num_candidates, params, get_frequency_matrix_for_guardian)
+
+
+def pseudo_anun(num_candidates, params=None):
+    return get_pseudo_convex('pseudo_unid', num_candidates, params, get_frequency_matrix_for_guardian)
+
+
+def pseudo_stun(num_candidates, params=None):
+    return get_pseudo_convex('pseudo_unid', num_candidates, params, get_frequency_matrix_for_guardian)
+
+
+def pseudo_stan(num_candidates, params=None):
+    return get_pseudo_convex('pseudo_unid', num_candidates, params, get_frequency_matrix_for_guardian)
+
+
+
+
+
 def get_pseudo_multiplication(num_candidates, params, model):
     params['weight'] = 0.
     params['normphi'] = params['alpha']
@@ -52,7 +95,8 @@ def get_frequency_matrix_for_guardian(culture_id, num_candidates, params=None):
     return vectors
 
 
-def get_pseudo_convex(culture_id, num_candidates, num_voters, params, function_name):
+
+def get_pseudo_convex(culture_id, num_candidates, params, function_name):
     if culture_id == 'pseudo_unid':
         base_1 = function_name('pseudo_uniformity', num_candidates)
         base_2 = function_name('pseudo_identity', num_candidates)
@@ -94,7 +138,9 @@ def convex_combination(base_1, base_2, length=0, params=None):
 
 
 
-def get_pseudo_matrix_single(culture_id, num_candidates, weight=0.5):
+def get_pseudo_matrix_single(culture_id, num_candidates, params):
+    weight = params.get('weight', 0.5)
+
     matrix = np.zeros([num_candidates, num_candidates])
 
     if culture_id == 'pseudo_identity':

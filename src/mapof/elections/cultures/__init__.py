@@ -19,6 +19,8 @@ import mapof.elections.cultures.euclidean as euclidean
 import mapof.elections.cultures.urn as urn
 import mapof.elections.cultures.identity as identity
 
+import mapof.elections.cultures.pseudo_cultures as pseudo
+
 from mapof.elections.other.glossary import is_pseudo_culture, LIST_OF_PREFLIB_MODELS
 
 import prefsampling.ordinal as pref_ordinal
@@ -104,6 +106,20 @@ registered_ordinal_cultures = {
 }
 
 
+registered_pseudo_ordinal_cultures = {
+    'pseudo_uniformity': pseudo.pseudo_uniformity,
+    'pseudo_stratification': pseudo.pseudo_stratification,
+    'pseudo_identity': pseudo.pseudo_identity,
+    'pseudo_antagonism': pseudo.pseudo_antagonism,
+    'pseudo_unid': pseudo.pseudo_unid,
+    'pseudo_anid': pseudo.pseudo_anid,
+    'pseudo_stid': pseudo.pseudo_stid,
+    'pseudo_anun': pseudo.pseudo_anun,
+    'pseudo_stun': pseudo.pseudo_stun,
+    'pseudo_stan': pseudo.pseudo_stan,
+}
+
+
 def generate_approval_votes(
         culture_id: str = None,
         num_voters: int = None,
@@ -174,7 +190,6 @@ def generate_ordinal_votes(
 
     elif is_pseudo_culture(culture_id):
         votes = [culture_id, num_candidates, num_voters, params]
-
     else:
         votes = []
         logging.warning(
@@ -266,12 +281,27 @@ def add_ordinal_culture(name, function):
     registered_ordinal_cultures[name] = function
 
 
+def add_pseudo_ordinal_culture(name, function):
+    """
+    Adds a new ordinal culture to the list of available ordinal cultures.
+
+    Parameters
+    ----------
+        name:
+            Name of the culture, which will be used as culture id.
+        function : str
+            Function that generates the frequency matrix.
+    """
+    registered_pseudo_ordinal_cultures[name] = function
+
+
 __all__ = [
     'generate_approval_votes',
     'generate_ordinal_votes',
     'generate_ordinal_alliance_votes',
     'add_approval_culture',
     'add_ordinal_culture',
+    'add_pseudo_ordinal_culture',
     'approval_votes_to_vectors',
     'from_approval'
 ]

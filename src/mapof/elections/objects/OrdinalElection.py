@@ -196,7 +196,6 @@ class OrdinalElection(Election):
             frequency_matrix = get_pseudo_convex(
                 self.culture_id,
                 self.num_candidates,
-                self.num_voters,
                 self.params,
                 get_frequency_matrix_for_guardian)
         elif self.culture_id in ['from_approval']:

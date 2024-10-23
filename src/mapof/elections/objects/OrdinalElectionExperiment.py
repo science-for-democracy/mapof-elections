@@ -41,7 +41,7 @@ class OrdinalElectionExperiment(ElectionExperiment, ABC):
 
     def add_folders_to_experiment(self) -> None:
 
-        dirs = ["experiments", "images", "trash"]
+        dirs = ["experiments"]
         for dir in dirs:
             if not os.path.isdir(dir):
                 os.mkdir(os.path.join(os.getcwd(), dir))
@@ -52,8 +52,7 @@ class OrdinalElectionExperiment(ElectionExperiment, ABC):
         list_of_folders = ['distances',
                            'features',
                            'coordinates',
-                           'elections',
-                           'matrices']
+                           'elections']
 
         for folder_name in list_of_folders:
             if not os.path.isdir(os.path.join(os.getcwd(), "experiments",
@@ -66,9 +65,9 @@ class OrdinalElectionExperiment(ElectionExperiment, ABC):
 
             with open(path, 'w') as file_csv:
                 file_csv.write(
-                    "size;num_candidates;num_voters;pseudo_culture_id;params;color;alpha;"
-                    "family_id;label;marker;show\n")
-                file_csv.write("3;10;100;ic;{};black;1;ic;Impartial Culture;o;process_id\n")
+                    "size;num_candidates;num_voters;culture_id;params;color;alpha;"
+                    "family_id;label;marker\n")
+                file_csv.write("3;10;100;ic;{};black;1;ic;Impartial Culture;o\n")
 
     def export_frequency_matrices(self):
         path_to_folder = os.path.join(os.getcwd(), "experiments", self.experiment_id, "matrices")

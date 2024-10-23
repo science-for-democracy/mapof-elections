@@ -50,7 +50,6 @@ ORDINAL_PSEUDO_MODELS = {
     'pseudo_stun',
     'pseudo_stan',
 
-    'crate',
     'mallows_matrix_path',
     'walsh_matrix',
     'conitzer_matrix',

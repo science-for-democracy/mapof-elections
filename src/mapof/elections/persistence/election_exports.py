@@ -146,7 +146,7 @@ def export_approval_election(
                              is_aggregated=is_aggregated)
 
 
-def export_fake_ordinal_election(election, path_to_file):
+def export_pseudo_ordinal_election(election, path_to_file):
     file_ = open(path_to_file, 'w')
     file_.write(f'# FILE NAME: {election.election_id}.soc\n')
     file_.write(f'# DATA TYPE: soc \n')
@@ -185,8 +185,8 @@ def export_ordinal_election(election,
     make_folder_if_do_not_exist(path_to_folder)
     path_to_file = os.path.join(path_to_folder, f'{election.election_id}.soc')
 
-    if election.culture_id in ORDINAL_PSEUDO_MODELS:
-        export_fake_ordinal_election(election, path_to_file)
+    if election.is_pseudo:
+        export_pseudo_ordinal_election(election, path_to_file)
     else:
         export_votes_to_file(election,
                              election.culture_id,

@@ -34,6 +34,7 @@ class ApprovalElection(Election, ABC):
 
         self.approvalwise_vector = []
         self.reverse_approvals = []
+        self.candidatelikeness_original_vectors = []
 
         self.import_approval_election()
 
@@ -145,6 +146,26 @@ class ApprovalElection(Election, ABC):
             exports.export_distances(self, object_type='candidate')
 
         return distances
+
+    def get_candidatelikeness_original_vectors(self, is_recomputed=False):
+        if self.candidatelikeness_original_vectors is not None \
+                and len(self.candidatelikeness_original_vectors) > 0 \
+                and not is_recomputed:
+            return self.candidatelikeness_original_vectors
+        return self._voted_to_candidatelikeness_original_vectors()
+
+    def _voted_to_candidatelikeness_original_vectors(self) -> None:
+        """ convert VOTES to candidate-likeness VECTORS """
+        matrix = np.zeros([self.num_candidates, self.num_candidates])
+
+        for c_1 in range(self.num_candidates):
+            for c_2 in range(self.num_candidates):
+                for vote in self.votes:
+                    if (c_1 in vote and c_2 not in vote) or (c_1 not in vote and c_2 in vote):
+                        matrix[c_1][c_2] += 1
+        candidatelikeness_original_vectors = matrix / self.num_voters
+        self.candidatelikeness_original_vectors = candidatelikeness_original_vectors
+        return candidatelikeness_original_vectors
 
     def compute_distances(self, object_type=None, distance_id='hamming'):
         if object_type is None:

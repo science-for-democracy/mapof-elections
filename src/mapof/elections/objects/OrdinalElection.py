@@ -274,16 +274,6 @@ class OrdinalElection(Election):
 
         return np.array(borda_vector)
 
-    def votes_to_candidatelikeness_original_vectors(self) -> None:
-        """ convert VOTES to candidate-likeness VECTORS """
-        matrix = np.zeros([self.num_candidates, self.num_candidates])
-
-        for c_1 in range(self.num_candidates):
-            for c_2 in range(self.num_candidates):
-                for vote in self.approval_votes:
-                    if (c_1 in vote and c_2 not in vote) or (c_1 not in vote and c_2 in vote):
-                        matrix[c_1][c_2] += 1
-        self.candidatelikeness_original_vectors = matrix / self.num_voters
 
     def votes_to_voterlikeness_matrix(self, vote_distance='swap') -> np.ndarray:
         """ convert VOTES to voter-likeness MATRIX """

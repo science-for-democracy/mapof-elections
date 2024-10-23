@@ -1,6 +1,6 @@
 Guardians
 =========
 
-.. automodule:: mapof.elections.cultures.guardians
+.. automodule:: mapof.elections.cultures.guardians_approx
     :members:
 

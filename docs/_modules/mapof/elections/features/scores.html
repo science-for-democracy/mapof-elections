@@ -313,13 +313,9 @@ document.write(`
                 <article class="bd-article">
                   
   <h1>Source code for mapof.elections.features.scores</h1><div class="highlight"><pre>
-<span></span><span class="ch">#!/usr/bin/env python</span>
-
-<span class="kn">import</span> <span class="nn">math</span>
+<span></span><span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">sys</span>
-
-<span class="kn">from</span> <span class="nn">mapof.elections.other.glossary</span> <span class="kn">import</span> <span class="n">LIST_OF_FAKE_MODELS</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="k">try</span><span class="p">:</span>
@@ -356,7 +352,7 @@ document.write(`
 <span class="sd">        dict</span>
 <span class="sd">            &#39;value&#39;: highest Borda score</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">election</span><span class="o">.</span><span class="n">culture_id</span> <span class="ow">in</span> <span class="n">LIST_OF_FAKE_MODELS</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">election</span><span class="o">.</span><span class="n">is_pseudo</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
     <span class="n">n</span> <span class="o">=</span> <span class="n">election</span><span class="o">.</span><span class="n">num_voters</span>
     <span class="n">m</span> <span class="o">=</span> <span class="n">election</span><span class="o">.</span><span class="n">num_candidates</span>
@@ -365,8 +361,7 @@ document.write(`
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
             <span class="n">scores</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">election</span><span class="o">.</span><span class="n">votes</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">])]</span> <span class="o">+=</span> <span class="n">m</span> <span class="o">-</span> <span class="n">j</span> <span class="o">-</span> <span class="mi">1</span>
-
-    <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="nb">max</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span> <span class="o">*</span> <span class="n">election</span><span class="o">.</span><span class="n">num_voters</span><span class="p">}</span></div>
+    <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="nb">max</span><span class="p">(</span><span class="n">scores</span><span class="p">)}</span></div>
 
 
 
@@ -385,10 +380,10 @@ document.write(`
 <span class="sd">        dict</span>
 <span class="sd">            &#39;value&#39;: highest Plurality score</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">election</span><span class="o">.</span><span class="n">culture_id</span> <span class="ow">in</span> <span class="n">LIST_OF_FAKE_MODELS</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">election</span><span class="o">.</span><span class="n">is_pseudo</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
-    <span class="n">first_pos</span> <span class="o">=</span> <span class="n">election</span><span class="o">.</span><span class="n">get_matrix</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="nb">max</span><span class="p">(</span><span class="n">first_pos</span><span class="p">)</span> <span class="o">*</span> <span class="n">election</span><span class="o">.</span><span class="n">num_voters</span><span class="p">}</span></div>
+    <span class="n">first_pos</span> <span class="o">=</span> <span class="n">election</span><span class="o">.</span><span class="n">get_frequency_matrix</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="nb">max</span><span class="p">(</span><span class="n">first_pos</span><span class="p">)}</span></div>
 
 
 
@@ -408,7 +403,7 @@ document.write(`
 <span class="sd">            &#39;value&#39;: highest Copeland score</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">election</span><span class="o">.</span><span class="n">culture_id</span> <span class="ow">in</span> <span class="n">LIST_OF_FAKE_MODELS</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">election</span><span class="o">.</span><span class="n">is_pseudo</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
 
     <span class="n">election</span><span class="o">.</span><span class="n">compute_potes</span><span class="p">()</span>
@@ -447,7 +442,7 @@ document.write(`
 <span class="sd">        dict</span>
 <span class="sd">            &#39;value&#39;: lowest Dodgson score</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">election</span><span class="o">.</span><span class="n">culture_id</span> <span class="ow">in</span> <span class="n">LIST_OF_FAKE_MODELS</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">election</span><span class="o">.</span><span class="n">is_pseudo</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
 
     <span class="n">min_score</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">inf</span>
@@ -491,7 +486,7 @@ document.write(`
 
 
 <span class="k">def</span> <span class="nf">highest_cc_score</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">committee_size</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">election</span><span class="o">.</span><span class="n">culture_id</span> <span class="ow">in</span> <span class="n">LIST_OF_FAKE_MODELS</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">election</span><span class="o">.</span><span class="n">is_pseudo</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;dissat&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
     <span class="n">winners</span><span class="p">,</span> <span class="n">total_time</span> <span class="o">=</span> <span class="n">win</span><span class="o">.</span><span class="n">generate_winners</span><span class="p">(</span><span class="n">election</span><span class="o">=</span><span class="n">election</span><span class="p">,</span>
                                              <span class="n">num_winners</span><span class="o">=</span><span class="n">committee_size</span><span class="p">,</span>
@@ -501,7 +496,7 @@ document.write(`
 
 
 <span class="k">def</span> <span class="nf">highest_hb_score</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">committee_size</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">election</span><span class="o">.</span><span class="n">culture_id</span> <span class="ow">in</span> <span class="n">LIST_OF_FAKE_MODELS</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">election</span><span class="o">.</span><span class="n">is_pseudo</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;dissat&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
     <span class="n">winners</span><span class="p">,</span> <span class="n">total_time</span> <span class="o">=</span> <span class="n">win</span><span class="o">.</span><span class="n">generate_winners</span><span class="p">(</span><span class="n">election</span><span class="o">=</span><span class="n">election</span><span class="p">,</span>
                                              <span class="n">num_winners</span><span class="o">=</span><span class="n">committee_size</span><span class="p">,</span>
@@ -511,7 +506,7 @@ document.write(`
 
 
 <span class="k">def</span> <span class="nf">highest_pav_score</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">committee_size</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">election</span><span class="o">.</span><span class="n">culture_id</span> <span class="ow">in</span> <span class="n">LIST_OF_FAKE_MODELS</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">election</span><span class="o">.</span><span class="n">is_pseudo</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;dissat&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
     <span class="n">winners</span><span class="p">,</span> <span class="n">total_time</span> <span class="o">=</span> <span class="n">win</span><span class="o">.</span><span class="n">generate_winners</span><span class="p">(</span><span class="n">election</span><span class="o">=</span><span class="n">election</span><span class="p">,</span>
                                              <span class="n">num_winners</span><span class="o">=</span><span class="n">committee_size</span><span class="p">,</span>
@@ -671,8 +666,8 @@ document.write(`
 <span class="k">def</span> <span class="nf">borda_spread</span><span class="p">(</span><span class="n">election</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Compute the difference between the highest and the lowest Borda score &quot;&quot;&quot;</span>
     <span class="n">c</span> <span class="o">=</span> <span class="n">election</span><span class="o">.</span><span class="n">num_candidates</span>
-    <span class="n">vectors</span> <span class="o">=</span> <span class="n">election</span><span class="o">.</span><span class="n">get_vectors</span><span class="p">()</span>
-    <span class="n">borda</span> <span class="o">=</span> <span class="p">[</span><span class="nb">sum</span><span class="p">([</span><span class="n">vectors</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">pos</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">c</span> <span class="o">-</span> <span class="n">pos</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">pos</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">c</span><span class="p">)])</span>
+    <span class="n">frequency_matrix</span> <span class="o">=</span> <span class="n">election</span><span class="o">.</span><span class="n">get_frequency_matrix</span><span class="p">()</span>
+    <span class="n">borda</span> <span class="o">=</span> <span class="p">[</span><span class="nb">sum</span><span class="p">([</span><span class="n">frequency_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">pos</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">c</span> <span class="o">-</span> <span class="n">pos</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">pos</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">c</span><span class="p">)])</span>
              <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">c</span><span class="p">)]</span>
     <span class="k">return</span> <span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">borda</span><span class="p">)</span><span class="o">-</span><span class="nb">min</span><span class="p">(</span><span class="n">borda</span><span class="p">))</span> <span class="o">*</span> <span class="n">election</span><span class="o">.</span><span class="n">num_voters</span></div>
 

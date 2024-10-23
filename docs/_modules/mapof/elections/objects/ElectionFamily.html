@@ -328,7 +328,7 @@ document.write(`
 <div class="viewcode-block" id="ElectionFamily">
 <a class="viewcode-back" href="../../../../reference/objects/ElectionFamily.html#mapof.elections.objects.ElectionFamily.ElectionFamily">[docs]</a>
 <span class="k">class</span> <span class="nc">ElectionFamily</span><span class="p">(</span><span class="n">Family</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; Family of elections: a set of elections from the same election culture_id &quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Family of elections: a set of elections from the same election pseudo_culture_id &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                  <span class="n">culture_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -349,6 +349,8 @@ document.write(`
                  <span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                  <span class="n">num_voters</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                  <span class="n">election_ids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+
+                 <span class="n">frequency_matrix</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">culture_id</span><span class="o">=</span><span class="n">culture_id</span><span class="p">,</span>
@@ -370,7 +372,7 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">num_candidates</span> <span class="o">=</span> <span class="n">num_candidates</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">num_voters</span> <span class="o">=</span> <span class="n">num_voters</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">instance_type</span> <span class="o">=</span> <span class="n">instance_type</span>
-
+        <span class="bp">self</span><span class="o">.</span><span class="n">frequency_matrix</span> <span class="o">=</span> <span class="n">frequency_matrix</span>
 
     <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">attr</span> <span class="o">==</span> <span class="s1">&#39;election_ids&#39;</span><span class="p">:</span>
@@ -418,12 +420,14 @@ document.write(`
                     <span class="n">params</span><span class="p">[</span><span class="s1">&#39;variable&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">variable</span>
 
                 <span class="n">election_id</span> <span class="o">=</span> <span class="n">get_instance_id</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">single</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">family_id</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
-                <span class="n">election</span> <span class="o">=</span> <span class="n">OrdinalElection</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">election_id</span><span class="p">,</span>
+                <span class="n">election</span> <span class="o">=</span> <span class="n">OrdinalElection</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span>
+                                           <span class="n">election_id</span><span class="p">,</span>
                                            <span class="n">culture_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">culture_id</span><span class="p">,</span>
                                            <span class="n">num_voters</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">num_voters</span><span class="p">,</span>
                                            <span class="n">label</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="p">,</span>
                                            <span class="n">num_candidates</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">,</span>
                                            <span class="n">is_imported</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                                           <span class="n">frequency_matrix</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">frequency_matrix</span><span class="p">,</span>
                                            <span class="o">**</span><span class="n">params</span>
                                            <span class="p">)</span>
 

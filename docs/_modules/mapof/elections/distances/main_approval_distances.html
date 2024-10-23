@@ -313,19 +313,16 @@ document.write(`
                 <article class="bd-article">
                   
   <h1>Source code for mapof.elections.distances.main_approval_distances</h1><div class="highlight"><pre>
-<span></span><span class="ch">#!/usr/bin/env python</span>
-
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span>
+<span></span><span class="kn">import</span> <span class="nn">logging</span>
 
 
 <span class="kn">from</span> <span class="nn">mapof.elections.objects.ApprovalElection</span> <span class="kn">import</span> <span class="n">ApprovalElection</span>
 
 
-<span class="c1"># MAIN APPROVAL DISTANCES</span>
 <div class="viewcode-block" id="compute_approvalwise_distance">
 <a class="viewcode-back" href="../../../../reference/distances/main_approval_distances.html#mapof.elections.distances.main_approval_distances.compute_approvalwise_distance">[docs]</a>
 <span class="k">def</span> <span class="nf">compute_approvalwise_distance</span><span class="p">(</span><span class="n">election_1</span><span class="p">:</span> <span class="n">ApprovalElection</span><span class="p">,</span> <span class="n">election_2</span><span class="p">:</span> <span class="n">ApprovalElection</span><span class="p">,</span>
-                         <span class="n">inner_distance</span><span class="p">:</span> <span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+                         <span class="n">inner_distance</span><span class="p">:</span> <span class="nb">callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Return: approvalwise distance &quot;&quot;&quot;</span>
     <span class="n">election_1</span><span class="o">.</span><span class="n">votes_to_approvalwise_vector</span><span class="p">()</span>
     <span class="n">election_2</span><span class="o">.</span><span class="n">votes_to_approvalwise_vector</span><span class="p">()</span>
@@ -333,18 +330,14 @@ document.write(`
 
 
 
-<span class="c1"># WAITING FOR UPDATE</span>
 <div class="viewcode-block" id="compute_hamming_distance">
 <a class="viewcode-back" href="../../../../reference/distances/main_approval_distances.html#mapof.elections.distances.main_approval_distances.compute_hamming_distance">[docs]</a>
 <span class="k">def</span> <span class="nf">compute_hamming_distance</span><span class="p">(</span><span class="n">election_1</span><span class="p">:</span> <span class="n">ApprovalElection</span><span class="p">,</span> <span class="n">election_2</span><span class="p">:</span> <span class="n">ApprovalElection</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Return: Hamming distance &quot;&quot;&quot;</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Hamming distance is not implemented yet.&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="o">-</span><span class="mi">1</span></div>
 
 
-
-<span class="c1"># # # # # # # # # # # # # # # #</span>
-<span class="c1"># LAST CLEANUP ON: 13.10.2021 #</span>
-<span class="c1"># # # # # # # # # # # # # # # #</span>
 </pre></div>
 
                 </article>

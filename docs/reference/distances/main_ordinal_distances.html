@@ -360,6 +360,7 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.distances.main_ordinal_distances.compute_agg_voterlikeness_distance"><code class="docutils literal notranslate"><span class="pre">compute_agg_voterlikeness_distance()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.distances.main_ordinal_distances.compute_blank_distance"><code class="docutils literal notranslate"><span class="pre">compute_blank_distance()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.distances.main_ordinal_distances.compute_bordawise_distance"><code class="docutils literal notranslate"><span class="pre">compute_bordawise_distance()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.distances.main_ordinal_distances.compute_candidate_subelection"><code class="docutils literal notranslate"><span class="pre">compute_candidate_subelection()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.distances.main_ordinal_distances.compute_discrete_distance"><code class="docutils literal notranslate"><span class="pre">compute_discrete_distance()</span></code></a></li>
@@ -398,6 +399,12 @@ document.write(`
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="mapof.elections.distances.main_ordinal_distances.compute_blank_distance">
+<span class="sig-name descname"><span class="pre">compute_blank_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">election_1:</span> <span class="pre">~mapof.elections.objects.OrdinalElection.OrdinalElection</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">election_2:</span> <span class="pre">~mapof.elections.objects.OrdinalElection.OrdinalElection)</span> <span class="pre">-&gt;</span> <span class="pre">(&lt;class</span> <span class="pre">'int'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">&lt;class</span> <span class="pre">'list'&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mapof/elections/distances/main_ordinal_distances.html#compute_blank_distance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.distances.main_ordinal_distances.compute_blank_distance" title="Link to this definition">#</a></dt>
+<dd><p>Computes blank distance for testing purposes.</p>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="mapof.elections.distances.main_ordinal_distances.compute_bordawise_distance">
 <span class="sig-name descname"><span class="pre">compute_bordawise_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">election_1:</span> <span class="pre">~mapof.elections.objects.OrdinalElection.OrdinalElection</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">election_2:</span> <span class="pre">~mapof.elections.objects.OrdinalElection.OrdinalElection</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inner_distance:</span> <span class="pre">callable)</span> <span class="pre">-&gt;</span> <span class="pre">(&lt;class</span> <span class="pre">'float'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mapof/elections/distances/main_ordinal_distances.html#compute_bordawise_distance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.distances.main_ordinal_distances.compute_bordawise_distance" title="Link to this definition">#</a></dt>
 <dd><p>Computes Bordawise distance between ordinal elections.</p>
@@ -427,7 +434,7 @@ document.write(`
 <dl class="py function">
 <dt class="sig sig-object py" id="mapof.elections.distances.main_ordinal_distances.compute_discrete_distance">
 <span class="sig-name descname"><span class="pre">compute_discrete_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">election_1:</span> <span class="pre">~mapof.elections.objects.OrdinalElection.OrdinalElection</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">election_2:</span> <span class="pre">~mapof.elections.objects.OrdinalElection.OrdinalElection)</span> <span class="pre">-&gt;</span> <span class="pre">(&lt;class</span> <span class="pre">'int'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">&lt;class</span> <span class="pre">'list'&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mapof/elections/distances/main_ordinal_distances.html#compute_discrete_distance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.distances.main_ordinal_distances.compute_discrete_distance" title="Link to this definition">#</a></dt>
-<dd><p>Compute Discrete distance between elections</p>
+<dd><p>Computes Discrete distance between elections</p>
 </dd></dl>
 
 <dl class="py function">
@@ -459,13 +466,13 @@ document.write(`
 
 <dl class="py function">
 <dt class="sig sig-object py" id="mapof.elections.distances.main_ordinal_distances.compute_positionwise_distance">
-<span class="sig-name descname"><span class="pre">compute_positionwise_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">election_1:</span> <span class="pre">~mapof.elections.objects.OrdinalElection.OrdinalElection</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">election_2:</span> <span class="pre">~mapof.elections.objects.OrdinalElection.OrdinalElection</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inner_distance:</span> <span class="pre">callable)</span> <span class="pre">-&gt;</span> <span class="pre">(&lt;class</span> <span class="pre">'float'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">&lt;class</span> <span class="pre">'list'&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mapof/elections/distances/main_ordinal_distances.html#compute_positionwise_distance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.distances.main_ordinal_distances.compute_positionwise_distance" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">compute_positionwise_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">election_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">election_2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inner_distance:</span> <span class="pre">callable)</span> <span class="pre">-&gt;</span> <span class="pre">(&lt;class</span> <span class="pre">'float'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">&lt;class</span> <span class="pre">'list'&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mapof/elections/distances/main_ordinal_distances.html#compute_positionwise_distance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.distances.main_ordinal_distances.compute_positionwise_distance" title="Link to this definition">#</a></dt>
 <dd><p>Compute Positionwise distance between ordinal elections.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>election_1</strong> (<a class="reference internal" href="../objects/OrdinalElection.html#mapof.elections.objects.OrdinalElection.OrdinalElection" title="mapof.elections.objects.OrdinalElection.OrdinalElection"><em>OrdinalElection</em></a>) – First election to compare.</p></li>
-<li><p><strong>election_2</strong> (<em>OrdinalElection.</em>) – Second election to compare.</p></li>
+<li><p><strong>election_2</strong> (<a class="reference internal" href="../objects/OrdinalElection.html#mapof.elections.objects.OrdinalElection.OrdinalElection" title="mapof.elections.objects.OrdinalElection.OrdinalElection"><em>OrdinalElection</em></a>) – Second election to compare.</p></li>
 <li><p><strong>inner_distance</strong> (<em>callable</em>) – Inner distance to use.</p></li>
 </ul>
 </dd>
@@ -530,7 +537,7 @@ not suited for instances with more than few dozen voters.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="mapof.elections.distances.main_ordinal_distances.compute_spearman_distance_ilp_py">
 <span class="sig-name descname"><span class="pre">compute_spearman_distance_ilp_py</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">election_1:</span> <span class="pre">~mapof.elections.objects.OrdinalElection.OrdinalElection</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">election_2:</span> <span class="pre">~mapof.elections.objects.OrdinalElection.OrdinalElection)</span> <span class="pre">-&gt;</span> <span class="pre">(&lt;class</span> <span class="pre">'int'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">&lt;class</span> <span class="pre">'list'&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mapof/elections/distances/main_ordinal_distances.html#compute_spearman_distance_ilp_py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.distances.main_ordinal_distances.compute_spearman_distance_ilp_py" title="Link to this definition">#</a></dt>
-<dd><p>Compute Spearman distance between elections</p>
+<dd><p>Computes Spearman distance between elections</p>
 </dd></dl>
 
 <dl class="py function">
@@ -653,6 +660,7 @@ ocassionally be unavailable for some due to envorinoment issues
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.distances.main_ordinal_distances.compute_agg_voterlikeness_distance"><code class="docutils literal notranslate"><span class="pre">compute_agg_voterlikeness_distance()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.distances.main_ordinal_distances.compute_blank_distance"><code class="docutils literal notranslate"><span class="pre">compute_blank_distance()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.distances.main_ordinal_distances.compute_bordawise_distance"><code class="docutils literal notranslate"><span class="pre">compute_bordawise_distance()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.distances.main_ordinal_distances.compute_candidate_subelection"><code class="docutils literal notranslate"><span class="pre">compute_candidate_subelection()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.distances.main_ordinal_distances.compute_discrete_distance"><code class="docutils literal notranslate"><span class="pre">compute_discrete_distance()</span></code></a></li>

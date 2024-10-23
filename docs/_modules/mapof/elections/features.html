@@ -315,14 +315,12 @@ document.write(`
   <h1>Source code for mapof.elections.features</h1><div class="highlight"><pre>
 <span></span><span class="ch">#!/usr/bin/env python</span>
 
-<span class="kn">from</span> <span class="nn">mapof.core.glossary</span> <span class="kn">import</span> <span class="n">MAIN_LOCAL_FEATUERS</span><span class="p">,</span> <span class="n">MAIN_GLOBAL_FEATUERS</span>
+<span class="kn">from</span> <span class="nn">mapof.core.glossary</span> <span class="kn">import</span> <span class="n">MAIN_GLOBAL_FEATUERS</span>
 <span class="kn">import</span> <span class="nn">mapof.core.features</span> <span class="k">as</span> <span class="nn">core_features</span>
 
 <span class="kn">import</span> <span class="nn">mapof.elections.features.approx</span> <span class="k">as</span> <span class="nn">approx</span>
 <span class="kn">import</span> <span class="nn">mapof.elections.features.banzhaf_cc</span> <span class="k">as</span> <span class="nn">banzhaf_cc</span>
-<span class="kn">import</span> <span class="nn">mapof.elections.features.clustering</span> <span class="k">as</span> <span class="nn">clustering</span>
 <span class="kn">import</span> <span class="nn">mapof.elections.features.cohesive</span> <span class="k">as</span> <span class="nn">cohesive</span>
-<span class="kn">import</span> <span class="nn">mapof.elections.features.dimensionality</span> <span class="k">as</span> <span class="nn">dimensionality</span>
 <span class="kn">import</span> <span class="nn">mapof.elections.features.distortion</span> <span class="k">as</span> <span class="nn">distortion</span>
 <span class="kn">import</span> <span class="nn">mapof.elections.features.diversity</span> <span class="k">as</span> <span class="nn">diversity</span>
 <span class="kn">import</span> <span class="nn">mapof.elections.features.entropy</span> <span class="k">as</span> <span class="nn">entropy</span>
@@ -335,7 +333,6 @@ document.write(`
 <span class="kn">import</span> <span class="nn">mapof.elections.features.ranging_cc</span> <span class="k">as</span> <span class="nn">ranging_cc</span>
 <span class="kn">import</span> <span class="nn">mapof.elections.features.scores</span> <span class="k">as</span> <span class="nn">scores</span>
 <span class="kn">import</span> <span class="nn">mapof.elections.features.vc_diversity</span> <span class="k">as</span> <span class="nn">vcd</span>
-
 
 <span class="n">registered_approval_features</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">&#39;max_approval_score&#39;</span><span class="p">:</span> <span class="n">simple_approval</span><span class="o">.</span><span class="n">max_approval_score</span><span class="p">,</span>
@@ -371,8 +368,6 @@ document.write(`
     <span class="s1">&#39;banzhaf_cc_score&#39;</span><span class="p">:</span> <span class="n">banzhaf_cc</span><span class="o">.</span><span class="n">get_banzhaf_cc_score</span><span class="p">,</span>
     <span class="s1">&#39;ranging_cc_score&#39;</span><span class="p">:</span> <span class="n">ranging_cc</span><span class="o">.</span><span class="n">get_ranging_cc_score</span><span class="p">,</span>
     <span class="s1">&#39;num_of_diff_votes&#39;</span><span class="p">:</span> <span class="n">vcd</span><span class="o">.</span><span class="n">num_of_diff_votes</span><span class="p">,</span>
-    <span class="s1">&#39;voterlikeness_sqrt&#39;</span><span class="p">:</span> <span class="n">vcd</span><span class="o">.</span><span class="n">voterlikeness_sqrt</span><span class="p">,</span>
-    <span class="s1">&#39;voterlikeness_harmonic&#39;</span><span class="p">:</span> <span class="n">vcd</span><span class="o">.</span><span class="n">voterlikeness_harmonic</span><span class="p">,</span>
     <span class="s1">&#39;borda_diversity&#39;</span><span class="p">:</span> <span class="n">vcd</span><span class="o">.</span><span class="n">borda_diversity</span><span class="p">,</span>
     <span class="s1">&#39;borda_std&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">borda_std</span><span class="p">,</span>
     <span class="s1">&#39;borda_range&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">borda_range</span><span class="p">,</span>
@@ -413,16 +408,10 @@ document.write(`
     <span class="s1">&#39;AgreementApprox&#39;</span><span class="p">:</span> <span class="n">dap_approx</span><span class="o">.</span><span class="n">agreement_index</span><span class="p">,</span>
     <span class="s1">&#39;DiversityApprox&#39;</span><span class="p">:</span> <span class="n">dap_approx</span><span class="o">.</span><span class="n">diversity_index</span><span class="p">,</span>
     <span class="s1">&#39;PolarizationApprox&#39;</span><span class="p">:</span> <span class="n">dap_approx</span><span class="o">.</span><span class="n">polarization_index</span><span class="p">,</span>
-    <span class="s1">&#39;avg_distortion_from_guardians&#39;</span><span class="p">:</span> <span class="n">distortion</span><span class="o">.</span><span class="n">avg_distortion_from_guardians</span><span class="p">,</span>
-    <span class="c1"># unsupported feature</span>
-    <span class="s1">&#39;worst_distortion_from_guardians&#39;</span><span class="p">:</span> <span class="n">distortion</span><span class="o">.</span><span class="n">worst_distortion_from_guardians</span><span class="p">,</span>
-    <span class="c1"># unsupported feature</span>
-    <span class="s1">&#39;distortion&#39;</span><span class="p">:</span> <span class="n">distortion</span><span class="p">,</span>  <span class="c1"># unsupported feature</span>
-    <span class="s1">&#39;monotonicity_triplets&#39;</span><span class="p">:</span> <span class="n">distortion</span><span class="o">.</span><span class="n">monotonicity_triplets</span><span class="p">,</span>  <span class="c1"># unsupported feature</span>
-    <span class="s1">&#39;partylist&#39;</span><span class="p">:</span> <span class="n">partylist</span><span class="o">.</span><span class="n">partylistdistance</span><span class="p">,</span>  <span class="c1"># unsupported feature</span>
-    <span class="s1">&#39;pav_time&#39;</span><span class="p">:</span> <span class="n">partylist</span><span class="o">.</span><span class="n">pav_time</span><span class="p">,</span>  <span class="c1"># unsupported feature</span>
+
+    <span class="s1">&#39;partylist&#39;</span><span class="p">:</span> <span class="n">partylist</span><span class="o">.</span><span class="n">partylistdistance</span><span class="p">,</span>
+
     <span class="s1">&#39;rand_approx_pav_score&#39;</span><span class="p">:</span> <span class="n">approx</span><span class="o">.</span><span class="n">get_rand_approx_pav_score</span><span class="p">,</span>  <span class="c1"># unsupported feature</span>
-    <span class="s1">&#39;min_dim&#39;</span><span class="p">:</span> <span class="n">dimensionality</span><span class="o">.</span><span class="n">min_dim</span><span class="p">,</span>  <span class="c1"># unsupported feature</span>
 <span class="p">}</span>
 
 
@@ -433,11 +422,14 @@ document.write(`
     <span class="k">if</span> <span class="n">feature_id</span> <span class="ow">in</span> <span class="n">MAIN_GLOBAL_FEATUERS</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">core_features</span><span class="o">.</span><span class="n">feature_id</span>
 
-    <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;clustering&#39;</span><span class="p">:</span> <span class="n">clustering</span><span class="o">.</span><span class="n">clustering_v1</span><span class="p">,</span>
-            <span class="s1">&#39;clustering_kmeans&#39;</span><span class="p">:</span> <span class="n">clustering</span><span class="o">.</span><span class="n">clustering_kmeans</span><span class="p">,</span>
-            <span class="s1">&#39;distortion_from_all&#39;</span><span class="p">:</span> <span class="n">distortion</span><span class="o">.</span><span class="n">distortion_from_all</span><span class="p">,</span>
-            <span class="s1">&#39;id_vs_un&#39;</span><span class="p">:</span> <span class="n">clustering</span><span class="o">.</span><span class="n">id_vs_un</span><span class="p">,</span>
-            <span class="s1">&#39;an_vs_st&#39;</span><span class="p">:</span> <span class="n">clustering</span><span class="o">.</span><span class="n">an_vs_st</span><span class="p">,</span>
+    <span class="k">return</span> <span class="p">{</span>
+            <span class="s1">&#39;distortion_from_all&#39;</span><span class="p">:</span> <span class="n">distortion</span><span class="o">.</span><span class="n">distortion_from_all</span><span class="p">,</span> <span class="c1"># unsupported feature</span>
+            <span class="s1">&#39;avg_distortion_from_guardians&#39;</span><span class="p">:</span> <span class="n">distortion</span><span class="o">.</span><span class="n">avg_distortion_from_guardians</span><span class="p">,</span>
+            <span class="c1"># unsupported feature</span>
+            <span class="s1">&#39;worst_distortion_from_guardians&#39;</span><span class="p">:</span> <span class="n">distortion</span><span class="o">.</span><span class="n">worst_distortion_from_guardians</span><span class="p">,</span>
+            <span class="c1"># unsupported feature</span>
+            <span class="s1">&#39;distortion&#39;</span><span class="p">:</span> <span class="n">distortion</span><span class="p">,</span>  <span class="c1"># unsupported feature</span>
+            <span class="s1">&#39;monotonicity_triplets&#39;</span><span class="p">:</span> <span class="n">distortion</span><span class="o">.</span><span class="n">monotonicity_triplets</span><span class="p">,</span>  <span class="c1"># unsupported feature</span>
             <span class="p">}</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">feature_id</span><span class="p">)</span></div>
 
 

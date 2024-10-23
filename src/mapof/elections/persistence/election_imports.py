@@ -7,6 +7,7 @@ from collections import Counter
 import numpy as np
 
 from mapof.core.glossary import *
+from mapof.elections.other.glossary import ORDINAL_PSEUDO_MODELS
 
 regex_file_name = r'# FILE NAME:'
 regex_title = r'# TITLE:'
@@ -100,6 +101,13 @@ def import_coordinates(
     return coordinates
 
 
+def _process_fake_soc_line(line: str, matrix: list):
+    row = [x.replace(" ", "") for x in line.split(',')]
+    row = [float(x) for x in row]
+    row = np.array(row)
+    matrix.append(row)
+
+
 def _process_soc_line(line: str, votes: list):
     tokens = line.split(':')
     nr_this_vote = int(tokens[0])
@@ -108,12 +116,14 @@ def _process_soc_line(line: str, votes: list):
     for i in range(0, nr_this_vote):
         votes.append(vote)
 
+
 def _process_app_line(line: str, votes: list):
     tokens = line.split(':')
     nr_this_vote = int(tokens[0])
     vote = set(eval(tokens[1]))
     for i in range(0, nr_this_vote):
         votes.append(vote)
+
 
 def _process_soi_line(line: str, votes: list):
     pass
@@ -307,10 +317,77 @@ def import_real_soc_election(**kwargs):
         return import_real_new_soc_election(**kwargs)
 
 
-def import_fake_soc_election(experiment_id: str, name: str):
+def import_fake_soc_election(*args):
+    try:
+        return import_fake_new_soc_election(*args)
+    except:
+        return import_fake_old_soc_election(*args)
+
+
+def import_fake_new_soc_election(
+        experiment_id: str,
+        election_id: str,
+):
+    file_ending = 4
+    file_name = f'{election_id}.soc'
+    path = os.path.join(os.getcwd(), "experiments", experiment_id, "elections", file_name)
+    file = open(path, 'r')
+    params = None
+    culture_id = None
+    matrix = []
+    num_candidates = 0
+    nr_votes = 0
+    nr_unique = 0
+    alternative_names = list()
+    from_file_file_name = ''
+    from_file_title = ''
+    from_file_data_type = ''
+    # read metadata
+    for line in file:
+        if line[-1] == '\n':
+            line = line[:-1]
+        if line[0] != '#':
+            if str(from_file_data_type) == 'soc':
+                _process_fake_soc_line(line, matrix)
+            else:
+                print("Unknown data format.")
+            break
+        elif re.search(regex_file_name, line):
+            from_file_file_name = line.split(':')[1][1:-file_ending]
+        elif re.search(regex_title, line):
+            from_file_title = line.split(':')[1].replace(" ", "")
+        elif re.search(regex_data_type, line):
+            from_file_data_type = line.split(':')[1].replace(" ", "")
+        elif re.search(regex_number_alternatives, line):
+            num_candidates = int(line.split(':')[1])
+        elif re.search(regex_number_voters, line):
+            num_voters = int(line.split(':')[1])
+        elif re.search(regex_number_unique_orders, line):
+            nr_unique = int(line.split(':')[1])
+        elif re.search(regex_culture_id, line):
+            culture_id = str(line.split(':')[1]).replace(" ", "")
+        elif re.search(regex_params, line):
+            line = line.strip().split()
+            if len(line) <= 2:
+                params = {}
+            else:
+                params = ast.literal_eval(" ".join(line[2:]))
+
+    if from_file_data_type == 'soc':
+        for line in file:
+            _process_fake_soc_line(line, matrix)
+    else:
+        print("Unknown data format.")
+
+    file.close()
+
+    return culture_id, params, num_voters, num_candidates, matrix
+
+
+def import_fake_old_soc_election(experiment_id: str, election_id: str):
     """ Import fake ordinal election form .soc file """
 
-    file_name = f'{name}.soc'
+    file_name = f'{election_id}.soc'
     path = os.path.join(os.getcwd(), "experiments", experiment_id, "elections", file_name)
     my_file = open(path, 'r')
 
@@ -327,7 +404,7 @@ def import_fake_soc_election(experiment_id: str, name: str):
 
     my_file.close()
 
-    return culture_id, params, num_voters, num_candidates
+    return culture_id, params, num_voters, num_candidates, None
 
 
 def import_real_new_app_election(
@@ -375,7 +452,7 @@ def import_real_new_app_election(
         elif re.search(regex_number_unique_orders, line):
             nr_unique = int(line.split(':')[1])
         elif re.search(regex_culture_id, line):
-            culture_id = str(line.split(':')[1])
+            culture_id = str(line.split(':')[1]).replace(" ", "")
         elif re.search(regex_params, line):
             line = line.strip().split()
 
@@ -513,17 +590,55 @@ def import_fake_app_election(experiment_id: str, name: str):
     return fake_culture_id, params, num_voters, num_candidates
 
 
-def check_if_fake(
-        experiment_id: str,
-        name: str,
-        extension: str
-) -> bool:
-    file_name = f'{name}.{extension}'
+def check_if_fake(experiment_id, election_id):
+    file_ending = 4
+    file_name = f'{election_id}.soc'
     path = os.path.join(os.getcwd(), "experiments", experiment_id, "elections", file_name)
-    my_file = open(path, 'r')
-    line = my_file.readline().strip()
-    my_file.close()
-    return line[0] == '$'
+    file = open(path, 'r')
+    params = None
+    culture_id = None
+    matrix = []
+    num_candidates = 0
+    nr_votes = 0
+    nr_unique = 0
+    alternative_names = list()
+    from_file_file_name = ''
+    from_file_title = ''
+    from_file_data_type = ''
+    # read metadata
+    for line in file:
+        if line[-1] == '\n':
+            line = line[:-1]
+        if line[0] != '#':
+            if from_file_data_type == 'soc':
+                _process_fake_soc_line(line, matrix)
+            else:
+                print("Unknown data format.")
+            break
+        elif re.search(regex_file_name, line):
+            from_file_file_name = line.split(':')[1][1:-file_ending]
+        elif re.search(regex_title, line):
+            from_file_title = line.split(':')[1].replace(" ", "")
+        elif re.search(regex_data_type, line):
+            from_file_data_type = line.split(':')[1].replace(" ", "")
+        elif re.search(regex_number_alternatives, line):
+            num_candidates = int(line.split(':')[1])
+        elif re.search(regex_number_voters, line):
+            num_voters = int(line.split(':')[1])
+        elif re.search(regex_number_unique_orders, line):
+            nr_unique = int(line.split(':')[1])
+        elif re.search(regex_culture_id, line):
+            culture_id = str(line.split(':')[1]).replace(" ", "")
+            break
+        elif re.search(regex_params, line):
+            line = line.strip().split()
+            if len(line) <= 2:
+                params = {}
+            else:
+                params = ast.literal_eval(" ".join(line[2:]))
+    if str(culture_id) in ORDINAL_PSEUDO_MODELS:
+        return True
+    return False
 
 
 def _old_name_extractor(first_line: str) -> str:

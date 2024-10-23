@@ -141,6 +141,20 @@ class ElectionExperiment(Experiment):
         """ Set default size of the committee """
         self.default_committee_size = committee_size
 
+    def add_election_from_matrix(self,
+                                 matrix,
+                                 **kwargs):
+
+        if len(matrix) != len(matrix[0]):
+            raise ValueError("Matrix is not square")
+
+        self.add_election(
+            num_candidates=len(matrix),
+            matrix=matrix,
+            culture_id='frequency_matrix',
+            **kwargs
+        )
+
     def add_election(self,
                      culture_id="none",
                      params=None,
@@ -156,6 +170,7 @@ class ElectionExperiment(Experiment):
                      num_voters=None,
                      election_id=None,  # deprecated
                      instance_id=None,
+                     frequency_matrix=None,
                      **kwargs):
         """ Add election to the experiment """
 
@@ -181,6 +196,7 @@ class ElectionExperiment(Experiment):
                                family_id=instance_id,
                                num_candidates=num_candidates,
                                num_voters=num_voters,
+                               frequency_matrix=frequency_matrix,
                                single=True,
                                **kwargs)
 
@@ -201,6 +217,7 @@ class ElectionExperiment(Experiment):
                    single: bool = False,
                    path: dict = None,
                    election_id: str = None,
+                   frequency_matrix=None,
                    **kwargs) -> list:
         """ Add family of elections to the experiment """
 
@@ -250,6 +267,7 @@ class ElectionExperiment(Experiment):
                                                   path=path,
                                                   single=single,
                                                   instance_type=self.instance_type,
+                                                  frequency_matrix=frequency_matrix,
                                                   **kwargs)
 
         self.num_families = len(self.families)
@@ -801,14 +819,11 @@ class ElectionExperiment(Experiment):
         self.__dict__.update(state)
 
 
+
+
 def check_if_all_equal(values, subject):
     if any(x != values[0] for x in values):
         text = f'Not all {subject} values are equal!'
         warnings.warn(text)
 
 
-
-
-# # # # # # # # # # # # # # # #
-# LAST CLEANUP ON: 22.10.2021 #
-# # # # # # # # # # # # # # # #

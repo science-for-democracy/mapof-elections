@@ -21,7 +21,7 @@ def test_export_distances(mocker):
         election_id='election123',
         experiment_id='experiment123',
         distances={
-            'vote': [[0.0, 1.0], [1.0, 0.0]]  # Example distance matrix
+            'vote': [[0.0, 1.0], [1.0, 0.0]]  # Example distance frequency_matrix
         }
     )
 

@@ -32,6 +32,8 @@ class ElectionFamily(Family):
                  num_candidates: int = None,
                  num_voters: int = None,
                  election_ids=None,
+
+                 frequency_matrix=None,
                  **kwargs):
 
         super().__init__(culture_id=culture_id,
@@ -53,7 +55,7 @@ class ElectionFamily(Family):
         self.num_candidates = num_candidates
         self.num_voters = num_voters
         self.instance_type = instance_type
-
+        self.frequency_matrix = frequency_matrix
 
     def __getattr__(self, attr):
         if attr == 'election_ids':
@@ -101,12 +103,14 @@ class ElectionFamily(Family):
                     params['variable'] = variable
 
                 election_id = get_instance_id(self.single, self.family_id, j)
-                election = OrdinalElection(experiment_id, election_id,
+                election = OrdinalElection(experiment_id,
+                                           election_id,
                                            culture_id=self.culture_id,
                                            num_voters=self.num_voters,
                                            label=self.label,
                                            num_candidates=self.num_candidates,
                                            is_imported=False,
+                                           frequency_matrix=self.frequency_matrix,
                                            **params
                                            )
 

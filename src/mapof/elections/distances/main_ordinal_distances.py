@@ -82,8 +82,8 @@ def compute_bordawise_distance(
         (float, list | None)
             Bordawise distance between the two elections.
     """
-    vector_1 = election_1.votes_to_bordawise_vector()
-    vector_2 = election_2.votes_to_bordawise_vector()
+    vector_1 = election_1.get_bordawise_vector()
+    vector_2 = election_2.get_bordawise_vector()
     return inner_distance(vector_1, vector_2), None
 
 
@@ -297,10 +297,10 @@ def get_matching_cost_positionwise(election_1: OrdinalElection, election_2: Ordi
                                    inner_distance: callable) -> list[list]:
     """ Return: Cost table """
 
-    vectors_1 = election_1.get_vectors()
-    vectors_2 = election_2.get_vectors()
+    matrix_1 = election_1.get_frequency_matrix()
+    matrix_2 = election_2.get_frequency_matrix()
     size = election_1.num_candidates
-    return [[inner_distance(vectors_1[i], vectors_2[j]) for i in range(size)] for j in range(size)]
+    return [[inner_distance(matrix_1[i], matrix_2[j]) for i in range(size)] for j in range(size)]
 
 
 def get_matching_cost_swap_bf(election_1: OrdinalElection, election_2: OrdinalElection,

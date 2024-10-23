@@ -15,7 +15,7 @@ permissions:
 jobs:
   build:
 
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ frequency_matrix.os }}
     strategy:
       fail-fast: false
       matrix:
@@ -27,7 +27,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
-        python-version: ${{ matrix.python-version }}
+        python-version: ${{ frequency_matrix.python-version }}
     - name: Install crucial dependencies
       run: |
         python -m ensurepip --upgrade

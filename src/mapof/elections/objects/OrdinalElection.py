@@ -4,16 +4,18 @@ from collections import Counter
 
 from matplotlib import pyplot as plt
 
-from mapof.elections.other.glossary import PATHS, LIST_OF_FAKE_MODELS
+from mapof.elections.other.glossary import PATHS, ORDINAL_PSEUDO_MODELS
 import mapof.elections.persistence.election_exports as exports
 import mapof.elections.persistence.election_imports as imports
 from mapof.core.inner_distances import swap_distance_between_potes, \
     spearman_distance_between_potes
 from mapof.core.utils import *
-from mapof.elections.cultures.fake import *
-from mapof.elections.cultures.matrices.group_separable_matrices import get_gs_caterpillar_vectors
-from mapof.elections.cultures.preflib import get_sushi_vectors
-from mapof.elections.cultures.matrices.single_crossing_matrices import get_single_crossing_vectors
+from mapof.elections.cultures.pseudo_cultures import *
+from mapof.elections.cultures.matrices.group_separable_matrices import get_gs_caterpillar_matrix
+from mapof.elections.cultures.matrices.single_crossing_matrices import get_single_crossing_matrix
+from mapof.elections.cultures.matrices.single_peaked_matrices import get_conitzer_matrix, \
+    get_walsh_matrix
+from mapof.elections.cultures.preflib import get_sushi_matrix
 from mapof.elections.cultures import generate_ordinal_votes, \
     from_approval, generate_ordinal_alliance_votes
 from mapof.elections.features.simple_ordinal import is_condorcet
@@ -40,6 +42,7 @@ class OrdinalElection(Election):
                  num_candidates: int = None,
                  variable=None,
                  fast_import=False,
+                 frequency_matrix=None,
                  **kwargs):
 
         super().__init__(experiment_id=experiment_id,
@@ -53,13 +56,16 @@ class OrdinalElection(Election):
                          **kwargs)
 
         self.variable = variable
-        self.vectors = []
-        self.matrix = []
+        self.frequency_matrix = []
+        self.bordawise_vector = []
         self.potes = None
         self.condorcet = None
         self.points = {}
         self.alliances = {}
         self.quantities = None
+
+        if frequency_matrix is not None:
+            self.frequency_matrix = frequency_matrix
 
         self.import_ordinal_election()
 
@@ -71,7 +77,7 @@ class OrdinalElection(Election):
             try:
                 if self.votes is not None:
                     self.culture_id = self.culture_id
-                    if str(self.votes[0]) in LIST_OF_FAKE_MODELS:
+                    if str(self.votes[0]) in ORDINAL_PSEUDO_MODELS:
                         self.fake = True
                         self.votes = self.votes[0]
                         self.num_candidates = self.votes[1]
@@ -83,19 +89,13 @@ class OrdinalElection(Election):
                         self.compute_potes()
                 else:
 
-                    try:
-                        self.fake = imports.check_if_fake(
-                            self.experiment_id,
-                            self.election_id,
-                            'soc')
-                    except:
-                        self.fake = False
-
-                    if self.fake:
+                    if imports.check_if_fake(self.experiment_id, self.election_id):
+                        self.fake = True
                         self.culture_id, self.params, self.num_voters, \
-                        self.num_candidates = imports.import_fake_soc_election(self.experiment_id,
-                                                                               self.election_id)
+                        self.num_candidates, self.frequency_matrix = imports.import_fake_soc_election(self.experiment_id,
+                                                                                                      self.election_id)
                     else:
+                        self.fake = False
                         self.votes, self.num_voters, self.num_candidates, self.params, \
                         self.culture_id, self.alliances, \
                         self.num_options, self.quantities, \
@@ -116,10 +116,10 @@ class OrdinalElection(Election):
                         except KeyError:
                             print("Error")
 
-                self.candidatelikeness_original_vectors = {}
+                self.candidatelikeness_original_matrix = {}
 
                 if not self.fast_import:
-                    self.votes_to_positionwise_vectors()
+                    self._votes_to_frequency_matrix()
             except:
                 self.is_correct = False
 
@@ -136,53 +136,71 @@ class OrdinalElection(Election):
         except:
             pass
 
-    def get_vectors(self):
-        """ Get vectors. """
-        if self.vectors is not None and len(self.vectors) > 0:
-            return self.vectors
-        return self.votes_to_positionwise_vectors()
+    def get_frequency_matrix(self, is_recomputed=False):
+        """ Get frequency_matrix. """
+        if self.frequency_matrix is not None \
+                and len(self.frequency_matrix) > 0 \
+                and not is_recomputed:
+            return self.frequency_matrix
+        return self._votes_to_frequency_matrix()
 
-    def get_matrix(self):
-        """ Get matrix. """
-        if self.matrix is not None and len(self.matrix) > 0:
-            return self.matrix
-        return self.votes_to_positionwise_matrix()
+    def get_bordawise_vector(self, is_recomputed=False):
+        if self.bordawise_vector is not None \
+                and len(self.bordawise_vector) > 0 \
+                and not is_recomputed:
+            return self.bordawise_vector
+        return self._votes_to_bordawise_vector()
 
-    def get_potes(self):
+    def get_potes(self, is_recomputed=False):
         """ Get potes. """
-        if self.potes is not None:
+        if self.potes is not None \
+                and not is_recomputed:
             return self.potes
         return self.compute_potes()
 
-    def votes_to_positionwise_vectors(self):
-        """ Converts votes to positionwise vectors. """
-        vectors = np.zeros([self.num_candidates, self.num_candidates])
+    def _votes_to_frequency_matrix(self):
+        """ Converts votes to positionwise frequency_matrix. """
+        frequency_matrix = np.zeros([self.num_candidates, self.num_candidates])
 
+        if self.fake and self.frequency_matrix is not None:
+            frequency_matrix = self.frequency_matrix
         if self.culture_id == 'conitzer_matrix':
-            vectors = get_conitzer_vectors(self.num_candidates)
+            frequency_matrix = get_conitzer_matrix(self.num_candidates)
         elif self.culture_id == 'walsh_matrix':
-            vectors = get_walsh_vectors(self.num_candidates)
+            frequency_matrix = get_walsh_matrix(self.num_candidates)
         elif self.culture_id == 'single-crossing_matrix':
-            vectors = get_single_crossing_vectors(self.num_candidates)
+            frequency_matrix = get_single_crossing_matrix(self.num_candidates)
         elif self.culture_id == 'gs_caterpillar_matrix':
-            vectors = get_gs_caterpillar_vectors(self.num_candidates)
+            frequency_matrix = get_gs_caterpillar_matrix(self.num_candidates)
         elif self.culture_id == 'sushi_matrix':
-            vectors = get_sushi_vectors()
+            frequency_matrix = get_sushi_matrix()
         elif self.culture_id in {'norm-mallows_matrix', 'mallows_matrix_path'}:
-            vectors = get_mallows_vectors(self.num_candidates, self.params)
-        elif self.culture_id in {'identity', 'uniformity', 'antagonism', 'stratification'}:
-            vectors = get_fake_vectors_single(self.culture_id, self.num_candidates)
+            frequency_matrix = get_mallows_matrix(self.num_candidates, self.params)
+        elif self.culture_id in {
+            'pseudo_identity',
+            'pseudo_uniformity',
+            'pseudo_antagonism',
+            'pseudo_stratification'
+        }:
+            frequency_matrix = get_frequency_matrix_for_guardian(
+                self.culture_id,
+                self.num_candidates,
+                self.params,
+            )
         elif self.culture_id in {'walsh_path', 'conitzer_path'}:
-            vectors = get_fake_multiplication(self.num_candidates, self.params,
-                                              self.culture_id)
+            frequency_matrix = get_fake_multiplication(
+                self.num_candidates,
+                self.params,
+                self.culture_id)
         elif self.culture_id in PATHS:
-            vectors = get_fake_convex(self.culture_id, self.num_candidates, self.num_voters,
-                                      self.params, get_fake_vectors_single)
-        elif self.culture_id in ['crate']:
-            vectors = get_fake_vectors_crate(num_candidates=self.num_candidates,
-                                             fake_param=self.params)
+            frequency_matrix = get_pseudo_convex(
+                self.culture_id,
+                self.num_candidates,
+                self.num_voters,
+                self.params,
+                get_frequency_matrix_for_guardian)
         elif self.culture_id in ['from_approval']:
-            vectors = from_approval(num_candidates=self.num_candidates,
+            frequency_matrix = from_approval(num_candidates=self.num_candidates,
                                     num_voters=self.num_voters,
                                     params=self.params)
         else:
@@ -192,28 +210,23 @@ class OrdinalElection(Election):
                     vote = self.votes[i][j]
                     if vote == -1:
                         continue
-                    vectors[vote][pos] += 1
+                    frequency_matrix[vote][pos] += 1
                     pos += 1
             for i in range(self.num_candidates):
                 for j in range(self.num_candidates):
-                    vectors[i][j] /= float(self.num_voters)
+                    frequency_matrix[i][j] /= float(self.num_voters)
 
-        self.vectors = vectors
-        self.matrix = self.vectors.transpose()
-        return vectors
-
-    def votes_to_positionwise_matrix(self):
-        """ Convert votes to positionwise matrix. """
-        return self.votes_to_positionwise_vectors().transpose()
+        self.frequency_matrix = frequency_matrix
+        return frequency_matrix
 
     def votes_to_pairwise_matrix(self) -> np.ndarray:
-        """ Convert votes to pairwise matrix. """
+        """ Convert votes to pairwise frequency_matrix. """
         matrix = np.zeros([self.num_candidates, self.num_candidates])
         if self.fake:
             if self.culture_id in {'identity', 'uniformity', 'antagonism', 'stratification'}:
                 matrix = get_fake_matrix_single(self.culture_id, self.num_candidates)
             elif self.culture_id in PATHS:
-                matrix = get_fake_convex(self.culture_id,
+                matrix = get_pseudo_convex(self.culture_id,
                                          self.num_candidates,
                                          self.num_voters,
                                          self.fake_param,
@@ -231,7 +244,8 @@ class OrdinalElection(Election):
                     matrix[j][i] = 1. - matrix[i][j]
         return matrix
 
-    def votes_to_bordawise_vector(self) -> np.ndarray:
+
+    def _votes_to_bordawise_vector(self) -> np.ndarray:
         """ convert VOTES to Borda vector """
         borda_vector = np.zeros([self.num_candidates])
         if self.fake:
@@ -240,7 +254,7 @@ class OrdinalElection(Election):
                                                      self.num_candidates,
                                                      self.num_voters)
             elif self.culture_id in PATHS:
-                borda_vector = get_fake_convex(self.culture_id,
+                borda_vector = get_pseudo_convex(self.culture_id,
                                                self.num_candidates,
                                                self.num_voters,
                                                self.params,
@@ -248,8 +262,8 @@ class OrdinalElection(Election):
         else:
             c = self.num_candidates
             v = self.num_voters
-            vectors = self.votes_to_positionwise_vectors()
-            borda_vector = [sum([vectors[i][j] * (c - j - 1) for j in range(c)]) * v for i in
+            matrix = self._votes_to_frequency_matrix()
+            borda_vector = [sum([matrix[i][j] * (c - j - 1) for j in range(c)]) * v for i in
                             range(self.num_candidates)]
             borda_vector = sorted(borda_vector, reverse=True)
 
@@ -265,15 +279,6 @@ class OrdinalElection(Election):
                     if (c_1 in vote and c_2 not in vote) or (c_1 not in vote and c_2 in vote):
                         matrix[c_1][c_2] += 1
         self.candidatelikeness_original_vectors = matrix / self.num_voters
-
-    def votes_to_positionwise_intervals(self, precision: int = None) -> list:
-
-        vectors = self.votes_to_positionwise_matrix()
-        return [self.vector_to_interval(vectors[i], precision=precision)
-                for i in range(len(vectors))]
-
-    def votes_to_voterlikeness_vectors(self) -> np.ndarray:
-        return self.votes_to_voterlikeness_matrix()
 
     def votes_to_voterlikeness_matrix(self, vote_distance='swap') -> np.ndarray:
         """ convert VOTES to voter-likeness MATRIX """
@@ -390,11 +395,6 @@ class OrdinalElection(Election):
             logging.warning('incorrect object_type')
 
         self.distances[object_type] = distances
-
-        if object_type == 'vote':
-            length = self.num_dist_votes
-        elif object_type == 'candidate':
-            length = self.num_candidates
 
         if self.is_exported:
             exports.export_distances(self, object_type=object_type)

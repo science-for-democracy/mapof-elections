@@ -4,7 +4,7 @@ import math
 import os
 import sys
 
-from mapof.elections.other.glossary import LIST_OF_FAKE_MODELS
+from mapof.elections.other.glossary import ORDINAL_PSEUDO_MODELS
 
 import numpy as np
 try:
@@ -39,7 +39,7 @@ def highest_borda_score(election) -> dict:
         dict
             'value': highest Borda score
     """
-    if election.culture_id in LIST_OF_FAKE_MODELS:
+    if election.culture_id in ORDINAL_PSEUDO_MODELS:
         return {'value': None}
     n = election.num_voters
     m = election.num_candidates
@@ -64,9 +64,9 @@ def highest_plurality_score(election) -> dict:
         dict
             'value': highest Plurality score
     """
-    if election.culture_id in LIST_OF_FAKE_MODELS:
+    if election.culture_id in ORDINAL_PSEUDO_MODELS:
         return {'value': None}
-    first_pos = election.get_matrix()[0]
+    first_pos = election.get_frequency_matrix()[0]
     return {'value': max(first_pos)}
 
 
@@ -84,7 +84,7 @@ def highest_copeland_score(election) -> dict:
             'value': highest Copeland score
 
     """
-    if election.culture_id in LIST_OF_FAKE_MODELS:
+    if election.culture_id in ORDINAL_PSEUDO_MODELS:
         return {'value': None}
 
     election.compute_potes()
@@ -120,7 +120,7 @@ def lowest_dodgson_score(election):
         dict
             'value': lowest Dodgson score
     """
-    if election.culture_id in LIST_OF_FAKE_MODELS:
+    if election.culture_id in ORDINAL_PSEUDO_MODELS:
         return {'value': None}
 
     min_score = math.inf
@@ -163,7 +163,7 @@ def lowest_dodgson_score(election):
 
 
 def highest_cc_score(election, committee_size=1):
-    if election.culture_id in LIST_OF_FAKE_MODELS:
+    if election.culture_id in ORDINAL_PSEUDO_MODELS:
         return {'value': None, 'dissat': None}
     winners, total_time = win.generate_winners(election=election,
                                              num_winners=committee_size,
@@ -173,7 +173,7 @@ def highest_cc_score(election, committee_size=1):
 
 
 def highest_hb_score(election, committee_size=1):
-    if election.culture_id in LIST_OF_FAKE_MODELS:
+    if election.culture_id in ORDINAL_PSEUDO_MODELS:
         return {'value': None, 'dissat': None}
     winners, total_time = win.generate_winners(election=election,
                                              num_winners=committee_size,
@@ -183,7 +183,7 @@ def highest_hb_score(election, committee_size=1):
 
 
 def highest_pav_score(election, committee_size=1):
-    if election.culture_id in LIST_OF_FAKE_MODELS:
+    if election.culture_id in ORDINAL_PSEUDO_MODELS:
         return {'value': None, 'dissat': None}
     winners, total_time = win.generate_winners(election=election,
                                              num_winners=committee_size,
@@ -341,7 +341,7 @@ def get_pav_dissat(election, winners) -> float:
 def borda_spread(election) -> int:
     """ Compute the difference between the highest and the lowest Borda score """
     c = election.num_candidates
-    vectors = election.get_vectors()
-    borda = [sum([vectors[i][pos] * (c - pos - 1) for pos in range(c)])
+    frequency_matrix = election.get_frequency_matrix()
+    borda = [sum([frequency_matrix[i][pos] * (c - pos - 1) for pos in range(c)])
              for i in range(c)]
     return (max(borda)-min(borda)) * election.num_voters

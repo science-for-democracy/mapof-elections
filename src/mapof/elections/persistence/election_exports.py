@@ -2,7 +2,7 @@ import csv
 from collections import Counter
 
 from mapof.core.utils import *
-from mapof.elections.other.glossary import APPROVAL_FAKE_MODELS, LIST_OF_FAKE_MODELS
+from mapof.elections.other.glossary import APPROVAL_FAKE_MODELS, ORDINAL_PSEUDO_MODELS
 
 
 def export_votes_to_file(
@@ -146,6 +146,28 @@ def export_approval_election(
                              is_aggregated=is_aggregated)
 
 
+def export_fake_ordinal_election(election, path_to_file):
+    file_ = open(path_to_file, 'w')
+    file_.write(f'# FILE NAME: {election.election_id}.soc\n')
+    file_.write(f'# DATA TYPE: soc \n')
+    file_.write(f'# CULTURE ID: {election.culture_id} \n')
+    file_.write(f'# PARAMS: {str(election.params)} \n')
+    file_.write(f'# NUMBER ALTERNATIVES: {election.num_candidates} \n')
+    file_.write(f'# NUMBER VOTERS: {election.num_voters} \n')
+
+    frequency_matrix = election.get_frequency_matrix()
+
+    # export postionwise frequency_matrix
+    for i in range(election.num_candidates):
+        for j in range(election.num_candidates):
+            file_.write(str(frequency_matrix[i][j]))
+            if j < election.num_candidates - 1:
+                file_.write(", ")
+        file_.write("\n")
+
+    file_.close()
+
+
 def export_ordinal_election(election,
                             is_aggregated: bool = True):
     """
@@ -163,12 +185,8 @@ def export_ordinal_election(election,
     make_folder_if_do_not_exist(path_to_folder)
     path_to_file = os.path.join(path_to_folder, f'{election.election_id}.soc')
 
-    if election.culture_id in LIST_OF_FAKE_MODELS:
-        file_ = open(path_to_file, 'w')
-        file_.write(f'$ {election.culture_id} {election.params} \n')
-        file_.write(str(election.num_candidates) + '\n')
-        file_.write(str(election.num_voters) + '\n')
-        file_.close()
+    if election.culture_id in ORDINAL_PSEUDO_MODELS:
+        export_fake_ordinal_election(election, path_to_file)
     else:
         export_votes_to_file(election,
                              election.culture_id,

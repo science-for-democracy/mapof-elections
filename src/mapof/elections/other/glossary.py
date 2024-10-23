@@ -38,19 +38,20 @@ APPROVAL_MODELS = {
     'partylist'
 }
 
-LIST_OF_FAKE_MODELS = {
-    'identity',
-    'uniformity',
-    'antagonism',
-    'stratification',
-    'mallows_matrix_path',
-    'unid',
-    'anid',
-    'stid',
-    'anun',
-    'stun',
-    'stan',
+ORDINAL_PSEUDO_MODELS = {
+    'pseudo_uniformity',
+    'pseudo_stratification',
+    'pseudo_identity',
+    'pseudo_antagonism',
+    'pseudo_unid',
+    'pseudo_anid',
+    'pseudo_stid',
+    'pseudo_anun',
+    'pseudo_stun',
+    'pseudo_stan',
+
     'crate',
+    'mallows_matrix_path',
     'walsh_matrix',
     'conitzer_matrix',
     'single-crossing_matrix',
@@ -59,7 +60,22 @@ LIST_OF_FAKE_MODELS = {
     'sushi_matrix',
     'walsh_path',
     'conitzer_path',
-    'from_approval'
+    'from_approval',
+    'from_matrix',
+    "frequency_matrix",
+}
+
+PATHS = {
+    'pseudo_unid',
+    'pseudo_stan',
+    'pseudo_anid',
+    'pseudo_stid',
+    'pseudo_anun',
+    'pseudo_stun',
+
+    'mallows_matrix_path',
+    'walsh_path',
+    'conitzer_path'
 }
 
 
@@ -85,14 +101,4 @@ LIST_OF_PREFLIB_MODELS = {
 }
 
 
-PATHS = {
-    'unid',
-    'stan',
-    'anid',
-    'stid',
-    'anun',
-    'stun',
-    'mallows_matrix_path',
-    'walsh_path',
-    'conitzer_path'
-}
+

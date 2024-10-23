@@ -73,7 +73,7 @@ def mallowsMatrix(num_candidates, lphi, pos, normalize=True):
     return mat
 
 
-def get_mallows_matrix(num_candidates, params, normalize=True):
+def get_mallows_matrix_help(num_candidates, params, normalize=True):
     lphi = params['normphi']
     if 'weight' not in params:
         weight = 0
@@ -93,7 +93,7 @@ def get_mallows_matrix(num_candidates, params, normalize=True):
         with open(path, "rb") as file:
             pos = pickle.load(file)
     except FileNotFoundError:
-        print("Mallows matrix only supported for up to 30 candidates")
+        print("Mallows frequency_matrix only supported for up to 30 candidates")
     mat1 = mallowsMatrix(num_candidates, lphi, pos, normalize)
     mat2 = mallowsMatrix(num_candidates, lphi_2, pos, normalize)
     res = np.zeros([num_candidates, num_candidates])
@@ -103,8 +103,8 @@ def get_mallows_matrix(num_candidates, params, normalize=True):
     return res
 
 
-def get_mallows_vectors(num_candidates, fake_param):
-    return get_mallows_matrix(num_candidates, fake_param).transpose()
+def get_mallows_matrix(num_candidates, params):
+    return get_mallows_matrix_help(num_candidates, params).transpose()
 
 
 def generate_mallows_party(num_voters=None,

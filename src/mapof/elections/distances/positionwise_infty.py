@@ -39,7 +39,7 @@ def emd_infty(xx, yy):
 
 
 """
-Stretch the frequency matrix by the required factor.
+Stretch the frequency frequency_matrix by the required factor.
 """
 
 
@@ -136,8 +136,8 @@ Main function of the positionwise infinity distance, pointer to this function is
 
 def positionwise_size_independent(e1: Election, e2: Election):
     election_lcm = lcm(e1.num_candidates, e2.num_candidates)
-    e1_stretched = stretch_matrix(e1.get_matrix(), e1.num_candidates, int(election_lcm / e1.num_candidates))
-    e2_stretched = stretch_matrix(e2.get_matrix(), e2.num_candidates, int(election_lcm / e2.num_candidates))
+    e1_stretched = stretch_matrix(e1.get_frequency_matrix(), e1.num_candidates, int(election_lcm / e1.num_candidates))
+    e2_stretched = stretch_matrix(e2.get_frequency_matrix(), e2.num_candidates, int(election_lcm / e2.num_candidates))
     e1_original_to_copies = find_copies(matrix_size=e1.num_candidates, factor=int(election_lcm / e1.num_candidates))
     e2_original_to_copies = find_copies(matrix_size=e2.num_candidates, factor=int(election_lcm / e2.num_candidates))
     e1_copies_to_original = copy_to_original_mapping(e1_original_to_copies)

@@ -21,8 +21,6 @@ registered_ordinal_features_to_test = {
     'banzhaf_cc_score',
     'ranging_cc_score',
     'num_of_diff_votes',
-    'voterlikeness_sqrt',
-    'voterlikeness_harmonic',
     'borda_diversity',
     'borda_std',
     'borda_range',
@@ -62,8 +60,7 @@ registered_ordinal_features_to_test = {
     'AgreementApprox',
     'DiversityApprox',
     'PolarizationApprox',
-
-    'partylist',   # abcvoting not working on github test
+    'partylist',
 
     ## 'rand_approx_pav_score',  # fix this one
 }

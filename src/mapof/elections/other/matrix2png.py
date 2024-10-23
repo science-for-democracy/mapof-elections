@@ -49,7 +49,7 @@ def matrix2png(argv):
     else:
         name = "%s_phi%d_%d_%s.png" % (model, param * 100, m, tgt)
 
-    # prepare the election/matrix
+    # prepare the election/frequency_matrix
     experiment = mapof.prepare_experiment()
     experiment.set_default_num_candidates(m)
     experiment.set_default_num_voters(n)
@@ -62,13 +62,13 @@ def matrix2png(argv):
                             marker="o")
     experiment.add_election(election_model="stratification", election_id="ST", color="black")
 
-    # form the matrix
+    # form the frequency_matrix
     if model != "mallows":
         experiment.add_election(election_model=model, election_id="M")
     else:
         experiment.add_election(election_model="norm-mallows_matrix", params={"normphi": param},
                                 election_id="M")
-    M = experiment.elections["M"].matrix
+    M = experiment.elections["M"].frequency_matrix
 
     # get the mapping to a given election
     experiment.compute_distances()
@@ -87,7 +87,7 @@ def matrix2png(argv):
     img = Image.new("RGB", (m, m), color="black")
     draw = ImageDraw.Draw(img)
 
-    MAX = 0  # highest value in the matrix
+    MAX = 0  # highest value in the frequency_matrix
     for y in range(m):
         for x in range(m):
             MAX = max(MAX, M[y][x])
@@ -101,7 +101,7 @@ def matrix2png(argv):
     print()
     print("----")
 
-    ### draw the matrix
+    ### draw the frequency_matrix
     for y in range(m):
         for x in range(m):
             draw.point((x, y), fill=color(M[y][rev_match[x]]))

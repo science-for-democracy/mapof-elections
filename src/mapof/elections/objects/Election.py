@@ -61,7 +61,7 @@ class Election(Instance):
         self.is_exported = is_exported
         self.winners = None
         self.alternative_winners = {}
-        self.fake = culture_id in LIST_OF_FAKE_MODELS
+        self.fake = culture_id in ORDINAL_PSEUDO_MODELS
         self.potes = None
         self.features = {}
         self.object_type = 'vote'
@@ -392,7 +392,7 @@ def pca(distance_matrix):
     A = distance_matrix
     # square it
     A = A ** 2
-    # centering matrix
+    # centering frequency_matrix
     n = A.shape[0]
     # J_c = 1. / n * (np.eye(n) - 1 + (n - 1) * np.eye(n))
     J_c = np.eye(n) - 1./n

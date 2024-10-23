@@ -75,8 +75,8 @@ def generate_un_from_list(num_voters=None, num_candidates=None):
     return res
 
 
-def generate_un_from_matrix_votes(num_voters=None, num_candidates=None):
-    """ Generate real election that have UN positionwise matrix """
+def generate_approx_uniformity_votes(num_voters=None, num_candidates=None):
+    """ Generate real election that have UN positionwise frequency_matrix """
     matrix = distribute_in_matrix(num_voters, num_candidates)
     return draw_election(matrix)
 
@@ -284,3 +284,11 @@ def generate_idst_blocks_votes(num_voters=None, num_candidates=None, no_blocks=N
         blocks[i] = blocks[i] + 1
     matrix = distribute_in_block_matrix(num_voters, blocks)
     return draw_election(matrix)
+
+
+def generate_approx_stratification_votes(num_voters=None, num_candidates=None, weight=0.5):
+    """ Generate real election that approximates stratification (ST) """
+    first_group_size = int(num_candidates * weight)
+    return [list(np.random.permutation(first_group_size)) +
+             list(np.random.permutation([j for j in range(first_group_size, num_candidates)]))
+            for _ in range(num_voters)]

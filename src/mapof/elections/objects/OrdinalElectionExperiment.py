@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import csv
 import os
 from abc import ABC
 
@@ -69,3 +70,21 @@ class OrdinalElectionExperiment(ElectionExperiment, ABC):
                     "family_id;label;marker;show\n")
                 file_csv.write("3;10;100;ic;{};black;1;ic;Impartial Culture;o;process_id\n")
 
+    def compute_positionwise_matrices(self):
+        """ computes positionwise matrices
+            and if is_exported then stores them in the /matrices folder """
+
+        for election_id in self.elections:
+            matrix = self.elections[election_id].votes_to_positionwise_matrix()
+
+            if self.is_exported:
+                file_name = election_id + ".csv"
+                path = os.path.join(os.getcwd(), "experiments", self.experiment_id,
+                                    "matrices", file_name)
+
+                with open(path, 'w', newline='') as csv_file:
+
+                    writer = csv.writer(csv_file, delimiter=';')
+
+                    for row in matrix:
+                        writer.writerow(row)

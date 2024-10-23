@@ -90,14 +90,6 @@ DIGITS = 4
 
 
 def get_conitzer_matrix(m):
-    return get_conitzer_vectors(m).transpose()
-
-
-def get_walsh_matrix(m):
-    return get_walsh_vectors(m).transpose()
-
-
-def get_conitzer_vectors(m):
     P = np.zeros([m, m])
     for i in range(m):
         for j in range(m):
@@ -122,7 +114,7 @@ def simconitzer(m):
     return P
 
 
-def get_walsh_vectors(m):
+def get_walsh_matrix(m):
     P = np.zeros([m, m])
     for i in range(m):
         for t in range(m):

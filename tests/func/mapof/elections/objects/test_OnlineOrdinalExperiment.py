@@ -89,7 +89,7 @@ class TestOnlineOrdinalExperiment:
         self.experiment.compute_feature(feature_id=feature_id)
         self.experiment.print_map_2d_colored_by_feature(
             show=False,
-            feature_id=feature_id,
+            feature_id=feature_id
         )
 
 

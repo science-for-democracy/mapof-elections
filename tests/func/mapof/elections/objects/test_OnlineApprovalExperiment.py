@@ -1,7 +1,6 @@
 
 import mapof.elections as mapof
 
-
 class TestOnlineApprovalExperiment:
 
     def setup_method(self):

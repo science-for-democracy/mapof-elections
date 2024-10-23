@@ -21,6 +21,6 @@ class TestMatrices:
         assert matrix.shape == (5, 5)
 
     # def test_generate_mallows_positionwise_matrix(self):
-    #     matrix = generate_positionwise_matrix('norm-mallows_matrix', num_candidates=5,
+    #     frequency_matrix = generate_positionwise_matrix('norm-mallows_matrix', num_candidates=5,
     #                                           params={'normphi': 0.5})
-    #     assert matrix.shape == (5, 5)
+    #     assert frequency_matrix.shape == (5, 5)

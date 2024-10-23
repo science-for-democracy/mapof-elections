@@ -46,7 +46,7 @@ def swap_distance_between_potes(pote_1: list, pote_2: list) -> int:
 
 
 def remove_diag(mtrx):
-    """ Return: Input matrix with diagonal removed (shape[1] - 1) """
+    """ Return: Input frequency_matrix with diagonal removed (shape[1] - 1) """
     res = np.zeros((mtrx.shape[0], mtrx.shape[1] - 1))
     for i in range(mtrx.shape[0]):
         for j in range(mtrx.shape[0]):

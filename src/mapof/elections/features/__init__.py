@@ -53,8 +53,6 @@ registered_ordinal_features = {
     'banzhaf_cc_score': banzhaf_cc.get_banzhaf_cc_score,
     'ranging_cc_score': ranging_cc.get_ranging_cc_score,
     'num_of_diff_votes': vcd.num_of_diff_votes,
-    'voterlikeness_sqrt': vcd.voterlikeness_sqrt,
-    'voterlikeness_harmonic': vcd.voterlikeness_harmonic,
     'borda_diversity': vcd.borda_diversity,
     'borda_std': diversity.borda_std,
     'borda_range': diversity.borda_range,

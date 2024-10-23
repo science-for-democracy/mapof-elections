@@ -68,22 +68,22 @@ def _draw_vote(matrix):
 def sample_election_using_permanent(matrix):
   """
       Samples elections from a given position as follows:
-      0. Interpret a given matrix as weighted bipartite graph (weights are
+      0. Interpret a given frequency_matrix as weighted bipartite graph (weights are
       entries)
       1. Sample uniformly at random a possible vote by sampling a perfect
       matching (that is unweighted)
-      2. Subtract the generated vote from the original matrix and repeat step 0
-      until the original matrix has only zero entries 
+      2. Subtract the generated vote from the original frequency_matrix and repeat step 0
+      until the original frequency_matrix has only zero entries
 
       Arguments:
-        matrix: a position matrix either a list of lists or a numpy array
+        matrix: a position frequency_matrix either a list of lists or a numpy array
 
       Returns:
-        The list of lists representing the votes realizing the given matrix
+        The list of lists representing the votes realizing the given frequency_matrix
   """
   if not utils.is_module_loaded("permanent"):
     raise RuntimeError("Module 'permanent' was not loaded. Sampling elections "
-    "from matrix impossible.")
+    "from frequency_matrix impossible.")
   matrix = _input_standarization(matrix)
   votes_count = np.sum(matrix[0])
   curr_matrix = matrix.copy()

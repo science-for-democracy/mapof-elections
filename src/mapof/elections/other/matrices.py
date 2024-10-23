@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
 from mapof.elections.cultures.matrices.group_separable_matrices import get_gs_caterpillar_vectors
-from mapof.elections.cultures.matrices.single_peaked_matrices import get_walsh_vectors, \
-    get_conitzer_vectors
-from mapof.elections.cultures.matrices.single_crossing_matrices import get_single_crossing_vectors
+from mapof.elections.cultures.matrices.single_peaked_matrices import get_walsh_matrix, \
+    get_conitzer_matrix
+from mapof.elections.cultures.matrices.single_crossing_matrices import get_single_crossing_matrix
 
 from mapof.elections.objects.OrdinalElection import OrdinalElection
 from mapof.elections.objects.OrdinalElectionExperiment import OrdinalElectionExperiment
@@ -44,14 +44,14 @@ def generate_positionwise_matrix(
         params=None):
 
     if culture_id == 'conitzer_matrix':
-        vectors = get_conitzer_vectors(num_candidates)
+        matrix = get_conitzer_matrix(num_candidates)
     elif culture_id == 'walsh_matrix':
-        vectors = get_walsh_vectors(num_candidates)
+        matrix = get_walsh_matrix(num_candidates)
     elif culture_id == 'single-crossing_matrix':
-        vectors = get_single_crossing_vectors(num_candidates)
+        matrix = get_single_crossing_matrix(num_candidates)
     elif culture_id == 'gs_caterpillar_matrix':
-        vectors = get_gs_caterpillar_vectors(num_candidates)
+        matrix = get_gs_caterpillar_vectors(num_candidates)
     elif culture_id == 'norm-mallows_matrix':
         return get_mallows_matrix(num_candidates, params)
 
-    return vectors.transpose()
+    return matrix

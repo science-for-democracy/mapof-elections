@@ -4,8 +4,8 @@ import logging
 
 import mapof.elections.cultures.to_be_removed.mallows_urn as mallows_urn
 
-import mapof.elections.cultures.guardians as guardians
-import mapof.elections.cultures.guardians_plus as guardians_plus
+import mapof.elections.cultures.guardians_true as guardians_true
+import mapof.elections.cultures.guardians_approx as guardians_approx
 import mapof.elections.cultures.mallows as mallows
 import mapof.elections.cultures.matrices.single_peaked_matrices as sp_matrices
 import mapof.elections.cultures.unused as unused
@@ -19,7 +19,7 @@ import mapof.elections.cultures.euclidean as euclidean
 import mapof.elections.cultures.urn as urn
 import mapof.elections.cultures.identity as identity
 
-from mapof.elections.other.glossary import LIST_OF_FAKE_MODELS, LIST_OF_PREFLIB_MODELS
+from mapof.elections.other.glossary import ORDINAL_PSEUDO_MODELS, LIST_OF_PREFLIB_MODELS
 
 import prefsampling.ordinal as pref_ordinal
 import prefsampling.approval as pref_approval
@@ -50,46 +50,47 @@ registered_approval_cultures = {
 
 registered_ordinal_cultures = {
     'identity': pref_ordinal.identity,
-    'id': pref_ordinal.identity,
-    'ic': pref_ordinal.impartial,
+    'id': pref_ordinal.identity,  # deprecated name
+    'ic': pref_ordinal.impartial,  # deprecated name
     'impartial': pref_ordinal.impartial,
     'impartial_culture': pref_ordinal.impartial,
 
     'iac': pref_ordinal.impartial_anonymous,
-    'real_antagonism': guardians.generate_real_antagonism_votes,  # unsupported culture
-    'antagonism': guardians.generate_real_antagonism_votes,  # unsupported culture
-    'an': guardians.generate_real_antagonism_votes,  # unsupported culture
+    'real_antagonism': guardians_true.generate_real_antagonism_votes,
+    'antagonism': guardians_true.generate_real_antagonism_votes,
+    'an': guardians_true.generate_real_antagonism_votes,  # deprecated name
 
     'urn': pref_ordinal.urn,
     'single-crossing': pref_ordinal.single_crossing,
     'conitzer': pref_ordinal.single_peaked_conitzer,
     'walsh': pref_ordinal.single_peaked_walsh,
     'spoc': pref_ordinal.single_peaked_circle,
-    'stratification': pref_ordinal.stratification,
     'mallows': pref_ordinal.mallows,
     'didi': pref_ordinal.didi,
+    'plackett-luce': pref_ordinal.plackett_luce,
+
+    'approx_stratification': guardians_approx.generate_approx_stratification_votes,
+    'approx_uniformity': guardians_approx.generate_approx_uniformity_votes,
+    'un_from_matrix': guardians_approx.generate_approx_uniformity_votes,  # deprecated name
 
     'group-separable': group_separable.gs_mask,
     'euclidean': euclidean.euclidean_ord_mask,
 
     'norm-mallows': mallows.generate_mallows_votes,
-    'real_identity': guardians.generate_real_identity_votes,
-
-    'plackett-luce': pref_ordinal.plackett_luce,
 
     'mallows_urn': mallows_urn.generate_mallows_urn_votes,
-    'idan_part': guardians_plus.generate_idan_part_votes,  # unsupported culture
-    'idun_part': guardians_plus.generate_idun_part_votes,  # unsupported culture
-    'idst_part': guardians_plus.generate_idst_part_votes,  # unsupported culture
-    'anun_part': guardians_plus.generate_anun_part_votes,  # unsupported culture
-    'anst_part': guardians_plus.generate_anst_part_votes,  # unsupported culture
-    'unst_part': guardians_plus.generate_unst_part_votes,  # unsupported culture
-    'idan_mallows': guardians_plus.generate_idan_mallows_votes,  # unsupported culture
-    'idst_mallows': guardians_plus.generate_idst_mallows_votes,  # unsupported culture
-    'anun_mallows': guardians_plus.generate_anun_mallows_votes,  # unsupported culture
-    'unst_mallows': guardians_plus.generate_unst_mallows_votes,  # unsupported culture
-    'unst_topsize': guardians_plus.generate_unst_topsize_votes,  # unsupported culture
-    'idst_blocks': guardians_plus.generate_idst_blocks_votes,
+    'idan_part': guardians_approx.generate_idan_part_votes,  # unsupported culture
+    'idun_part': guardians_approx.generate_idun_part_votes,  # unsupported culture
+    'idst_part': guardians_approx.generate_idst_part_votes,  # unsupported culture
+    'anun_part': guardians_approx.generate_anun_part_votes,  # unsupported culture
+    'anst_part': guardians_approx.generate_anst_part_votes,  # unsupported culture
+    'unst_part': guardians_approx.generate_unst_part_votes,  # unsupported culture
+    'idan_mallows': guardians_approx.generate_idan_mallows_votes,  # unsupported culture
+    'idst_mallows': guardians_approx.generate_idst_mallows_votes,  # unsupported culture
+    'anun_mallows': guardians_approx.generate_anun_mallows_votes,  # unsupported culture
+    'unst_mallows': guardians_approx.generate_unst_mallows_votes,  # unsupported culture
+    'unst_topsize': guardians_approx.generate_unst_topsize_votes,  # unsupported culture
+    'idst_blocks': guardians_approx.generate_idst_blocks_votes,
     'norm-mallows_mixture': mallows.generate_norm_mallows_mixture_votes,  # unsupported culture
     'walsh_mallows': sp_matrices.generate_walsh_mallows_votes,  # unsupported culture
     'conitzer_mallows': sp_matrices.generate_conitzer_mallows_votes,  # unsupported culture
@@ -98,13 +99,8 @@ registered_ordinal_cultures = {
     'conitzer_party': unused.generate_sp_party,  # unsupported culture
     'mallows_party': mallows.generate_mallows_party,  # unsupported culture
     'ic_party': unused.generate_ic_party,  # unsupported culture
-    'real_uniformity': guardians.generate_real_uniformity_votes,  # unsupported culture
-    'real_stratification': guardians.generate_real_stratification_votes,  # unsupported culture
-    'un_from_matrix': guardians_plus.generate_un_from_matrix_votes,  # unsupported culture
-    'un_from_list': guardians_plus.generate_un_from_list,  # unsupported culture
-
+    'un_from_list': guardians_approx.generate_un_from_list,  # unsupported culture
     'urn_model': pref_ordinal.urn,  # deprecated name
-    'weighted_stratification': pref_ordinal.stratification,  # deprecated name
 }
 
 
@@ -176,7 +172,7 @@ def generate_ordinal_votes(
                                                             num_candidates=num_candidates,
                                                             **params)
 
-    elif culture_id in LIST_OF_FAKE_MODELS:
+    elif culture_id in ORDINAL_PSEUDO_MODELS:
         votes = [culture_id, num_candidates, num_voters, params]
 
     else:
@@ -185,7 +181,7 @@ def generate_ordinal_votes(
             f'No such culture id: {culture_id} \n'
             f'If you are using your own instances then ignore this warning.')
 
-    if culture_id not in LIST_OF_FAKE_MODELS:
+    if culture_id not in ORDINAL_PSEUDO_MODELS:
         votes = [[int(x) for x in row] for row in votes]
 
     return np.array(votes)

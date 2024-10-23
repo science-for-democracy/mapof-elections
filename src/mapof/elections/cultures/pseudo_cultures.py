@@ -18,22 +18,22 @@ def get_pseudo_multiplication(num_candidates, params, model):
     return output
 
 
-def get_frequency_matrix_for_guardian(pseudo_culture_id, num_candidates, params=None):
+def get_frequency_matrix_for_guardian(culture_id, num_candidates, params=None):
     if params is None:
         params = {}
 
     vectors = np.zeros([num_candidates, num_candidates])
 
-    if pseudo_culture_id == 'pseudo_identity':
+    if culture_id == 'pseudo_identity':
         for i in range(num_candidates):
             vectors[i][i] = 1
 
-    elif pseudo_culture_id == 'pseudo_uniformity':
+    elif culture_id == 'pseudo_uniformity':
         for i in range(num_candidates):
             for j in range(num_candidates):
                 vectors[i][j] = 1. / num_candidates
 
-    elif pseudo_culture_id == 'pseudo_stratification':
+    elif culture_id == 'pseudo_stratification':
         weight = params.get('weight', 0.5)
         half = int(num_candidates*weight)
         for i in range(half):
@@ -43,7 +43,7 @@ def get_frequency_matrix_for_guardian(pseudo_culture_id, num_candidates, params=
             for j in range(half, num_candidates):
                 vectors[i][j] = 1. / half
 
-    elif pseudo_culture_id == 'pseudo_antagonism':
+    elif culture_id == 'pseudo_antagonism':
         for i in range(num_candidates):
             for _ in range(num_candidates):
                 vectors[i][i] = 0.5
@@ -52,23 +52,23 @@ def get_frequency_matrix_for_guardian(pseudo_culture_id, num_candidates, params=
     return vectors
 
 
-def get_pseudo_convex(pseudo_culture_id, num_candidates, num_voters, params, function_name):
-    if pseudo_culture_id == 'pseudo_unid':
+def get_pseudo_convex(culture_id, num_candidates, num_voters, params, function_name):
+    if culture_id == 'pseudo_unid':
         base_1 = function_name('pseudo_uniformity', num_candidates)
         base_2 = function_name('pseudo_identity', num_candidates)
-    elif pseudo_culture_id == 'pseudo_anid':
+    elif culture_id == 'pseudo_anid':
         base_1 = function_name('pseudo_antagonism', num_candidates)
         base_2 = function_name('pseudo_identity', num_candidates)
-    elif pseudo_culture_id == 'pseudo_stid':
+    elif culture_id == 'pseudo_stid':
         base_1 = function_name('pseudo_stratification', num_candidates)
         base_2 = function_name('pseudo_identity', num_candidates)
-    elif pseudo_culture_id == 'pseudo_anun':
+    elif culture_id == 'pseudo_anun':
         base_1 = function_name('pseudo_antagonism', num_candidates)
         base_2 = function_name('pseudo_uniformity', num_candidates)
-    elif pseudo_culture_id == 'pseudo_stun':
+    elif culture_id == 'pseudo_stun':
         base_1 = function_name('pseudo_stratification', num_candidates)
         base_2 = function_name('pseudo_uniformity', num_candidates)
-    elif pseudo_culture_id == 'pseudo_stan':
+    elif culture_id == 'pseudo_stan':
         base_1 = function_name('pseudo_stratification', num_candidates)
         base_2 = function_name('pseudo_antagonism', num_candidates)
     else:
@@ -94,21 +94,21 @@ def convex_combination(base_1, base_2, length=0, params=None):
 
 
 
-def get_pseudo_matrix_single(pseudo_culture_id, num_candidates, weight=0.5):
+def get_pseudo_matrix_single(culture_id, num_candidates, weight=0.5):
     matrix = np.zeros([num_candidates, num_candidates])
 
-    if pseudo_culture_id == 'pseudo_identity':
+    if culture_id == 'pseudo_identity':
         for i in range(num_candidates):
             for j in range(i + 1, num_candidates):
                 matrix[i][j] = 1
 
-    elif pseudo_culture_id in {'pseudo_uniformity', 'pseudo_antagonism'}:
+    elif culture_id in {'pseudo_uniformity', 'pseudo_antagonism'}:
         for i in range(num_candidates):
             for j in range(num_candidates):
                 if i != j:
                     matrix[i][j] = 0.5
 
-    elif pseudo_culture_id == 'pseudo_stratification':
+    elif culture_id == 'pseudo_stratification':
         for i in range(int(num_candidates*weight)):
             for j in range(int(num_candidates*weight), num_candidates):
                 matrix[i][j] = 1
@@ -124,21 +124,21 @@ def get_pseudo_matrix_single(pseudo_culture_id, num_candidates, weight=0.5):
     return matrix
 
 
-def get_pseudo_borda_vector(pseudo_culture_id, num_candidates, num_voters):
+def get_pseudo_borda_vector(culture_id, num_candidates, num_voters):
     borda_vector = np.zeros([num_candidates])
 
     m = num_candidates
     n = num_voters
 
-    if pseudo_culture_id == 'pseudo_identity':
+    if culture_id == 'pseudo_identity':
         for i in range(m):
             borda_vector[i] = n * (m - 1 - i)
 
-    elif pseudo_culture_id in {'pseudo_uniformity', 'pseudo_antagonism'}:
+    elif culture_id in {'pseudo_uniformity', 'pseudo_antagonism'}:
         for i in range(m):
             borda_vector[i] = n * (m - 1) / 2
 
-    elif pseudo_culture_id == 'pseudo_stratification':
+    elif culture_id == 'pseudo_stratification':
         for i in range(int(m / 2)):
             borda_vector[i] = n * (m - 1) * 3 / 4
         for i in range(int(m / 2), m):

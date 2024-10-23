@@ -49,7 +49,7 @@ class TestCultures:
     # def test_group_separable(self, tree_sampler):
     #     num_voters = np.random.randint(10, 100)
     #     num_candidates = np.random.randint(10, 100)
-    #     election = mapel.generate_ordinal_election(culture_id='group-separable',
+    #     election = mapel.generate_ordinal_election(pseudo_culture_id='group-separable',
     #                                                num_voters=num_voters,
     #                                                num_candidates=num_candidates,
     #                                                tree_sampler=tree_sampler)

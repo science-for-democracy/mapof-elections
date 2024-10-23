@@ -19,7 +19,7 @@ import mapof.elections.cultures.euclidean as euclidean
 import mapof.elections.cultures.urn as urn
 import mapof.elections.cultures.identity as identity
 
-from mapof.elections.other.glossary import ORDINAL_PSEUDO_MODELS, LIST_OF_PREFLIB_MODELS
+from mapof.elections.other.glossary import is_pseudo_culture, LIST_OF_PREFLIB_MODELS
 
 import prefsampling.ordinal as pref_ordinal
 import prefsampling.approval as pref_approval
@@ -165,14 +165,14 @@ def generate_ordinal_votes(
             logging.warning(
                 f'You are trying to create an election based on Preflib '
                 f'without having the original source election. '
-                f'Please use different culture_id than: {culture_id}')
+                f'Please use different pseudo_culture_id than: {culture_id}')
 
     elif culture_id in registered_ordinal_cultures:
         votes = registered_ordinal_cultures.get(culture_id)(num_voters=num_voters,
                                                             num_candidates=num_candidates,
                                                             **params)
 
-    elif culture_id in ORDINAL_PSEUDO_MODELS:
+    elif is_pseudo_culture(culture_id):
         votes = [culture_id, num_candidates, num_voters, params]
 
     else:
@@ -181,7 +181,7 @@ def generate_ordinal_votes(
             f'No such culture id: {culture_id} \n'
             f'If you are using your own instances then ignore this warning.')
 
-    if culture_id not in ORDINAL_PSEUDO_MODELS:
+    if not is_pseudo_culture(culture_id):
         votes = [[int(x) for x in row] for row in votes]
 
     return np.array(votes)
@@ -205,7 +205,7 @@ def approval_votes_to_vectors(votes, num_candidates=None, num_voters=None):
 def from_approval(num_candidates: int = None,
                   num_voters: int = None,
                   params: dict = None):
-    votes = generate_approval_votes(culture_id=params['culture_id'],
+    votes = generate_approval_votes(culture_id=params['pseudo_culture_id'],
                                     num_candidates=num_candidates, num_voters=num_voters,
                                     params=params)
 

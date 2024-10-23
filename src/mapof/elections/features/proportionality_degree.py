@@ -1,8 +1,6 @@
 import logging
 
 from numpy import ceil
-import sys
-import os
 
 try:
     import pulp
@@ -82,11 +80,11 @@ def solve_ilp_instance(election, committee: set, l: int = 1,
         y_ineq -= s * y
         model += y_ineq >= 0
 
-    # culture_id.solve()
+    # pseudo_culture_id.solve()
 
     model.solve(pulp.PULP_CBC_CMD(msg=False))
-    # if LpStatus[culture_id.status] == 'Optimal':
-    #     print([var.election_id + "=" + str(var.varValue) for var in culture_id.variables() if var.varValue is not None and var.varValue > 0], sep=" ")    # prints result variables which have value > 0
+    # if LpStatus[pseudo_culture_id.status] == 'Optimal':
+    #     print([var.election_id + "=" + str(var.varValue) for var in pseudo_culture_id.variables() if var.varValue is not None and var.varValue > 0], sep=" ")    # prints result variables which have value > 0
     if pulp.LpStatus[model.status] == 'Optimal':
         return pulp.value(model.objective) / s
     else:

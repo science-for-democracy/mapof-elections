@@ -1,7 +1,6 @@
-#!/usr/bin/env python
+import time
 
 from numpy import ceil
-import time
 
 try:
     import pulp
@@ -9,7 +8,6 @@ except Exception:
     pulp = None
 
 
-# from mapof.elections.objects.ApprovalElection import ApprovalElection
 from math import ceil
 import itertools
 from collections import defaultdict
@@ -135,6 +133,6 @@ def solve_ilp_instance(election, committee_size: int, l: int = 1) -> bool:
         model += y_ineq >= 0
 
     model.solve(pulp.PULP_CBC_CMD(msg=False))
-    # if LpStatus[culture_id.status] == 'Optimal':
-    #     print([var.election_id + "=" + str(var.varValue) for var in culture_id.variables() if var.varValue is not None and var.varValue > 0], sep=" ")    # prints result variables which have value > 0
+    # if LpStatus[pseudo_culture_id.status] == 'Optimal':
+    #     print([var.election_id + "=" + str(var.varValue) for var in pseudo_culture_id.variables() if var.varValue is not None and var.varValue > 0], sep=" ")    # prints result variables which have value > 0
     return pulp.LpStatus[model.status] == 'Optimal'

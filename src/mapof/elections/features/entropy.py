@@ -53,7 +53,7 @@ def _calculate_entropy_ordinal(votes):
 
 
 def entropy(election) -> dict:
-    if election.fake:
+    if election.is_pseudo:
         return {'value': None}
 
     score = _calculate_entropy_ordinal(election.votes)

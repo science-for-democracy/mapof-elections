@@ -1,12 +1,10 @@
-
 import scipy.special
 import numpy as np
 
 from mapof.elections.features.scores import get_cc_score, get_cc_dissat
 
-
 def get_ranging_cc_score(election, committee_size=1):
-    if election.fake:
+    if election.is_pseudo:
         return {'value': None, 'dissat': None}
 
     x = election.num_candidates * scipy.special.lambertw(committee_size).real / committee_size

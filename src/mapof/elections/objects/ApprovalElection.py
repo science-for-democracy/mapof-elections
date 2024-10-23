@@ -87,7 +87,7 @@ class ApprovalElection(Election, ABC):
                                              num_candidates=self.num_candidates,
                                              num_voters=self.num_voters,
                                              params=self.params)
-        if not self.fake:
+        if not self.is_pseudo:
             c = Counter(map(tuple, self.votes))
             counted_votes = [[count, list(row)] for row, count in c.items()]
             counted_votes = sorted(counted_votes, reverse=True)

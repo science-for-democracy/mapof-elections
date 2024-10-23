@@ -1,7 +1,4 @@
-
 import math
-
-from mapof.elections.other.glossary import ORDINAL_PSEUDO_MODELS
 
 
 def is_condorcet(election) -> dict:
@@ -17,7 +14,7 @@ def is_condorcet(election) -> dict:
         dict
             'value': True if Condorcet winner exists, False otherwise
     """
-    if election.culture_id in ORDINAL_PSEUDO_MODELS:
+    if election.is_pseudo:
         return {'value': None}
 
     potes = election.get_potes()  # get positional votes
@@ -44,7 +41,7 @@ def is_condorcet(election) -> dict:
 
 def get_effective_num_candidates(election, mode='Borda') -> dict:
     """ Compute effective number of candidates of a given election."""
-    if election.culture_id in ORDINAL_PSEUDO_MODELS:
+    if election.is_pseudo:
         return {'value': None}
 
     c = election.num_candidates

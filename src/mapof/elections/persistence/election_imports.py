@@ -7,7 +7,7 @@ from collections import Counter
 import numpy as np
 
 from mapof.core.glossary import *
-from mapof.elections.other.glossary import ORDINAL_PSEUDO_MODELS
+from mapof.elections.other.glossary import is_pseudo_culture
 
 regex_file_name = r'# FILE NAME:'
 regex_title = r'# TITLE:'
@@ -317,14 +317,14 @@ def import_real_soc_election(**kwargs):
         return import_real_new_soc_election(**kwargs)
 
 
-def import_fake_soc_election(*args):
+def import_pseudo_soc_election(*args):
     try:
-        return import_fake_new_soc_election(*args)
+        return import_pseudo_new_soc_election(*args)
     except:
-        return import_fake_old_soc_election(*args)
+        return import_pseudo_old_soc_election(*args)
 
 
-def import_fake_new_soc_election(
+def import_pseudo_new_soc_election(
         experiment_id: str,
         election_id: str,
 ):
@@ -384,8 +384,8 @@ def import_fake_new_soc_election(
     return culture_id, params, num_voters, num_candidates, matrix
 
 
-def import_fake_old_soc_election(experiment_id: str, election_id: str):
-    """ Import fake ordinal election form .soc file """
+def import_pseudo_old_soc_election(experiment_id: str, election_id: str):
+    """ Import is_pseudo ordinal election form .soc file """
 
     file_name = f'{election_id}.soc'
     path = os.path.join(os.getcwd(), "experiments", experiment_id, "elections", file_name)
@@ -571,7 +571,7 @@ def import_real_app_election(**kwargs):
 
 
 def import_fake_app_election(experiment_id: str, name: str):
-    """ Import fake approval election from .app file """
+    """ Import is_pseudo approval election from .app file """
 
     file_name = f'{name}.app'
     path = os.path.join(os.getcwd(), "experiments", experiment_id, "elections", file_name)
@@ -590,7 +590,7 @@ def import_fake_app_election(experiment_id: str, name: str):
     return fake_culture_id, params, num_voters, num_candidates
 
 
-def check_if_fake(experiment_id, election_id):
+def check_if_pseudo(experiment_id, election_id):
     file_ending = 4
     file_name = f'{election_id}.soc'
     path = os.path.join(os.getcwd(), "experiments", experiment_id, "elections", file_name)
@@ -636,9 +636,7 @@ def check_if_fake(experiment_id, election_id):
                 params = {}
             else:
                 params = ast.literal_eval(" ".join(line[2:]))
-    if str(culture_id) in ORDINAL_PSEUDO_MODELS:
-        return True
-    return False
+    return is_pseudo_culture(str(culture_id))
 
 
 def _old_name_extractor(first_line: str) -> str:

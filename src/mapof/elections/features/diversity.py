@@ -98,14 +98,14 @@ def calculate_vote_swap_dist(election):
 # DIVERSITY INDICES
 
 def borda_gini(election) -> dict:
-    if election.fake:
+    if election.is_pseudo:
         return {'value': None}
     all_scores = calculate_borda_scores(election)
     return {'value': gini_coef(all_scores)}
 
 
 def borda_meandev(election) -> dict:
-    if election.fake:
+    if election.is_pseudo:
         return {'value': None}
     all_scores = calculate_borda_scores(election)
     all_scores = np.abs(all_scores - all_scores.mean())
@@ -113,21 +113,21 @@ def borda_meandev(election) -> dict:
 
 
 def borda_std(election) -> dict:
-    if election.fake:
+    if election.is_pseudo:
         return {'value': None}
     all_scores = calculate_borda_scores(election)
     return {'value': all_scores.std()}
 
 
 def borda_range(election) -> dict:
-    if election.fake:
+    if election.is_pseudo:
         return {'value': None}
     all_scores = calculate_borda_scores(election)
     return (np.max(all_scores) - np.min(all_scores))
 
 
 def cand_dom_dist_mean(election) -> dict:
-    if election.fake:
+    if election.is_pseudo:
         return {'value': None}
     distances = calculate_cand_dom_dist(election)
     return {'value': distances.sum() / (election.num_candidates - 1) / election.num_candidates * 2}
@@ -146,14 +146,14 @@ def agreement_index(election) -> dict:
         dict
             'value': agreement index
     """
-    if election.fake:
+    if election.is_pseudo:
         return {'value': None}
     distances = calculate_cand_dom_dist(election)
     return {'value': distances.sum() / (election.num_candidates - 1) / election.num_candidates * 2}
 
 
 def cand_dom_dist_std(election) -> dict:
-    if election.fake:
+    if election.is_pseudo:
         return {'value': None}
     distances = calculate_cand_dom_dist(election)
     distances = remove_diag(distances)
@@ -161,7 +161,7 @@ def cand_dom_dist_std(election) -> dict:
 
 
 def cand_pos_dist_std(election) -> dict:
-    if election.fake:
+    if election.is_pseudo:
         return {'value': None}
     distances = calculate_cand_pos_dist(election)
     distances = remove_diag(distances)
@@ -169,7 +169,7 @@ def cand_pos_dist_std(election) -> dict:
 
 
 def cand_pos_dist_meandev(election) -> dict:
-    if election.fake:
+    if election.is_pseudo:
         return {'value': None}
     distances = calculate_cand_pos_dist(election)
     distances = remove_diag(distances)
@@ -178,7 +178,7 @@ def cand_pos_dist_meandev(election) -> dict:
 
 
 def cand_pos_dist_gini(election) -> dict:
-    if election.fake:
+    if election.is_pseudo:
         return {'value': None}
     distances = calculate_cand_pos_dist(election)
     distances = remove_diag(distances)
@@ -186,7 +186,7 @@ def cand_pos_dist_gini(election) -> dict:
 
 
 def med_cands_summed(election) -> dict:
-    if election.fake:
+    if election.is_pseudo:
         return {'value': None}
     m = election.num_candidates
     distances = calculate_cand_pos_dist(election)
@@ -209,21 +209,21 @@ def med_cands_summed(election) -> dict:
 
 
 def vote_dist_mean(election) -> dict:
-    if election.fake:
+    if election.is_pseudo:
         return {'value': None}
     distances = calculate_vote_swap_dist(election)
     return {'value': distances.sum() / election.num_voters / (election.num_voters - 1)}
 
 
 def vote_dist_max(election) -> dict:
-    if election.fake:
+    if election.is_pseudo:
         return {'value': None}
     distances = calculate_vote_swap_dist(election)
     return {'value': distances.max()}
 
 
 def vote_dist_med(election) -> dict:
-    if election.fake:
+    if election.is_pseudo:
         return {'value': None}
     distances = calculate_vote_swap_dist(election)
     distances = remove_diag(distances)
@@ -231,7 +231,7 @@ def vote_dist_med(election) -> dict:
 
 
 def vote_dist_gini(election) -> dict:
-    if election.fake:
+    if election.is_pseudo:
         return {'value': None}
     distances = calculate_vote_swap_dist(election)
     distances = remove_diag(distances)
@@ -239,7 +239,7 @@ def vote_dist_gini(election) -> dict:
 
 
 def vote_sqr_dist_mean(election) -> dict:
-    if election.fake:
+    if election.is_pseudo:
         return {'value': None}
     distances = calculate_vote_swap_dist(election)
     distances = remove_diag(distances)
@@ -248,7 +248,7 @@ def vote_sqr_dist_mean(election) -> dict:
 
 
 def vote_sqr_dist_med(election) -> dict:
-    if election.fake:
+    if election.is_pseudo:
         return {'value': None}
     distances = calculate_vote_swap_dist(election)
     distances = remove_diag(distances)
@@ -257,7 +257,7 @@ def vote_sqr_dist_med(election) -> dict:
 
 
 def vote_diversity_Karpov(election):
-    if election.fake:
+    if election.is_pseudo:
         return {'value': None}
     distances = calculate_vote_swap_dist(election)
     distances = remove_diag(distances)
@@ -267,14 +267,14 @@ def vote_diversity_Karpov(election):
 
 
 def dist_to_Kemeny_mean(election):
-    if election.fake:
+    if election.is_pseudo:
         return {'value': None}
     _, dist = kemeny_ranking(election)
     return dist / election.num_voters
 
 
 def dist_to_Borda_mean(election) -> dict:
-    if election.fake:
+    if election.is_pseudo:
         return {'value': None}
     m = election.num_candidates
     borda = calculate_borda_scores(election)
@@ -288,13 +288,13 @@ def dist_to_Borda_mean(election) -> dict:
 
 
 def lexi_diversity(election):
-    if election.fake:
+    if election.is_pseudo:
         return {'value': None}
     return {'value': None}
 
 
 def greedy_kKemenys_summed(election) -> dict:
-    if election.fake:
+    if election.is_pseudo:
         return {'value': None}
     res = [0] * election.num_voters
     distances = calculate_vote_swap_dist(election)
@@ -408,7 +408,7 @@ def diversity_index(election) -> dict:
         dict
             'value': diversity index
     """
-    if election.fake:
+    if election.is_pseudo:
         return {'value': None}
     max_dist = election.num_candidates * (election.num_candidates - 1) / 2
     res = [0] * election.num_voters
@@ -439,7 +439,7 @@ def diversity_index(election) -> dict:
 
 
 def greedy_kKemenys_divk_summed(election) -> dict:
-    if election.fake:
+    if election.is_pseudo:
         return {'value': None}
     res = [0] * election.num_voters
     distances = calculate_vote_swap_dist(election)
@@ -462,7 +462,7 @@ def greedy_kKemenys_divk_summed(election) -> dict:
 
 
 def greedy_2kKemenys_summed(election) -> dict:
-    if election.fake:
+    if election.is_pseudo:
         return {'value': None}
     res = []
     distances = calculate_vote_swap_dist(election)
@@ -488,7 +488,7 @@ def greedy_2kKemenys_summed(election) -> dict:
 
 
 def polarization_1by2Kemenys(election) -> dict:
-    if election.fake:
+    if election.is_pseudo:
         return {'value': None}
     distances = calculate_vote_swap_dist(election)
     best = np.argmin(distances.sum(axis=1))
@@ -519,7 +519,7 @@ def polarization_index(election) -> dict:
         dict
             'value': polarization index
     """
-    if election.fake:
+    if election.is_pseudo:
         return {'value': None}
     distances = calculate_vote_swap_dist(election)
     best_1 = np.argmin(distances.sum(axis=1))
@@ -546,7 +546,7 @@ def polarization_index(election) -> dict:
 
 
 def greedy_kmeans_summed(election) -> dict:
-    if election.fake:
+    if election.is_pseudo:
         return {'value': None}
     res = [0] * election.num_voters
     distances = calculate_vote_swap_dist(election)
@@ -568,7 +568,7 @@ def greedy_kmeans_summed(election) -> dict:
 
 
 def support_diversity(election, tuple_len) -> dict:
-    if election.fake:
+    if election.is_pseudo:
         return {'value': None}
     m = election.num_candidates
     res = 0
@@ -586,7 +586,7 @@ def support_diversity(election, tuple_len) -> dict:
 
 
 def support_diversity_normed(election, tuple_len) -> dict:
-    if election.fake:
+    if election.is_pseudo:
         return {'value': None}
     m = election.num_candidates
     res = 0
@@ -606,7 +606,7 @@ def support_diversity_normed(election, tuple_len) -> dict:
 
 
 def support_diversity_normed2(election, tuple_len) -> dict:
-    if election.fake:
+    if election.is_pseudo:
         return {'value': None}
     m = election.num_candidates
     res = 0
@@ -626,7 +626,7 @@ def support_diversity_normed2(election, tuple_len) -> dict:
 
 
 def support_diversity_normed3(election, tuple_len) -> dict:
-    if election.fake:
+    if election.is_pseudo:
         return {'value': None}
     m = election.num_candidates
     res = 0
@@ -655,14 +655,14 @@ def support_triplets(election):
 
 
 def support_votes(election) -> dict:
-    if election.fake:
+    if election.is_pseudo:
         return {'value': None}
     m = election.num_candidates
     return {'value': support_diversity(election, m)}
 
 
 def support_diversity_summed(election) -> dict:
-    if election.fake:
+    if election.is_pseudo:
         return {'value': None}
     m = election.num_candidates
     res = 0
@@ -672,7 +672,7 @@ def support_diversity_summed(election) -> dict:
 
 
 def support_diversity_normed_summed(election) -> dict:
-    if election.fake:
+    if election.is_pseudo:
         return {'value': None}
     m = election.num_candidates
     res = 0
@@ -682,7 +682,7 @@ def support_diversity_normed_summed(election) -> dict:
 
 
 def support_diversity_normed2_summed(election) -> dict:
-    if election.fake:
+    if election.is_pseudo:
         return {'value': None}
     m = election.num_candidates
     res = 0
@@ -692,7 +692,7 @@ def support_diversity_normed2_summed(election) -> dict:
 
 
 def support_diversity_normed3_summed(election) -> dict:
-    if election.fake:
+    if election.is_pseudo:
         return {'value': None}
     m = election.num_candidates
     res = 0

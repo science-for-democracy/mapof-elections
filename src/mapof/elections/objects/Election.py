@@ -61,7 +61,7 @@ class Election(Instance):
         self.is_exported = is_exported
         self.winners = None
         self.alternative_winners = {}
-        self.fake = culture_id in ORDINAL_PSEUDO_MODELS
+        self.is_pseudo = is_pseudo_culture(culture_id)
         self.potes = None
         self.features = {}
         self.object_type = 'vote'
@@ -138,7 +138,7 @@ class Election(Instance):
 
     def compute_potes(self, mapping=None):
         """ Convert votes to positional votes (called potes) """
-        if not self.fake:
+        if not self.is_pseudo:
             if mapping is None:
                 self.potes = np.array([[list(vote).index(i) for i, _ in enumerate(vote)]
                                        for vote in self.votes])
@@ -248,8 +248,8 @@ class Election(Instance):
 
         # ADJUST
         # find max dist
-        # if (not ('identity' in election.culture_id.lower() and object_type=='vote')) \
-        #         and (not ('approval_id' in election.culture_id.lower() and object_type=='vote')):
+        # if (not ('identity' in election.pseudo_culture_id.lower() and object_type=='vote')) \
+        #         and (not ('approval_id' in election.pseudo_culture_id.lower() and object_type=='vote')):
         if not self.all_dist_zeros(object_type):
             dist = np.zeros(
                 [len(self.coordinates[object_type]), len(self.coordinates[object_type])])

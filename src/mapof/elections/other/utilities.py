@@ -92,7 +92,7 @@ def generate_mapcsv_contents(*args, **kwargs):
         print("Missing parameter values for custom mallows, so no custom mallows will be added.")
 
     file = open(file_name, 'w')
-    file.write("size;num_candidates;num_voters;culture_id;params;color;alpha;family_id;marker;path;label\n")
+    file.write("size;num_candidates;num_voters;pseudo_culture_id;params;color;alpha;family_id;marker;path;label\n")
 
     for i in range(0, len(candidates)):
         if incl_ic:

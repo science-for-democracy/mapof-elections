@@ -4,7 +4,7 @@ from collections import Counter
 
 from matplotlib import pyplot as plt
 
-from mapof.elections.other.glossary import PATHS, ORDINAL_PSEUDO_MODELS
+from mapof.elections.other.glossary import PATHS, is_pseudo_culture
 import mapof.elections.persistence.election_exports as exports
 import mapof.elections.persistence.election_imports as imports
 from mapof.core.inner_distances import swap_distance_between_potes, \
@@ -77,8 +77,8 @@ class OrdinalElection(Election):
             try:
                 if self.votes is not None:
                     self.culture_id = self.culture_id
-                    if str(self.votes[0]) in ORDINAL_PSEUDO_MODELS:
-                        self.fake = True
+                    if is_pseudo_culture(str(self.votes[0])):
+                        self.is_pseudo = True
                         self.votes = self.votes[0]
                         self.num_candidates = self.votes[1]
                         self.num_voters = self.votes[2]
@@ -89,13 +89,13 @@ class OrdinalElection(Election):
                         self.compute_potes()
                 else:
 
-                    if imports.check_if_fake(self.experiment_id, self.election_id):
-                        self.fake = True
+                    if imports.check_if_pseudo(self.experiment_id, self.election_id):
+                        self.is_pseudo = True
                         self.culture_id, self.params, self.num_voters, \
-                        self.num_candidates, self.frequency_matrix = imports.import_fake_soc_election(self.experiment_id,
+                        self.num_candidates, self.frequency_matrix = imports.import_pseudo_soc_election(self.experiment_id,
                                                                                                       self.election_id)
                     else:
-                        self.fake = False
+                        self.is_pseudo = False
                         self.votes, self.num_voters, self.num_candidates, self.params, \
                         self.culture_id, self.alliances, \
                         self.num_options, self.quantities, \
@@ -162,7 +162,7 @@ class OrdinalElection(Election):
         """ Converts votes to positionwise frequency_matrix. """
         frequency_matrix = np.zeros([self.num_candidates, self.num_candidates])
 
-        if self.fake and self.frequency_matrix is not None:
+        if self.is_pseudo and self.frequency_matrix is not None:
             frequency_matrix = self.frequency_matrix
         if self.culture_id == 'conitzer_matrix':
             frequency_matrix = get_conitzer_matrix(self.num_candidates)
@@ -188,7 +188,7 @@ class OrdinalElection(Election):
                 self.params,
             )
         elif self.culture_id in {'walsh_path', 'conitzer_path'}:
-            frequency_matrix = get_fake_multiplication(
+            frequency_matrix = get_pseudo_multiplication(
                 self.num_candidates,
                 self.params,
                 self.culture_id)
@@ -222,15 +222,15 @@ class OrdinalElection(Election):
     def votes_to_pairwise_matrix(self) -> np.ndarray:
         """ Convert votes to pairwise frequency_matrix. """
         matrix = np.zeros([self.num_candidates, self.num_candidates])
-        if self.fake:
+        if self.is_pseudo:
             if self.culture_id in {'identity', 'uniformity', 'antagonism', 'stratification'}:
-                matrix = get_fake_matrix_single(self.culture_id, self.num_candidates)
+                matrix = get_pseudo_matrix_single(self.culture_id, self.num_candidates)
             elif self.culture_id in PATHS:
                 matrix = get_pseudo_convex(self.culture_id,
                                          self.num_candidates,
                                          self.num_voters,
-                                         self.fake_param,
-                                         get_fake_matrix_single)
+                                         self.params,
+                                         get_pseudo_matrix_single)
 
         else:
             for v in range(self.num_voters):
@@ -248,9 +248,14 @@ class OrdinalElection(Election):
     def _votes_to_bordawise_vector(self) -> np.ndarray:
         """ convert VOTES to Borda vector """
         borda_vector = np.zeros([self.num_candidates])
-        if self.fake:
-            if self.culture_id in {'identity', 'uniformity', 'antagonism', 'stratification'}:
-                borda_vector = get_fake_borda_vector(self.culture_id,
+        if self.is_pseudo:
+            if self.culture_id in {
+                'pseudo_identity',
+                'pseudo_uniformity',
+                'pseudo_antagonism',
+                'pseudo_stratification'
+            }:
+                borda_vector = get_pseudo_borda_vector(self.culture_id,
                                                      self.num_candidates,
                                                      self.num_voters)
             elif self.culture_id in PATHS:
@@ -258,7 +263,7 @@ class OrdinalElection(Election):
                                                self.num_candidates,
                                                self.num_voters,
                                                self.params,
-                                               get_fake_borda_vector)
+                                               get_pseudo_borda_vector)
         else:
             c = self.num_candidates
             v = self.num_voters
@@ -344,7 +349,7 @@ class OrdinalElection(Election):
                                                 num_candidates=self.num_candidates,
                                                 num_voters=self.num_voters,
                                                 params=self.params)
-        if not self.fake:
+        if not self.is_pseudo:
             c = Counter(map(tuple, self.votes))
             counted_votes = [[count, list(row)] for row, count in c.items()]
             counted_votes = sorted(counted_votes, reverse=True)

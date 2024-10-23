@@ -22,7 +22,7 @@ def probW(m, i, t):
 # RANDOM CONITZER
 
 def random_conitzer(C):
-    # generate a random vote from the Conitzer culture_id for axis
+    # generate a random vote from the Conitzer pseudo_culture_id for axis
     # C[0], ..., C[m-1]
     m = len(C)
     center = np.random.randint(0, m)

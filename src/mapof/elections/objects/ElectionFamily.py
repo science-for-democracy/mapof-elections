@@ -11,7 +11,7 @@ from mapof.elections.cultures.params import *
 
 
 class ElectionFamily(Family):
-    """ Family of elections: a set of elections from the same election culture_id """
+    """ Family of elections: a set of elections from the same election pseudo_culture_id """
 
     def __init__(self,
                  culture_id: str = None,

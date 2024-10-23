@@ -96,7 +96,7 @@ def agreement_index(election) -> dict:
         dict
             'value': approx. agreement index
     """
-    if election.fake:
+    if election.is_pseudo:
         return {'value': None}
     potes = get_potes(election)
     res = 0
@@ -112,7 +112,7 @@ def agreement_index(election) -> dict:
     return {'value': res / election.num_voters / (election.num_candidates - 1) / election.num_candidates * 2}
 
 def cand_pos_dist_std(election) -> dict:
-    if election.fake:
+    if election.is_pseudo:
         return {'value': None}
     distances = get_candidate_dists(election)
     distances = remove_diag(distances)
@@ -183,7 +183,7 @@ def polarization_index(election) -> dict:
         dict
             'value': approx. polarization index
     """
-    if election.fake:
+    if election.is_pseudo:
         return {'value': None}
 
     distances = get_vote_dists(election)
@@ -209,7 +209,7 @@ def diversity_index(election) -> dict:
         dict
             'value': approx. diversity index
     """
-    if election.fake:
+    if election.is_pseudo:
         return {'value': None}
 
     k_1 = local_search_kKemeny_single_k(election, 1, 1)['value']

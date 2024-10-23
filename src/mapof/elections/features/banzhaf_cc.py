@@ -1,11 +1,10 @@
-
 import scipy.special
 
 from mapof.elections.features.scores import get_cc_score, get_cc_dissat
 
 
 def get_banzhaf_cc_score(election, committee_size=1):
-    if election.fake:
+    if election.is_pseudo:
         return {'value': None, 'dissat': None}
 
     winners = set()

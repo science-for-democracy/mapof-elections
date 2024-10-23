@@ -5,7 +5,7 @@ from mapof.elections.features.scores import get_score, get_dissat
 
 # NEW LP
 def get_rand_approx_pav_score(election, committee_size=1):
-    if election.fake:
+    if election.is_pseudo:
         return {'value': None}
 
     W = [1 / (i + 1) for i in range(election.num_candidates)]
@@ -33,7 +33,7 @@ def get_greedy_approx_pav_score(election, committee_size=1):
 
 
 def get_greedy_approx_score(election, rule, committee_size=1):
-    if election.fake:
+    if election.is_pseudo:
         return {'value': None, 'dissat': None}
     winners = get_winners_approx_greedy(election, committee_size, rule)
     return {'value': get_score(election, winners, rule),
@@ -124,7 +124,7 @@ def get_removal_approx_pav_score(election, committee_size=1):
 
 
 def get_removal_approx_score(election, rule, committee_size=1):
-    if election.fake:
+    if election.is_pseudo:
         return {'value': None, 'dissat': None}
     winners = get_winners_approx_removal(election, committee_size, rule)
 

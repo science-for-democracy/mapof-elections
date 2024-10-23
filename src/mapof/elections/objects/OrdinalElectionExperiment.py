@@ -66,25 +66,26 @@ class OrdinalElectionExperiment(ElectionExperiment, ABC):
 
             with open(path, 'w') as file_csv:
                 file_csv.write(
-                    "size;num_candidates;num_voters;culture_id;params;color;alpha;"
+                    "size;num_candidates;num_voters;pseudo_culture_id;params;color;alpha;"
                     "family_id;label;marker;show\n")
                 file_csv.write("3;10;100;ic;{};black;1;ic;Impartial Culture;o;process_id\n")
 
-    def compute_positionwise_matrices(self):
-        """ computes positionwise matrices
-            and if is_exported then stores them in the /matrices folder """
+    def export_frequency_matrices(self):
+        path_to_folder = os.path.join(os.getcwd(), "experiments", self.experiment_id, "matrices")
+
+        if not os.path.exists(path_to_folder):
+            os.makedirs(path_to_folder)
+
+        for file_name in os.listdir(path_to_folder):
+            os.remove(os.path.join(path_to_folder, file_name))
 
         for election_id in self.elections:
-            matrix = self.elections[election_id].votes_to_positionwise_matrix()
+            frequency_matrix = self.elections[election_id].get_frequency_matrix()
+            file_name = election_id + ".csv"
 
-            if self.is_exported:
-                file_name = election_id + ".csv"
-                path = os.path.join(os.getcwd(), "experiments", self.experiment_id,
-                                    "matrices", file_name)
+            path_to_file = os.path.join(path_to_folder, file_name)
+            with open(path_to_file, 'w', newline='') as csv_file:
 
-                with open(path, 'w', newline='') as csv_file:
-
-                    writer = csv.writer(csv_file, delimiter=';')
-
-                    for row in matrix:
-                        writer.writerow(row)
+                writer = csv.writer(csv_file, delimiter=';')
+                for row in frequency_matrix:
+                    writer.writerow(row)

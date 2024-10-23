@@ -2,8 +2,6 @@ import pytest
 import numpy as np
 
 import mapof.elections as mapof
-from mapof.elections.other.matrices import \
-    prepare_matrices
 
 paths_to_test = {
     'pseudo_unid',

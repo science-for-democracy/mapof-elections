@@ -160,8 +160,8 @@ def positionwise_size_independent(e1: Election, e2: Election):
 #     precision_of_testing = 3
 #     for _ in range(100):
 #         distance_id = 'emd-positionwise'
-#         el1 = mapof.generate_ordinal_election(culture_id='ic', num_candidates=3, num_voters=5)
-#         el2 = mapof.generate_ordinal_election(culture_id='ic', num_candidates=3, num_voters=5)
+#         el1 = mapof.generate_ordinal_election(pseudo_culture_id='ic', num_candidates=3, num_voters=5)
+#         el2 = mapof.generate_ordinal_election(pseudo_culture_id='ic', num_candidates=3, num_voters=5)
 #         d1_mine, mapping1 = positionwise_size_independent(copy.deepcopy(el1), copy.deepcopy(el2))
 #         d2_mapel, mapping2 = mapof.compute_distance(el1, el2, distance_id='emd-positionwise')
 #         print("mapof: ", d2_mapel, " mine: ", d1_mine)

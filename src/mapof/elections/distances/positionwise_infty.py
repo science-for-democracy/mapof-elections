@@ -2,7 +2,6 @@
 Implementation of the positionwise infinity distance.
 Code name: 'ep' (as in 'extended positionwise')
 """
-
 import math
 
 import numpy as np
@@ -10,12 +9,11 @@ import numpy as np
 from mapof.core.matchings import solve_matching_vectors
 from mapof.elections.objects import Election
 
-"""
-Wasserstein distance calculation
-"""
-
 
 def emd_infty(xx, yy):
+    """
+    Wasserstein distance calculation
+    """
     m = len(xx)
     cum_x = 0
     cum_y = 0
@@ -61,12 +59,13 @@ def stretch_matrix(matrix, matrix_size, factor):
     return stretched
 
 
-"""
-Create memoization table of all the distances that need to be computed and compute them.
-"""
+
 
 
 def memoization(e1_stretched, e1_original_columns, e2_stretched, e2_original_columns):
+    """
+    Create memoization table of all the distances that need to be computed and compute them.
+    """
     pairs = set()
     mem_table = dict()
     for el1 in e1_original_columns:
@@ -77,24 +76,20 @@ def memoization(e1_stretched, e1_original_columns, e2_stretched, e2_original_col
     return mem_table
 
 
-"""
-Calculate indexes of copies.
-"""
-
-
 def find_copies(matrix_size, factor):
+    """
+    Calculate indexes of copies.
+    """
     table = dict()
     for i in range(0, matrix_size):
         table[i * factor] = [i for i in range(i * factor + 1, (i + 1) * factor)]
     return table
 
 
-"""
-Map copy votes to their original votes.
-"""
-
-
 def copy_to_original_mapping(original_to_copies: dict):
+    """
+    Map copy votes to their original votes.
+    """
     copy_to_original = dict()
     for key, val in original_to_copies.items():
         for v in val:
@@ -103,12 +98,10 @@ def copy_to_original_mapping(original_to_copies: dict):
     return copy_to_original
 
 
-"""
-Convert the memoization table to cost table.
-"""
-
-
 def memoization_to_cost_table(mem_table, num_cols, e1_copies_to_original, e2_copies_to_original):
+    """
+    Convert the memoization table to cost table.
+    """
     cost_table = list()
     for i in range(0, num_cols):
         cost_table.append([])
@@ -120,21 +113,18 @@ def memoization_to_cost_table(mem_table, num_cols, e1_copies_to_original, e2_cop
     return cost_table
 
 
-"""
-Lcm implementation to make the code runnable with older versions of Python which do not have it in their math library.
-"""
-
-
 def lcm(a, b):
+    """
+    Lcm implementation to make the code runnable with older versions of Python
+    which do not have it in their math library.
+    """
     return abs(a * b) // math.gcd(a, b)
 
 
-"""
-Main function of the positionwise infinity distance, pointer to this function is added to the experiment when I wish to compute the positionwise infinity distance for an experiment. 
-"""
-
-
 def positionwise_size_independent(e1: Election, e2: Election):
+    """
+    Main function of the positionwise infinity distance, pointer to this function is added to the experiment when I wish to compute the positionwise infinity distance for an experiment.
+    """
     election_lcm = lcm(e1.num_candidates, e2.num_candidates)
     e1_stretched = stretch_matrix(e1.get_frequency_matrix(), e1.num_candidates, int(election_lcm / e1.num_candidates))
     e2_stretched = stretch_matrix(e2.get_frequency_matrix(), e2.num_candidates, int(election_lcm / e2.num_candidates))
@@ -151,18 +141,3 @@ def positionwise_size_independent(e1: Election, e2: Election):
     distance, mapping = solve_matching_vectors(cost_table)
     normalized_distance = distance / (e1.num_candidates * int(election_lcm / e1.num_candidates))
     return normalized_distance, mapping
-
-# """
-# Space for testing purposes.
-# """
-#
-# if __name__ == "__main__":
-#     precision_of_testing = 3
-#     for _ in range(100):
-#         distance_id = 'emd-positionwise'
-#         el1 = mapof.generate_ordinal_election(pseudo_culture_id='ic', num_candidates=3, num_voters=5)
-#         el2 = mapof.generate_ordinal_election(pseudo_culture_id='ic', num_candidates=3, num_voters=5)
-#         d1_mine, mapping1 = positionwise_size_independent(copy.deepcopy(el1), copy.deepcopy(el2))
-#         d2_mapel, mapping2 = mapof.compute_distance(el1, el2, distance_id='emd-positionwise')
-#         print("mapof: ", d2_mapel, " mine: ", d1_mine)
-#     print("Testing of emd-positionwise-diffsizes ended (successfuly)?")

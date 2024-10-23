@@ -1,7 +1,5 @@
 import logging
 
-import scipy.special
-import scipy.special
 from gurobipy import Model, GRB
 
 

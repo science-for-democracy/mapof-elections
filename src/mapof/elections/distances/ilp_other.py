@@ -1,11 +1,9 @@
-#!/usr/bin/env python
 import logging
 import math
 import os
 from contextlib import suppress
 
-from gurobipy import LinExpr
-from gurobipy import Model, GRB
+from gurobipy import LinExpr, Model, GRB
 
 from mapof.elections.features.dependent_rounding import approx_rand_tree
 

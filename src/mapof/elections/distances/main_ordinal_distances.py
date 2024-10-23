@@ -20,6 +20,7 @@ except:
 def compute_pos_swap_distance(election_1: OrdinalElection, election_2: OrdinalElection,
                               inner_distance: callable) -> (float, list):
     """ Compute Positionwise distance between ordinal elections """
+    logging.warning("Positionwise-Swap distance wasn't properly tested.")
     cost_table = get_matching_cost_positionwise(election_1, election_2, inner_distance)
     obj_val, matching = solve_matching_vectors(cost_table)
     cost_table = get_matching_cost_pos_swap(election_1, election_2, matching)
@@ -55,6 +56,7 @@ def compute_positionwise_distance(
 def compute_agg_voterlikeness_distance(election_1: OrdinalElection, election_2: OrdinalElection,
                                        inner_distance: callable) -> (float, list):
     """ Compute Aggregated-Voterlikeness distance between ordinal elections """
+    logging.warning("Aggregated-Voterlikeness distance wasn't properly tested.")
     vector_1, num_possible_scores = election_1.votes_to_agg_voterlikeness_vector()
     vector_2, _ = election_2.votes_to_agg_voterlikeness_vector()
     return inner_distance(vector_1, vector_2, num_possible_scores)
@@ -136,6 +138,7 @@ def compute_voterlikeness_distance(
         (float, None)
             Voterlikeness distance between the two elections.
     """
+    logging.warning("Voterlikeness distance wasn't properly tested.")
     length = election_1.num_voters
     matrix_1 = election_1.votes_to_voterlikeness_matrix()
     matrix_2 = election_2.votes_to_voterlikeness_matrix()
@@ -254,7 +257,8 @@ def compute_spearman_distance_fastmap(
 
 def compute_spearman_distance_ilp_py(election_1: OrdinalElection,
                                      election_2: OrdinalElection) -> (int, list):
-    """ Compute Spearman distance between elections """
+    """ Computes Spearman distance between elections """
+    logging.warning("ilp_spearman wasn't properly tested.")
     votes_1 = election_1.votes
     votes_2 = election_2.votes
     params = {'voters': election_1.num_voters,
@@ -267,18 +271,20 @@ def compute_spearman_distance_ilp_py(election_1: OrdinalElection,
 
 def compute_discrete_distance(election_1: OrdinalElection,
                               election_2: OrdinalElection) -> (int, list):
-    """ Compute Discrete distance between elections """
+    """ Computes Discrete distance between elections """
     return election_1.num_voters - compute_voter_subelection(election_1, election_2), None
 
 
 # SUBELECTIONS #
 def compute_voter_subelection(election_1: OrdinalElection, election_2: OrdinalElection) -> int:
     """ Compute Voter-Subelection """
+    logging.warning("Voter-Subelection wasn't properly tested.")
     return ilp_sub.solve_ilp_voter_subelection(election_1, election_2)
 
 
 def compute_candidate_subelection(election_1: OrdinalElection, election_2: OrdinalElection) -> int:
     """ Compute Candidate-Subelection """
+    logging.warning("Candidate-Subelection wasn't properly tested.")
     return ilp_sub.solve_ilp_candidate_subelection(election_1, election_2)
 
 
@@ -348,4 +354,5 @@ def get_matching_cost_truncated_swap_bf(election_1: OrdinalElection,
 
 def compute_blank_distance(election_1: OrdinalElection,
                            election_2: OrdinalElection) -> (int, list):
+    """ Computes blank distance for testing purposes. """
     return 1, None

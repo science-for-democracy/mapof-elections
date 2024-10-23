@@ -1,25 +1,17 @@
-"""
-Implementation of the feature distance.
-
-"""
-
 import numpy as np
 
 from mapof.elections.objects import Election
 
-"""
-L1 distance between two feature vectors
-"""
+
 def features_vector_l1(e1: Election, e2: Election):
+    """ L1 distance between two feature vectors """
     vector1 = np.array(e1.election_features.features_vector)
     vector2 = np.array(e2.election_features.features_vector)
     return np.linalg.norm(vector1 - vector2, ord=1)
 
 
-"""
-L2 distance between two feature vectors
-"""
 def features_vector_l2(e1: Election, e2: Election):
+    """ L2 distance between two feature vectors """
     vector1 = np.array(e1.election_features.features_vector)
     vector2 = np.array(e2.election_features.features_vector)
     return np.linalg.norm(vector1 - vector2, ord=2)

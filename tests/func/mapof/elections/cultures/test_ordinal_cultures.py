@@ -30,6 +30,15 @@ spaces_to_test = {
     None
 }
 
+unpopular_ordinal_cultures_to_test = {
+    'idan_part',
+    'idun_part',
+    'idst_part',
+    'anun_part',
+    'anst_part',
+    'unst_part',
+}
+
 
 class TestCultures:
 
@@ -44,6 +53,19 @@ class TestCultures:
 
         assert election.num_candidates == num_candidates
         assert election.num_voters == num_voters
+
+    @pytest.mark.parametrize("culture_id", unpopular_ordinal_cultures_to_test)
+    def test_unpopular_cultures(self, culture_id):
+        num_voters = 10
+        num_candidates = 6
+
+        election = mapel.generate_ordinal_election(culture_id=culture_id,
+                                                   num_voters=num_voters,
+                                                   num_candidates=num_candidates)
+
+        assert election.num_candidates == num_candidates
+        assert election.num_voters == num_voters
+
 
     # @pytest.mark.parametrize("tree_sampler", tree_samplers_to_test)
     # def test_group_separable(self, tree_sampler):

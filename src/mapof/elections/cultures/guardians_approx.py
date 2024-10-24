@@ -1,6 +1,7 @@
 import math
 import numpy as np
 import mapof.elections.cultures.mallows as mallows
+import mapof.core.features.mallows as core_mallows
 import itertools as it
 import mapof.elections.cultures.sampling.samplemat as smpl
 
@@ -188,14 +189,14 @@ def generate_idan_mallows_votes(num_voters=None, num_candidates=None, params=Non
     if params is None or not ('scaled-phi' in params):
         print("IDAN_mallows generation : params None : random param generated")
         is_reversed = np.random.choice([True, False])
-        phi = mallows.phi_from_relphi(num_candidates, relphi=np.random.uniform())
+        phi = core_mallows.phi_from_normphi(num_candidates, normphi=np.random.uniform())
     else:
         if params['scaled-phi'] > 0.5:
             is_reversed = True
-            phi = mallows.phi_from_relphi(num_candidates, (1 - params['scaled-phi']) * 2)
+            phi = core_mallows.phi_from_normphi(num_candidates, (1 - params['scaled-phi']) * 2)
         else:
             is_reversed = False
-            phi = mallows.phi_from_relphi(num_candidates, params['scaled-phi'] * 2)
+            phi = core_mallows.phi_from_normphi(num_candidates, params['scaled-phi'] * 2)
     id_share = num_voters // 2
     op_share = num_voters - id_share
     votes_id = [[j for j in range(num_candidates)] for _ in range(id_share)]
@@ -209,7 +210,7 @@ def generate_idan_mallows_votes(num_voters=None, num_candidates=None, params=Non
 def generate_idst_mallows_votes(num_voters=None, num_candidates=None, params=None):
     if params is None or not ('phi' in params):
         print("IDST_mallows generation : params None : random param generated")
-        phi = mallows.phi_from_relphi(num_candidates, relphi=np.random.uniform())
+        phi = core_mallows.phi_from_normphi(num_candidates, normphi=np.random.uniform())
     else:
         phi = params['phi']
     better = num_candidates // 2
@@ -228,7 +229,7 @@ def generate_anun_mallows_votes(num_voters=None, num_candidates=None, params=Non
     mallows_params = {}
     if params is None or not ('phi' in params):
         print("IDST_mallows generation : params None : random param generated")
-        mallows_params['phi'] = mallows.phi_from_relphi(num_candidates, relphi=np.random.uniform())
+        mallows_params['phi'] = core_mallows.phi_from_normphi(num_candidates, normphi=np.random.uniform())
     else:
         mallows_params['phi'] = params['phi']
     mallows_params['weight'] = 0.5
@@ -238,7 +239,7 @@ def generate_anun_mallows_votes(num_voters=None, num_candidates=None, params=Non
 def generate_unst_mallows_votes(num_voters=None, num_candidates=None, params=None):
     if params is None or not ('phi' in params):
         print("IDST_mallows generation : params None : random param generated")
-        phi = mallows.phi_from_relphi(num_candidates, relphi=np.random.uniform()) / 2
+        phi = core_mallows.phi_from_normphi(num_candidates, normphi=np.random.uniform()) / 2
     else:
         phi = params['phi'] / 2
     better = num_candidates // 2

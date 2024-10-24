@@ -82,21 +82,25 @@ registered_ordinal_cultures = {
     'norm-mallows': mallows.generate_mallows_votes,
 
     'mallows_urn': mallows_urn.generate_mallows_urn_votes,
+
     'idan_part': guardians_approx.generate_idan_part_votes,  # unsupported culture
     'idun_part': guardians_approx.generate_idun_part_votes,  # unsupported culture
     'idst_part': guardians_approx.generate_idst_part_votes,  # unsupported culture
     'anun_part': guardians_approx.generate_anun_part_votes,  # unsupported culture
     'anst_part': guardians_approx.generate_anst_part_votes,  # unsupported culture
     'unst_part': guardians_approx.generate_unst_part_votes,  # unsupported culture
+
     'idan_mallows': guardians_approx.generate_idan_mallows_votes,  # unsupported culture
     'idst_mallows': guardians_approx.generate_idst_mallows_votes,  # unsupported culture
     'anun_mallows': guardians_approx.generate_anun_mallows_votes,  # unsupported culture
     'unst_mallows': guardians_approx.generate_unst_mallows_votes,  # unsupported culture
+
     'unst_topsize': guardians_approx.generate_unst_topsize_votes,  # unsupported culture
     'idst_blocks': guardians_approx.generate_idst_blocks_votes,
     'norm-mallows_mixture': mallows.generate_norm_mallows_mixture_votes,  # unsupported culture
-    'walsh_mallows': sp_matrices.generate_walsh_mallows_votes,  # unsupported culture
-    'conitzer_mallows': sp_matrices.generate_conitzer_mallows_votes,  # unsupported culture
+
+    # 'walsh_mallows': sp_matrices.generate_walsh_mallows_votes,  # unsupported culture
+    # 'conitzer_mallows': sp_matrices.generate_conitzer_mallows_votes,  # unsupported culture
     'mallows_triangle': mallows.generate_mallows_votes,  # unsupported culture
     'walsh_party': unused.generate_sp_party,  # unsupported culture
     'conitzer_party': unused.generate_sp_party,  # unsupported culture

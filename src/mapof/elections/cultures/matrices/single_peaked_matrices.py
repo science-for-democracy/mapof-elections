@@ -122,6 +122,7 @@ def get_walsh_matrix(num_candidates=None, **kwargs):
             P[i][t] = probW(m, i + 1, t + 1)
     return P
 
+#
 # def generate_conitzer_mallows_votes(num_voters, num_candidates, params):
 #     params['phi'] = phi_from_normphi(num_candidates, normphi=params['normphi'])
 #

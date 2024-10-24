@@ -137,8 +137,9 @@ def convex_combination(base_1, base_2, length=0, params=None):
     return output
 
 
-
-def get_pseudo_matrix_single(culture_id, num_candidates, params):
+def get_pseudo_matrix_single(culture_id, num_candidates, params=None):
+    if params == None:
+        params = {}
     weight = params.get('weight', 0.5)
 
     matrix = np.zeros([num_candidates, num_candidates])

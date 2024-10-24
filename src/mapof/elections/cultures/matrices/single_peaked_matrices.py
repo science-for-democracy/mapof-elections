@@ -20,37 +20,36 @@ def probW(m, i, t):
 
 
 # RANDOM CONITZER
-
-def random_conitzer(C):
-    # generate a random vote from the Conitzer pseudo_culture_id for axis
-    # C[0], ..., C[m-1]
-    m = len(C)
-    center = np.random.randint(0, m)
-    left = center
-    right = center
-    vote = [C[center]]
-    for i in range(m - 1):
-        L = False
-        R = False
-
-        if left > 0 and right < m - 1:
-            if random() < 0.5:
-                L = True
-            else:
-                R = True
-        elif left > 0:
-            L = True
-        else:
-            R = True
-
-        if L:
-            left -= 1
-            vote.append(C[left])
-        else:
-            right += 1
-            vote.append(C[right])
-
-    return vote
+# def random_conitzer(C):
+#     # generate a random vote from the Conitzer pseudo_culture_id for axis
+#     # C[0], ..., C[m-1]
+#     m = len(C)
+#     center = np.random.randint(0, m)
+#     left = center
+#     right = center
+#     vote = [C[center]]
+#     for i in range(m - 1):
+#         L = False
+#         R = False
+#
+#         if left > 0 and right < m - 1:
+#             if random() < 0.5:
+#                 L = True
+#             else:
+#                 R = True
+#         elif left > 0:
+#             L = True
+#         else:
+#             R = True
+#
+#         if L:
+#             left -= 1
+#             vote.append(C[left])
+#         else:
+#             right += 1
+#             vote.append(C[right])
+#
+#     return vote
 
 
 # CONITZER
@@ -89,7 +88,8 @@ PRECISION = 1000
 DIGITS = 4
 
 
-def get_conitzer_matrix(m):
+def get_conitzer_matrix(num_candidates=None, **kwargs):
+    m = num_candidates
     P = np.zeros([m, m])
     for i in range(m):
         for j in range(m):
@@ -97,47 +97,46 @@ def get_conitzer_matrix(m):
     return P
 
 
-def simconitzer(m):
-    P = [[0] * m for _ in range(m)]
-    T = 100000
+# def simconitzer(m):
+#     P = [[0] * m for _ in range(m)]
+#     T = 100000
+#
+#     C = list(range(m))
+#     for t in range(T):
+#         if t % 10000 == 0: print(t)
+#         v = random_conitzer(C)
+#         for i in range(m):
+#             P[v[i]][i] += 1
+#
+#     for j in range(m):
+#         for i in range(m):
+#             P[i][j] = str(int(PRECISION * (P[i][j] / T))).rjust(DIGITS)
+#     return P
 
-    C = list(range(m))
-    for t in range(T):
-        if t % 10000 == 0: print(t)
-        v = random_conitzer(C)
-        for i in range(m):
-            P[v[i]][i] += 1
 
-    for j in range(m):
-        for i in range(m):
-            P[i][j] = str(int(PRECISION * (P[i][j] / T))).rjust(DIGITS)
-    return P
-
-
-def get_walsh_matrix(m):
+def get_walsh_matrix(num_candidates=None, **kwargs):
+    m = num_candidates
     P = np.zeros([m, m])
     for i in range(m):
         for t in range(m):
             P[i][t] = probW(m, i + 1, t + 1)
     return P
 
-
-########  MALLOWS SP  ########
-def generate_conitzer_mallows_votes(num_voters, num_candidates, params):
-    params['phi'] = phi_from_normphi(num_candidates, normphi=params['normphi'])
-
-    votes = generate_ordinal_sp_conitzer_votes(num_voters=num_voters, num_candidates=num_candidates)
-
-    votes = mallows_votes(votes, params['phi'])
-
-    return votes
-
-
-def generate_walsh_mallows_votes(num_voters, num_candidates, params):
-    params['phi'] = phi_from_normphi(num_candidates, normphi=params['normphi'])
-
-    votes = generate_ordinal_sp_walsh_votes(num_voters=num_voters, num_candidates=num_candidates)
-
-    votes = mallows_votes(votes, params['phi'])
-
-    return votes
+# def generate_conitzer_mallows_votes(num_voters, num_candidates, params):
+#     params['phi'] = phi_from_normphi(num_candidates, normphi=params['normphi'])
+#
+#     votes = generate_ordinal_sp_conitzer_votes(num_voters=num_voters, num_candidates=num_candidates)
+#
+#     votes = mallows_votes(votes, params['phi'])
+#
+#     return votes
+#
+#
+# def generate_walsh_mallows_votes(num_voters, num_candidates, params):
+#     params['phi'] = phi_from_normphi(num_candidates, normphi=params['normphi'])
+#
+#     votes = generate_ordinal_sp_walsh_votes(num_voters=num_voters, num_candidates=num_candidates)
+#
+#     votes = mallows_votes(votes, params['phi'])
+#
+#     return votes

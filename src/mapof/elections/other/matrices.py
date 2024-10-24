@@ -7,6 +7,7 @@ from mapof.elections.cultures.matrices.single_crossing_matrices import get_singl
 
 from mapof.elections.objects.OrdinalElection import OrdinalElection
 from mapof.elections.objects.OrdinalElectionExperiment import OrdinalElectionExperiment
+from mapof.elections.cultures import registered_pseudo_ordinal_cultures
 
 from mapof.elections.cultures.mallows import get_mallows_matrix
 
@@ -38,20 +39,12 @@ def prepare_matrices(experiment_id):
                 writer.writerow(row)
 
 
-def generate_positionwise_matrix(
+def generate_frequency_matrix(
         culture_id=None,
         num_candidates=None,
         params=None):
 
-    if culture_id == 'conitzer_matrix':
-        matrix = get_conitzer_matrix(num_candidates)
-    elif culture_id == 'walsh_matrix':
-        matrix = get_walsh_matrix(num_candidates)
-    elif culture_id == 'single-crossing_matrix':
-        matrix = get_single_crossing_matrix(num_candidates)
-    elif culture_id == 'gs_caterpillar_matrix':
-        matrix = get_gs_caterpillar_vectors(num_candidates)
-    elif culture_id == 'norm-mallows_matrix':
-        return get_mallows_matrix(num_candidates, params)
-
-    return matrix
+    return registered_pseudo_ordinal_cultures[culture_id](
+        num_candidates=num_candidates,
+        params=params
+    )

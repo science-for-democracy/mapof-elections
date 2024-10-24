@@ -3,7 +3,7 @@
 import numpy as np
 
 
-def get_single_crossing_matrix(num_candidates: int) -> np.ndarray:
+def get_single_crossing_matrix(num_candidates: int, **kwargs) -> np.ndarray:
     matrix = np.zeros([num_candidates, num_candidates])
 
     for i in range(num_candidates):

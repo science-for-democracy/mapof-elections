@@ -4,8 +4,6 @@ import queue
 from itertools import chain
 
 import numpy as np
-from scipy.special import binom
-
 
 
 def get_all_leaves_names(node):

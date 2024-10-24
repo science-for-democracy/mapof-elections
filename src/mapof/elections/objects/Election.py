@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 import copy
 import csv
 import itertools
@@ -11,15 +9,15 @@ from abc import abstractmethod
 import matplotlib.pyplot as plt
 import numpy as np
 import numpy.linalg as la
-from sklearn.manifold import MDS
-
-from mapof.elections.objects.ElectionFeatures import ElectionFeatures
-import mapof.elections.persistence.election_exports as exports
-import mapof.elections.persistence.election_imports as imports
-from mapof.elections.other.glossary import *
 from mapof.core.inner_distances import l2
 from mapof.core.objects.Instance import Instance
+from sklearn.manifold import MDS
+
+import mapof.elections.persistence.election_exports as exports
+import mapof.elections.persistence.election_imports as imports
 from mapof.elections.features import get_local_feature
+from mapof.elections.objects.ElectionFeatures import ElectionFeatures
+from mapof.elections.other.glossary import *
 from mapof.elections.other.winners import (
     compute_sntv_winners,
     compute_borda_winners,

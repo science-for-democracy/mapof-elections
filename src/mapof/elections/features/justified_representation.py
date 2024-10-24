@@ -1,6 +1,7 @@
 
 import sys
 import os
+import logging
 
 try:
     from dotenv import load_dotenv
@@ -14,8 +15,7 @@ except ImportError:
 
 
 def test_ejr(election, rule):
-
-    print(election.election_id, rule)
+    logging.warning("Computing EJR needs update. Do not use this function.")
 
     profile = Profile(election.num_candidates)
     profile.add_voters(election.votes)

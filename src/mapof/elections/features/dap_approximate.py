@@ -8,6 +8,7 @@ Because of approximation, this implementation is significantly faster than the o
 It can deal with experiment containing top truncated elections and elections of different sizes (different number of candidates). 
 """
 
+
 def remove_diag(mtrx):
     """ Return: Input frequency_matrix with diagonal removed (shape[1] - 1) """
     res = np.zeros((mtrx.shape[0], mtrx.shape[1] - 1))
@@ -18,6 +19,7 @@ def remove_diag(mtrx):
             elif j > i:
                 res[i, j - 1] = mtrx[i, j]
     return res
+
 
 def vote2pote(vote, m):
     reported = vote[vote != -1]
@@ -33,6 +35,7 @@ def vote2pote(vote, m):
             res.append(non_reported_pos)
     return np.array(res)
 
+
 def get_potes(election):
     if election.potes is not None:
         return election.potes
@@ -44,17 +47,18 @@ def get_potes(election):
         election.potes = res
         return res
 
-def swap_distance_between_potes(pote_1: list, pote_2: list, m : int) -> int:
+
+def swap_distance_between_potes(pote_1: list, pote_2: list, m: int) -> int:
     """ Return: Swap distance between two potes """
     swap_distance = 0
     for a in range(m):
         for b in range(m):
-    # for a, b in itertools.combinations(range(m), 2):
             if (pote_1[a] < pote_1[b] and pote_2[a] >= pote_2[b]):
                 swap_distance += 0.5
             if (pote_1[a] <= pote_1[b] and pote_2[a] > pote_2[b]):
                 swap_distance += 0.5
     return swap_distance
+
 
 def get_vote_dists(election):
     try:
@@ -64,10 +68,12 @@ def get_vote_dists(election):
         distances = np.zeros([election.num_voters, election.num_voters])
         for v1 in range(election.num_voters):
             for v2 in range(v1 + 1, election.num_voters):
-                distances[v1][v2] = swap_distance_between_potes(potes[v1], potes[v2], election.num_candidates)
+                distances[v1][v2] = swap_distance_between_potes(potes[v1], potes[v2],
+                                                                election.num_candidates)
                 distances[v2][v1] = distances[v1][v2]
         election.vote_dists = distances
         return distances
+
 
 def get_candidate_dists(election):
     try:
@@ -110,7 +116,8 @@ def agreement_index(election) -> dict:
             elif p[b] < p[a]:
                 b_a += 1
         res += max(abs(a_b - b_a), election.num_voters - a_b - b_a)
-    return {'value': res / election.num_voters / (election.num_candidates - 1) / election.num_candidates * 2}
+    return {'value': res / election.num_voters / (
+                election.num_candidates - 1) / election.num_candidates * 2}
 
 
 def cand_pos_dist_std(election) -> dict:
@@ -128,7 +135,6 @@ def distances_to_rankings(rankings, distances):
 
 def find_improvement(distances, d, starting, rest, n, k, l):
     for cut in itertools.combinations(range(k), l):
-        # print(cut)
         for paste in itertools.combinations(rest, l):
             ranks = []
             j = 0
@@ -216,4 +222,4 @@ def diversity_index(election) -> dict:
     k_5 = local_search_kKemeny_single_k(election, 5, 1)['value']
 
     max_dist = (election.num_candidates) * (election.num_candidates - 1) / 2
-    return {'value': (k_1 + k_2 + k_3 + k_4 + k_5) / election.num_voters / max_dist }
+    return {'value': (k_1 + k_2 + k_3 + k_4 + k_5) / election.num_voters / max_dist}

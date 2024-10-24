@@ -1,13 +1,8 @@
-import copy
 import os
 import pickle
-import random
-
-import numpy as np
-import logging
 
 import mapof.core.features.mallows as ml
-
+import numpy as np
 
 def generate_mallows_votes(*args, **kwargs):
     return ml.generate_mallows_votes(*args, **kwargs)

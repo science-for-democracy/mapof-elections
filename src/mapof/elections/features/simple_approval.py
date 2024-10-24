@@ -1,5 +1,3 @@
-
-
 import numpy as np
 import scipy.special
 import math
@@ -13,7 +11,6 @@ def justified_ratio(election, feature_params) -> dict:
     for _set in election.reverse_approvals:
         if len(_set) >= threshold:
             covered = covered.union(_set)
-    print(len(covered) / float(election.num_voters))
     return {'value': len(covered) / float(election.num_voters)}
 
 

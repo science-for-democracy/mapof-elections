@@ -3,7 +3,6 @@ Helper ElectionFeatures object which stores the feature vectors and MOV's for ea
 """
 
 import math
-from itertools import combinations, permutations
 
 import numpy as np
 

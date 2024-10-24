@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 import csv
 import os
 from abc import ABC

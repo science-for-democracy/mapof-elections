@@ -1,18 +1,16 @@
-#!/usr/bin/env python
+import csv
 from abc import ABC
 
-from mapof.core.matchings import solve_matching_vectors
-from mapof.elections.objects.ElectionExperiment import ElectionExperiment
-from mapof.elections.other import pabulib
-from mapof.core.utils import *
 import numpy as np
-import csv
+from mapof.core.matchings import solve_matching_vectors
+from mapof.core.utils import *
+from tqdm import tqdm
 
 import mapof.elections.cultures as cultures
-import mapof.elections.features as features
 import mapof.elections.distances as distances
-
-from tqdm import tqdm
+import mapof.elections.features as features
+from mapof.elections.objects.ElectionExperiment import ElectionExperiment
+from mapof.elections.other import pabulib
 
 try:
     from sklearn.manifold import MDS

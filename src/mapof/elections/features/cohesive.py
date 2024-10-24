@@ -1,19 +1,25 @@
+import itertools
+import logging
 import time
+from collections import defaultdict
 
 from numpy import ceil
 
 try:
     import pulp
 except Exception:
+    logging.warning("Pulp not installed.")
     pulp = None
 
-from math import ceil
-import itertools
-from collections import defaultdict
 
-
-def count_number_of_cohesive_groups_brute(election, l: int = 1,
-                                          committee_size: int = 10):
+def count_number_of_cohesive_groups_brute(
+    election,
+    l: int = 1,
+    committee_size: int = 10
+):
+    """
+    Count the number of cohesive groups of size at least l in the election, using Brute Force.
+    """
     answer = 0
     min_size = int(ceil(l * election.num_voters / committee_size))
     voters = [i for i in range(0, election.num_voters)]
@@ -125,6 +131,5 @@ def solve_ilp_instance(election, committee_size: int, l: int = 1) -> bool:
         model += y_ineq >= 0
 
     model.solve(pulp.PULP_CBC_CMD(msg=False))
-    # if LpStatus[pseudo_culture_id.status] == 'Optimal':
-    #     print([var.election_id + "=" + str(var.varValue) for var in pseudo_culture_id.variables() if var.varValue is not None and var.varValue > 0], sep=" ")    # prints result variables which have value > 0
+
     return pulp.LpStatus[model.status] == 'Optimal'

@@ -1,16 +1,16 @@
-#!/usr/bin/env python
 import logging
 from abc import ABC
 from collections import Counter
 
-from matplotlib import pyplot as plt
-from mapof.elections.cultures import generate_approval_votes
-from mapof.elections.objects.Election import Election
 from mapof.core.inner_distances import hamming
 from mapof.core.utils import *
-import mapof.elections.persistence.election_imports as imports
+from matplotlib import pyplot as plt
+
 import mapof.elections.persistence.election_exports as exports
+import mapof.elections.persistence.election_imports as imports
+from mapof.elections.cultures import generate_approval_votes
 from mapof.elections.cultures.params import *
+from mapof.elections.objects.Election import Election
 
 
 class ApprovalElection(Election, ABC):

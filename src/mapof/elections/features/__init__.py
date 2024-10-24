@@ -21,19 +21,17 @@ import mapof.elections.features.vc_diversity as vcd
 
 registered_approval_features = {
     'max_approval_score': simple_approval.max_approval_score,
-
     'number_of_cohesive_groups': cohesive.count_number_of_cohesive_groups,
     'number_of_cohesive_groups_brute': cohesive.count_number_of_cohesive_groups_brute,
-
     'proportionality_degree_av': prop_deg.proportionality_degree_av,
     'proportionality_degree_pav': prop_deg.proportionality_degree_pav,
     'proportionality_degree_cc': prop_deg.proportionality_degree_cc,
 
     'cohesiveness': cohesive.count_largest_cohesiveness_level_l_of_cohesive_group,
-    # unsupported feature
-    'ejr': jr.test_ejr,  # unsupported feature
-    'justified_ratio': simple_approval.justified_ratio,  # unsupported feature
+    'justified_ratio': simple_approval.justified_ratio,
     'abstract': simple_approval.abstract,  # unsupported feature
+
+    'ejr': jr.test_ejr,  # unsupported feature
 }
 
 registered_ordinal_features = {
@@ -93,7 +91,6 @@ registered_ordinal_features = {
     'AgreementApprox': dap_approx.agreement_index,
     'DiversityApprox': dap_approx.diversity_index,
     'PolarizationApprox': dap_approx.polarization_index,
-
     'partylist': partylist.partylistdistance,
 
     'rand_approx_pav_score': approx.get_rand_approx_pav_score,  # unsupported feature

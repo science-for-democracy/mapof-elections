@@ -2,24 +2,24 @@ import csv
 import logging
 from collections import Counter
 
-from matplotlib import pyplot as plt
-
-from mapof.elections.other.glossary import PATHS, is_pseudo_culture
-import mapof.elections.persistence.election_exports as exports
-import mapof.elections.persistence.election_imports as imports
 from mapof.core.inner_distances import swap_distance_between_potes, \
     spearman_distance_between_potes
 from mapof.core.utils import *
-from mapof.elections.cultures.pseudo_cultures import *
+from matplotlib import pyplot as plt
+
+import mapof.elections.persistence.election_exports as exports
+import mapof.elections.persistence.election_imports as imports
+from mapof.elections.cultures import generate_ordinal_votes, \
+    from_approval, generate_ordinal_alliance_votes
 from mapof.elections.cultures.matrices.group_separable_matrices import get_gs_caterpillar_matrix
 from mapof.elections.cultures.matrices.single_crossing_matrices import get_single_crossing_matrix
 from mapof.elections.cultures.matrices.single_peaked_matrices import get_conitzer_matrix, \
     get_walsh_matrix
 from mapof.elections.cultures.preflib import get_sushi_matrix
-from mapof.elections.cultures import generate_ordinal_votes, \
-    from_approval, generate_ordinal_alliance_votes
+from mapof.elections.cultures.pseudo_cultures import *
 from mapof.elections.features.simple_ordinal import is_condorcet
 from mapof.elections.objects.Election import Election
+from mapof.elections.other.glossary import PATHS, is_pseudo_culture
 from mapof.elections.other.winners import (
     compute_sntv_winners,
     compute_borda_winners,

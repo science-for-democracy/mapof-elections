@@ -1,31 +1,23 @@
-#!/usr/bin/env python
-
 import logging
 
-import mapof.elections.cultures.to_be_removed.mallows_urn as mallows_urn
-
-import mapof.elections.cultures.guardians_true as guardians_true
-import mapof.elections.cultures.guardians_approx as guardians_approx
-import mapof.elections.cultures.mallows as mallows
-import mapof.elections.cultures.matrices.single_peaked_matrices as sp_matrices
-import mapof.elections.cultures.matrices.single_crossing_matrices as sc_matrices
-import mapof.elections.cultures.unused as unused
-
-from mapof.elections.cultures.nonstandard.alliances import *
-import mapof.elections.cultures.nonstandard.field_experiment as fe
-from mapof.elections.cultures.preflib import generate_preflib_votes
-
-import mapof.elections.cultures.group_separable as group_separable
-import mapof.elections.cultures.euclidean as euclidean
-import mapof.elections.cultures.urn as urn
-import mapof.elections.cultures.identity as identity
-
-import mapof.elections.cultures.pseudo_cultures as pseudo
-
-from mapof.elections.other.glossary import is_pseudo_culture, LIST_OF_PREFLIB_MODELS
-
-import prefsampling.ordinal as pref_ordinal
 import prefsampling.approval as pref_approval
+import prefsampling.ordinal as pref_ordinal
+
+import mapof.elections.cultures.euclidean as euclidean
+import mapof.elections.cultures.group_separable as group_separable
+import mapof.elections.cultures.guardians_approx as guardians_approx
+import mapof.elections.cultures.guardians_true as guardians_true
+import mapof.elections.cultures.identity as identity
+import mapof.elections.cultures.mallows as mallows
+import mapof.elections.cultures.matrices.single_crossing_matrices as sc_matrices
+import mapof.elections.cultures.matrices.single_peaked_matrices as sp_matrices
+import mapof.elections.cultures.nonstandard.field_experiment as fe
+import mapof.elections.cultures.pseudo_cultures as pseudo
+import mapof.elections.cultures.unused as unused
+import mapof.elections.cultures.urn as urn
+from mapof.elections.cultures.nonstandard.alliances import *
+from mapof.elections.cultures.preflib import generate_preflib_votes
+from mapof.elections.other.glossary import is_pseudo_culture, LIST_OF_PREFLIB_MODELS
 
 registered_approval_cultures = {
     'identity': identity.identity_mask,
@@ -80,8 +72,6 @@ registered_ordinal_cultures = {
     'euclidean': euclidean.euclidean_ord_mask,
 
     'norm-mallows': mallows.generate_mallows_votes,
-
-    'mallows_urn': mallows_urn.generate_mallows_urn_votes,
 
     'idan_part': guardians_approx.generate_idan_part_votes,  # unsupported culture
     'idun_part': guardians_approx.generate_idun_part_votes,  # unsupported culture

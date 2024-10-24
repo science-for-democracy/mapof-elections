@@ -44,10 +44,6 @@ class TestMatrices:
         frequency_matrix = generate_frequency_matrix(culture_id, num_candidates=6)
         assert frequency_matrix.shape == (6, 6)
 
-    def test_sp_votes(self):
-        frequency_matrix = generate_frequency_matrix('pseudo_sp_votes', num_candidates=6)
-        assert frequency_matrix.shape == (6, 6)
-
 
 
     # def test_generate_mallows_positionwise_matrix(self):

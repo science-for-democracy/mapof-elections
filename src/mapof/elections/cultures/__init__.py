@@ -8,6 +8,7 @@ import mapof.elections.cultures.guardians_true as guardians_true
 import mapof.elections.cultures.guardians_approx as guardians_approx
 import mapof.elections.cultures.mallows as mallows
 import mapof.elections.cultures.matrices.single_peaked_matrices as sp_matrices
+import mapof.elections.cultures.matrices.single_crossing_matrices as sc_matrices
 import mapof.elections.cultures.unused as unused
 
 from mapof.elections.cultures.nonstandard.alliances import *
@@ -117,6 +118,9 @@ registered_pseudo_ordinal_cultures = {
     'pseudo_anun': pseudo.pseudo_anun,
     'pseudo_stun': pseudo.pseudo_stun,
     'pseudo_stan': pseudo.pseudo_stan,
+    'pseudo_sp_conitzer': sp_matrices.get_conitzer_matrix,
+    'pseudo_sp_walsh': sp_matrices.get_walsh_matrix,
+    'pseudo_single-crossing': sc_matrices.get_single_crossing_matrix,
 }
 
 

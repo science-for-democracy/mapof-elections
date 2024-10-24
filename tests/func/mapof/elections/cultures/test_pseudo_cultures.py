@@ -19,11 +19,17 @@ guardians_to_test = {
     'pseudo_stratification'
 }
 
+cultures_to_test = {
+    'pseudo_sp_conitzer',
+    'pseudo_sp_walsh',
+    'pseudo_single-crossing',
+}
+
 
 class TestCultures:
 
     @pytest.mark.parametrize("culture_id", guardians_to_test)
-    def test_pseudo_guardians_cultures(self, culture_id):
+    def test_pseudo_guardians(self, culture_id):
         num_voters = np.random.randint(10, 40)
         num_candidates = np.random.randint(10, 20)
 
@@ -35,7 +41,7 @@ class TestCultures:
         assert election.num_voters == num_voters
 
     @pytest.mark.parametrize("culture_id", paths_to_test)
-    def test_pseudo_paths_cultures(self, culture_id):
+    def test_pseudo_paths(self, culture_id):
         num_voters = np.random.randint(10, 40)
         num_candidates = np.random.randint(10, 20)
 
@@ -43,6 +49,18 @@ class TestCultures:
                                                    num_voters=num_voters,
                                                    num_candidates=num_candidates,
                                                    alpha=0.5)
+
+        assert election.num_candidates == num_candidates
+        assert election.num_voters == num_voters
+
+    @pytest.mark.parametrize("culture_id", cultures_to_test)
+    def test_pseudo_cultures(self, culture_id):
+        num_voters = np.random.randint(10, 40)
+        num_candidates = np.random.randint(10, 20)
+
+        election = mapof.generate_ordinal_election(culture_id=culture_id,
+                                                   num_voters=num_voters,
+                                                   num_candidates=num_candidates)
 
         assert election.num_candidates == num_candidates
         assert election.num_voters == num_voters
@@ -59,7 +77,6 @@ class TestCultures:
 
             assert election.num_candidates == num_candidates
             assert election.num_voters == num_voters
-
 
     @pytest.mark.parametrize("culture_id", guardians_to_test)
     def test_pseudo_guardians_frequency_matrix(self, culture_id):
@@ -87,6 +104,18 @@ class TestCultures:
 
         assert frequency_matrix.shape == (num_candidates, num_candidates)
 
+    @pytest.mark.parametrize("culture_id", cultures_to_test)
+    def test_pseudo_culture_frequency_matrix(self, culture_id):
+        num_voters = np.random.randint(10, 40)
+        num_candidates = np.random.randint(10, 20)
+
+        election = mapof.generate_ordinal_election(culture_id=culture_id,
+                                                   num_voters=num_voters,
+                                                   num_candidates=num_candidates)
+        frequency_matrix = election.get_frequency_matrix()
+
+        assert frequency_matrix.shape == (num_candidates, num_candidates)
+
     def test_pseudo_stratification_frequency_matrix(self):
         num_voters = np.random.randint(10, 40)
         num_candidates = np.random.randint(10, 20)
@@ -99,3 +128,4 @@ class TestCultures:
         frequency_matrix = election.get_frequency_matrix()
 
         assert frequency_matrix.shape == (num_candidates, num_candidates)
+

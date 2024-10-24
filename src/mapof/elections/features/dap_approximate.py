@@ -1,5 +1,6 @@
-import numpy as np
 import itertools
+
+import numpy as np
 
 """
 File contains implemetation of approximate diversity, approximate polarization and approximate agreement indeces.
@@ -111,6 +112,7 @@ def agreement_index(election) -> dict:
         res += max(abs(a_b - b_a), election.num_voters - a_b - b_a)
     return {'value': res / election.num_voters / (election.num_candidates - 1) / election.num_candidates * 2}
 
+
 def cand_pos_dist_std(election) -> dict:
     if election.is_pseudo:
         return {'value': None}
@@ -156,17 +158,12 @@ def local_search_kKemeny_single_k(election, k, l, starting=None) -> dict:
     iter = 0
     check = True
     while (check):
-        # print(iter)
-        # print(starting)
-        # print(d)
-        # print()
         iter = iter + 1
         rest = [i for i in range(n) if i not in starting]
         for j in range(l):
             starting, d, check = find_improvement(distances, d, starting, rest, n, k, j + 1)
             if check:
                 break
-        # print()
     return {'value': d}
 
 
@@ -220,6 +217,3 @@ def diversity_index(election) -> dict:
 
     max_dist = (election.num_candidates) * (election.num_candidates - 1) / 2
     return {'value': (k_1 + k_2 + k_3 + k_4 + k_5) / election.num_voters / max_dist }
-
-
-

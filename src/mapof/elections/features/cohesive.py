@@ -7,7 +7,6 @@ try:
 except Exception:
     pulp = None
 
-
 from math import ceil
 import itertools
 from collections import defaultdict
@@ -53,7 +52,6 @@ def newton(n: int, k: int):
 
 def count_number_of_cohesive_groups(election, l: int = 1,
                                     committee_size: int = 10):
-
     if l > 1:
         raise NotImplementedError()
     answer = 0
@@ -78,12 +76,6 @@ def count_number_of_cohesive_groups(election, l: int = 1,
 
 def count_largest_cohesiveness_level_l_of_cohesive_group(election, feature_params):
     committee_size = feature_params['committee_size']
-
-    # if election.model == 'approval_zeros':
-    #     return 0
-    # elif election.model == 'approval_ones':
-    #     return min(committee_size, election.num_candidates)
-
     l_ans = 0
     for l in range(1, election.num_voters + 1):
         if solve_ilp_instance(election, committee_size, l):

@@ -5,7 +5,6 @@ import os
 import time
 import warnings
 from abc import ABCMeta, abstractmethod
-from multiprocessing import Process
 
 import mapof.core.persistence.experiment_exports as exports
 import mapof.core.printing as pr

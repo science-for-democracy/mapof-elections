@@ -14,7 +14,7 @@ from mapof.core.utils import get_instance_id
 from tqdm import tqdm
 
 
-import mapof.elections.distances as metr
+from mapof.elections.distances import get_distance
 import mapof.elections.features as features
 import mapof.elections.other.rules as rules
 from mapof.elections.objects.ApprovalElection import ApprovalElection
@@ -26,6 +26,7 @@ from mapof.elections.other.glossary import NOT_ABCVOTING_RULES
 from mapof.core.glossary import MAIN_GLOBAL_FEATUERS
 from mapof.elections.other.glossary import ELECTION_GLOBAL_FEATURES
 from mapof.elections.cultures import registered_ordinal_cultures, registered_pseudo_ordinal_cultures
+
 
 try:
     from sklearn.manifold import MDS
@@ -429,101 +430,13 @@ class ElectionExperiment(Experiment):
                 self.elections[election_id].compute_alternative_winners(
                     method=method, party_id=party_id, num_winners=num_winners)
 
-    def compute_distances(self,
-                          distance_id: str = None,
-                          num_processes: int = 1,
-                          self_distances: bool = False,
-                          ids = None,
-                          **kwargs) -> None:
-        """ Compute distances between elections (using processes) """
-
-        if distance_id is None:
-            distance_id = self.distance_id
-
-        self.distance_id = distance_id
-
-        if '-approvalwise' in distance_id:
-            for election in self.elections.values():
-                election.votes_to_approvalwise_vector()
-        elif '-coapproval_frequency' in distance_id:
-            for election in self.elections.values():
-                election.votes_to_coapproval_frequency_vectors(**kwargs)
-        elif '-voterlikeness' in distance_id:
-            for election in self.elections.values():
-                election.votes_to_voterlikeness_matrix(**kwargs)
-        elif '-candidatelikeness' in distance_id:
-            for election in self.elections.values():
-                election.votes_to_candidatelikeness_sorted_vectors()
-        elif '-pairwise' in distance_id:
-            for election in self.elections.values():
-                election.votes_to_pairwise_matrix()
-
-        matchings = {election_id: {} for election_id in self.elections}
-        distances = {election_id: {} for election_id in self.elections}
-        times = {election_id: {} for election_id in self.elections}
-
-        if ids is None:
-            ids = []
-            for i, election_1 in enumerate(self.elections):
-                for j, election_2 in enumerate(self.elections):
-                    if i < j or (i == j and self_distances):
-                        ids.append((election_1, election_2))
-
-        num_distances = len(ids)
-
-        if self.experiment_id == 'virtual' or num_processes == 1:
-            metr.run_single_process(self, ids, distances, times, matchings)
-
-        else:
-            processes = []
-            for process_id in range(num_processes):
-                start = int(process_id * num_distances / num_processes)
-                stop = int((process_id + 1) * num_distances / num_processes)
-                instances_ids = ids[start:stop]
-
-                process = Process(target=metr.run_multiple_processes, args=(self,
-                                                                            instances_ids,
-                                                                            distances,
-                                                                            times,
-                                                                            matchings,
-                                                                            process_id))
-                process.start()
-                processes.append(process)
-
-            for process in processes:
-                process.join()
-
-            distances = {instance_id: {} for instance_id in self.instances}
-            times = {instance_id: {} for instance_id in self.instances}
-
-            for process_id in range(num_processes):
-
-                file_name = f'{distance_id}_p{process_id}.csv'
-                path = os.path.join(os.getcwd(),
-                                    "experiments",
-                                    self.experiment_id,
-                                    "distances",
-                                    file_name)
-
-                with open(path, 'r', newline='') as csv_file:
-                    reader = csv.DictReader(csv_file, delimiter=';')
-
-                    for row in reader:
-                        distances[row['instance_id_1']][row['instance_id_2']] = \
-                            float(row['distance'])
-                        times[row['instance_id_1']][row['instance_id_2']] = \
-                            float(row['time'])
-
-        if self.is_exported:
-            exports.export_distances_to_file(self,
-                                             distance_id,
-                                             distances,
-                                             times,
-                                             ids=ids)
-
-        self.distances = distances
-        self.times = times
-        self.matchings = matchings
+    def get_distance(self,
+                     election_1,
+                     election_2,
+                     distance_id: str = None,
+                     **kwargs
+                     ) -> float or (float, list):
+        return get_distance(election_1, election_2, distance_id)
 
     def get_election_id_from_model_name(self, culture_id: str) -> str:
         for family_id in self.families:

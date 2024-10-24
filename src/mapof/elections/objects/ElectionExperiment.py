@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 import ast
 import csv
 import logging
@@ -237,6 +236,7 @@ class ElectionExperiment(Experiment):
 
         elif label is None:
             label = family_id
+
         self.families[family_id] = ElectionFamily(culture_id=culture_id,
                                                   family_id=family_id,
                                                   params=kwargs,
@@ -405,7 +405,7 @@ class ElectionExperiment(Experiment):
         for family_id in tqdm(self.families, desc="Preparing instances"):
 
             if self.families[family_id].culture_id not in registered_pseudo_ordinal_cultures and \
-                    self.families[family_id].culture_id not in registered_pseudo_ordinal_cultures:
+                    self.families[family_id].culture_id not in registered_ordinal_cultures:
                 continue
 
             new_instances = self.families[family_id].prepare_family(

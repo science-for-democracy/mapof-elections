@@ -128,7 +128,6 @@ class ElectionFamily(Family):
                 election.compute_potes()
 
                 elections[election_id] = election
-
                 _keys.append(election_id)
 
             self.election_ids = _keys

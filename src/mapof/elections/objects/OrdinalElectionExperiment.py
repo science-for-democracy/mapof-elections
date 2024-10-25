@@ -1,12 +1,11 @@
-import csv
 import os
 from abc import ABC
 
-from mapof.elections.objects.ElectionExperiment import ElectionExperiment
-
 import mapof.elections.cultures as cultures
-import mapof.elections.features as features
 import mapof.elections.distances as distances
+import mapof.elections.features as features
+import mapof.elections.persistence.election_exports as exports
+from mapof.elections.objects.ElectionExperiment import ElectionExperiment
 
 try:
     from sklearn.manifold import MDS
@@ -69,21 +68,4 @@ class OrdinalElectionExperiment(ElectionExperiment, ABC):
                 file_csv.write("3;10;100;ic;{};black;1;ic;Impartial Culture;o\n")
 
     def export_frequency_matrices(self):
-        path_to_folder = os.path.join(os.getcwd(), "experiments", self.experiment_id, "matrices")
-
-        if not os.path.exists(path_to_folder):
-            os.makedirs(path_to_folder)
-
-        for file_name in os.listdir(path_to_folder):
-            os.remove(os.path.join(path_to_folder, file_name))
-
-        for election_id in self.elections:
-            frequency_matrix = self.elections[election_id].get_frequency_matrix()
-            file_name = election_id + ".csv"
-
-            path_to_file = os.path.join(path_to_folder, file_name)
-            with open(path_to_file, 'w', newline='') as csv_file:
-
-                writer = csv.writer(csv_file, delimiter=';')
-                for row in frequency_matrix:
-                    writer.writerow(row)
+        exports.export_frequency_matrices(self)

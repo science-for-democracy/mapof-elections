@@ -1,7 +1,7 @@
 
 import numpy as np
 
-from mapof.core.inner_distances import l2
+from mapof.core.distances import l2
 
 from itertools import combinations
 

@@ -2,7 +2,7 @@ import logging
 from abc import ABC
 from collections import Counter
 
-from mapof.core.inner_distances import hamming
+from mapof.core.distances import hamming
 from mapof.core.utils import *
 from matplotlib import pyplot as plt
 

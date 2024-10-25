@@ -5,7 +5,7 @@ import numpy as np
 from mapof.core.matchings import solve_matching_vectors, solve_matching_matrices
 from mapof.elections.objects.OrdinalElection import OrdinalElection
 import mapof.core.utils as utils
-from mapof.core.inner_distances import swap_distance
+from mapof.core.distances import swap_distance
 import mapof.elections.distances.ilp_isomorphic as ilp_iso
 import mapof.elections.distances.ilp_subelections as ilp_sub
 

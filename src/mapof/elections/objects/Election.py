@@ -9,7 +9,7 @@ from abc import abstractmethod
 import matplotlib.pyplot as plt
 import numpy as np
 import numpy.linalg as la
-from mapof.core.inner_distances import l2
+from mapof.core.distances import l2
 from mapof.core.objects.Instance import Instance
 from sklearn.manifold import MDS
 

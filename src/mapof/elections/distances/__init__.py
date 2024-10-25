@@ -1,6 +1,6 @@
 import logging
 
-from mapof.core.inner_distances import map_str_to_func
+from mapof.core.distances import map_str_to_func
 
 from mapof.elections.distances import feature_distance
 from mapof.elections.distances import main_approval_distances as mad

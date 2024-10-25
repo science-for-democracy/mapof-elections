@@ -2,7 +2,8 @@ import csv
 from collections import Counter
 
 from mapof.core.utils import *
-from mapof.elections.other.glossary import APPROVAL_FAKE_MODELS, ORDINAL_PSEUDO_MODELS
+
+from mapof.elections.other.glossary import APPROVAL_FAKE_MODELS
 
 
 def export_votes_to_file(
@@ -157,7 +158,6 @@ def export_pseudo_ordinal_election(election, path_to_file):
 
     frequency_matrix = election.get_frequency_matrix()
 
-    # export postionwise frequency_matrix
     for i in range(election.num_candidates):
         for j in range(election.num_candidates):
             file_.write(str(frequency_matrix[i][j]))
@@ -168,8 +168,10 @@ def export_pseudo_ordinal_election(election, path_to_file):
     file_.close()
 
 
-def export_ordinal_election(election,
-                            is_aggregated: bool = True):
+def export_ordinal_election(
+        election,
+        is_aggregated: bool = True
+):
     """
     Exports ordinal election to a .soc file
 
@@ -251,3 +253,26 @@ def export_coordinates(
             x = str(election.coordinates[object_type][vote_id][0])
             y = str(election.coordinates[object_type][vote_id][1])
             writer.writerow([vote_id, x, y])
+
+
+def export_frequency_matrices(exp) -> None:
+    """ Exports frequency matrices to csv files. """
+
+    path_to_folder = os.path.join(os.getcwd(), "experiments", exp.experiment_id, "matrices")
+
+    if not os.path.exists(path_to_folder):
+        os.makedirs(path_to_folder)
+
+    for file_name in os.listdir(path_to_folder):
+        os.remove(os.path.join(path_to_folder, file_name))
+
+    for election_id in exp.elections:
+        frequency_matrix = exp.elections[election_id].get_frequency_matrix()
+        file_name = election_id + ".csv"
+
+        path_to_file = os.path.join(path_to_folder, file_name)
+        with open(path_to_file, 'w', newline='') as csv_file:
+
+            writer = csv.writer(csv_file, delimiter=';')
+            for row in frequency_matrix:
+                writer.writerow(row)

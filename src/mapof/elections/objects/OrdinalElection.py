@@ -2,7 +2,7 @@ import csv
 import logging
 from collections import Counter
 
-from mapof.core.inner_distances import swap_distance_between_potes, \
+from mapof.core.distances import swap_distance_between_potes, \
     spearman_distance_between_potes
 from mapof.core.utils import *
 from matplotlib import pyplot as plt

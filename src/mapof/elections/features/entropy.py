@@ -58,4 +58,4 @@ def entropy(election) -> dict:
 
     score = _calculate_entropy_ordinal(election.votes)
 
-    return score
+    return {'value': score}

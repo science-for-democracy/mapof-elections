@@ -88,9 +88,6 @@ def export_votes_to_file(
                     file_.write("\n")
         else:
 
-            # file_.write(str(num_voters) + ', ' + str(num_voters) + ', ' +
-            #             str(num_voters) + "\n")
-
             if ballot_type == 'approval':
                 for i in range(len(votes)):
                     file_.write('1: {')
@@ -113,7 +110,7 @@ def export_votes_to_file(
 def export_approval_election(
         election,
         is_aggregated: bool = True
-):
+) -> None:
     """
     Exports approval election in an .app file
 
@@ -123,6 +120,10 @@ def export_approval_election(
             Election.
         is_aggregated : bool
             If True then votes are stored in aggregated way.
+
+    Returns
+    -------
+        None
     """
     path_to_folder = os.path.join(os.getcwd(), "experiments", election.experiment_id, "elections")
     make_folder_if_do_not_exist(path_to_folder)
@@ -171,7 +172,7 @@ def export_pseudo_ordinal_election(election, path_to_file):
 def export_ordinal_election(
         election,
         is_aggregated: bool = True
-):
+) -> None:
     """
     Exports ordinal election to a .soc file
 
@@ -181,6 +182,10 @@ def export_ordinal_election(
             Election.
         is_aggregated : bool
             If True then votes are stored in aggregated way.
+
+    Returns
+    -------
+        None
     """
 
     path_to_folder = os.path.join(os.getcwd(), "experiments", election.experiment_id, "elections")
@@ -214,6 +219,10 @@ def export_distances(
             Election.
         object_type : str
             Object type.
+
+    Returns
+    -------
+        None
     """
 
     file_name = f'{election.election_id}_{object_type}.csv'
@@ -241,6 +250,10 @@ def export_coordinates(
             Election
         object_type : str
             Object type.
+
+    Returns
+    -------
+        None
     """
 
     file_name = f'{election.election_id}_{object_type}.csv'
@@ -255,10 +268,20 @@ def export_coordinates(
             writer.writerow([vote_id, x, y])
 
 
-def export_frequency_matrices(exp) -> None:
-    """ Exports frequency matrices to csv files. """
+def export_frequency_matrices(experiment) -> None:
+    """ Exports frequency matrices to csv files.
 
-    path_to_folder = os.path.join(os.getcwd(), "experiments", exp.experiment_id, "matrices")
+    Parameters
+    ----------
+        experiment
+            Experiment.
+
+    Returns
+    -------
+        None
+    """
+
+    path_to_folder = os.path.join(os.getcwd(), "experiments", experiment.experiment_id, "matrices")
 
     if not os.path.exists(path_to_folder):
         os.makedirs(path_to_folder)
@@ -266,8 +289,8 @@ def export_frequency_matrices(exp) -> None:
     for file_name in os.listdir(path_to_folder):
         os.remove(os.path.join(path_to_folder, file_name))
 
-    for election_id in exp.elections:
-        frequency_matrix = exp.elections[election_id].get_frequency_matrix()
+    for election_id in experiment.elections:
+        frequency_matrix = experiment.elections[election_id].get_frequency_matrix()
         file_name = election_id + ".csv"
 
         path_to_file = os.path.join(path_to_folder, file_name)

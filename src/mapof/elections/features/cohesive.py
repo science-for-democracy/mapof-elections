@@ -8,7 +8,7 @@ from numpy import ceil
 try:
     import pulp
 except Exception:
-    logging.warning("Pulp not installed.")
+    logging.warning("Pulp not found. Some features may not work.")
     pulp = None
 
 

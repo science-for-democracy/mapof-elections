@@ -1,11 +1,15 @@
+import logging
 import math
 import os
 import sys
+import logging
 
 import numpy as np
+
 try:
     import pulp
 except Exception:
+    logging.warning("Pulp not found. Some features may not work.")
     pulp = None
 
 try:
@@ -14,6 +18,7 @@ try:
     sys.path.append(os.environ["PATH"])
     from abcvoting import abcrules, preferences
 except ImportError:
+    logging.warning("ABC Voting library not found. Some features may not work.")
     abcrules = None
     preferences = None
 

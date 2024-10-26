@@ -10,7 +10,6 @@ import mapof.elections.cultures as cultures
 import mapof.elections.distances as distances
 import mapof.elections.features as features
 from mapof.elections.objects.ElectionExperiment import ElectionExperiment
-from mapof.elections.other import pabulib
 
 try:
     from sklearn.manifold import MDS
@@ -192,7 +191,7 @@ class ApprovalElectionExperiment(ElectionExperiment, ABC):
 
     def add_folders_to_experiment(self) -> None:
 
-        dirs = ["experiments", "images", "trash"]
+        dirs = ["experiments"]
         for dir in dirs:
             if not os.path.isdir(dir):
                 os.mkdir(os.path.join(os.getcwd(), dir))
@@ -204,7 +203,7 @@ class ApprovalElectionExperiment(ElectionExperiment, ABC):
                            'features',
                            'coordinates',
                            'elections',
-                           'matrices']
+                           ]
 
         for folder_name in list_of_folders:
             if not os.path.isdir(os.path.join(os.getcwd(), "experiments",
@@ -218,11 +217,3 @@ class ApprovalElectionExperiment(ElectionExperiment, ABC):
                 file_csv.write("size;num_candidates;num_voters;pseudo_culture_id;params;color;alpha;"
                                "label;marker;show;path")
                 file_csv.write("1;50;200;ic;{'p': 0.5};black;0.75;IC 0.5;*;process_id;{}")
-
-
-    def convert_pb_to_app(self, **kwargs):
-        pabulib.convert_pb_to_app(self, **kwargs)
-
-# # # # # # # # # # # # # # # #
-# LAST CLEANUP ON: 22.10.2021 #
-# # # # # # # # # # # # # # # #

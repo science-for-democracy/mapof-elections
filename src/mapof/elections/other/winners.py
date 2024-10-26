@@ -1,7 +1,9 @@
-#!/usr/bin/env python
 import math
+
 import numpy as np
+
 from mapof.elections.distances import ilp_other as lp
+
 
 def randomize(vector, num_winners):
     scores = [x for x, _ in vector]
@@ -52,7 +54,7 @@ def compute_stv_winners(election=None, num_winners=1):
     winners = []
     active = [True] * election.num_candidates
 
-    droop_quota = math.floor(election.num_voters / (num_winners + 1.) ) + 1
+    droop_quota = math.floor(election.num_voters / (num_winners + 1.)) + 1
 
     votes_on_1 = [0.] * election.num_candidates
     for i in range(election.num_voters):
@@ -76,7 +78,8 @@ def compute_stv_winners(election=None, num_winners=1):
                             if election.votes[i][j] == winner_id:
                                 for k in range(j + 1, election.num_candidates):
                                     if active[election.votes[i][k]]:
-                                        v_power[i] *= float(votes_on_1[winner_id] - droop_quota) / float(votes_on_1[winner_id])
+                                        v_power[i] *= float(votes_on_1[winner_id] - droop_quota) / \
+                                                      float(votes_on_1[winner_id])
                                         votes_on_1[election.votes[i][k]] += 1. * v_power[i]
                                         total += 1. * v_power[i]
                                         ctr = election.num_candidates
@@ -126,9 +129,6 @@ def get_borda_points(votes, num_voters, num_candidates):
             points[int(votes[i][j])] += scoring[j]
 
     return points
-
-
-###
 
 
 def generate_winners(election=None, num_winners=1, ballot="ordinal", type=None, name=None):

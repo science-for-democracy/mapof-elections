@@ -1,4 +1,3 @@
-import random
 import numpy as np
 
 from prefsampling.ordinal import single_peaked_conitzer as generate_ordinal_sp_conitzer_votes

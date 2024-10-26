@@ -4,6 +4,7 @@ import pickle
 import mapof.core.features.mallows as ml
 import numpy as np
 
+
 def generate_mallows_votes(*args, **kwargs):
     return ml.generate_mallows_votes(*args, **kwargs)
 
@@ -136,7 +137,7 @@ def generate_approval_truncated_mallows_votes(num_voters=None,
                                               max_range=1,
                                               normphi=None,
                                               weight=None,
-                                              **kwargs):
+                                              **_kwargs):
     phi = ml.phi_from_normphi(num_candidates, normphi=normphi)
 
     ordinal_votes = generate_mallows_votes(num_voters, num_candidates, phi=phi, weight=weight)

@@ -1,7 +1,7 @@
 
 import pytest
 
-from mapof.elections.other.matrices import generate_frequency_matrix
+from mapof.elections.cultures.matrices.matrices import generate_frequency_matrix
 
 
 guardians_to_test = {

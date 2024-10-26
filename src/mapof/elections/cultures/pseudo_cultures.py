@@ -1,7 +1,3 @@
-
-from mapof.elections.cultures.mallows import get_mallows_matrix
-from mapof.elections.cultures.matrices.single_peaked_matrices \
-    import get_walsh_matrix, get_conitzer_matrix
 from mapof.elections.cultures.params import *
 
 

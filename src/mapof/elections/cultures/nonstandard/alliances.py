@@ -108,7 +108,6 @@ def generate_ordinal_alliance_allied_euclidean_votes(num_voters: int = None,
         if len(set(alliances)) == num_alliances:
             break
 
-
     for v in range(num_voters):
         for c in range(num_candidates):
             votes[v][c] = c

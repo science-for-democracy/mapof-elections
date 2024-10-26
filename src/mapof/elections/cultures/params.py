@@ -1,11 +1,10 @@
-
 import numpy as np
 from scipy.stats import gamma
 import random as rand
 import mapof.core.features.mallows as mallows
 from mapof.elections.other.glossary import APPROVAL_MODELS, LIST_OF_PREFLIB_MODELS
 
-# Ordinal
+
 def update_params_ordinal_mallows(params):
     if 'phi' in params and type(params['phi']) is list:
         params['phi'] = np.random.uniform(low=params['phi'][0], high=params['phi'][1])

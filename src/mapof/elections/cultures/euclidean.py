@@ -3,8 +3,6 @@ import logging
 import prefsampling.ordinal as pref_ordinal
 import prefsampling.approval as pref_approval
 
-from prefsampling.point import cube, sphere_uniform, gaussian, ball_uniform
-
 from prefsampling.core.euclidean import EuclideanSpace
 
 

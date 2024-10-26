@@ -1,12 +1,11 @@
-import math
-import numpy as np
-import mapof.elections.cultures.mallows as mallows
-import mapof.core.features.mallows as core_mallows
 import itertools as it
+import math
+
+import mapof.core.features.mallows as core_mallows
+import numpy as np
+
+import mapof.elections.cultures.mallows as mallows
 import mapof.elections.cultures.sampling.samplemat as smpl
-
-
-# Auxiliary functions
 
 
 def distribute_in_matrix(n, m):

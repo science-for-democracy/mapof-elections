@@ -5,6 +5,7 @@ from numpy import ceil
 try:
     import pulp
 except Exception:
+    logging.warning("Pulp Voting library not found. Some features may not work.")
     pulp = None
 
 try:
@@ -15,8 +16,14 @@ except ImportError:
     preferences = None
 
 
-def calculate_committees(election, resolute=False,
-                         committee_size: int = 10, rule_name=None) -> set:
+def calculate_committees(
+        election,
+        resolute=False,
+        committee_size: int = 10,
+        rule_name=None
+) -> set:
+    """ Calculate the committees using ABC Voting library. """
+
     profile = preferences.Profile(num_cand=election.num_candidates)
     profile.add_voters(election.votes)
     try:
@@ -27,8 +34,12 @@ def calculate_committees(election, resolute=False,
     return committees
 
 
-def count_proportionality_degree_of_a_committee(election, committee: set,
-                                                committee_size: int = 10) -> map:
+def count_proportionality_degree_of_a_committee(
+        election,
+        committee: set,
+        committee_size: int = 10
+) -> map:
+    """ Counts proportionality degree of a given committee """
     f_map = dict()
     for l in range(1, committee_size + 1):
         val = solve_ilp_instance(election, committee, l, committee_size=committee_size)

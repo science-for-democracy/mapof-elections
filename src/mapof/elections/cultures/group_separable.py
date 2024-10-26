@@ -6,7 +6,7 @@ def gs_mask(num_voters=None,
             num_candidates=None,
             tree_sampler=None,
             seed=None,
-            **kwargs):
+            **_kwargs):
 
     if type(tree_sampler) is str:
         logging.warning("group separable BALANCED & CATERPILLAR trees are temporarily unavailable")

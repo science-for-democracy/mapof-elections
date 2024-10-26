@@ -1,6 +1,4 @@
 import logging
-import sys
-import os
 
 try:
     import gurobipy as gb
@@ -108,7 +106,6 @@ def partylistdistance(election, feature_params=None):
         }
         newprofile.add_voter(new_approved)
 
-    # number of parties
     parties = set(profile.candidates)
     for c1 in profile.candidates:
         for c2 in range(c1):

@@ -11,7 +11,6 @@ import mapof.elections.cultures.identity as identity
 import mapof.elections.cultures.mallows as mallows
 import mapof.elections.cultures.matrices.single_crossing_matrices as sc_matrices
 import mapof.elections.cultures.matrices.single_peaked_matrices as sp_matrices
-import mapof.elections.cultures.nonstandard.field_experiment as fe
 import mapof.elections.cultures.pseudo_cultures as pseudo
 import mapof.elections.cultures.unused as unused
 import mapof.elections.cultures.urn as urn
@@ -36,7 +35,6 @@ registered_approval_cultures = {
     'truncated_urn': urn.truncated_urn_mask,
     'urn_partylist': pref_approval.urn_partylist,
 
-    'field': fe.generate_approval_field_votes,  # unsupported culture
     'truncated_mallows': mallows.generate_approval_truncated_mallows_votes,  # unsupported culture
 
     'approval_full': pref_approval.full,  # deprecated name

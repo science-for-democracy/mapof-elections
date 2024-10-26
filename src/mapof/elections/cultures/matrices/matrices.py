@@ -1,18 +1,10 @@
 #!/usr/bin/env python
 
-from mapof.elections.cultures.matrices.group_separable_matrices import get_gs_caterpillar_vectors
-from mapof.elections.cultures.matrices.single_peaked_matrices import get_walsh_matrix, \
-    get_conitzer_matrix
-from mapof.elections.cultures.matrices.single_crossing_matrices import get_single_crossing_matrix
-
-from mapof.elections.objects.OrdinalElection import OrdinalElection
-from mapof.elections.objects.OrdinalElectionExperiment import OrdinalElectionExperiment
-from mapof.elections.cultures import registered_pseudo_ordinal_cultures
-
-from mapof.elections.cultures.mallows import get_mallows_matrix
-
-import os
 import csv
+import os
+
+from mapof.elections.cultures import registered_pseudo_ordinal_cultures
+from mapof.elections.objects.OrdinalElectionExperiment import OrdinalElectionExperiment
 
 
 def prepare_matrices(experiment_id):

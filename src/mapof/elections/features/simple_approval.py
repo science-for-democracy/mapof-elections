@@ -4,6 +4,19 @@ import math
 
 
 def justified_ratio(election, feature_params) -> dict:
+    """
+    Computes the justified ration of a given elections
+
+    Parameters
+    ----------
+        election : ApprovalElection
+        feature_params : dict
+
+    Returns
+    -------
+        dict
+            'value': justified ratio
+    """
     # 1-large, 1-cohesive
     election.compute_reverse_approvals()
     threshold = election.num_voters / feature_params['committee_size']
@@ -15,6 +28,18 @@ def justified_ratio(election, feature_params) -> dict:
 
 
 def abstract(election) -> dict:
+    """
+    Computes the abstract of a given election.
+
+    Parameters
+    ----------
+        election : ApprovalElection
+
+    Returns
+    -------
+        dict
+            'value': abstract
+    """
     n = election.num_voters
     election.votes_to_approvalwise_vector()
     vector = election.approvalwise_vector

@@ -15,6 +15,7 @@ import mapof.elections.features.proportionality_degree as prop_deg
 import mapof.elections.features.ranging_cc as ranging_cc
 import mapof.elections.features.scores as scores
 import mapof.elections.features.vc_diversity as vcd
+import mapof.elections.features.abc_features as approval_rule_features
 
 from mapof.elections.features.register import \
     registered_ordinal_election_features, \
@@ -25,16 +26,6 @@ def get_global_feature(feature_id):
     """ Global feature depends on all instances """
     if feature_id in MAIN_GLOBAL_FEATUERS:
         return core_features.feature_id
-
-    return {
-            'distortion_from_all': distortion.distortion_from_all, # unsupported feature
-            'avg_distortion_from_guardians': distortion.avg_distortion_from_guardians,
-            # unsupported feature
-            'worst_distortion_from_guardians': distortion.worst_distortion_from_guardians,
-            # unsupported feature
-            'distortion': distortion,  # unsupported feature
-            'monotonicity_triplets': distortion.monotonicity_triplets,  # unsupported feature
-            }.get(feature_id)
 
 
 def get_local_feature(feature_id):

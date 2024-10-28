@@ -24,6 +24,9 @@ from mapof.elections.other.ordinal_rules import (
     compute_stv_voting_rule
 )
 
+from mapof.elections.other.approval_rules import compute_abcvoting_rule_for_single_election
+
+
 OBJECT_TYPES = ['vote', 'candidate']
 
 
@@ -67,6 +70,7 @@ class Election(Instance):
         self.is_shifted = is_shifted
         self.is_imported = is_imported
         self.fast_import = fast_import
+        self.winning_committee = {}
         self.election_features = ElectionFeatures(election_id)
 
         self.import_distances()
@@ -339,6 +343,9 @@ class Election(Instance):
             feature_long_id = feature_id
         feature = get_local_feature(feature_id)
         self.features[feature_long_id] = feature(self, **kwargs)
+
+    def compute_rule(self, rule_id, **kwargs):
+        compute_abcvoting_rule_for_single_election(self, rule_id, **kwargs)
 
     def get_feature(self,
                     feature_id,

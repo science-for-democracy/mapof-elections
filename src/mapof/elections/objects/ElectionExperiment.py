@@ -23,6 +23,8 @@ from mapof.elections.objects.ElectionFeatures import ST_KEY, AN_KEY, ID_KEY, UN_
 from mapof.elections.objects.OrdinalElection import OrdinalElection
 from mapof.elections.other.glossary import ELECTION_GLOBAL_FEATURES
 
+from mapof.elections.features.register import features_with_params, features_rule_related
+
 try:
     from sklearn.manifold import MDS
     from sklearn.manifold import TSNE
@@ -526,17 +528,18 @@ class ElectionExperiment(Experiment):
 
         return families
 
-    def compute_feature(self,
-                        feature_id: str = None,
-                        feature_params=None,
-                        overwrite=False,
-                        saveas=None,
-                        **kwargs) -> dict:
+    def compute_feature(
+            self,
+            feature_id: str = None,
+            feature_params: dict = None,
+            overwrite: bool = False,
+            saveas: str = None,
+            **kwargs) -> dict:
 
         if feature_params is None:
             feature_params = {}
 
-        if feature_id in ['priceability', 'core', 'ejr']:
+        if feature_id in features_rule_related:
             feature_long_id = f'{feature_id}_{feature_params["rule"]}'
         elif feature_id in ['distortion', 'monotonicity']:
             feature_long_id = f'{feature_id}_{self.embedding_id}'
@@ -566,7 +569,6 @@ class ElectionExperiment(Experiment):
                     feature_dict['time'][instance_id] = 0
 
         else:
-            feature = features.get_local_feature(feature_id)
 
             for instance_id in tqdm(self.instances, desc=f"{feature_long_id}"):
                 instance = self.elections[instance_id]
@@ -575,22 +577,15 @@ class ElectionExperiment(Experiment):
                 solution = None
                 for _ in range(num_iterations):
 
-                    if feature_id in ['monotonicity_1',
-                                      'monotonicity_triplets']:
-                        value = feature(self, instance)
-
-                    elif feature_id in {'avg_distortion_from_guardians',
-                                        'worst_distortion_from_guardians',
-                                        'distortion_from_all',
-                                        'distortion_from_top_100'}:
-                        value = feature(self, instance_id)
-                    elif feature_id in ['ejr',
-                                        'core',
-                                        'pareto',
-                                        'priceability',
-                                        'cohesiveness']:
+                    if feature_id in ['ejr',
+                                       'pareto',
+                                       'cohesiveness']:
                         value = instance.get_feature(feature_id, feature_long_id,
                                                      feature_params=feature_params)
+                    elif feature_id in features_with_params:
+                        solution = instance.get_feature(feature_id, feature_long_id,
+                                                     feature_params=feature_params)
+
                     else:
                         solution = instance.get_feature(feature_id, feature_long_id,
                                                         overwrite=overwrite, **kwargs)
@@ -703,8 +698,9 @@ class ElectionExperiment(Experiment):
             election[1].election_features.votes = election[1].votes
             election[1].election_features.num_candidates = election[1].num_candidates
             election[1].election_features.num_voters = election[1].num_voters
-            election[1].election_features.features_vector = self.calculate_features_vector(election[1].election_id,
-                                                                                           features)
+            election[1].election_features.features_vector = self.calculate_features_vector(
+                election[1].election_id,
+                features)
 
     def prepare_instances(self):
         return self.prepare_elections()
@@ -713,17 +709,13 @@ class ElectionExperiment(Experiment):
         return self.add_election()
 
     def __getstate__(self):
-            return self.__dict__
-    
+        return self.__dict__
+
     def __setstate__(self, state):
         self.__dict__.update(state)
-
-
 
 
 def check_if_all_equal(values, subject):
     if any(x != values[0] for x in values):
         text = f'Not all {subject} values are equal!'
         warnings.warn(text)
-
-

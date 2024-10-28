@@ -66,3 +66,29 @@ def import_committees_from_file(experiment_id, rule_name):
                 winning_committees = [set()]
             all_winning_committees[row['election_id']] = winning_committees
     return all_winning_committees
+
+
+def compute_abcvoting_rule_for_single_election(
+        election=None,
+        rule_name=None,
+        committee_size=1,
+        resolute=False
+):
+        profile = Profile(election.num_candidates)
+        profile.add_voters(election.votes)
+
+        try:
+            winning_committees = abcrules.compute(rule_name, profile, committee_size,
+                                                  algorithm="gurobi", resolute=resolute)
+        except Exception:
+            try:
+                winning_committees = abcrules.compute(rule_name, profile, committee_size,
+                                                      resolute=resolute)
+            except:
+                winning_committees = {}
+
+        clean_winning_committees = []
+        for committee in winning_committees:
+            clean_winning_committees.append(set(committee))
+
+        election.winning_committee[rule_name] = clean_winning_committees[0]

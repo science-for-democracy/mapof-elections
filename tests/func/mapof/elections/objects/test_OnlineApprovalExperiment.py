@@ -1,5 +1,5 @@
 import mapof.elections as mapof
-
+import numpy as np
 
 class TestOnlineApprovalExperiment:
 

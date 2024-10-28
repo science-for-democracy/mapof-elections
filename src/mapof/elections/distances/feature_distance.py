@@ -2,7 +2,10 @@ import numpy as np
 
 from mapof.elections.objects import Election
 
+from mapof.elections.distances.register import register_ordinal_election_distance
 
+
+@register_ordinal_election_distance("feature_l1")
 def features_vector_l1(e1: Election, e2: Election):
     """ L1 distance between two feature vectors """
     vector1 = np.array(e1.election_features.features_vector)
@@ -10,6 +13,7 @@ def features_vector_l1(e1: Election, e2: Election):
     return np.linalg.norm(vector1 - vector2, ord=1)
 
 
+@register_ordinal_election_distance("feature_l2")
 def features_vector_l2(e1: Election, e2: Election):
     """ L2 distance between two feature vectors """
     vector1 = np.array(e1.election_features.features_vector)

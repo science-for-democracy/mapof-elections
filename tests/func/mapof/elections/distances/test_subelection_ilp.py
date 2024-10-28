@@ -1,6 +1,3 @@
-import pytest
-import numpy as np
-
 import mapof.elections as mapof
 from mapof.elections.distances.ilp_subelections import (
     solve_ilp_voter_subelection,

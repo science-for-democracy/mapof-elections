@@ -8,12 +8,13 @@ from abc import ABCMeta, abstractmethod
 
 import mapof.core.persistence.experiment_exports as exports
 import mapof.core.printing as pr
-from mapof.core.glossary import MAIN_GLOBAL_FEATUERS
+from mapof.core.features.register import \
+    registered_experiment_features, \
+    features_embedding_related
 from mapof.core.objects.Experiment import Experiment
 from mapof.core.utils import get_instance_id
 from tqdm import tqdm
 
-import mapof.elections.features as features
 import mapof.elections.other.approval_rules as rules
 from mapof.elections.cultures import \
     registered_ordinal_cultures, \
@@ -24,11 +25,6 @@ from mapof.elections.objects.ApprovalElection import ApprovalElection
 from mapof.elections.objects.ElectionFamily import ElectionFamily
 from mapof.elections.objects.ElectionFeatures import ST_KEY, AN_KEY, ID_KEY, UN_KEY
 from mapof.elections.objects.OrdinalElection import OrdinalElection
-from mapof.elections.other.glossary import ELECTION_GLOBAL_FEATURES
-
-from mapof.core.features.register import \
-    registered_experiment_features, \
-    features_embedding_related
 
 try:
     from sklearn.manifold import MDS
@@ -539,7 +535,8 @@ class ElectionExperiment(Experiment):
             feature_params: dict = None,
             overwrite: bool = False,
             saveas: str = None,
-            **kwargs) -> dict:
+            **kwargs
+    ) -> dict:
 
         if feature_params is None:
             feature_params = {}
@@ -551,24 +548,24 @@ class ElectionExperiment(Experiment):
         else:
             feature_long_id = feature_id
 
-        num_iterations = 1
-        if 'num_iterations' in feature_params:
-            num_iterations = feature_params['num_iterations']
+        num_iterations = feature_params.get('num_iterations', 1)
 
-        if feature_id == 'ejr':
-            feature_dict = {'value': {}, 'time': {}, 'ejr': {}, 'pjr': {}, 'jr': {}, 'pareto': {}}
-        else:
-            feature_dict = {'value': {}, 'time': {}}
+        feature_dict = {'value': {}, 'time': {}}
 
-        if feature_id in MAIN_GLOBAL_FEATUERS or feature_id in ELECTION_GLOBAL_FEATURES:
+        if feature_id in registered_experiment_features:
 
-            feature = features.get_global_feature(feature_id)
+            feature = registered_experiment_features[feature_id]
 
-            values = feature(self, election_ids=list(self.instances), **kwargs)
+            solution_dict = feature(self, election_ids=list(self.instances), **kwargs)
 
-            for instance_id in tqdm(self.instances, desc='Computing feature'):
-                feature_dict['value'][instance_id] = values[instance_id]
-                if values[instance_id] is None:
+            for instance_id in tqdm(self.instances, desc='Computing experiment feature'):
+
+                for key in solution_dict[instance_id]:
+                    if key not in feature_dict:
+                        feature_dict[key] = {}
+
+                feature_dict['value'][instance_id] = solution_dict[instance_id]
+                if solution_dict[instance_id] is None:
                     feature_dict['time'][instance_id] = None
                 else:
                     feature_dict['time'][instance_id] = 0
@@ -582,12 +579,7 @@ class ElectionExperiment(Experiment):
                 solution = None
                 for _ in range(num_iterations):
 
-                    if feature_id in ['ejr',
-                                      'pareto',
-                                      'cohesiveness']:
-                        value = instance.get_feature(feature_id, feature_long_id,
-                                                     feature_params=feature_params)
-                    elif feature_id in features_with_params:
+                    if feature_id in features_with_params:
                         solution = instance.get_feature(feature_id, feature_long_id,
                                                         feature_params=feature_params)
 
@@ -601,6 +593,8 @@ class ElectionExperiment(Experiment):
 
                 if solution is not None:
                     if type(solution) is dict:
+                        if 'value' not in solution:
+                            solution['value'] = None
                         for key in solution:
                             if key not in feature_dict:
                                 feature_dict[key] = {}
@@ -626,7 +620,7 @@ class ElectionExperiment(Experiment):
 
     def compute_rules(
             self,
-            list_of_rules,
+            list_of_rules : list,
             committee_size: int = 10,
             resolute: bool = False
     ) -> None:

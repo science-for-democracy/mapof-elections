@@ -53,3 +53,14 @@ class TestOfflineApprovalExperiment:
         self.experiment.compute_rule_features(feature_id='core',
                                               list_of_rules=['av', 'sav'],
                                               feature_params={'committee_size': 2})
+
+    def test_ejr(self):
+        self.experiment.prepare_elections()
+
+        list_of_rules = ['av', 'sav']
+
+        self.experiment.compute_rules(list_of_rules, committee_size=2, resolute=False)
+
+        self.experiment.compute_rule_features(feature_id='ejr',
+                                              list_of_rules=['av', 'sav'],
+                                              feature_params={'committee_size': 2})

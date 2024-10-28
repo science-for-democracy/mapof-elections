@@ -4,7 +4,8 @@ import math
 
 from mapof.elections.features.register import register_approval_election_feature
 
-@register_approval_election_feature('justified_ratio')
+
+@register_approval_election_feature('justified_ratio', has_params=True)
 def justified_ratio(election, feature_params) -> dict:
     """
     Computes the justified ration of a given elections
@@ -27,6 +28,7 @@ def justified_ratio(election, feature_params) -> dict:
         if len(_set) >= threshold:
             covered = covered.union(_set)
     return {'value': len(covered) / float(election.num_voters)}
+
 
 @register_approval_election_feature('abstract')
 def abstract(election) -> dict:

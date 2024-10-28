@@ -1,11 +1,3 @@
-ELECTION_GLOBAL_FEATURES = {
-    'clustering',
-    'clustering_kmeans',
-    'distortion_from_all',
-    'id_vs_un',
-    'an_vs_st'
-}
-
 APPROVAL_MODELS = {
     'impartial_culture',
     'ic',

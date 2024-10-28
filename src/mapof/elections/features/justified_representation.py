@@ -1,6 +1,3 @@
-
-import sys
-import os
 import logging
 
 from mapof.elections.features.register import register_approval_election_feature
@@ -13,9 +10,11 @@ except ImportError:
     pass
 
 
-@register_approval_election_feature("ejr")
-def test_ejr(election, rule):
+@register_approval_election_feature("ejr", has_params=True, is_rule_related=True)
+def test_ejr(election, feature_params):
     logging.warning("Computing EJR needs update. Do not use this function.")
+
+    rule = feature_params["rule"]
 
     profile = Profile(election.num_candidates)
     profile.add_voters(election.votes)

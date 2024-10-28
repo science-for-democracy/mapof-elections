@@ -14,15 +14,16 @@ except Exception:
     pulp = None
 
 
-@register_approval_election_feature('number_of_cohesive_groups_brute')
+@register_approval_election_feature('number_of_cohesive_groups_brute', has_params=True)
 def count_number_of_cohesive_groups_brute(
     election,
-    l: int = 1,
-    committee_size: int = 10
+    feature_params: dict
 ):
     """
     Count the number of cohesive groups of size at least l in the election, using Brute Force.
     """
+    l = feature_params.get('l', 1)
+    committee_size = feature_params['committee_size']
     answer = 0
     min_size = int(ceil(l * election.num_voters / committee_size))
     voters = [i for i in range(0, election.num_voters)]
@@ -58,9 +59,14 @@ def newton(n: int, k: int):
         answer //= i
     return answer
 
-@register_approval_election_feature('number_of_cohesive_groups')
-def count_number_of_cohesive_groups(election, l: int = 1,
-                                    committee_size: int = 10):
+
+@register_approval_election_feature('number_of_cohesive_groups', has_params=True)
+def count_number_of_cohesive_groups(
+    election,
+    feature_params: dict
+):
+    l = feature_params.get('l', 1)
+    committee_size = feature_params['committee_size']
     if l > 1:
         raise NotImplementedError()
     answer = 0
@@ -83,8 +89,11 @@ def count_number_of_cohesive_groups(election, l: int = 1,
 ####################################################################################################
 ####################################################################################################
 
-@register_approval_election_feature('cohesiveness')
-def count_largest_cohesiveness_level_l_of_cohesive_group(election, feature_params):
+@register_approval_election_feature('cohesiveness', has_params=True)
+def count_largest_cohesiveness_level_l_of_cohesive_group(
+    election,
+    feature_params: dict
+):
     committee_size = feature_params['committee_size']
     l_ans = 0
     for l in range(1, election.num_voters + 1):

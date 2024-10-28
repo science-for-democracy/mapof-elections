@@ -1,5 +1,3 @@
-from mapof.core.glossary import MAIN_GLOBAL_FEATUERS
-import mapof.core.features as core_features
 
 import mapof.elections.features.approx as approx
 import mapof.elections.features.banzhaf_cc as banzhaf_cc
@@ -21,11 +19,6 @@ from mapof.elections.features.register import \
     registered_ordinal_election_features, \
     registered_approval_election_features
 
-
-def get_global_feature(feature_id):
-    """ Global feature depends on all instances """
-    if feature_id in MAIN_GLOBAL_FEATUERS:
-        return core_features.feature_id
 
 
 def get_local_feature(feature_id):
@@ -76,7 +69,6 @@ def add_ordinal_feature(name: str, function: callable) -> None:
 
 
 __all__ = [
-    'get_global_feature',
     'get_local_feature',
     'add_approval_feature',
     'add_ordinal_feature'

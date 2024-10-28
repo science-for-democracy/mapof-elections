@@ -105,7 +105,12 @@ def solve_ilp_instance(election, committee: set, l: int = 1,
         return 0.
 
 
-def proportionality_degree(election, committee_size=10, rule_name=None, resolute=False):
+def proportionality_degree(election, feature_params):
+
+    committee_size = feature_params.get('committee_size')
+    rule_name = feature_params.get('rule_name', None)
+    resolute = feature_params.get('resolute', False)
+
     committees = calculate_committees(election,
                                       committee_size=committee_size,
                                       rule_name=rule_name,
@@ -122,15 +127,19 @@ def proportionality_degree(election, committee_size=10, rule_name=None, resolute
 
 
 @register_approval_election_feature("proportionality_degree_av")
-def proportionality_degree_av(*args, **kwargs):
-    return proportionality_degree(*args, **kwargs, rule_name='av')
+def proportionality_degree_av(*args, feature_params, **kwargs):
+    feature_params['rule_name'] = 'av'
+    return proportionality_degree(*args, feature_params=feature_params, **kwargs)
 
 
 @register_approval_election_feature("proportionality_degree_pav")
-def proportionality_degree_pav(*args, **kwargs):
-    return proportionality_degree(*args, **kwargs, rule_name='pav')
+def proportionality_degree_pav(*args, feature_params, **kwargs):
+    feature_params['rule_name'] = 'pav'
+    return proportionality_degree(*args, feature_params=feature_params, **kwargs)
 
 
 @register_approval_election_feature("proportionality_degree_cc")
-def proportionality_degree_cc(*args, **kwargs):
-    return proportionality_degree(*args, **kwargs, rule_name='cc', resolute=True)
+def proportionality_degree_cc(*args, feature_params, **kwargs):
+    feature_params['rule_name'] = 'cc'
+    feature_params['resolute'] = True
+    return proportionality_degree(*args, feature_params=feature_params, **kwargs)

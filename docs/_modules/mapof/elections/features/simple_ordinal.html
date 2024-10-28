@@ -180,6 +180,7 @@
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/objects/index.html">Objects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/Election.html">Election</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/ElectionExperiment.html">ElectionExperiment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/ApprovalElection.html">ApprovalElection</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/ApprovalElectionExperiment.html">ApprovalElectionExperiment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/OrdinalElection.html">OrdinalElection</a></li>
@@ -313,11 +314,15 @@ document.write(`
                 <article class="bd-article">
                   
   <h1>Source code for mapof.elections.features.simple_ordinal</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">math</span>
+<span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">math</span>
+
+<span class="kn">from</span> <span class="nn">mapof.elections.features.register</span> <span class="kn">import</span> <span class="n">register_ordinal_election_feature</span>
 
 
 <div class="viewcode-block" id="is_condorcet">
 <a class="viewcode-back" href="../../../../reference/features/simple_ordinal.html#mapof.elections.features.simple_ordinal.is_condorcet">[docs]</a>
+<span class="nd">@register_ordinal_election_feature</span><span class="p">(</span><span class="s1">&#39;is_condorcet&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">is_condorcet</span><span class="p">(</span><span class="n">election</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Checks if election witness Condorcet winner</span>
@@ -359,20 +364,22 @@ document.write(`
 
 <div class="viewcode-block" id="get_effective_num_candidates">
 <a class="viewcode-back" href="../../../../reference/features/simple_ordinal.html#mapof.elections.features.simple_ordinal.get_effective_num_candidates">[docs]</a>
+<span class="nd">@register_ordinal_election_feature</span><span class="p">(</span><span class="s1">&#39;effective_num_candidates&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">get_effective_num_candidates</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;Borda&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Compute effective number of candidates of a given election.&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">election</span><span class="o">.</span><span class="n">is_pseudo</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
 
     <span class="n">c</span> <span class="o">=</span> <span class="n">election</span><span class="o">.</span><span class="n">num_candidates</span>
-    <span class="n">vectors</span> <span class="o">=</span> <span class="n">election</span><span class="o">.</span><span class="n">votes_to_positionwise_matrix</span><span class="p">()</span>
+    <span class="n">matrix</span> <span class="o">=</span> <span class="n">election</span><span class="o">.</span><span class="n">get_frequency_matrix</span><span class="p">()</span>
 
     <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;Borda&#39;</span><span class="p">:</span>
-        <span class="n">all_scores</span> <span class="o">=</span> <span class="p">[</span><span class="nb">sum</span><span class="p">([</span><span class="n">vectors</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">c</span> <span class="o">-</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">c</span><span class="p">)])</span> <span class="o">/</span> <span class="p">(</span><span class="n">c</span> <span class="o">*</span> <span class="p">(</span><span class="n">c</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">all_scores</span> <span class="o">=</span> <span class="p">[</span><span class="nb">sum</span><span class="p">([</span><span class="n">matrix</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">c</span> <span class="o">-</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">c</span><span class="p">)])</span> <span class="o">/</span> <span class="p">(</span><span class="n">c</span> <span class="o">*</span> <span class="p">(</span><span class="n">c</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
                       <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">c</span><span class="p">)]</span>
     <span class="k">elif</span> <span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;Plurality&#39;</span><span class="p">:</span>
-        <span class="n">all_scores</span> <span class="o">=</span> <span class="p">[</span><span class="nb">sum</span><span class="p">([</span><span class="n">vectors</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">)])</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">c</span><span class="p">)]</span>
+        <span class="n">all_scores</span> <span class="o">=</span> <span class="p">[</span><span class="nb">sum</span><span class="p">([</span><span class="n">matrix</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">)])</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">c</span><span class="p">)]</span>
     <span class="k">else</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mode </span><span class="si">{</span><span class="n">mode</span><span class="si">}</span><span class="s2"> is not supported.&quot;</span><span class="p">)</span>
         <span class="n">all_scores</span> <span class="o">=</span> <span class="p">[]</span>
 
     <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mf">1.</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">([</span><span class="n">x</span> <span class="o">*</span> <span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">all_scores</span><span class="p">])}</span></div>

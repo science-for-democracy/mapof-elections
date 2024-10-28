@@ -5,6 +5,7 @@ Objects
     :maxdepth: 2
 
     Election
+    ElectionExperiment
     ApprovalElection
     ApprovalElectionExperiment
     OrdinalElection

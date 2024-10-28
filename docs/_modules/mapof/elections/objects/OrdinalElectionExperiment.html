@@ -180,6 +180,7 @@
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/objects/index.html">Objects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/Election.html">Election</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/ElectionExperiment.html">ElectionExperiment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/ApprovalElection.html">ApprovalElection</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/ApprovalElectionExperiment.html">ApprovalElectionExperiment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/OrdinalElection.html">OrdinalElection</a></li>
@@ -313,16 +314,14 @@ document.write(`
                 <article class="bd-article">
                   
   <h1>Source code for mapof.elections.objects.OrdinalElectionExperiment</h1><div class="highlight"><pre>
-<span></span><span class="ch">#!/usr/bin/env python</span>
-<span class="kn">import</span> <span class="nn">csv</span>
-<span class="kn">import</span> <span class="nn">os</span>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span>
 
-<span class="kn">from</span> <span class="nn">mapof.elections.objects.ElectionExperiment</span> <span class="kn">import</span> <span class="n">ElectionExperiment</span>
-
 <span class="kn">import</span> <span class="nn">mapof.elections.cultures</span> <span class="k">as</span> <span class="nn">cultures</span>
-<span class="kn">import</span> <span class="nn">mapof.elections.features</span> <span class="k">as</span> <span class="nn">features</span>
 <span class="kn">import</span> <span class="nn">mapof.elections.distances</span> <span class="k">as</span> <span class="nn">distances</span>
+<span class="kn">import</span> <span class="nn">mapof.elections.features</span> <span class="k">as</span> <span class="nn">features</span>
+<span class="kn">import</span> <span class="nn">mapof.elections.persistence.election_exports</span> <span class="k">as</span> <span class="nn">exports</span>
+<span class="kn">from</span> <span class="nn">mapof.elections.objects.ElectionExperiment</span> <span class="kn">import</span> <span class="n">ElectionExperiment</span>
 
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">sklearn.manifold</span> <span class="kn">import</span> <span class="n">MDS</span>
@@ -358,7 +357,7 @@ document.write(`
 
     <span class="k">def</span> <span class="nf">add_folders_to_experiment</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 
-        <span class="n">dirs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;experiments&quot;</span><span class="p">,</span> <span class="s2">&quot;images&quot;</span><span class="p">,</span> <span class="s2">&quot;trash&quot;</span><span class="p">]</span>
+        <span class="n">dirs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;experiments&quot;</span><span class="p">]</span>
         <span class="k">for</span> <span class="nb">dir</span> <span class="ow">in</span> <span class="n">dirs</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="nb">dir</span><span class="p">):</span>
                 <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="nb">dir</span><span class="p">))</span>
@@ -369,8 +368,7 @@ document.write(`
         <span class="n">list_of_folders</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;distances&#39;</span><span class="p">,</span>
                            <span class="s1">&#39;features&#39;</span><span class="p">,</span>
                            <span class="s1">&#39;coordinates&#39;</span><span class="p">,</span>
-                           <span class="s1">&#39;elections&#39;</span><span class="p">,</span>
-                           <span class="s1">&#39;matrices&#39;</span><span class="p">]</span>
+                           <span class="s1">&#39;elections&#39;</span><span class="p">]</span>
 
         <span class="k">for</span> <span class="n">folder_name</span> <span class="ow">in</span> <span class="n">list_of_folders</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s2">&quot;experiments&quot;</span><span class="p">,</span>
@@ -383,29 +381,12 @@ document.write(`
 
             <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file_csv</span><span class="p">:</span>
                 <span class="n">file_csv</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
-                    <span class="s2">&quot;size;num_candidates;num_voters;pseudo_culture_id;params;color;alpha;&quot;</span>
-                    <span class="s2">&quot;family_id;label;marker;show</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-                <span class="n">file_csv</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;3;10;100;ic;</span><span class="si">{}</span><span class="s2">;black;1;ic;Impartial Culture;o;process_id</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="s2">&quot;size;num_candidates;num_voters;culture_id;params;color;alpha;&quot;</span>
+                    <span class="s2">&quot;family_id;label;marker</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">file_csv</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;3;10;100;ic;</span><span class="si">{}</span><span class="s2">;black;1;ic;Impartial Culture;o</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">export_frequency_matrices</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">path_to_folder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s2">&quot;experiments&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">experiment_id</span><span class="p">,</span> <span class="s2">&quot;matrices&quot;</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path_to_folder</span><span class="p">):</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">path_to_folder</span><span class="p">)</span>
-
-        <span class="k">for</span> <span class="n">file_name</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">path_to_folder</span><span class="p">):</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path_to_folder</span><span class="p">,</span> <span class="n">file_name</span><span class="p">))</span>
-
-        <span class="k">for</span> <span class="n">election_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">elections</span><span class="p">:</span>
-            <span class="n">frequency_matrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">elections</span><span class="p">[</span><span class="n">election_id</span><span class="p">]</span><span class="o">.</span><span class="n">get_frequency_matrix</span><span class="p">()</span>
-            <span class="n">file_name</span> <span class="o">=</span> <span class="n">election_id</span> <span class="o">+</span> <span class="s2">&quot;.csv&quot;</span>
-
-            <span class="n">path_to_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path_to_folder</span><span class="p">,</span> <span class="n">file_name</span><span class="p">)</span>
-            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path_to_file</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">csv_file</span><span class="p">:</span>
-
-                <span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">csv_file</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
-                <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">frequency_matrix</span><span class="p">:</span>
-                    <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span><span class="n">row</span><span class="p">)</span></div>
+        <span class="n">exports</span><span class="o">.</span><span class="n">export_frequency_matrices</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 
 </pre></div>
 

@@ -180,6 +180,7 @@
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/objects/index.html">Objects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/Election.html">Election</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/ElectionExperiment.html">ElectionExperiment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/ApprovalElection.html">ApprovalElection</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/ApprovalElectionExperiment.html">ApprovalElectionExperiment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/OrdinalElection.html">OrdinalElection</a></li>
@@ -313,9 +314,7 @@ document.write(`
                 <article class="bd-article">
                   
   <h1>Source code for mapof.elections.objects.Election</h1><div class="highlight"><pre>
-<span></span><span class="ch">#!/usr/bin/env python</span>
-
-<span class="kn">import</span> <span class="nn">copy</span>
+<span></span><span class="kn">import</span> <span class="nn">copy</span>
 <span class="kn">import</span> <span class="nn">csv</span>
 <span class="kn">import</span> <span class="nn">itertools</span>
 <span class="kn">import</span> <span class="nn">logging</span>
@@ -326,20 +325,23 @@ document.write(`
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">numpy.linalg</span> <span class="k">as</span> <span class="nn">la</span>
+<span class="kn">from</span> <span class="nn">mapof.core.distances</span> <span class="kn">import</span> <span class="n">l2</span>
+<span class="kn">from</span> <span class="nn">mapof.core.objects.Instance</span> <span class="kn">import</span> <span class="n">Instance</span>
 <span class="kn">from</span> <span class="nn">sklearn.manifold</span> <span class="kn">import</span> <span class="n">MDS</span>
 
-<span class="kn">from</span> <span class="nn">mapof.elections.objects.ElectionFeatures</span> <span class="kn">import</span> <span class="n">ElectionFeatures</span>
 <span class="kn">import</span> <span class="nn">mapof.elections.persistence.election_exports</span> <span class="k">as</span> <span class="nn">exports</span>
 <span class="kn">import</span> <span class="nn">mapof.elections.persistence.election_imports</span> <span class="k">as</span> <span class="nn">imports</span>
-<span class="kn">from</span> <span class="nn">mapof.elections.other.glossary</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">mapof.core.inner_distances</span> <span class="kn">import</span> <span class="n">l2</span>
-<span class="kn">from</span> <span class="nn">mapof.core.objects.Instance</span> <span class="kn">import</span> <span class="n">Instance</span>
 <span class="kn">from</span> <span class="nn">mapof.elections.features</span> <span class="kn">import</span> <span class="n">get_local_feature</span>
-<span class="kn">from</span> <span class="nn">mapof.elections.other.winners</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">compute_sntv_winners</span><span class="p">,</span>
-    <span class="n">compute_borda_winners</span><span class="p">,</span>
-    <span class="n">compute_stv_winners</span>
+<span class="kn">from</span> <span class="nn">mapof.elections.objects.ElectionFeatures</span> <span class="kn">import</span> <span class="n">ElectionFeatures</span>
+<span class="kn">from</span> <span class="nn">mapof.elections.other.glossary</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">mapof.elections.other.ordinal_rules</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">compute_sntv_voting_rule</span><span class="p">,</span>
+    <span class="n">compute_borda_voting_rule</span><span class="p">,</span>
+    <span class="n">compute_stv_voting_rule</span>
 <span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">mapof.elections.other.approval_rules</span> <span class="kn">import</span> <span class="n">compute_abcvoting_rule_for_single_election</span>
+
 
 <span class="n">OBJECT_TYPES</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;vote&#39;</span><span class="p">,</span> <span class="s1">&#39;candidate&#39;</span><span class="p">]</span>
 
@@ -386,6 +388,7 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">is_shifted</span> <span class="o">=</span> <span class="n">is_shifted</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">is_imported</span> <span class="o">=</span> <span class="n">is_imported</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fast_import</span> <span class="o">=</span> <span class="n">fast_import</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">winning_committee</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">election_features</span> <span class="o">=</span> <span class="n">ElectionFeatures</span><span class="p">(</span><span class="n">election_id</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">import_distances</span><span class="p">()</span>
@@ -489,13 +492,13 @@ document.write(`
         <span class="n">election_without_party_id</span> <span class="o">=</span> <span class="n">map_the_votes</span><span class="p">(</span><span class="n">election_without_party_id</span><span class="p">,</span> <span class="n">party_id</span><span class="p">,</span> <span class="n">num_winners</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;sntv&#39;</span><span class="p">:</span>
-            <span class="n">winners_without_party_id</span> <span class="o">=</span> <span class="n">compute_sntv_winners</span><span class="p">(</span><span class="n">election</span><span class="o">=</span><span class="n">election_without_party_id</span><span class="p">,</span>
+            <span class="n">winners_without_party_id</span> <span class="o">=</span> <span class="n">compute_sntv_voting_rule</span><span class="p">(</span><span class="n">election</span><span class="o">=</span><span class="n">election_without_party_id</span><span class="p">,</span>
                                                             <span class="n">num_winners</span><span class="o">=</span><span class="n">num_winners</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;borda&#39;</span><span class="p">:</span>
-            <span class="n">winners_without_party_id</span> <span class="o">=</span> <span class="n">compute_borda_winners</span><span class="p">(</span><span class="n">election</span><span class="o">=</span><span class="n">election_without_party_id</span><span class="p">,</span>
+            <span class="n">winners_without_party_id</span> <span class="o">=</span> <span class="n">compute_borda_voting_rule</span><span class="p">(</span><span class="n">election</span><span class="o">=</span><span class="n">election_without_party_id</span><span class="p">,</span>
                                                              <span class="n">num_winners</span><span class="o">=</span><span class="n">num_winners</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;stv&#39;</span><span class="p">:</span>
-            <span class="n">winners_without_party_id</span> <span class="o">=</span> <span class="n">compute_stv_winners</span><span class="p">(</span><span class="n">election</span><span class="o">=</span><span class="n">election_without_party_id</span><span class="p">,</span>
+            <span class="n">winners_without_party_id</span> <span class="o">=</span> <span class="n">compute_stv_voting_rule</span><span class="p">(</span><span class="n">election</span><span class="o">=</span><span class="n">election_without_party_id</span><span class="p">,</span>
                                                            <span class="n">num_winners</span><span class="o">=</span><span class="n">num_winners</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">winners_without_party_id</span> <span class="o">=</span> <span class="p">[]</span>
@@ -673,6 +676,9 @@ document.write(`
             <span class="n">feature_long_id</span> <span class="o">=</span> <span class="n">feature_id</span>
         <span class="n">feature</span> <span class="o">=</span> <span class="n">get_local_feature</span><span class="p">(</span><span class="n">feature_id</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">[</span><span class="n">feature_long_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">feature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">compute_rule</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rule_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">compute_abcvoting_rule_for_single_election</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rule_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">get_feature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                     <span class="n">feature_id</span><span class="p">,</span>

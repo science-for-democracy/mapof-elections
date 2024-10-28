@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>mapof.elections.features.simple_approval &#8212; Map of Elections</title>
+    <title>mapof.elections.distances.feature_distance &#8212; Map of Elections</title>
   
   
   
@@ -39,7 +39,7 @@
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/mapof/elections/features/simple_approval';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/mapof/elections/distances/feature_distance';</script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -313,92 +313,71 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <h1>Source code for mapof.elections.features.simple_approval</h1><div class="highlight"><pre>
+  <h1>Source code for mapof.elections.distances.feature_distance</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">scipy.special</span>
-<span class="kn">import</span> <span class="nn">math</span>
 
-<span class="kn">from</span> <span class="nn">mapof.elections.features.register</span> <span class="kn">import</span> <span class="n">register_approval_election_feature</span>
+<span class="kn">from</span> <span class="nn">mapof.elections.objects</span> <span class="kn">import</span> <span class="n">Election</span>
+
+<span class="kn">from</span> <span class="nn">mapof.elections.distances.register</span> <span class="kn">import</span> <span class="n">register_ordinal_election_distance</span>
 
 
-<div class="viewcode-block" id="justified_ratio">
-<a class="viewcode-back" href="../../../../reference/features/simple_approval.html#mapof.elections.features.simple_approval.justified_ratio">[docs]</a>
-<span class="nd">@register_approval_election_feature</span><span class="p">(</span><span class="s1">&#39;justified_ratio&#39;</span><span class="p">,</span> <span class="n">has_params</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">justified_ratio</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">feature_params</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Computes the justified ration of a given elections</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">        election : ApprovalElection</span>
-<span class="sd">        feature_params : dict</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">        dict</span>
-<span class="sd">            &#39;value&#39;: justified ratio</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># 1-large, 1-cohesive</span>
-    <span class="n">election</span><span class="o">.</span><span class="n">compute_reverse_approvals</span><span class="p">()</span>
-    <span class="n">threshold</span> <span class="o">=</span> <span class="n">election</span><span class="o">.</span><span class="n">num_voters</span> <span class="o">/</span> <span class="n">feature_params</span><span class="p">[</span><span class="s1">&#39;committee_size&#39;</span><span class="p">]</span>
-    <span class="n">covered</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
-    <span class="k">for</span> <span class="n">_set</span> <span class="ow">in</span> <span class="n">election</span><span class="o">.</span><span class="n">reverse_approvals</span><span class="p">:</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">_set</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">threshold</span><span class="p">:</span>
-            <span class="n">covered</span> <span class="o">=</span> <span class="n">covered</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">_set</span><span class="p">)</span>
-    <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">covered</span><span class="p">)</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">election</span><span class="o">.</span><span class="n">num_voters</span><span class="p">)}</span></div>
+<div class="viewcode-block" id="features_vector_l1">
+<a class="viewcode-back" href="../../../../reference/distances/feature_distance.html#mapof.elections.distances.feature_distance.features_vector_l1">[docs]</a>
+<span class="nd">@register_ordinal_election_distance</span><span class="p">(</span><span class="s2">&quot;feature_l1&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">features_vector_l1</span><span class="p">(</span><span class="n">e1</span><span class="p">:</span> <span class="n">Election</span><span class="p">,</span> <span class="n">e2</span><span class="p">:</span> <span class="n">Election</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; L1 distance between two feature vectors &quot;&quot;&quot;</span>
+    <span class="n">vector1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">e1</span><span class="o">.</span><span class="n">election_features</span><span class="o">.</span><span class="n">features_vector</span><span class="p">)</span>
+    <span class="n">vector2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">e2</span><span class="o">.</span><span class="n">election_features</span><span class="o">.</span><span class="n">features_vector</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">vector1</span> <span class="o">-</span> <span class="n">vector2</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></div>
 
 
 
-<div class="viewcode-block" id="abstract">
-<a class="viewcode-back" href="../../../../reference/features/simple_approval.html#mapof.elections.features.simple_approval.abstract">[docs]</a>
-<span class="nd">@register_approval_election_feature</span><span class="p">(</span><span class="s1">&#39;abstract&#39;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">abstract</span><span class="p">(</span><span class="n">election</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Computes the abstract of a given election.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">        election : ApprovalElection</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">        dict</span>
-<span class="sd">            &#39;value&#39;: abstract</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">n</span> <span class="o">=</span> <span class="n">election</span><span class="o">.</span><span class="n">num_voters</span>
-    <span class="n">election</span><span class="o">.</span><span class="n">votes_to_approvalwise_vector</span><span class="p">()</span>
-    <span class="n">vector</span> <span class="o">=</span> <span class="n">election</span><span class="o">.</span><span class="n">approvalwise_vector</span>
-    <span class="n">total_value</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">election</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">):</span>
-        <span class="n">k</span> <span class="o">=</span> <span class="n">vector</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">special</span><span class="o">.</span><span class="n">binom</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-        <span class="n">total_value</span> <span class="o">+=</span> <span class="n">x</span>
-    <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="n">total_value</span><span class="p">}</span></div>
+<div class="viewcode-block" id="features_vector_l2">
+<a class="viewcode-back" href="../../../../reference/distances/feature_distance.html#mapof.elections.distances.feature_distance.features_vector_l2">[docs]</a>
+<span class="nd">@register_ordinal_election_distance</span><span class="p">(</span><span class="s2">&quot;feature_l2&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">features_vector_l2</span><span class="p">(</span><span class="n">e1</span><span class="p">:</span> <span class="n">Election</span><span class="p">,</span> <span class="n">e2</span><span class="p">:</span> <span class="n">Election</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; L2 distance between two feature vectors &quot;&quot;&quot;</span>
+    <span class="n">vector1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">e1</span><span class="o">.</span><span class="n">election_features</span><span class="o">.</span><span class="n">features_vector</span><span class="p">)</span>
+    <span class="n">vector2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">e2</span><span class="o">.</span><span class="n">election_features</span><span class="o">.</span><span class="n">features_vector</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">vector1</span> <span class="o">-</span> <span class="n">vector2</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span></div>
 
 
 
-<div class="viewcode-block" id="max_approval_score">
-<a class="viewcode-back" href="../../../../reference/features/simple_approval.html#mapof.elections.features.simple_approval.max_approval_score">[docs]</a>
-<span class="nd">@register_approval_election_feature</span><span class="p">(</span><span class="s1">&#39;max_approval_score&#39;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">max_approval_score</span><span class="p">(</span><span class="n">election</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Computes the largest approval score of a given election.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Sample driver function of the feature distance.</span>
 
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">        election : ApprovalElection</span>
+<span class="sd">For successful calculation the features you decide to use need to be loaded into memory for example as follows:</span>
 
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">        dict</span>
-<span class="sd">            &#39;value&#39;: max approval score</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">score</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">election</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">])</span>
-    <span class="k">for</span> <span class="n">vote</span> <span class="ow">in</span> <span class="n">election</span><span class="o">.</span><span class="n">votes</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">vote</span><span class="p">:</span>
-            <span class="n">score</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="nb">max</span><span class="p">(</span><span class="n">score</span><span class="p">)}</span></div>
+<span class="sd">experiment.features[&quot;Agreement&quot;] = experiment.import_feature(&quot;AgreementApprox&quot;)</span>
+
+<span class="sd">Then the prepare_feature_vectors function allows to pick which features will be used - codes of the features need to be passed as a list.</span>
+<span class="sd">Currently supported feature codes are the following:</span>
+<span class="sd">d := Diversity</span>
+<span class="sd">a := Agreement</span>
+<span class="sd">p := Polarization</span>
+<span class="sd">e := Entropy</span>
+<span class="sd">e2 := Entropy squared</span>
+
+<span class="sd">Example usage which selects DAP features:</span>
+<span class="sd">experiment.prepare_feature_vectors([&#39;d&#39;, &#39;a&#39;, &#39;p&#39;])</span>
+<span class="sd">Any number of features can be used.</span>
+<span class="sd">To add a new feature to the feature vector either adjust the ElectionExperiment.py file or contact jita-mertlova.</span>
+
+<span class="sd">Full example usage of this distance as the DAP distance, assuming &#39;myExperiment&#39; is an experiment folder containing calculated</span>
+<span class="sd">AgreementApprox, PolarizationApprox and DiversityApprox features.</span>
+
+<span class="sd">experiment = mapof.prepare_offline_ordinal_experiment(experiment_id=&quot;myExperiment&quot;)</span>
+<span class="sd">experiment.features[&quot;Agreement&quot;] = experiment.import_feature(&quot;AgreementApprox&quot;)</span>
+<span class="sd">experiment.features[&quot;Diversity&quot;] = experiment.import_feature(&quot;DiversityApprox&quot;)</span>
+<span class="sd">experiment.features[&quot;Polarization&quot;] = experiment.import_feature(&quot;PolarizationApprox&quot;)</span>
+<span class="sd">experiment.prepare_feature_vectors([&#39;d&#39;, &#39;a&#39;, &#39;p&#39;])</span>
+<span class="sd">experiment.compute_distances(distance_id=&#39;feature_l2&#39;)</span>
+<span class="sd">experiment.embed_2d(embedding_id=&#39;mds&#39;)</span>
+<span class="sd">experiment.print_map_2d()</span>
+<span class="sd">experiment.print_map_2d(legend=False)</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
 
 </pre></div>
 

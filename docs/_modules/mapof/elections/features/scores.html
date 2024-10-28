@@ -180,6 +180,7 @@
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/objects/index.html">Objects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/Election.html">Election</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/ElectionExperiment.html">ElectionExperiment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/ApprovalElection.html">ApprovalElection</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/ApprovalElectionExperiment.html">ApprovalElectionExperiment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/OrdinalElection.html">OrdinalElection</a></li>
@@ -314,31 +315,17 @@ document.write(`
                   
   <h1>Source code for mapof.elections.features.scores</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">math</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">sys</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">pulp</span>
-<span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-    <span class="n">pulp</span> <span class="o">=</span> <span class="kc">None</span>
-
-<span class="k">try</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">dotenv</span> <span class="kn">import</span> <span class="n">load_dotenv</span>
-    <span class="n">load_dotenv</span><span class="p">()</span>
-    <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;PATH&quot;</span><span class="p">])</span>
-    <span class="kn">from</span> <span class="nn">abcvoting</span> <span class="kn">import</span> <span class="n">abcrules</span><span class="p">,</span> <span class="n">preferences</span>
-<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-    <span class="n">abcrules</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">preferences</span> <span class="o">=</span> <span class="kc">None</span>
 
 <span class="kn">from</span> <span class="nn">mapof.elections.distances</span> <span class="kn">import</span> <span class="n">ilp_other</span>
-<span class="kn">from</span> <span class="nn">mapof.elections.other</span> <span class="kn">import</span> <span class="n">winners</span> <span class="k">as</span> <span class="n">win</span>
+<span class="kn">from</span> <span class="nn">mapof.elections.features.register</span> <span class="kn">import</span> <span class="n">register_ordinal_election_feature</span>
+<span class="kn">from</span> <span class="nn">mapof.elections.other</span> <span class="kn">import</span> <span class="n">ordinal_rules</span> <span class="k">as</span> <span class="n">win</span>
 
 
-<span class="c1"># MAIN FUNCTIONS</span>
 <div class="viewcode-block" id="highest_borda_score">
 <a class="viewcode-back" href="../../../../reference/features/scores.html#mapof.elections.features.scores.highest_borda_score">[docs]</a>
+<span class="nd">@register_ordinal_election_feature</span><span class="p">(</span><span class="s1">&#39;highest_borda_score&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">highest_borda_score</span><span class="p">(</span><span class="n">election</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Computes the highest Borda score of a given election.</span>
@@ -367,6 +354,7 @@ document.write(`
 
 <div class="viewcode-block" id="highest_plurality_score">
 <a class="viewcode-back" href="../../../../reference/features/scores.html#mapof.elections.features.scores.highest_plurality_score">[docs]</a>
+<span class="nd">@register_ordinal_election_feature</span><span class="p">(</span><span class="s1">&#39;highest_plurality_score&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">highest_plurality_score</span><span class="p">(</span><span class="n">election</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Computes the highest Plurality score of a given election.</span>
@@ -389,6 +377,7 @@ document.write(`
 
 <div class="viewcode-block" id="highest_copeland_score">
 <a class="viewcode-back" href="../../../../reference/features/scores.html#mapof.elections.features.scores.highest_copeland_score">[docs]</a>
+<span class="nd">@register_ordinal_election_feature</span><span class="p">(</span><span class="s1">&#39;highest_copeland_score&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">highest_copeland_score</span><span class="p">(</span><span class="n">election</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Computes the highest Copeland score of a given election.</span>
@@ -429,6 +418,7 @@ document.write(`
 
 <div class="viewcode-block" id="lowest_dodgson_score">
 <a class="viewcode-back" href="../../../../reference/features/scores.html#mapof.elections.features.scores.lowest_dodgson_score">[docs]</a>
+<span class="nd">@register_ordinal_election_feature</span><span class="p">(</span><span class="s1">&#39;lowest_dodgson_score&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">lowest_dodgson_score</span><span class="p">(</span><span class="n">election</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Computes the lowest Dodgson score of a given election</span>
@@ -484,34 +474,36 @@ document.write(`
     <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="n">min_score</span><span class="p">}</span></div>
 
 
-
+<span class="nd">@register_ordinal_election_feature</span><span class="p">(</span><span class="s1">&#39;highest_cc_score&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">highest_cc_score</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">committee_size</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">election</span><span class="o">.</span><span class="n">is_pseudo</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;dissat&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
-    <span class="n">winners</span><span class="p">,</span> <span class="n">total_time</span> <span class="o">=</span> <span class="n">win</span><span class="o">.</span><span class="n">compute_voting_rule</span><span class="p">(</span><span class="n">election</span><span class="o">=</span><span class="n">election</span><span class="p">,</span>
-                                             <span class="n">num_winners</span><span class="o">=</span><span class="n">committee_size</span><span class="p">,</span>
-                                             <span class="n">ballot</span><span class="o">=</span><span class="s2">&quot;ordinal&quot;</span><span class="p">,</span>
-                                             <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;borda_owa&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;cc&#39;</span><span class="p">)</span>
+    <span class="n">winners</span><span class="p">,</span> <span class="n">total_time</span> <span class="o">=</span> <span class="n">win</span><span class="o">.</span><span class="n">compute_standard_voting_rule</span><span class="p">(</span><span class="n">election</span><span class="o">=</span><span class="n">election</span><span class="p">,</span>
+                                                  <span class="n">committee_size</span><span class="o">=</span><span class="n">committee_size</span><span class="p">,</span>
+                                                  <span class="n">ballot</span><span class="o">=</span><span class="s2">&quot;ordinal&quot;</span><span class="p">,</span>
+                                                  <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;borda_owa&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;cc&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="n">get_cc_score</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">winners</span><span class="p">),</span> <span class="s1">&#39;dissat&#39;</span><span class="p">:</span> <span class="n">get_cc_dissat</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">winners</span><span class="p">)}</span>
 
 
+<span class="nd">@register_ordinal_election_feature</span><span class="p">(</span><span class="s1">&#39;highest_hb_score&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">highest_hb_score</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">committee_size</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">election</span><span class="o">.</span><span class="n">is_pseudo</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;dissat&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
-    <span class="n">winners</span><span class="p">,</span> <span class="n">total_time</span> <span class="o">=</span> <span class="n">win</span><span class="o">.</span><span class="n">compute_voting_rule</span><span class="p">(</span><span class="n">election</span><span class="o">=</span><span class="n">election</span><span class="p">,</span>
-                                             <span class="n">num_winners</span><span class="o">=</span><span class="n">committee_size</span><span class="p">,</span>
-                                             <span class="n">ballot</span><span class="o">=</span><span class="s2">&quot;ordinal&quot;</span><span class="p">,</span>
-                                             <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;borda_owa&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;hb&#39;</span><span class="p">)</span>
+    <span class="n">winners</span><span class="p">,</span> <span class="n">total_time</span> <span class="o">=</span> <span class="n">win</span><span class="o">.</span><span class="n">compute_standard_voting_rule</span><span class="p">(</span><span class="n">election</span><span class="o">=</span><span class="n">election</span><span class="p">,</span>
+                                                  <span class="n">committee_size</span><span class="o">=</span><span class="n">committee_size</span><span class="p">,</span>
+                                                  <span class="n">ballot</span><span class="o">=</span><span class="s2">&quot;ordinal&quot;</span><span class="p">,</span>
+                                                  <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;borda_owa&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;hb&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="n">get_hb_score</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">winners</span><span class="p">),</span> <span class="s1">&#39;dissat&#39;</span><span class="p">:</span> <span class="n">get_hb_dissat</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">winners</span><span class="p">)}</span>
 
 
+<span class="nd">@register_ordinal_election_feature</span><span class="p">(</span><span class="s1">&#39;highest_pav_score&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">highest_pav_score</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">committee_size</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">election</span><span class="o">.</span><span class="n">is_pseudo</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;dissat&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
-    <span class="n">winners</span><span class="p">,</span> <span class="n">total_time</span> <span class="o">=</span> <span class="n">win</span><span class="o">.</span><span class="n">compute_voting_rule</span><span class="p">(</span><span class="n">election</span><span class="o">=</span><span class="n">election</span><span class="p">,</span>
-                                             <span class="n">num_winners</span><span class="o">=</span><span class="n">committee_size</span><span class="p">,</span>
-                                             <span class="n">ballot</span><span class="o">=</span><span class="s2">&quot;ordinal&quot;</span><span class="p">,</span>
-                                             <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;bloc_owa&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;hb&#39;</span><span class="p">)</span>
+    <span class="n">winners</span><span class="p">,</span> <span class="n">total_time</span> <span class="o">=</span> <span class="n">win</span><span class="o">.</span><span class="n">compute_standard_voting_rule</span><span class="p">(</span><span class="n">election</span><span class="o">=</span><span class="n">election</span><span class="p">,</span>
+                                                  <span class="n">committee_size</span><span class="o">=</span><span class="n">committee_size</span><span class="p">,</span>
+                                                  <span class="n">ballot</span><span class="o">=</span><span class="s2">&quot;ordinal&quot;</span><span class="p">,</span>
+                                                  <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;bloc_owa&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;hb&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="n">get_pav_score</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">winners</span><span class="p">),</span> <span class="s1">&#39;dissat&#39;</span><span class="p">:</span> <span class="n">get_pav_dissat</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">winners</span><span class="p">)}</span>
 
 
@@ -660,9 +652,9 @@ document.write(`
     <span class="k">return</span> <span class="n">dissat</span>
 
 
-<span class="c1"># OTHER</span>
 <div class="viewcode-block" id="borda_spread">
 <a class="viewcode-back" href="../../../../reference/features/scores.html#mapof.elections.features.scores.borda_spread">[docs]</a>
+<span class="nd">@register_ordinal_election_feature</span><span class="p">(</span><span class="s1">&#39;borda_spread&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">borda_spread</span><span class="p">(</span><span class="n">election</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Compute the difference between the highest and the lowest Borda score &quot;&quot;&quot;</span>
     <span class="n">c</span> <span class="o">=</span> <span class="n">election</span><span class="o">.</span><span class="n">num_candidates</span>

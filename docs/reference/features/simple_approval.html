@@ -181,6 +181,7 @@
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../objects/index.html">Objects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../objects/Election.html">Election</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../objects/ElectionExperiment.html">ElectionExperiment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../objects/ApprovalElection.html">ApprovalElection</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../objects/ApprovalElectionExperiment.html">ApprovalElectionExperiment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../objects/OrdinalElection.html">OrdinalElection</a></li>
@@ -359,6 +360,8 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.features.simple_approval.abstract"><code class="docutils literal notranslate"><span class="pre">abstract()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.features.simple_approval.justified_ratio"><code class="docutils literal notranslate"><span class="pre">justified_ratio()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.features.simple_approval.max_approval_score"><code class="docutils literal notranslate"><span class="pre">max_approval_score()</span></code></a></li>
 </ul>
             </nav>
@@ -373,6 +376,43 @@ document.write(`
                   
   <section id="module-mapof.elections.features.simple_approval">
 <span id="simple-approval"></span><h1>Simple Approval<a class="headerlink" href="#module-mapof.elections.features.simple_approval" title="Link to this heading">#</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="mapof.elections.features.simple_approval.abstract">
+<span class="sig-name descname"><span class="pre">abstract</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">election</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../../_modules/mapof/elections/features/simple_approval.html#abstract"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.features.simple_approval.abstract" title="Link to this definition">#</a></dt>
+<dd><p>Computes the abstract of a given election.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>election</strong> (<a class="reference internal" href="../objects/ApprovalElection.html#mapof.elections.objects.ApprovalElection.ApprovalElection" title="mapof.elections.objects.ApprovalElection.ApprovalElection"><em>ApprovalElection</em></a>)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>‘value’: abstract</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>dict</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mapof.elections.features.simple_approval.justified_ratio">
+<span class="sig-name descname"><span class="pre">justified_ratio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">election</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature_params</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../../_modules/mapof/elections/features/simple_approval.html#justified_ratio"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.features.simple_approval.justified_ratio" title="Link to this definition">#</a></dt>
+<dd><p>Computes the justified ration of a given elections</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>election</strong> (<a class="reference internal" href="../objects/ApprovalElection.html#mapof.elections.objects.ApprovalElection.ApprovalElection" title="mapof.elections.objects.ApprovalElection.ApprovalElection"><em>ApprovalElection</em></a>)</p></li>
+<li><p><strong>feature_params</strong> (<em>dict</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>‘value’: justified ratio</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>dict</em></p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="mapof.elections.features.simple_approval.max_approval_score">
 <span class="sig-name descname"><span class="pre">max_approval_score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">election</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mapof/elections/features/simple_approval.html#max_approval_score"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.features.simple_approval.max_approval_score" title="Link to this definition">#</a></dt>
@@ -437,6 +477,8 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.features.simple_approval.abstract"><code class="docutils literal notranslate"><span class="pre">abstract()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.features.simple_approval.justified_ratio"><code class="docutils literal notranslate"><span class="pre">justified_ratio()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.features.simple_approval.max_approval_score"><code class="docutils literal notranslate"><span class="pre">max_approval_score()</span></code></a></li>
 </ul>
   </nav></div>

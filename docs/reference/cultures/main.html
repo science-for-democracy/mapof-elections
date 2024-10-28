@@ -181,6 +181,7 @@
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../objects/index.html">Objects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../objects/Election.html">Election</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../objects/ElectionExperiment.html">ElectionExperiment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../objects/ApprovalElection.html">ApprovalElection</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../objects/ApprovalElectionExperiment.html">ApprovalElectionExperiment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../objects/OrdinalElection.html">OrdinalElection</a></li>
@@ -361,6 +362,7 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.cultures.add_approval_culture"><code class="docutils literal notranslate"><span class="pre">add_approval_culture()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.cultures.add_ordinal_culture"><code class="docutils literal notranslate"><span class="pre">add_ordinal_culture()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.cultures.add_pseudo_ordinal_culture"><code class="docutils literal notranslate"><span class="pre">add_pseudo_ordinal_culture()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.cultures.generate_approval_votes"><code class="docutils literal notranslate"><span class="pre">generate_approval_votes()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.cultures.generate_ordinal_votes"><code class="docutils literal notranslate"><span class="pre">generate_ordinal_votes()</span></code></a></li>
 </ul>
@@ -399,6 +401,20 @@ document.write(`
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>name</strong> – Name of the culture, which will be used as culture id.</p></li>
 <li><p><strong>function</strong> (<em>str</em>) – Function that generates the votes.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mapof.elections.cultures.add_pseudo_ordinal_culture">
+<span class="sig-name descname"><span class="pre">add_pseudo_ordinal_culture</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">function</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mapof/elections/cultures.html#add_pseudo_ordinal_culture"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.cultures.add_pseudo_ordinal_culture" title="Link to this definition">#</a></dt>
+<dd><p>Adds a new ordinal culture to the list of available ordinal cultures.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – Name of the culture, which will be used as culture id.</p></li>
+<li><p><strong>function</strong> (<em>str</em>) – Function that generates the frequency matrix.</p></li>
 </ul>
 </dd>
 </dl>
@@ -485,6 +501,7 @@ document.write(`
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.cultures.add_approval_culture"><code class="docutils literal notranslate"><span class="pre">add_approval_culture()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.cultures.add_ordinal_culture"><code class="docutils literal notranslate"><span class="pre">add_ordinal_culture()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.cultures.add_pseudo_ordinal_culture"><code class="docutils literal notranslate"><span class="pre">add_pseudo_ordinal_culture()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.cultures.generate_approval_votes"><code class="docutils literal notranslate"><span class="pre">generate_approval_votes()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.cultures.generate_ordinal_votes"><code class="docutils literal notranslate"><span class="pre">generate_ordinal_votes()</span></code></a></li>
 </ul>

@@ -180,6 +180,7 @@
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../reference/objects/index.html">Objects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/objects/Election.html">Election</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/objects/ElectionExperiment.html">ElectionExperiment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/objects/ApprovalElection.html">ApprovalElection</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/objects/ApprovalElectionExperiment.html">ApprovalElectionExperiment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/objects/OrdinalElection.html">OrdinalElection</a></li>
@@ -313,52 +314,45 @@ document.write(`
                 <article class="bd-article">
                   
   <h1>Source code for mapof.elections.distances</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">copy</span>
-<span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">time</span>
+<span></span><span class="kn">import</span> <span class="nn">logging</span>
 
-<span class="kn">import</span> <span class="nn">mapof.core.persistence.experiment_exports</span> <span class="k">as</span> <span class="nn">exports</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">mapof.core.inner_distances</span> <span class="kn">import</span> <span class="n">map_str_to_func</span>
-<span class="kn">from</span> <span class="nn">mapof.core.objects.Experiment</span> <span class="kn">import</span> <span class="n">Experiment</span>
-<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
-
-<span class="kn">from</span> <span class="nn">mapof.elections.objects.ApprovalElection</span> <span class="kn">import</span> <span class="n">ApprovalElection</span>
-<span class="kn">from</span> <span class="nn">mapof.elections.objects.OrdinalElection</span> <span class="kn">import</span> <span class="n">OrdinalElection</span>
+<span class="kn">from</span> <span class="nn">mapof.core.distances</span> <span class="kn">import</span> <span class="n">map_str_to_func</span>
 
 <span class="kn">from</span> <span class="nn">mapof.elections.distances</span> <span class="kn">import</span> <span class="n">feature_distance</span>
 <span class="kn">from</span> <span class="nn">mapof.elections.distances</span> <span class="kn">import</span> <span class="n">main_approval_distances</span> <span class="k">as</span> <span class="n">mad</span>
 <span class="kn">from</span> <span class="nn">mapof.elections.distances</span> <span class="kn">import</span> <span class="n">main_ordinal_distances</span> <span class="k">as</span> <span class="n">mod</span>
 <span class="kn">from</span> <span class="nn">mapof.elections.distances</span> <span class="kn">import</span> <span class="n">positionwise_infty</span>
+<span class="kn">from</span> <span class="nn">mapof.elections.objects.ApprovalElection</span> <span class="kn">import</span> <span class="n">ApprovalElection</span>
+<span class="kn">from</span> <span class="nn">mapof.elections.objects.OrdinalElection</span> <span class="kn">import</span> <span class="n">OrdinalElection</span>
 
-<span class="n">registered_approval_distances</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;approvalwise&#39;</span><span class="p">:</span> <span class="n">mad</span><span class="o">.</span><span class="n">compute_approvalwise_distance</span><span class="p">,</span>
 
-    <span class="s1">&#39;hamming&#39;</span><span class="p">:</span> <span class="n">mad</span><span class="o">.</span><span class="n">compute_approvalwise_distance</span><span class="p">,</span>  <span class="c1"># unsupported distance</span>
-<span class="p">}</span>
+<span class="kn">from</span> <span class="nn">mapof.elections.distances.register</span> <span class="kn">import</span> \
+    <span class="n">registered_ordinal_election_distances</span><span class="p">,</span> \
+    <span class="n">registered_approval_election_distances</span>
 
-<span class="n">registered_ordinal_distances</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;positionwise_infty&#39;</span><span class="p">:</span> <span class="n">positionwise_infty</span><span class="o">.</span><span class="n">positionwise_size_independent</span><span class="p">,</span>
-    <span class="s1">&#39;feature_l1&#39;</span><span class="p">:</span> <span class="n">feature_distance</span><span class="o">.</span><span class="n">features_vector_l1</span><span class="p">,</span>
-    <span class="s1">&#39;feature_l2&#39;</span><span class="p">:</span> <span class="n">feature_distance</span><span class="o">.</span><span class="n">features_vector_l2</span><span class="p">,</span>
-    <span class="s1">&#39;positionwise&#39;</span><span class="p">:</span> <span class="n">mod</span><span class="o">.</span><span class="n">compute_positionwise_distance</span><span class="p">,</span>
-    <span class="s1">&#39;bordawise&#39;</span><span class="p">:</span> <span class="n">mod</span><span class="o">.</span><span class="n">compute_bordawise_distance</span><span class="p">,</span>
-    <span class="s1">&#39;pairwise&#39;</span><span class="p">:</span> <span class="n">mod</span><span class="o">.</span><span class="n">compute_pairwise_distance</span><span class="p">,</span>
-    <span class="s1">&#39;discrete&#39;</span><span class="p">:</span> <span class="n">mod</span><span class="o">.</span><span class="n">compute_discrete_distance</span><span class="p">,</span>
 
-    <span class="s1">&#39;swap&#39;</span><span class="p">:</span> <span class="n">mod</span><span class="o">.</span><span class="n">compute_swap_distance</span><span class="p">,</span>
-    <span class="s1">&#39;spearman&#39;</span><span class="p">:</span> <span class="n">mod</span><span class="o">.</span><span class="n">compute_spearman_distance</span><span class="p">,</span>
-    <span class="s1">&#39;spearman_aa&#39;</span><span class="p">:</span> <span class="n">mod</span><span class="o">.</span><span class="n">compute_spearman_distance_fastmap</span><span class="p">,</span>
-
-    <span class="s1">&#39;blank&#39;</span><span class="p">:</span> <span class="n">mod</span><span class="o">.</span><span class="n">compute_blank_distance</span><span class="p">,</span>
-
-    <span class="s1">&#39;ilp_spearman&#39;</span><span class="p">:</span> <span class="n">mod</span><span class="o">.</span><span class="n">compute_spearman_distance_ilp_py</span><span class="p">,</span>  <span class="c1"># unsupported distance</span>
-    <span class="s1">&#39;voterlikeness&#39;</span><span class="p">:</span> <span class="n">mod</span><span class="o">.</span><span class="n">compute_voterlikeness_distance</span><span class="p">,</span>  <span class="c1"># unsupported distance</span>
-    <span class="s1">&#39;agg_voterlikeness&#39;</span><span class="p">:</span> <span class="n">mod</span><span class="o">.</span><span class="n">compute_agg_voterlikeness_distance</span><span class="p">,</span>  <span class="c1"># unsupported distance</span>
-    <span class="s1">&#39;pos_swap&#39;</span><span class="p">:</span> <span class="n">mod</span><span class="o">.</span><span class="n">compute_pos_swap_distance</span><span class="p">,</span>  <span class="c1"># unsupported distance</span>
-    <span class="s1">&#39;voter_subelection&#39;</span><span class="p">:</span> <span class="n">mod</span><span class="o">.</span><span class="n">compute_voter_subelection</span><span class="p">,</span>  <span class="c1"># unsupported distance</span>
-    <span class="s1">&#39;candidate_subelection&#39;</span><span class="p">:</span> <span class="n">mod</span><span class="o">.</span><span class="n">compute_candidate_subelection</span><span class="p">,</span>  <span class="c1"># unsupported distance</span>
-<span class="p">}</span>
+<span class="c1"># registered_ordinal_distances = {</span>
+<span class="c1">#     &#39;positionwise_infty&#39;: positionwise_infty.positionwise_size_independent,</span>
+<span class="c1">#     &#39;feature_l1&#39;: feature_distance.features_vector_l1,</span>
+<span class="c1">#     &#39;feature_l2&#39;: feature_distance.features_vector_l2,</span>
+<span class="c1">#     &#39;positionwise&#39;: mod.compute_positionwise_distance,</span>
+<span class="c1">#     &#39;bordawise&#39;: mod.compute_bordawise_distance,</span>
+<span class="c1">#     &#39;pairwise&#39;: mod.compute_pairwise_distance,</span>
+<span class="c1">#     &#39;discrete&#39;: mod.compute_discrete_distance,</span>
+<span class="c1">#</span>
+<span class="c1">#     &#39;swap&#39;: mod.compute_swap_distance,</span>
+<span class="c1">#     &#39;spearman&#39;: mod.compute_spearman_distance,</span>
+<span class="c1">#     &#39;spearman_aa&#39;: mod.compute_spearman_distance_fastmap,</span>
+<span class="c1">#</span>
+<span class="c1">#     &#39;blank&#39;: mod.compute_blank_distance,</span>
+<span class="c1">#</span>
+<span class="c1">#     &#39;ilp_spearman&#39;: mod.compute_spearman_distance_ilp_py,  # unsupported distance</span>
+<span class="c1">#     &#39;voterlikeness&#39;: mod.compute_voterlikeness_distance,  # unsupported distance</span>
+<span class="c1">#     &#39;agg_voterlikeness&#39;: mod.compute_agg_voterlikeness_distance,  # unsupported distance</span>
+<span class="c1">#     &#39;pos_swap&#39;: mod.compute_pos_swap_distance,  # unsupported distance</span>
+<span class="c1">#     &#39;voter_subelection&#39;: mod.compute_voter_subelection,  # unsupported distance</span>
+<span class="c1">#     &#39;candidate_subelection&#39;: mod.compute_candidate_subelection,  # unsupported distance</span>
+<span class="c1"># }</span>
 
 
 <span class="k">def</span> <span class="nf">add_approval_distance</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">function</span><span class="p">:</span> <span class="nb">callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -376,7 +370,7 @@ document.write(`
 <span class="sd">    -------</span>
 <span class="sd">        None.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">registered_approval_distances</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">function</span>
+    <span class="n">registered_approval_election_distances</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">function</span>
 
 
 <span class="k">def</span> <span class="nf">add_ordinal_distance</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">function</span><span class="p">:</span> <span class="nb">callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -394,7 +388,7 @@ document.write(`
 <span class="sd">    -------</span>
 <span class="sd">        None.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">registered_ordinal_distances</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">function</span>
+    <span class="n">registered_ordinal_election_distances</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">function</span>
 
 
 <div class="viewcode-block" id="get_distance">
@@ -449,14 +443,14 @@ document.write(`
 
     <span class="n">inner_distance</span><span class="p">,</span> <span class="n">main_distance</span> <span class="o">=</span> <span class="n">_extract_distance_id</span><span class="p">(</span><span class="n">distance_id</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">main_distance</span> <span class="ow">in</span> <span class="n">registered_approval_distances</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">main_distance</span> <span class="ow">in</span> <span class="n">registered_approval_election_distances</span><span class="p">:</span>
 
         <span class="k">if</span> <span class="n">inner_distance</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">registered_approval_distances</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">main_distance</span><span class="p">)(</span><span class="n">election_1</span><span class="p">,</span>
+            <span class="k">return</span> <span class="n">registered_approval_election_distances</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">main_distance</span><span class="p">)(</span><span class="n">election_1</span><span class="p">,</span>
                                                                     <span class="n">election_2</span><span class="p">,</span>
                                                                     <span class="n">inner_distance</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">registered_approval_distances</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">main_distance</span><span class="p">)(</span><span class="n">election_1</span><span class="p">,</span>
+            <span class="k">return</span> <span class="n">registered_approval_election_distances</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">main_distance</span><span class="p">)(</span><span class="n">election_1</span><span class="p">,</span>
                                                                     <span class="n">election_2</span><span class="p">,</span>
                                                                     <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
@@ -487,14 +481,14 @@ document.write(`
 
     <span class="n">inner_distance</span><span class="p">,</span> <span class="n">main_distance</span> <span class="o">=</span> <span class="n">_extract_distance_id</span><span class="p">(</span><span class="n">distance_id</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">main_distance</span> <span class="ow">in</span> <span class="n">registered_ordinal_distances</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">main_distance</span> <span class="ow">in</span> <span class="n">registered_ordinal_election_distances</span><span class="p">:</span>
 
         <span class="k">if</span> <span class="n">inner_distance</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">registered_ordinal_distances</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">main_distance</span><span class="p">)(</span><span class="n">election_1</span><span class="p">,</span>
+            <span class="k">return</span> <span class="n">registered_ordinal_election_distances</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">main_distance</span><span class="p">)(</span><span class="n">election_1</span><span class="p">,</span>
                                                                    <span class="n">election_2</span><span class="p">,</span>
                                                                    <span class="n">inner_distance</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">registered_ordinal_distances</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">main_distance</span><span class="p">)(</span><span class="n">election_1</span><span class="p">,</span>
+            <span class="k">return</span> <span class="n">registered_ordinal_election_distances</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">main_distance</span><span class="p">)(</span><span class="n">election_1</span><span class="p">,</span>
                                                                    <span class="n">election_2</span><span class="p">,</span>
                                                                    <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
@@ -514,85 +508,10 @@ document.write(`
     <span class="k">return</span> <span class="n">inner_distance</span><span class="p">,</span> <span class="n">main_distance</span>
 
 
-<div class="viewcode-block" id="run_single_process">
-<a class="viewcode-back" href="../../../reference/distances/main.html#mapof.elections.distances.run_single_process">[docs]</a>
-<span class="k">def</span> <span class="nf">run_single_process</span><span class="p">(</span>
-        <span class="n">exp</span><span class="p">:</span> <span class="n">Experiment</span><span class="p">,</span>
-        <span class="n">instances_ids</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
-        <span class="n">distances</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
-        <span class="n">times</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
-        <span class="n">matchings</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
-        <span class="n">safe_mode</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; Single process for computing distances &quot;&quot;&quot;</span>
-
-    <span class="k">for</span> <span class="n">instance_id_1</span><span class="p">,</span> <span class="n">instance_id_2</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">instances_ids</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;Computing distances&#39;</span><span class="p">):</span>
-        <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">safe_mode</span><span class="p">:</span>
-            <span class="n">distance</span> <span class="o">=</span> <span class="n">get_distance</span><span class="p">(</span><span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">exp</span><span class="o">.</span><span class="n">instances</span><span class="p">[</span><span class="n">instance_id_1</span><span class="p">]),</span>
-                                    <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">exp</span><span class="o">.</span><span class="n">instances</span><span class="p">[</span><span class="n">instance_id_2</span><span class="p">]),</span>
-                                    <span class="n">distance_id</span><span class="o">=</span><span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">exp</span><span class="o">.</span><span class="n">distance_id</span><span class="p">))</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">distance</span> <span class="o">=</span> <span class="n">get_distance</span><span class="p">(</span><span class="n">exp</span><span class="o">.</span><span class="n">instances</span><span class="p">[</span><span class="n">instance_id_1</span><span class="p">],</span>
-                                    <span class="n">exp</span><span class="o">.</span><span class="n">instances</span><span class="p">[</span><span class="n">instance_id_2</span><span class="p">],</span>
-                                    <span class="n">distance_id</span><span class="o">=</span><span class="n">exp</span><span class="o">.</span><span class="n">distance_id</span><span class="p">)</span>
-        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">distance</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">tuple</span><span class="p">:</span>
-            <span class="n">distance</span><span class="p">,</span> <span class="n">matching</span> <span class="o">=</span> <span class="n">distance</span>
-            <span class="n">matching</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">matching</span><span class="p">)</span>
-            <span class="n">matchings</span><span class="p">[</span><span class="n">instance_id_1</span><span class="p">][</span><span class="n">instance_id_2</span><span class="p">]</span> <span class="o">=</span> <span class="n">matching</span>
-            <span class="n">matchings</span><span class="p">[</span><span class="n">instance_id_2</span><span class="p">][</span><span class="n">instance_id_1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">matching</span><span class="p">)</span>
-        <span class="n">distances</span><span class="p">[</span><span class="n">instance_id_1</span><span class="p">][</span><span class="n">instance_id_2</span><span class="p">]</span> <span class="o">=</span> <span class="n">distance</span>
-        <span class="n">distances</span><span class="p">[</span><span class="n">instance_id_2</span><span class="p">][</span><span class="n">instance_id_1</span><span class="p">]</span> <span class="o">=</span> <span class="n">distances</span><span class="p">[</span><span class="n">instance_id_1</span><span class="p">][</span><span class="n">instance_id_2</span><span class="p">]</span>
-        <span class="n">times</span><span class="p">[</span><span class="n">instance_id_1</span><span class="p">][</span><span class="n">instance_id_2</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
-        <span class="n">times</span><span class="p">[</span><span class="n">instance_id_2</span><span class="p">][</span><span class="n">instance_id_1</span><span class="p">]</span> <span class="o">=</span> <span class="n">times</span><span class="p">[</span><span class="n">instance_id_1</span><span class="p">][</span><span class="n">instance_id_2</span><span class="p">]</span></div>
-
-
-
-<div class="viewcode-block" id="run_multiple_processes">
-<a class="viewcode-back" href="../../../reference/distances/main.html#mapof.elections.distances.run_multiple_processes">[docs]</a>
-<span class="k">def</span> <span class="nf">run_multiple_processes</span><span class="p">(</span>
-        <span class="n">experiment</span><span class="p">:</span> <span class="n">Experiment</span><span class="p">,</span>
-        <span class="n">instances_ids</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
-        <span class="n">distances</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
-        <span class="n">times</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
-        <span class="n">matchings</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
-        <span class="n">process_id</span><span class="p">:</span> <span class="nb">int</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; Single process for computing distances &quot;&quot;&quot;</span>
-
-    <span class="k">for</span> <span class="n">instance_id_1</span><span class="p">,</span> <span class="n">instance_id_2</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">instances_ids</span><span class="p">,</span>
-                                             <span class="n">desc</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Computing distances of thread </span><span class="si">{</span><span class="n">process_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
-                                             <span class="n">position</span><span class="o">=</span><span class="n">process_id</span><span class="p">,</span>
-                                             <span class="n">leave</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-        <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
-        <span class="n">distance</span> <span class="o">=</span> <span class="n">get_distance</span><span class="p">(</span><span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">experiment</span><span class="o">.</span><span class="n">instances</span><span class="p">[</span><span class="n">instance_id_1</span><span class="p">]),</span>
-                                <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">experiment</span><span class="o">.</span><span class="n">instances</span><span class="p">[</span><span class="n">instance_id_2</span><span class="p">]),</span>
-                                <span class="n">distance_id</span><span class="o">=</span><span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">experiment</span><span class="o">.</span><span class="n">distance_id</span><span class="p">))</span>
-        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">distance</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">tuple</span><span class="p">:</span>
-            <span class="n">distance</span><span class="p">,</span> <span class="n">matching</span> <span class="o">=</span> <span class="n">distance</span>
-            <span class="n">matching</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">matching</span><span class="p">)</span>
-            <span class="n">matchings</span><span class="p">[</span><span class="n">instance_id_1</span><span class="p">][</span><span class="n">instance_id_2</span><span class="p">]</span> <span class="o">=</span> <span class="n">matching</span>
-            <span class="n">matchings</span><span class="p">[</span><span class="n">instance_id_2</span><span class="p">][</span><span class="n">instance_id_1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">matching</span><span class="p">)</span>
-        <span class="n">distances</span><span class="p">[</span><span class="n">instance_id_1</span><span class="p">][</span><span class="n">instance_id_2</span><span class="p">]</span> <span class="o">=</span> <span class="n">distance</span>
-        <span class="n">distances</span><span class="p">[</span><span class="n">instance_id_2</span><span class="p">][</span><span class="n">instance_id_1</span><span class="p">]</span> <span class="o">=</span> <span class="n">distances</span><span class="p">[</span><span class="n">instance_id_1</span><span class="p">][</span><span class="n">instance_id_2</span><span class="p">]</span>
-        <span class="n">times</span><span class="p">[</span><span class="n">instance_id_1</span><span class="p">][</span><span class="n">instance_id_2</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
-        <span class="n">times</span><span class="p">[</span><span class="n">instance_id_2</span><span class="p">][</span><span class="n">instance_id_1</span><span class="p">]</span> <span class="o">=</span> <span class="n">times</span><span class="p">[</span><span class="n">instance_id_1</span><span class="p">][</span><span class="n">instance_id_2</span><span class="p">]</span>
-
-    <span class="k">if</span> <span class="n">experiment</span><span class="o">.</span><span class="n">is_exported</span><span class="p">:</span>
-        <span class="n">exports</span><span class="o">.</span><span class="n">export_distances_multiple_processes</span><span class="p">(</span><span class="n">experiment</span><span class="p">,</span>
-                                                    <span class="n">instances_ids</span><span class="p">,</span>
-                                                    <span class="n">distances</span><span class="p">,</span>
-                                                    <span class="n">times</span><span class="p">,</span>
-                                                    <span class="n">process_id</span><span class="p">)</span></div>
-
-
-
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s1">&#39;get_distance&#39;</span><span class="p">,</span>
     <span class="s1">&#39;get_approval_distance&#39;</span><span class="p">,</span>
     <span class="s1">&#39;get_ordinal_distance&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;run_single_process&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;run_multiple_processes&#39;</span>
 <span class="p">]</span>
 </pre></div>
 

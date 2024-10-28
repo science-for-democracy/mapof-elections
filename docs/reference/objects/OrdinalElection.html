@@ -181,6 +181,7 @@
 </details></li>
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="index.html">Objects</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="Election.html">Election</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ElectionExperiment.html">ElectionExperiment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ApprovalElection.html">ApprovalElection</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ApprovalElectionExperiment.html">ApprovalElectionExperiment</a></li>
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">OrdinalElection</a></li>
@@ -367,7 +368,6 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.OrdinalElection.OrdinalElection.is_condorcet"><code class="docutils literal notranslate"><span class="pre">OrdinalElection.is_condorcet()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.OrdinalElection.OrdinalElection.prepare_instance"><code class="docutils literal notranslate"><span class="pre">OrdinalElection.prepare_instance()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.OrdinalElection.OrdinalElection.votes_to_agg_voterlikeness_vector"><code class="docutils literal notranslate"><span class="pre">OrdinalElection.votes_to_agg_voterlikeness_vector()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.OrdinalElection.OrdinalElection.votes_to_candidatelikeness_original_vectors"><code class="docutils literal notranslate"><span class="pre">OrdinalElection.votes_to_candidatelikeness_original_vectors()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.OrdinalElection.OrdinalElection.votes_to_pairwise_matrix"><code class="docutils literal notranslate"><span class="pre">OrdinalElection.votes_to_pairwise_matrix()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.OrdinalElection.OrdinalElection.votes_to_voterlikeness_matrix"><code class="docutils literal notranslate"><span class="pre">OrdinalElection.votes_to_voterlikeness_matrix()</span></code></a></li>
 </ul>
@@ -430,12 +430,6 @@ document.write(`
 <dt class="sig sig-object py" id="mapof.elections.objects.OrdinalElection.OrdinalElection.votes_to_agg_voterlikeness_vector">
 <span class="sig-name descname"><span class="pre">votes_to_agg_voterlikeness_vector</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mapof/elections/objects/OrdinalElection.html#OrdinalElection.votes_to_agg_voterlikeness_vector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.objects.OrdinalElection.OrdinalElection.votes_to_agg_voterlikeness_vector" title="Link to this definition">#</a></dt>
 <dd><p>convert VOTES to Borda vector</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="mapof.elections.objects.OrdinalElection.OrdinalElection.votes_to_candidatelikeness_original_vectors">
-<span class="sig-name descname"><span class="pre">votes_to_candidatelikeness_original_vectors</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../../_modules/mapof/elections/objects/OrdinalElection.html#OrdinalElection.votes_to_candidatelikeness_original_vectors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.objects.OrdinalElection.OrdinalElection.votes_to_candidatelikeness_original_vectors" title="Link to this definition">#</a></dt>
-<dd><p>convert VOTES to candidate-likeness VECTORS</p>
 </dd></dl>
 
 <dl class="py method">
@@ -513,7 +507,6 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.OrdinalElection.OrdinalElection.is_condorcet"><code class="docutils literal notranslate"><span class="pre">OrdinalElection.is_condorcet()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.OrdinalElection.OrdinalElection.prepare_instance"><code class="docutils literal notranslate"><span class="pre">OrdinalElection.prepare_instance()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.OrdinalElection.OrdinalElection.votes_to_agg_voterlikeness_vector"><code class="docutils literal notranslate"><span class="pre">OrdinalElection.votes_to_agg_voterlikeness_vector()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.OrdinalElection.OrdinalElection.votes_to_candidatelikeness_original_vectors"><code class="docutils literal notranslate"><span class="pre">OrdinalElection.votes_to_candidatelikeness_original_vectors()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.OrdinalElection.OrdinalElection.votes_to_pairwise_matrix"><code class="docutils literal notranslate"><span class="pre">OrdinalElection.votes_to_pairwise_matrix()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.OrdinalElection.OrdinalElection.votes_to_voterlikeness_matrix"><code class="docutils literal notranslate"><span class="pre">OrdinalElection.votes_to_voterlikeness_matrix()</span></code></a></li>
 </ul>

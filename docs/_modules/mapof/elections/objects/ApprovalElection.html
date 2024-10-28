@@ -180,6 +180,7 @@
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/objects/index.html">Objects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/Election.html">Election</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/ElectionExperiment.html">ElectionExperiment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/ApprovalElection.html">ApprovalElection</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/ApprovalElectionExperiment.html">ApprovalElectionExperiment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/OrdinalElection.html">OrdinalElection</a></li>
@@ -313,19 +314,19 @@ document.write(`
                 <article class="bd-article">
                   
   <h1>Source code for mapof.elections.objects.ApprovalElection</h1><div class="highlight"><pre>
-<span></span><span class="ch">#!/usr/bin/env python</span>
-<span class="kn">import</span> <span class="nn">logging</span>
+<span></span><span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
 
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
-<span class="kn">from</span> <span class="nn">mapof.elections.cultures</span> <span class="kn">import</span> <span class="n">generate_approval_votes</span>
-<span class="kn">from</span> <span class="nn">mapof.elections.objects.Election</span> <span class="kn">import</span> <span class="n">Election</span>
-<span class="kn">from</span> <span class="nn">mapof.core.inner_distances</span> <span class="kn">import</span> <span class="n">hamming</span>
+<span class="kn">from</span> <span class="nn">mapof.core.distances</span> <span class="kn">import</span> <span class="n">hamming</span>
 <span class="kn">from</span> <span class="nn">mapof.core.utils</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">import</span> <span class="nn">mapof.elections.persistence.election_imports</span> <span class="k">as</span> <span class="nn">imports</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
 <span class="kn">import</span> <span class="nn">mapof.elections.persistence.election_exports</span> <span class="k">as</span> <span class="nn">exports</span>
+<span class="kn">import</span> <span class="nn">mapof.elections.persistence.election_imports</span> <span class="k">as</span> <span class="nn">imports</span>
+<span class="kn">from</span> <span class="nn">mapof.elections.cultures</span> <span class="kn">import</span> <span class="n">generate_approval_votes</span>
 <span class="kn">from</span> <span class="nn">mapof.elections.cultures.params</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">mapof.elections.objects.Election</span> <span class="kn">import</span> <span class="n">Election</span>
 
 
 <div class="viewcode-block" id="ApprovalElection">
@@ -351,6 +352,7 @@ document.write(`
 
         <span class="bp">self</span><span class="o">.</span><span class="n">approvalwise_vector</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">reverse_approvals</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">candidatelikeness_original_vectors</span> <span class="o">=</span> <span class="p">[]</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">import_approval_election</span><span class="p">()</span>
 
@@ -465,6 +467,26 @@ document.write(`
             <span class="n">exports</span><span class="o">.</span><span class="n">export_distances</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">object_type</span><span class="o">=</span><span class="s1">&#39;candidate&#39;</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">distances</span>
+
+    <span class="k">def</span> <span class="nf">get_candidatelikeness_original_vectors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">is_recomputed</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">candidatelikeness_original_vectors</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> \
+                <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">candidatelikeness_original_vectors</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> \
+                <span class="ow">and</span> <span class="ow">not</span> <span class="n">is_recomputed</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">candidatelikeness_original_vectors</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_voted_to_candidatelikeness_original_vectors</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_voted_to_candidatelikeness_original_vectors</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; convert VOTES to candidate-likeness VECTORS &quot;&quot;&quot;</span>
+        <span class="n">matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">])</span>
+
+        <span class="k">for</span> <span class="n">c_1</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">c_2</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">vote</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">votes</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">c_1</span> <span class="ow">in</span> <span class="n">vote</span> <span class="ow">and</span> <span class="n">c_2</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">vote</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">c_1</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">vote</span> <span class="ow">and</span> <span class="n">c_2</span> <span class="ow">in</span> <span class="n">vote</span><span class="p">):</span>
+                        <span class="n">matrix</span><span class="p">[</span><span class="n">c_1</span><span class="p">][</span><span class="n">c_2</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">candidatelikeness_original_vectors</span> <span class="o">=</span> <span class="n">matrix</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_voters</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">candidatelikeness_original_vectors</span> <span class="o">=</span> <span class="n">candidatelikeness_original_vectors</span>
+        <span class="k">return</span> <span class="n">candidatelikeness_original_vectors</span>
 
     <span class="k">def</span> <span class="nf">compute_distances</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">object_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">distance_id</span><span class="o">=</span><span class="s1">&#39;hamming&#39;</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">object_type</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>

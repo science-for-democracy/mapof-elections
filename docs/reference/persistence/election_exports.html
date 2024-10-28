@@ -181,6 +181,7 @@
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../objects/index.html">Objects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../objects/Election.html">Election</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../objects/ElectionExperiment.html">ElectionExperiment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../objects/ApprovalElection.html">ApprovalElection</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../objects/ApprovalElectionExperiment.html">ApprovalElectionExperiment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../objects/OrdinalElection.html">OrdinalElection</a></li>
@@ -362,6 +363,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.persistence.election_exports.export_approval_election"><code class="docutils literal notranslate"><span class="pre">export_approval_election()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.persistence.election_exports.export_coordinates"><code class="docutils literal notranslate"><span class="pre">export_coordinates()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.persistence.election_exports.export_distances"><code class="docutils literal notranslate"><span class="pre">export_distances()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.persistence.election_exports.export_frequency_matrices"><code class="docutils literal notranslate"><span class="pre">export_frequency_matrices()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.persistence.election_exports.export_ordinal_election"><code class="docutils literal notranslate"><span class="pre">export_ordinal_election()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.persistence.election_exports.export_votes_to_file"><code class="docutils literal notranslate"><span class="pre">export_votes_to_file()</span></code></a></li>
 </ul>
@@ -379,7 +381,7 @@ document.write(`
 <span id="election-exports"></span><h1>Election Exports<a class="headerlink" href="#module-mapof.elections.persistence.election_exports" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="mapof.elections.persistence.election_exports.export_approval_election">
-<span class="sig-name descname"><span class="pre">export_approval_election</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">election</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_aggregated</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mapof/elections/persistence/election_exports.html#export_approval_election"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.persistence.election_exports.export_approval_election" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">export_approval_election</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">election</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_aggregated</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../../_modules/mapof/elections/persistence/election_exports.html#export_approval_election"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.persistence.election_exports.export_approval_election" title="Link to this definition">#</a></dt>
 <dd><p>Exports approval election in an .app file</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -387,6 +389,9 @@ document.write(`
 <li><p><strong>election</strong> – Election.</p></li>
 <li><p><strong>is_aggregated</strong> (<em>bool</em>) – If True then votes are stored in aggregated way.</p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>None</em></p>
 </dd>
 </dl>
 </dd></dl>
@@ -402,6 +407,9 @@ document.write(`
 <li><p><strong>object_type</strong> (<em>str</em>) – Object type.</p></li>
 </ul>
 </dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>None</em></p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -416,12 +424,29 @@ document.write(`
 <li><p><strong>object_type</strong> (<em>str</em>) – Object type.</p></li>
 </ul>
 </dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>None</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mapof.elections.persistence.election_exports.export_frequency_matrices">
+<span class="sig-name descname"><span class="pre">export_frequency_matrices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">experiment</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../../_modules/mapof/elections/persistence/election_exports.html#export_frequency_matrices"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.persistence.election_exports.export_frequency_matrices" title="Link to this definition">#</a></dt>
+<dd><p>Exports frequency matrices to csv files.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>experiment</strong> – Experiment.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>None</em></p>
+</dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="mapof.elections.persistence.election_exports.export_ordinal_election">
-<span class="sig-name descname"><span class="pre">export_ordinal_election</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">election</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_aggregated</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mapof/elections/persistence/election_exports.html#export_ordinal_election"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.persistence.election_exports.export_ordinal_election" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">export_ordinal_election</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">election</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_aggregated</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../../_modules/mapof/elections/persistence/election_exports.html#export_ordinal_election"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.persistence.election_exports.export_ordinal_election" title="Link to this definition">#</a></dt>
 <dd><p>Exports ordinal election to a .soc file</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -429,6 +454,9 @@ document.write(`
 <li><p><strong>election</strong> – Election.</p></li>
 <li><p><strong>is_aggregated</strong> (<em>bool</em>) – If True then votes are stored in aggregated way.</p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>None</em></p>
 </dd>
 </dl>
 </dd></dl>
@@ -507,6 +535,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.persistence.election_exports.export_approval_election"><code class="docutils literal notranslate"><span class="pre">export_approval_election()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.persistence.election_exports.export_coordinates"><code class="docutils literal notranslate"><span class="pre">export_coordinates()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.persistence.election_exports.export_distances"><code class="docutils literal notranslate"><span class="pre">export_distances()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.persistence.election_exports.export_frequency_matrices"><code class="docutils literal notranslate"><span class="pre">export_frequency_matrices()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.persistence.election_exports.export_ordinal_election"><code class="docutils literal notranslate"><span class="pre">export_ordinal_election()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.persistence.election_exports.export_votes_to_file"><code class="docutils literal notranslate"><span class="pre">export_votes_to_file()</span></code></a></li>
 </ul>

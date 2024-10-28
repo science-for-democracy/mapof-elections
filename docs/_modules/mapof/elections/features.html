@@ -180,6 +180,7 @@
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../reference/objects/index.html">Objects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/objects/Election.html">Election</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/objects/ElectionExperiment.html">ElectionExperiment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/objects/ApprovalElection.html">ApprovalElection</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/objects/ApprovalElectionExperiment.html">ApprovalElectionExperiment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/objects/OrdinalElection.html">OrdinalElection</a></li>
@@ -313,15 +314,10 @@ document.write(`
                 <article class="bd-article">
                   
   <h1>Source code for mapof.elections.features</h1><div class="highlight"><pre>
-<span></span><span class="ch">#!/usr/bin/env python</span>
-
-<span class="kn">from</span> <span class="nn">mapof.core.glossary</span> <span class="kn">import</span> <span class="n">MAIN_GLOBAL_FEATUERS</span>
-<span class="kn">import</span> <span class="nn">mapof.core.features</span> <span class="k">as</span> <span class="nn">core_features</span>
-
+<span></span>
 <span class="kn">import</span> <span class="nn">mapof.elections.features.approx</span> <span class="k">as</span> <span class="nn">approx</span>
 <span class="kn">import</span> <span class="nn">mapof.elections.features.banzhaf_cc</span> <span class="k">as</span> <span class="nn">banzhaf_cc</span>
 <span class="kn">import</span> <span class="nn">mapof.elections.features.cohesive</span> <span class="k">as</span> <span class="nn">cohesive</span>
-<span class="kn">import</span> <span class="nn">mapof.elections.features.distortion</span> <span class="k">as</span> <span class="nn">distortion</span>
 <span class="kn">import</span> <span class="nn">mapof.elections.features.diversity</span> <span class="k">as</span> <span class="nn">diversity</span>
 <span class="kn">import</span> <span class="nn">mapof.elections.features.entropy</span> <span class="k">as</span> <span class="nn">entropy</span>
 <span class="kn">import</span> <span class="nn">mapof.elections.features.dap_approximate</span> <span class="k">as</span> <span class="nn">dap_approx</span>
@@ -333,104 +329,11 @@ document.write(`
 <span class="kn">import</span> <span class="nn">mapof.elections.features.ranging_cc</span> <span class="k">as</span> <span class="nn">ranging_cc</span>
 <span class="kn">import</span> <span class="nn">mapof.elections.features.scores</span> <span class="k">as</span> <span class="nn">scores</span>
 <span class="kn">import</span> <span class="nn">mapof.elections.features.vc_diversity</span> <span class="k">as</span> <span class="nn">vcd</span>
+<span class="kn">import</span> <span class="nn">mapof.elections.features.abc_features</span> <span class="k">as</span> <span class="nn">approval_rule_features</span>
 
-<span class="n">registered_approval_features</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;max_approval_score&#39;</span><span class="p">:</span> <span class="n">simple_approval</span><span class="o">.</span><span class="n">max_approval_score</span><span class="p">,</span>
-
-    <span class="s1">&#39;number_of_cohesive_groups&#39;</span><span class="p">:</span> <span class="n">cohesive</span><span class="o">.</span><span class="n">count_number_of_cohesive_groups</span><span class="p">,</span>
-    <span class="s1">&#39;number_of_cohesive_groups_brute&#39;</span><span class="p">:</span> <span class="n">cohesive</span><span class="o">.</span><span class="n">count_number_of_cohesive_groups_brute</span><span class="p">,</span>
-
-    <span class="s1">&#39;proportionality_degree_av&#39;</span><span class="p">:</span> <span class="n">prop_deg</span><span class="o">.</span><span class="n">proportionality_degree_av</span><span class="p">,</span>
-    <span class="s1">&#39;proportionality_degree_pav&#39;</span><span class="p">:</span> <span class="n">prop_deg</span><span class="o">.</span><span class="n">proportionality_degree_pav</span><span class="p">,</span>
-    <span class="s1">&#39;proportionality_degree_cc&#39;</span><span class="p">:</span> <span class="n">prop_deg</span><span class="o">.</span><span class="n">proportionality_degree_cc</span><span class="p">,</span>
-
-    <span class="s1">&#39;cohesiveness&#39;</span><span class="p">:</span> <span class="n">cohesive</span><span class="o">.</span><span class="n">count_largest_cohesiveness_level_l_of_cohesive_group</span><span class="p">,</span>
-    <span class="c1"># unsupported feature</span>
-    <span class="s1">&#39;ejr&#39;</span><span class="p">:</span> <span class="n">jr</span><span class="o">.</span><span class="n">test_ejr</span><span class="p">,</span>  <span class="c1"># unsupported feature</span>
-    <span class="s1">&#39;justified_ratio&#39;</span><span class="p">:</span> <span class="n">simple_approval</span><span class="o">.</span><span class="n">justified_ratio</span><span class="p">,</span>  <span class="c1"># unsupported feature</span>
-    <span class="s1">&#39;abstract&#39;</span><span class="p">:</span> <span class="n">simple_approval</span><span class="o">.</span><span class="n">abstract</span><span class="p">,</span>  <span class="c1"># unsupported feature</span>
-<span class="p">}</span>
-
-<span class="n">registered_ordinal_features</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;highest_borda_score&#39;</span><span class="p">:</span> <span class="n">scores</span><span class="o">.</span><span class="n">highest_borda_score</span><span class="p">,</span>
-    <span class="s1">&#39;highest_plurality_score&#39;</span><span class="p">:</span> <span class="n">scores</span><span class="o">.</span><span class="n">highest_plurality_score</span><span class="p">,</span>
-    <span class="s1">&#39;highest_copeland_score&#39;</span><span class="p">:</span> <span class="n">scores</span><span class="o">.</span><span class="n">highest_copeland_score</span><span class="p">,</span>
-    <span class="s1">&#39;lowest_dodgson_score&#39;</span><span class="p">:</span> <span class="n">scores</span><span class="o">.</span><span class="n">lowest_dodgson_score</span><span class="p">,</span>
-    <span class="s1">&#39;highest_cc_score&#39;</span><span class="p">:</span> <span class="n">scores</span><span class="o">.</span><span class="n">highest_cc_score</span><span class="p">,</span>
-    <span class="s1">&#39;highest_hb_score&#39;</span><span class="p">:</span> <span class="n">scores</span><span class="o">.</span><span class="n">highest_hb_score</span><span class="p">,</span>
-    <span class="s1">&#39;highest_pav_score&#39;</span><span class="p">:</span> <span class="n">scores</span><span class="o">.</span><span class="n">highest_pav_score</span><span class="p">,</span>
-    <span class="s1">&#39;greedy_approx_cc_score&#39;</span><span class="p">:</span> <span class="n">approx</span><span class="o">.</span><span class="n">get_greedy_approx_cc_score</span><span class="p">,</span>
-    <span class="s1">&#39;removal_approx_cc_score&#39;</span><span class="p">:</span> <span class="n">approx</span><span class="o">.</span><span class="n">get_removal_approx_cc_score</span><span class="p">,</span>
-    <span class="s1">&#39;greedy_approx_hb_score&#39;</span><span class="p">:</span> <span class="n">approx</span><span class="o">.</span><span class="n">get_greedy_approx_hb_score</span><span class="p">,</span>
-    <span class="s1">&#39;removal_approx_hb_score&#39;</span><span class="p">:</span> <span class="n">approx</span><span class="o">.</span><span class="n">get_removal_approx_hb_score</span><span class="p">,</span>
-    <span class="s1">&#39;greedy_approx_pav_score&#39;</span><span class="p">:</span> <span class="n">approx</span><span class="o">.</span><span class="n">get_greedy_approx_pav_score</span><span class="p">,</span>
-    <span class="s1">&#39;removal_approx_pav_score&#39;</span><span class="p">:</span> <span class="n">approx</span><span class="o">.</span><span class="n">get_removal_approx_pav_score</span><span class="p">,</span>
-    <span class="s1">&#39;banzhaf_cc_score&#39;</span><span class="p">:</span> <span class="n">banzhaf_cc</span><span class="o">.</span><span class="n">get_banzhaf_cc_score</span><span class="p">,</span>
-    <span class="s1">&#39;ranging_cc_score&#39;</span><span class="p">:</span> <span class="n">ranging_cc</span><span class="o">.</span><span class="n">get_ranging_cc_score</span><span class="p">,</span>
-    <span class="s1">&#39;num_of_diff_votes&#39;</span><span class="p">:</span> <span class="n">vcd</span><span class="o">.</span><span class="n">num_of_diff_votes</span><span class="p">,</span>
-    <span class="s1">&#39;borda_diversity&#39;</span><span class="p">:</span> <span class="n">vcd</span><span class="o">.</span><span class="n">borda_diversity</span><span class="p">,</span>
-    <span class="s1">&#39;borda_std&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">borda_std</span><span class="p">,</span>
-    <span class="s1">&#39;borda_range&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">borda_range</span><span class="p">,</span>
-    <span class="s1">&#39;borda_gini&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">borda_gini</span><span class="p">,</span>
-    <span class="s1">&#39;borda_meandev&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">borda_meandev</span><span class="p">,</span>
-    <span class="s1">&#39;cand_dom_dist_mean&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">cand_dom_dist_mean</span><span class="p">,</span>
-    <span class="s1">&#39;cand_dom_dist_std&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">cand_dom_dist_std</span><span class="p">,</span>
-    <span class="s1">&#39;cand_pos_dist_std&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">cand_pos_dist_std</span><span class="p">,</span>
-    <span class="s1">&#39;cand_pos_dist_gini&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">cand_pos_dist_gini</span><span class="p">,</span>
-    <span class="s1">&#39;cand_pos_dist_meandev&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">cand_pos_dist_meandev</span><span class="p">,</span>
-    <span class="s1">&#39;med_cands_summed&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">med_cands_summed</span><span class="p">,</span>
-    <span class="s1">&#39;vote_dist_mean&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">vote_dist_mean</span><span class="p">,</span>
-    <span class="s1">&#39;vote_dist_max&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">vote_dist_max</span><span class="p">,</span>
-    <span class="s1">&#39;vote_dist_med&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">vote_dist_med</span><span class="p">,</span>
-    <span class="s1">&#39;vote_dist_gini&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">vote_dist_gini</span><span class="p">,</span>
-    <span class="s1">&#39;vote_sqr_dist_mean&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">vote_sqr_dist_mean</span><span class="p">,</span>
-    <span class="s1">&#39;vote_sqr_dist_med&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">vote_sqr_dist_med</span><span class="p">,</span>
-    <span class="s1">&#39;vote_diversity_Karpov&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">vote_diversity_Karpov</span><span class="p">,</span>
-    <span class="s1">&#39;greedy_kKemenys_summed&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">greedy_kKemenys_summed</span><span class="p">,</span>
-    <span class="s1">&#39;greedy_2kKemenys_summed&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">greedy_2kKemenys_summed</span><span class="p">,</span>
-    <span class="s1">&#39;greedy_kKemenys_divk_summed&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">greedy_kKemenys_divk_summed</span><span class="p">,</span>
-    <span class="s1">&#39;polarization_1by2Kemenys&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">polarization_1by2Kemenys</span><span class="p">,</span>
-    <span class="s1">&#39;greedy_kmeans_summed&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">greedy_kmeans_summed</span><span class="p">,</span>
-    <span class="s1">&#39;support_pairs&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">support_pairs</span><span class="p">,</span>
-    <span class="s1">&#39;support_triplets&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">support_triplets</span><span class="p">,</span>
-    <span class="s1">&#39;support_votes&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">support_votes</span><span class="p">,</span>
-    <span class="s1">&#39;support_diversity_summed&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">support_diversity_summed</span><span class="p">,</span>
-    <span class="s1">&#39;support_diversity_normed_summed&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">support_diversity_normed_summed</span><span class="p">,</span>
-    <span class="s1">&#39;support_diversity_normed2_summed&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">support_diversity_normed2_summed</span><span class="p">,</span>
-    <span class="s1">&#39;support_diversity_normed3_summed&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">support_diversity_normed3_summed</span><span class="p">,</span>
-    <span class="s1">&#39;dist_to_Borda_mean&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">dist_to_Borda_mean</span><span class="p">,</span>
-    <span class="s1">&#39;dist_to_Kemeny_mean&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">dist_to_Kemeny_mean</span><span class="p">,</span>
-    <span class="s1">&#39;borda_spread&#39;</span><span class="p">:</span> <span class="n">scores</span><span class="o">.</span><span class="n">borda_spread</span><span class="p">,</span>
-    <span class="s1">&#39;Entropy&#39;</span><span class="p">:</span> <span class="n">entropy</span><span class="o">.</span><span class="n">entropy</span><span class="p">,</span>
-    <span class="s1">&#39;Agreement&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">agreement_index</span><span class="p">,</span>
-    <span class="s1">&#39;Diversity&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">diversity_index</span><span class="p">,</span>
-    <span class="s1">&#39;Polarization&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="o">.</span><span class="n">polarization_index</span><span class="p">,</span>
-    <span class="s1">&#39;AgreementApprox&#39;</span><span class="p">:</span> <span class="n">dap_approx</span><span class="o">.</span><span class="n">agreement_index</span><span class="p">,</span>
-    <span class="s1">&#39;DiversityApprox&#39;</span><span class="p">:</span> <span class="n">dap_approx</span><span class="o">.</span><span class="n">diversity_index</span><span class="p">,</span>
-    <span class="s1">&#39;PolarizationApprox&#39;</span><span class="p">:</span> <span class="n">dap_approx</span><span class="o">.</span><span class="n">polarization_index</span><span class="p">,</span>
-
-    <span class="s1">&#39;partylist&#39;</span><span class="p">:</span> <span class="n">partylist</span><span class="o">.</span><span class="n">partylistdistance</span><span class="p">,</span>
-
-    <span class="s1">&#39;rand_approx_pav_score&#39;</span><span class="p">:</span> <span class="n">approx</span><span class="o">.</span><span class="n">get_rand_approx_pav_score</span><span class="p">,</span>  <span class="c1"># unsupported feature</span>
-<span class="p">}</span>
-
-
-<div class="viewcode-block" id="get_global_feature">
-<a class="viewcode-back" href="../../../reference/features/main.html#mapof.elections.features.get_global_feature">[docs]</a>
-<span class="k">def</span> <span class="nf">get_global_feature</span><span class="p">(</span><span class="n">feature_id</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; Global feature depends on all instances &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">feature_id</span> <span class="ow">in</span> <span class="n">MAIN_GLOBAL_FEATUERS</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">core_features</span><span class="o">.</span><span class="n">feature_id</span>
-
-    <span class="k">return</span> <span class="p">{</span>
-            <span class="s1">&#39;distortion_from_all&#39;</span><span class="p">:</span> <span class="n">distortion</span><span class="o">.</span><span class="n">distortion_from_all</span><span class="p">,</span> <span class="c1"># unsupported feature</span>
-            <span class="s1">&#39;avg_distortion_from_guardians&#39;</span><span class="p">:</span> <span class="n">distortion</span><span class="o">.</span><span class="n">avg_distortion_from_guardians</span><span class="p">,</span>
-            <span class="c1"># unsupported feature</span>
-            <span class="s1">&#39;worst_distortion_from_guardians&#39;</span><span class="p">:</span> <span class="n">distortion</span><span class="o">.</span><span class="n">worst_distortion_from_guardians</span><span class="p">,</span>
-            <span class="c1"># unsupported feature</span>
-            <span class="s1">&#39;distortion&#39;</span><span class="p">:</span> <span class="n">distortion</span><span class="p">,</span>  <span class="c1"># unsupported feature</span>
-            <span class="s1">&#39;monotonicity_triplets&#39;</span><span class="p">:</span> <span class="n">distortion</span><span class="o">.</span><span class="n">monotonicity_triplets</span><span class="p">,</span>  <span class="c1"># unsupported feature</span>
-            <span class="p">}</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">feature_id</span><span class="p">)</span></div>
+<span class="kn">from</span> <span class="nn">mapof.elections.features.register</span> <span class="kn">import</span> \
+    <span class="n">registered_ordinal_election_features</span><span class="p">,</span> \
+    <span class="n">registered_approval_election_features</span>
 
 
 
@@ -439,10 +342,10 @@ document.write(`
 <span class="k">def</span> <span class="nf">get_local_feature</span><span class="p">(</span><span class="n">feature_id</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Local feature depends only on a single instance &quot;&quot;&quot;</span>
 
-    <span class="k">if</span> <span class="n">feature_id</span> <span class="ow">in</span> <span class="n">registered_approval_features</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">registered_approval_features</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">feature_id</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">feature_id</span> <span class="ow">in</span> <span class="n">registered_ordinal_features</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">registered_ordinal_features</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">feature_id</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">feature_id</span> <span class="ow">in</span> <span class="n">registered_approval_election_features</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">registered_approval_election_features</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">feature_id</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">feature_id</span> <span class="ow">in</span> <span class="n">registered_ordinal_election_features</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">registered_ordinal_election_features</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">feature_id</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Incorrect feature id: </span><span class="si">{</span><span class="n">feature_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
 
@@ -465,7 +368,7 @@ document.write(`
 <span class="sd">    -------</span>
 <span class="sd">        None</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">registered_approval_features</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">function</span></div>
+    <span class="n">registered_approval_election_features</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">function</span></div>
 
 
 
@@ -486,16 +389,16 @@ document.write(`
 <span class="sd">    -------</span>
 <span class="sd">        None</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">registered_ordinal_features</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">function</span></div>
+    <span class="n">registered_ordinal_election_features</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">function</span></div>
 
 
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s1">&#39;get_global_feature&#39;</span><span class="p">,</span>
     <span class="s1">&#39;get_local_feature&#39;</span><span class="p">,</span>
     <span class="s1">&#39;add_approval_feature&#39;</span><span class="p">,</span>
     <span class="s1">&#39;add_ordinal_feature&#39;</span>
 <span class="p">]</span>
+
 </pre></div>
 
                 </article>

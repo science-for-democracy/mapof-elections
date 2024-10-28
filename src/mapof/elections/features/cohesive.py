@@ -3,6 +3,8 @@ import logging
 import time
 from collections import defaultdict
 
+from mapof.elections.features.register import register_approval_election_feature
+
 from numpy import ceil
 
 try:
@@ -12,6 +14,7 @@ except Exception:
     pulp = None
 
 
+@register_approval_election_feature('number_of_cohesive_groups_brute')
 def count_number_of_cohesive_groups_brute(
     election,
     l: int = 1,
@@ -55,7 +58,7 @@ def newton(n: int, k: int):
         answer //= i
     return answer
 
-
+@register_approval_election_feature('number_of_cohesive_groups')
 def count_number_of_cohesive_groups(election, l: int = 1,
                                     committee_size: int = 10):
     if l > 1:
@@ -80,6 +83,7 @@ def count_number_of_cohesive_groups(election, l: int = 1,
 ####################################################################################################
 ####################################################################################################
 
+@register_approval_election_feature('cohesiveness')
 def count_largest_cohesiveness_level_l_of_cohesive_group(election, feature_params):
     committee_size = feature_params['committee_size']
     l_ans = 0

@@ -1,12 +1,9 @@
-#!/usr/bin/env python
-
 from mapof.core.glossary import MAIN_GLOBAL_FEATUERS
 import mapof.core.features as core_features
 
 import mapof.elections.features.approx as approx
 import mapof.elections.features.banzhaf_cc as banzhaf_cc
 import mapof.elections.features.cohesive as cohesive
-import mapof.elections.features.distortion as distortion
 import mapof.elections.features.diversity as diversity
 import mapof.elections.features.entropy as entropy
 import mapof.elections.features.dap_approximate as dap_approx
@@ -19,22 +16,9 @@ import mapof.elections.features.ranging_cc as ranging_cc
 import mapof.elections.features.scores as scores
 import mapof.elections.features.vc_diversity as vcd
 
-from mapof.elections.features.register import registered_simple_ordinal_features
-
-registered_approval_features = {
-    'max_approval_score': simple_approval.max_approval_score,
-    'number_of_cohesive_groups': cohesive.count_number_of_cohesive_groups,
-    'number_of_cohesive_groups_brute': cohesive.count_number_of_cohesive_groups_brute,
-    'proportionality_degree_av': prop_deg.proportionality_degree_av,
-    'proportionality_degree_pav': prop_deg.proportionality_degree_pav,
-    'proportionality_degree_cc': prop_deg.proportionality_degree_cc,
-
-    'cohesiveness': cohesive.count_largest_cohesiveness_level_l_of_cohesive_group,
-    'justified_ratio': simple_approval.justified_ratio,
-    'abstract': simple_approval.abstract,  # unsupported feature
-
-    'ejr': jr.test_ejr,  # unsupported feature
-}
+from mapof.elections.features.register import \
+    registered_ordinal_election_features, \
+    registered_approval_election_features
 
 
 def get_global_feature(feature_id):
@@ -56,10 +40,10 @@ def get_global_feature(feature_id):
 def get_local_feature(feature_id):
     """ Local feature depends only on a single instance """
 
-    if feature_id in registered_approval_features:
-        return registered_approval_features.get(feature_id)
-    elif feature_id in registered_simple_ordinal_features:
-        return registered_simple_ordinal_features.get(feature_id)
+    if feature_id in registered_approval_election_features:
+        return registered_approval_election_features.get(feature_id)
+    elif feature_id in registered_ordinal_election_features:
+        return registered_ordinal_election_features.get(feature_id)
     else:
         raise ValueError(f'Incorrect feature id: {feature_id}')
 
@@ -79,7 +63,7 @@ def add_approval_feature(name: str, function: callable) -> None:
     -------
         None
     """
-    registered_approval_features[name] = function
+    registered_approval_election_features[name] = function
 
 
 def add_ordinal_feature(name: str, function: callable) -> None:
@@ -97,7 +81,7 @@ def add_ordinal_feature(name: str, function: callable) -> None:
     -------
         None
     """
-    registered_simple_ordinal_features[name] = function
+    registered_ordinal_election_features[name] = function
 
 
 __all__ = [

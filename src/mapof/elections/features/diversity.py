@@ -3,7 +3,7 @@ import math
 import numpy as np
 import itertools
 
-from mapof.elections.features.register import register_simple_ordinal_feature
+from mapof.elections.features.register import register_ordinal_election_feature
 
 
 def kemeny_ranking(election):
@@ -98,7 +98,7 @@ def calculate_vote_swap_dist(election):
 
 # DIVERSITY INDICES
 
-@register_simple_ordinal_feature('borda_gini')
+@register_ordinal_election_feature('borda_gini')
 def borda_gini(election) -> dict:
     if election.is_pseudo:
         return {'value': None}
@@ -106,7 +106,7 @@ def borda_gini(election) -> dict:
     return {'value': gini_coef(all_scores)}
 
 
-@register_simple_ordinal_feature('borda_meandev')
+@register_ordinal_election_feature('borda_meandev')
 def borda_meandev(election) -> dict:
     if election.is_pseudo:
         return {'value': None}
@@ -115,7 +115,7 @@ def borda_meandev(election) -> dict:
     return {'value': all_scores.mean()}
 
 
-@register_simple_ordinal_feature('borda_std')
+@register_ordinal_election_feature('borda_std')
 def borda_std(election) -> dict:
     if election.is_pseudo:
         return {'value': None}
@@ -123,7 +123,7 @@ def borda_std(election) -> dict:
     return {'value': all_scores.std()}
 
 
-@register_simple_ordinal_feature('borda_range')
+@register_ordinal_election_feature('borda_range')
 def borda_range(election) -> dict:
     if election.is_pseudo:
         return {'value': None}
@@ -131,7 +131,7 @@ def borda_range(election) -> dict:
     return (np.max(all_scores) - np.min(all_scores))
 
 
-@register_simple_ordinal_feature('cand_dom_dist_mean')
+@register_ordinal_election_feature('cand_dom_dist_mean')
 def cand_dom_dist_mean(election) -> dict:
     if election.is_pseudo:
         return {'value': None}
@@ -139,7 +139,7 @@ def cand_dom_dist_mean(election) -> dict:
     return {'value': distances.sum() / (election.num_candidates - 1) / election.num_candidates * 2}
 
 
-@register_simple_ordinal_feature('Agreement')
+@register_ordinal_election_feature('Agreement')
 def agreement_index(election) -> dict:
     """
     Calculates the agreement index of the election.
@@ -159,7 +159,7 @@ def agreement_index(election) -> dict:
     return {'value': distances.sum() / (election.num_candidates - 1) / election.num_candidates * 2}
 
 
-@register_simple_ordinal_feature('cand_dom_dist_std')
+@register_ordinal_election_feature('cand_dom_dist_std')
 def cand_dom_dist_std(election) -> dict:
     if election.is_pseudo:
         return {'value': None}
@@ -168,7 +168,7 @@ def cand_dom_dist_std(election) -> dict:
     return {'value': distances.std()}
 
 
-@register_simple_ordinal_feature('cand_pos_dist_std')
+@register_ordinal_election_feature('cand_pos_dist_std')
 def cand_pos_dist_std(election) -> dict:
     if election.is_pseudo:
         return {'value': None}
@@ -177,7 +177,7 @@ def cand_pos_dist_std(election) -> dict:
     return {'value': distances.std()}
 
 
-@register_simple_ordinal_feature('cand_pos_dist_meandev')
+@register_ordinal_election_feature('cand_pos_dist_meandev')
 def cand_pos_dist_meandev(election) -> dict:
     if election.is_pseudo:
         return {'value': None}
@@ -187,7 +187,7 @@ def cand_pos_dist_meandev(election) -> dict:
     return {'value': distances.mean()}
 
 
-@register_simple_ordinal_feature('cand_pos_dist_gini')
+@register_ordinal_election_feature('cand_pos_dist_gini')
 def cand_pos_dist_gini(election) -> dict:
     if election.is_pseudo:
         return {'value': None}
@@ -196,7 +196,7 @@ def cand_pos_dist_gini(election) -> dict:
     return {'value': gini_coef(distances)}
 
 
-@register_simple_ordinal_feature('med_cands_summed')
+@register_ordinal_election_feature('med_cands_summed')
 def med_cands_summed(election) -> dict:
     if election.is_pseudo:
         return {'value': None}
@@ -220,7 +220,7 @@ def med_cands_summed(election) -> dict:
     return {'value': sum(res)}
 
 
-@register_simple_ordinal_feature('vote_dist_mean')
+@register_ordinal_election_feature('vote_dist_mean')
 def vote_dist_mean(election) -> dict:
     if election.is_pseudo:
         return {'value': None}
@@ -228,7 +228,7 @@ def vote_dist_mean(election) -> dict:
     return {'value': distances.sum() / election.num_voters / (election.num_voters - 1)}
 
 
-@register_simple_ordinal_feature('vote_dist_max')
+@register_ordinal_election_feature('vote_dist_max')
 def vote_dist_max(election) -> dict:
     if election.is_pseudo:
         return {'value': None}
@@ -236,7 +236,7 @@ def vote_dist_max(election) -> dict:
     return {'value': distances.max()}
 
 
-@register_simple_ordinal_feature('vote_dist_med')
+@register_ordinal_election_feature('vote_dist_med')
 def vote_dist_med(election) -> dict:
     if election.is_pseudo:
         return {'value': None}
@@ -245,7 +245,7 @@ def vote_dist_med(election) -> dict:
     return {'value': np.median(distances)}
 
 
-@register_simple_ordinal_feature('vote_dist_gini')
+@register_ordinal_election_feature('vote_dist_gini')
 def vote_dist_gini(election) -> dict:
     if election.is_pseudo:
         return {'value': None}
@@ -254,7 +254,7 @@ def vote_dist_gini(election) -> dict:
     return {'value': gini_coef(distances)}
 
 
-@register_simple_ordinal_feature('vote_sqr_dist_mean')
+@register_ordinal_election_feature('vote_sqr_dist_mean')
 def vote_sqr_dist_mean(election) -> dict:
     if election.is_pseudo:
         return {'value': None}
@@ -264,7 +264,7 @@ def vote_sqr_dist_mean(election) -> dict:
     return {'value': distances.mean()}
 
 
-@register_simple_ordinal_feature('vote_sqr_dist_med')
+@register_ordinal_election_feature('vote_sqr_dist_med')
 def vote_sqr_dist_med(election) -> dict:
     if election.is_pseudo:
         return {'value': None}
@@ -274,7 +274,7 @@ def vote_sqr_dist_med(election) -> dict:
     return {'value': np.median(distances)}
 
 
-@register_simple_ordinal_feature('vote_diversity_Karpov')
+@register_ordinal_election_feature('vote_diversity_Karpov')
 def vote_diversity_Karpov(election):
     if election.is_pseudo:
         return {'value': None}
@@ -285,7 +285,7 @@ def vote_diversity_Karpov(election):
     return {'value': geom_mean(distances)}
 
 
-@register_simple_ordinal_feature('dist_to_Kemeny_mean')
+@register_ordinal_election_feature('dist_to_Kemeny_mean')
 def dist_to_Kemeny_mean(election):
     if election.is_pseudo:
         return {'value': None}
@@ -293,7 +293,7 @@ def dist_to_Kemeny_mean(election):
     return dist / election.num_voters
 
 
-@register_simple_ordinal_feature('dist_to_Borda_mean')
+@register_ordinal_election_feature('dist_to_Borda_mean')
 def dist_to_Borda_mean(election) -> dict:
     if election.is_pseudo:
         return {'value': None}
@@ -308,14 +308,14 @@ def dist_to_Borda_mean(election) -> dict:
     return {'value': dist / election.num_voters}
 
 
-@register_simple_ordinal_feature('lexi_diversity')
+@register_ordinal_election_feature('lexi_diversity')
 def lexi_diversity(election):
     if election.is_pseudo:
         return {'value': None}
     return {'value': None}
 
 
-@register_simple_ordinal_feature('greedy_kKemenys_summed')
+@register_ordinal_election_feature('greedy_kKemenys_summed')
 def greedy_kKemenys_summed(election) -> dict:
     if election.is_pseudo:
         return {'value': None}
@@ -418,7 +418,7 @@ def local_search_kKemeny(election, l, starting=None) -> dict:
     return {'value': res}
 
 
-@register_simple_ordinal_feature('Diversity')
+@register_ordinal_election_feature('Diversity')
 def diversity_index(election) -> dict:
     """
     Calculates the diversity index of the election.
@@ -462,7 +462,7 @@ def diversity_index(election) -> dict:
     return {'value': sum([x / (i + 1) for i, x in enumerate(res)])}
 
 
-@register_simple_ordinal_feature('greedy_kKemenys_divk_summed')
+@register_ordinal_election_feature('greedy_kKemenys_divk_summed')
 def greedy_kKemenys_divk_summed(election) -> dict:
     if election.is_pseudo:
         return {'value': None}
@@ -486,7 +486,7 @@ def greedy_kKemenys_divk_summed(election) -> dict:
     return {'value': sum(res) / election.num_voters / max_dist}
 
 
-@register_simple_ordinal_feature('greedy_2kKemenys_summed')
+@register_ordinal_election_feature('greedy_2kKemenys_summed')
 def greedy_2kKemenys_summed(election) -> dict:
     if election.is_pseudo:
         return {'value': None}
@@ -513,7 +513,7 @@ def greedy_2kKemenys_summed(election) -> dict:
     return {'value': sum(res) / election.num_voters / max_dist / 2}
 
 
-@register_simple_ordinal_feature('polarization_1by2Kemenys')
+@register_ordinal_election_feature('polarization_1by2Kemenys')
 def polarization_1by2Kemenys(election) -> dict:
     if election.is_pseudo:
         return {'value': None}
@@ -533,7 +533,7 @@ def polarization_1by2Kemenys(election) -> dict:
     return {'value': (first_kemeny - second_kemeny) / election.num_voters / max_dist}
 
 
-@register_simple_ordinal_feature('Polarization')
+@register_ordinal_election_feature('Polarization')
 def polarization_index(election) -> dict:
     """
     Calculates the polarization index of the election.
@@ -573,7 +573,7 @@ def polarization_index(election) -> dict:
     return {'value': 2 * (first_kemeny - second_kemeny) / election.num_voters / max_dist}
 
 
-@register_simple_ordinal_feature('greedy_kmeans_summed')
+@register_ordinal_election_feature('greedy_kmeans_summed')
 def greedy_kmeans_summed(election) -> dict:
     if election.is_pseudo:
         return {'value': None}
@@ -596,7 +596,7 @@ def greedy_kmeans_summed(election) -> dict:
     return {'value': sum(res)}
 
 
-@register_simple_ordinal_feature('support_diversity')
+@register_ordinal_election_feature('support_diversity')
 def support_diversity(election, tuple_len) -> dict:
     if election.is_pseudo:
         return {'value': None}
@@ -615,7 +615,7 @@ def support_diversity(election, tuple_len) -> dict:
     return {'value': res}
 
 
-@register_simple_ordinal_feature('support_diversity_normed')
+@register_ordinal_election_feature('support_diversity_normed')
 def support_diversity_normed(election, tuple_len) -> dict:
     if election.is_pseudo:
         return {'value': None}
@@ -636,7 +636,7 @@ def support_diversity_normed(election, tuple_len) -> dict:
     return {'value': res / count}
 
 
-@register_simple_ordinal_feature('support_diversity_normed2')
+@register_ordinal_election_feature('support_diversity_normed2')
 def support_diversity_normed2(election, tuple_len) -> dict:
     if election.is_pseudo:
         return {'value': None}
@@ -657,7 +657,7 @@ def support_diversity_normed2(election, tuple_len) -> dict:
     return {'value': res / count / math.factorial(tuple_len)}
 
 
-@register_simple_ordinal_feature('support_diversity_normed3')
+@register_ordinal_election_feature('support_diversity_normed3')
 def support_diversity_normed3(election, tuple_len) -> dict:
     if election.is_pseudo:
         return {'value': None}
@@ -678,16 +678,16 @@ def support_diversity_normed3(election, tuple_len) -> dict:
     max_times = min(math.factorial(tuple_len), election.num_voters)
     return {'value': res / count / max_times}
 
-@register_simple_ordinal_feature('support_pairs')
+@register_ordinal_election_feature('support_pairs')
 def support_pairs(election):
     return support_diversity(election, 2)
 
-@register_simple_ordinal_feature('support_triplets')
+@register_ordinal_election_feature('support_triplets')
 def support_triplets(election):
     return support_diversity(election, 3)
 
 
-@register_simple_ordinal_feature('support_votes')
+@register_ordinal_election_feature('support_votes')
 def support_votes(election) -> dict:
     if election.is_pseudo:
         return {'value': None}
@@ -695,7 +695,7 @@ def support_votes(election) -> dict:
     return {'value': support_diversity(election, m)}
 
 
-@register_simple_ordinal_feature('support_diversity_summed')
+@register_ordinal_election_feature('support_diversity_summed')
 def support_diversity_summed(election) -> dict:
     if election.is_pseudo:
         return {'value': None}
@@ -706,7 +706,7 @@ def support_diversity_summed(election) -> dict:
     return {'value': res}
 
 
-@register_simple_ordinal_feature('support_diversity_normed_summed')
+@register_ordinal_election_feature('support_diversity_normed_summed')
 def support_diversity_normed_summed(election) -> dict:
     if election.is_pseudo:
         return {'value': None}
@@ -717,7 +717,7 @@ def support_diversity_normed_summed(election) -> dict:
     return {'value': res}
 
 
-@register_simple_ordinal_feature('support_diversity_normed2_summed')
+@register_ordinal_election_feature('support_diversity_normed2_summed')
 def support_diversity_normed2_summed(election) -> dict:
     if election.is_pseudo:
         return {'value': None}
@@ -728,7 +728,7 @@ def support_diversity_normed2_summed(election) -> dict:
     return {'value': res}
 
 
-@register_simple_ordinal_feature('support_diversity_normed3_summed')
+@register_ordinal_election_feature('support_diversity_normed3_summed')
 def support_diversity_normed3_summed(election) -> dict:
     if election.is_pseudo:
         return {'value': None}

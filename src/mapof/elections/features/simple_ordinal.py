@@ -1,7 +1,10 @@
 import logging
 import math
 
+from mapof.elections.features.register import register_ordinal_election_feature
 
+
+@register_ordinal_election_feature('is_condorcet')
 def is_condorcet(election) -> dict:
     """
     Checks if election witness Condorcet winner
@@ -40,19 +43,20 @@ def is_condorcet(election) -> dict:
     return {'value': False}
 
 
+@register_ordinal_election_feature('effective_num_candidates')
 def get_effective_num_candidates(election, mode='Borda') -> dict:
     """ Compute effective number of candidates of a given election."""
     if election.is_pseudo:
         return {'value': None}
 
     c = election.num_candidates
-    vectors = election.votes_to_positionwise_matrix()
+    matrix = election.get_frequency_matrix()
 
     if mode == 'Borda':
-        all_scores = [sum([vectors[j][i] * (c - i - 1) for i in range(c)]) / (c * (c - 1) / 2)
+        all_scores = [sum([matrix[j][i] * (c - i - 1) for i in range(c)]) / (c * (c - 1) / 2)
                       for j in range(c)]
     elif mode == 'Plurality':
-        all_scores = [sum([vectors[j][i] for i in range(1)]) for j in range(c)]
+        all_scores = [sum([matrix[j][i] for i in range(1)]) for j in range(c)]
     else:
         logging.warning(f"Mode {mode} is not supported.")
         all_scores = []

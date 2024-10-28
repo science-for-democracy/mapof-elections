@@ -1,6 +1,6 @@
 import logging
 
-from mapof.elections.features.register import register_simple_ordinal_feature
+from mapof.elections.features.register import register_ordinal_election_feature
 
 try:
     import gurobipy as gb
@@ -26,7 +26,7 @@ def convert_election_to_profile(election):
     return profile
 
 
-@register_simple_ordinal_feature('partylist')
+@register_ordinal_election_feature('partylist')
 def partylistdistance(election, feature_params=None):
 
     if feature_params is None:

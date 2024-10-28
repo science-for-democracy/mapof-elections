@@ -2,6 +2,8 @@ import logging
 
 from numpy import ceil
 
+from mapof.elections.features.register import register_approval_election_feature
+
 try:
     import pulp
 except Exception:
@@ -104,7 +106,9 @@ def solve_ilp_instance(election, committee: set, l: int = 1,
 
 
 def proportionality_degree(election, committee_size=10, rule_name=None, resolute=False):
-    committees = calculate_committees(election, committee_size=committee_size, rule_name=rule_name,
+    committees = calculate_committees(election,
+                                      committee_size=committee_size,
+                                      rule_name=rule_name,
                                       resolute=resolute)
 
     if len(committees) == 0:
@@ -114,18 +118,19 @@ def proportionality_degree(election, committee_size=10, rule_name=None, resolute
     for committee in committees:
         pd_1 = solve_ilp_instance(election, committee, 1, committee_size=committee_size)
         all_pd.append(pd_1)
-        # print(f"Election with n = {election.num_voters}, m = {election.num_candidates}, k = {election.k}.   Votes = {election.votes}")
-        # print(f"PAV committee = {committee}.    Proportionality Degree of this committee is {pd}.\n")
     return sum(all_pd) / len(all_pd)
 
 
+@register_approval_election_feature("proportionality_degree_av")
 def proportionality_degree_av(*args, **kwargs):
     return proportionality_degree(*args, **kwargs, rule_name='av')
 
 
+@register_approval_election_feature("proportionality_degree_pav")
 def proportionality_degree_pav(*args, **kwargs):
     return proportionality_degree(*args, **kwargs, rule_name='pav')
 
 
+@register_approval_election_feature("proportionality_degree_cc")
 def proportionality_degree_cc(*args, **kwargs):
     return proportionality_degree(*args, **kwargs, rule_name='cc', resolute=True)

@@ -2,11 +2,11 @@ import numpy as np
 from mapof.elections.distances.ilp_other import solve_rand_approx_pav
 from mapof.elections.features.scores import get_score, get_dissat
 
-from mapof.elections.features.register import register_simple_ordinal_feature
+from mapof.elections.features.register import register_ordinal_election_feature
 
 
 # NEW LP
-@register_simple_ordinal_feature('rand_approx_pav_score')
+@register_ordinal_election_feature('rand_approx_pav_score')
 def get_rand_approx_pav_score(election, committee_size=1):
     if election.is_pseudo:
         return {'value': None}
@@ -23,15 +23,16 @@ def get_rand_approx_pav_score(election, committee_size=1):
 
 
 # GREEDY
-@register_simple_ordinal_feature('greedy_approx_cc_score')
+@register_ordinal_election_feature('greedy_approx_cc_score')
 def get_greedy_approx_cc_score(election, committee_size=1):
     return get_greedy_approx_score(election, 'cc', committee_size=committee_size)
 
-@register_simple_ordinal_feature('greedy_approx_hb_score')
+
+@register_ordinal_election_feature('greedy_approx_hb_score')
 def get_greedy_approx_hb_score(election, committee_size=1):
     return get_greedy_approx_score(election, 'hb', committee_size=committee_size)
 
-@register_simple_ordinal_feature('greedy_approx_pav_score')
+@register_ordinal_election_feature('greedy_approx_pav_score')
 def get_greedy_approx_pav_score(election, committee_size=1):
     return get_greedy_approx_score(election, 'pav', committee_size=committee_size)
 
@@ -114,15 +115,15 @@ def get_winners_approx_greedy(election, committee_size, rule):
 
 
 # REMOVAL
-@register_simple_ordinal_feature('removal_approx_cc_score')
+@register_ordinal_election_feature('removal_approx_cc_score')
 def get_removal_approx_cc_score(election, committee_size=1):
     return get_removal_approx_score(election, "cc", committee_size=committee_size)
 
-@register_simple_ordinal_feature('removal_approx_hb_score')
+@register_ordinal_election_feature('removal_approx_hb_score')
 def get_removal_approx_hb_score(election, committee_size=1):
     return get_removal_approx_score(election, "hb", committee_size=committee_size)
 
-@register_simple_ordinal_feature('removal_approx_pav_score')
+@register_ordinal_election_feature('removal_approx_pav_score')
 def get_removal_approx_pav_score(election, committee_size=1):
     return get_removal_approx_score(election, "pav", committee_size=committee_size)
 

@@ -2,7 +2,9 @@ import numpy as np
 import scipy.special
 import math
 
+from mapof.elections.features.register import register_approval_election_feature
 
+@register_approval_election_feature('justified_ratio')
 def justified_ratio(election, feature_params) -> dict:
     """
     Computes the justified ration of a given elections
@@ -26,7 +28,7 @@ def justified_ratio(election, feature_params) -> dict:
             covered = covered.union(_set)
     return {'value': len(covered) / float(election.num_voters)}
 
-
+@register_approval_election_feature('abstract')
 def abstract(election) -> dict:
     """
     Computes the abstract of a given election.
@@ -52,6 +54,7 @@ def abstract(election) -> dict:
     return {'value': total_value}
 
 
+@register_approval_election_feature('max_approval_score')
 def max_approval_score(election):
     """
     Computes the largest approval score of a given election.

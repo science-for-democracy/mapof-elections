@@ -2,7 +2,7 @@ import itertools
 
 import numpy as np
 
-from mapof.elections.features.register import register_simple_ordinal_feature
+from mapof.elections.features.register import register_ordinal_election_feature
 
 """
 File contains implemetation of approximate diversity, approximate polarization and approximate agreement indeces.
@@ -92,7 +92,7 @@ def get_candidate_dists(election):
         return distances
 
 
-@register_simple_ordinal_feature('AgreementApprox')
+@register_ordinal_election_feature('AgreementApprox')
 def agreement_index(election) -> dict:
     """
     Calculates the approx. agreement index of the election.
@@ -176,7 +176,7 @@ def local_search_kKemeny_single_k(election, k, l, starting=None) -> dict:
     return {'value': d}
 
 
-@register_simple_ordinal_feature('PolarizationApprox')
+@register_ordinal_election_feature('PolarizationApprox')
 def polarization_index(election) -> dict:
     """
     Calculates the approx. polarization index of the election.
@@ -203,7 +203,7 @@ def polarization_index(election) -> dict:
     return {'value': 2 * (first_kemeny - second_kemeny) / election.num_voters / max_dist}
 
 
-@register_simple_ordinal_feature('DiversityApprox')
+@register_ordinal_election_feature('DiversityApprox')
 def diversity_index(election) -> dict:
     """
     Calculates the approx. diversity index of the election.

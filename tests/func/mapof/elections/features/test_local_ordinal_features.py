@@ -3,6 +3,8 @@ import numpy as np
 
 import mapof.elections as mapof
 
+from mapof.elections.features.register import registered_ordinal_election_features
+
 registered_ordinal_features_to_test = {
     'highest_borda_score',
     'highest_plurality_score',
@@ -60,6 +62,9 @@ registered_ordinal_features_to_test = {
     'DiversityApprox',
     'PolarizationApprox',
     'partylist',
+    'effective_num_candidates',
+    'entropy',
+    'is_condorcet',
 
     ## 'rand_approx_pav_score',  # fix this one
 }

@@ -384,7 +384,7 @@ class OrdinalElection(Election):
     def is_condorcet(self):
         """ Check if election witness Condorcet winner"""
         if self.condorcet is None:
-            self.condorcet = is_condorcet(self)
+            self.condorcet = is_condorcet(self)['value']
         return self.condorcet
 
     def import_ideal_points(self, name):

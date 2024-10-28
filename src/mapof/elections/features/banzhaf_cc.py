@@ -2,10 +2,10 @@ import scipy.special
 
 from mapof.elections.features.scores import get_cc_score, get_cc_dissat
 
-from mapof.elections.features.register import register_simple_ordinal_feature
+from mapof.elections.features.register import register_ordinal_election_feature
 
 
-@register_simple_ordinal_feature('banzhaf_cc_score')
+@register_ordinal_election_feature('banzhaf_cc_score')
 def get_banzhaf_cc_score(election, committee_size=1):
     if election.is_pseudo:
         return {'value': None, 'dissat': None}

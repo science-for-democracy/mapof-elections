@@ -9,34 +9,34 @@ from mapof.elections.distances import positionwise_infty
 from mapof.elections.objects.ApprovalElection import ApprovalElection
 from mapof.elections.objects.OrdinalElection import OrdinalElection
 
-registered_approval_distances = {
-    'approvalwise': mad.compute_approvalwise_distance,
 
-    'hamming': mad.compute_approvalwise_distance,  # unsupported distance
-}
+from mapof.elections.distances.register import \
+    registered_ordinal_election_distances, \
+    registered_approval_election_distances
 
-registered_ordinal_distances = {
-    'positionwise_infty': positionwise_infty.positionwise_size_independent,
-    'feature_l1': feature_distance.features_vector_l1,
-    'feature_l2': feature_distance.features_vector_l2,
-    'positionwise': mod.compute_positionwise_distance,
-    'bordawise': mod.compute_bordawise_distance,
-    'pairwise': mod.compute_pairwise_distance,
-    'discrete': mod.compute_discrete_distance,
 
-    'swap': mod.compute_swap_distance,
-    'spearman': mod.compute_spearman_distance,
-    'spearman_aa': mod.compute_spearman_distance_fastmap,
-
-    'blank': mod.compute_blank_distance,
-
-    'ilp_spearman': mod.compute_spearman_distance_ilp_py,  # unsupported distance
-    'voterlikeness': mod.compute_voterlikeness_distance,  # unsupported distance
-    'agg_voterlikeness': mod.compute_agg_voterlikeness_distance,  # unsupported distance
-    'pos_swap': mod.compute_pos_swap_distance,  # unsupported distance
-    'voter_subelection': mod.compute_voter_subelection,  # unsupported distance
-    'candidate_subelection': mod.compute_candidate_subelection,  # unsupported distance
-}
+# registered_ordinal_distances = {
+#     'positionwise_infty': positionwise_infty.positionwise_size_independent,
+#     'feature_l1': feature_distance.features_vector_l1,
+#     'feature_l2': feature_distance.features_vector_l2,
+#     'positionwise': mod.compute_positionwise_distance,
+#     'bordawise': mod.compute_bordawise_distance,
+#     'pairwise': mod.compute_pairwise_distance,
+#     'discrete': mod.compute_discrete_distance,
+#
+#     'swap': mod.compute_swap_distance,
+#     'spearman': mod.compute_spearman_distance,
+#     'spearman_aa': mod.compute_spearman_distance_fastmap,
+#
+#     'blank': mod.compute_blank_distance,
+#
+#     'ilp_spearman': mod.compute_spearman_distance_ilp_py,  # unsupported distance
+#     'voterlikeness': mod.compute_voterlikeness_distance,  # unsupported distance
+#     'agg_voterlikeness': mod.compute_agg_voterlikeness_distance,  # unsupported distance
+#     'pos_swap': mod.compute_pos_swap_distance,  # unsupported distance
+#     'voter_subelection': mod.compute_voter_subelection,  # unsupported distance
+#     'candidate_subelection': mod.compute_candidate_subelection,  # unsupported distance
+# }
 
 
 def add_approval_distance(name: str, function: callable) -> None:
@@ -54,7 +54,7 @@ def add_approval_distance(name: str, function: callable) -> None:
     -------
         None.
     """
-    registered_approval_distances[name] = function
+    registered_approval_election_distances[name] = function
 
 
 def add_ordinal_distance(name: str, function: callable) -> None:
@@ -72,7 +72,7 @@ def add_ordinal_distance(name: str, function: callable) -> None:
     -------
         None.
     """
-    registered_ordinal_distances[name] = function
+    registered_ordinal_election_distances[name] = function
 
 
 def get_distance(
@@ -122,14 +122,14 @@ def get_approval_distance(
 
     inner_distance, main_distance = _extract_distance_id(distance_id)
 
-    if main_distance in registered_approval_distances:
+    if main_distance in registered_approval_election_distances:
 
         if inner_distance is not None:
-            return registered_approval_distances.get(main_distance)(election_1,
+            return registered_approval_election_distances.get(main_distance)(election_1,
                                                                     election_2,
                                                                     inner_distance)
         else:
-            return registered_approval_distances.get(main_distance)(election_1,
+            return registered_approval_election_distances.get(main_distance)(election_1,
                                                                     election_2,
                                                                     **kwargs)
 
@@ -157,14 +157,14 @@ def get_ordinal_distance(
 
     inner_distance, main_distance = _extract_distance_id(distance_id)
 
-    if main_distance in registered_ordinal_distances:
+    if main_distance in registered_ordinal_election_distances:
 
         if inner_distance is not None:
-            return registered_ordinal_distances.get(main_distance)(election_1,
+            return registered_ordinal_election_distances.get(main_distance)(election_1,
                                                                    election_2,
                                                                    inner_distance)
         else:
-            return registered_ordinal_distances.get(main_distance)(election_1,
+            return registered_ordinal_election_distances.get(main_distance)(election_1,
                                                                    election_2,
                                                                    **kwargs)
 

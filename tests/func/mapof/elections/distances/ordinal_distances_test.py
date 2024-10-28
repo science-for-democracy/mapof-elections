@@ -17,6 +17,8 @@ registered_ordinal_distances_to_test = {
     'positionwise_infty',
     'l1-voterlikeness',
     'ilp_spearman',
+
+    'truncated_swap'
 }
 
 

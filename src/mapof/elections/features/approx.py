@@ -1,25 +1,7 @@
 import numpy as np
-from mapof.elections.distances.ilp_other import solve_rand_approx_pav
 from mapof.elections.features.scores import get_score, get_dissat
 
 from mapof.elections.features.register import register_ordinal_election_feature
-
-
-# NEW LP
-@register_ordinal_election_feature('rand_approx_pav_score')
-def get_rand_approx_pav_score(election, committee_size=1):
-    if election.is_pseudo:
-        return {'value': None}
-
-    W = [1 / (i + 1) for i in range(election.num_candidates)]
-
-    C = np.zeros([election.num_voters, election.num_candidates])
-    for i, vote in enumerate(election.votes):
-        for j, c in enumerate(vote):
-            C[i][c] = j
-    # is C equivalent to potes?
-
-    return {'value': solve_rand_approx_pav(election, committee_size, W, C)}
 
 
 # GREEDY

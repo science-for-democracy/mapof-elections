@@ -9,6 +9,8 @@ import numpy as np
 from mapof.core.matchings import solve_matching_vectors
 from mapof.elections.objects import Election
 
+from mapof.elections.distances.register import register_ordinal_election_distance
+
 
 def emd_infty(xx, yy):
     """
@@ -121,6 +123,7 @@ def lcm(a, b):
     return abs(a * b) // math.gcd(a, b)
 
 
+@register_ordinal_election_distance("positionwise_infty")
 def positionwise_size_independent(e1: Election, e2: Election):
     """
     Main function of the positionwise infinity distance, pointer to this function is added to the experiment when I wish to compute the positionwise infinity distance for an experiment.

@@ -5,8 +5,6 @@ from contextlib import suppress
 
 from gurobipy import LinExpr, Model, GRB
 
-from mapof.elections.features.dependent_rounding import approx_rand_tree
-
 
 # THIS FUNCTION HAS NOT BEEN TESTED SINCE CONVERSION TO GUROBI
 def solve_lp_matching_vector_with_lp(cost_table, length):
@@ -254,119 +252,6 @@ def solve_lp_bloc_owa(params, votes, owa, t_bloc):
     winners = sorted(winners[:params['orders']])
 
     return winners, stop-start
-
-
-# THIS FUNCTION HAS NOT BEEN TESTED SINCE CONVERSION TO GUROBI
-def solve_rand_approx_pav(election, committee_size, W, C, ctr=0, fixed=None):
-    if ctr == 1:
-        return 0
-
-    if fixed is None:
-        fixed = []
-
-    m = election.num_candidates
-    n = election.num_voters
-    k = committee_size
-
-    # Create a new model
-    model = Model()
-
-    # Limit the number of threads
-    model.setParam('Threads', 1)
-
-    # Add variables
-    x = {}
-    for l in range(k):
-        for i in range(m):
-            for j in range(n):
-                x[l, i, j] = model.addVar(lb=0.0, ub=1.0, vtype=GRB.CONTINUOUS,
-                                          name=f"x_{l}_{i}_{j}")
-
-    y = {}
-    for i in range(m):
-        y[i] = model.addVar(lb=0.0, ub=1.0, vtype=GRB.CONTINUOUS,
-                            name=f"y_{i}")
-
-    model.update()
-
-    # Set objective
-    objective = LinExpr()
-    for j in range(n):
-        for l in range(k):
-            for i in range(m):
-                objective.addTerms(W[l] * C[j][i], x[l, i, j])
-    model.setObjective(objective, GRB.MINIMIZE)
-
-    # Add constraints
-    # C1: sum(y[i]) == committee_size
-    model.addConstr(sum(y[i] for i in range(m)) == committee_size, "C1")
-
-    # C2: sum(x[l, i, j] for l in range(k)) <= y[i] for all i, j
-    for i in range(m):
-        for j in range(n):
-            model.addConstr(sum(x[l, i, j] for l in range(k)) <= y[i], f"C2_{i}_{j}")
-
-    # C3: sum(x[l, i, j] for i in range(m)) >= 1 for all j, l
-    for j in range(n):
-        for l in range(k):
-            model.addConstr(sum(x[l, i, j] for i in range(m)) >= 1, f"C3_{j}_{l}")
-
-    # C4: fix the values of some y[i] variables
-    for i in fixed:
-        model.addConstr(y[i] == 1, f"C4_fixed_{i}")
-
-    # Optimize model
-    model.setParam('OutputFlag', 0)  # Turn off the output
-    model.optimize()
-
-    if model.status == GRB.Status.OPTIMAL:
-
-        values = [0.] * election.num_candidates
-        for i in range(election.num_candidates):
-            values[i] = model.getVarByName(f'y_{i}').x
-
-        final_values = approx_rand_tree(values)
-
-        winner_id = 0
-        winners = [-1] * committee_size
-        for i in range(election.num_candidates):
-            if final_values[i] == 1.:
-                winners[winner_id] = i
-                winner_id += 1
-
-        winners = sorted(winners)
-
-        def get_pav_score(election, winners) -> float:
-
-            num_voters = election.num_voters
-            num_candidates = election.num_candidates
-            votes = election.votes
-
-            score = 0
-
-            vector = [0.] * num_candidates
-            for i in range(len(winners)):
-                vector[i] = 1.
-
-            for i in range(num_voters):
-                ctr = 1.
-                for j in range(num_candidates):
-                    if votes[i][j] in winners:
-                        score += (1. / ctr) * vector[j]
-                        ctr += 1
-
-            return score
-
-        try:
-            score = get_pav_score(election, winners)
-        except:
-            score = -1
-
-        return score
-
-    else:
-        print("No optimal solution found")
-        return None
 
 
 # OTHER

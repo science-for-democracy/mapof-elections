@@ -1,19 +1,14 @@
-#!/usr/bin/env python
-
+import logging
 import os
 import csv
 import ast
-import sys
-import numpy as np
 from tqdm import tqdm
 
 try:
-    from dotenv import load_dotenv
-    load_dotenv()
-    sys.path.append(os.environ["PATH"])
     from abcvoting.preferences import Profile
     from abcvoting import abcrules
 except ImportError:
+    logging.warning("ABC Voting library not found. Some features may not work.")
     Profile = None
     abcrules = None
 
@@ -40,10 +35,12 @@ def compute_abcvoting_rule(experiment=None, rule_name=None, committee_size=1, re
         for committee in winning_committees:
             clean_winning_committees.append(set(committee))
         all_winning_committees[election.election_id] = clean_winning_committees
-    store_committees_to_file(experiment.experiment_id, rule_name, all_winning_committees)
+
+    if experiment.is_exported:
+        export_committees_to_file(experiment.experiment_id, rule_name, all_winning_committees)
 
 
-def store_committees_to_file(experiment_id, rule_name, all_winning_committees):
+def export_committees_to_file(experiment_id, rule_name, all_winning_committees):
     path = os.path.join(os.getcwd(), "experiments", experiment_id, 'features',
                         f'{rule_name}.csv')
     with open(path, 'w', newline='') as csv_file:
@@ -69,36 +66,3 @@ def import_committees_from_file(experiment_id, rule_name):
                 winning_committees = [set()]
             all_winning_committees[row['election_id']] = winning_committees
     return all_winning_committees
-
-
-def compute_not_abcvoting_rule(experiment=None, rule_name=None, committee_size=1, resolute=False):
-    all_winning_committees = {}
-    for election in tqdm(experiment.instances.values()):
-
-        if rule_name == 'borda_c4':
-            winning_committees = compute_borda_c4_rule(election, committee_size)
-        elif rule_name == 'random':
-            winning_committees = compute_random_rule(election, committee_size)
-
-        all_winning_committees[election.election_id] = winning_committees
-    store_committees_to_file(experiment.experiment_id, rule_name, all_winning_committees)
-
-
-def compute_borda_c4_rule(election, committee_size=1):
-
-    scores = np.zeros(election.num_candidates)
-    for i, vote in enumerate(election.votes):
-        max_score = len(election.approval_votes)
-        for pos in range(max_score):
-            scores[vote[pos]] += max_score - pos
-
-    ranking = range(election.num_candidates)
-    ranking = [x for _, x in sorted(zip(scores, ranking), reverse=True)]
-
-    return [set(ranking[0:committee_size])]
-
-
-def compute_random_rule(election, committee_size=1):
-
-    candidates = np.random.permutation(election.num_candidates)
-    return [set(candidates[0:committee_size])]

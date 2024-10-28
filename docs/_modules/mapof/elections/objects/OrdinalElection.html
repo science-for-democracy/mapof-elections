@@ -339,7 +339,7 @@ document.write(`
     <span class="n">compute_sntv_winners</span><span class="p">,</span>
     <span class="n">compute_borda_winners</span><span class="p">,</span>
     <span class="n">compute_stv_winners</span><span class="p">,</span>
-    <span class="n">generate_winners</span><span class="p">,</span>
+    <span class="n">compute_voting_rule</span><span class="p">,</span>
     <span class="n">get_borda_points</span>
 <span class="p">)</span>
 
@@ -661,7 +661,7 @@ document.write(`
         <span class="k">return</span> <span class="n">vector</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">vector</span><span class="p">)</span></div>
 
 
-    <span class="k">def</span> <span class="nf">compute_winners</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">num_winners</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">compute_voting_rule</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">num_winners</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">borda_points</span> <span class="o">=</span> <span class="n">get_borda_points</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">votes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_voters</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">)</span>
 
@@ -672,7 +672,7 @@ document.write(`
         <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;stv&#39;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">winners</span> <span class="o">=</span> <span class="n">compute_stv_winners</span><span class="p">(</span><span class="n">election</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_winners</span><span class="o">=</span><span class="n">num_winners</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">method</span> <span class="ow">in</span> <span class="p">{</span><span class="s1">&#39;approx_cc&#39;</span><span class="p">,</span> <span class="s1">&#39;approx_hb&#39;</span><span class="p">,</span> <span class="s1">&#39;approx_pav&#39;</span><span class="p">}:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">winners</span> <span class="o">=</span> <span class="n">generate_winners</span><span class="p">(</span><span class="n">election</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_winners</span><span class="o">=</span><span class="n">num_winners</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">winners</span> <span class="o">=</span> <span class="n">compute_voting_rule</span><span class="p">(</span><span class="n">election</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_winners</span><span class="o">=</span><span class="n">num_winners</span><span class="p">)</span>
 
 <div class="viewcode-block" id="OrdinalElection.prepare_instance">
 <a class="viewcode-back" href="../../../../reference/objects/OrdinalElection.html#mapof.elections.objects.OrdinalElection.OrdinalElection.prepare_instance">[docs]</a>

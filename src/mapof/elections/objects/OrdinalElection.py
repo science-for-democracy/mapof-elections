@@ -20,13 +20,7 @@ from mapof.elections.cultures.pseudo_cultures import *
 from mapof.elections.features.simple_ordinal import is_condorcet
 from mapof.elections.objects.Election import Election
 from mapof.elections.other.glossary import PATHS, is_pseudo_culture
-from mapof.elections.other.winners import (
-    compute_sntv_winners,
-    compute_borda_winners,
-    compute_stv_winners,
-    generate_winners,
-    get_borda_points
-)
+from mapof.elections.other.ordinal_rules import voting_rule
 
 
 class OrdinalElection(Election):
@@ -312,18 +306,12 @@ class OrdinalElection(Election):
 
         return vector, len(vector)
 
-    def compute_winners(self, method=None, num_winners=None):
+    def compute_voting_rule(self, method=None, num_winners=None):
+        self.winners = voting_rule(election=self, method=method, num_winners=num_winners)
 
-        self.borda_points = get_borda_points(self.votes, self.num_voters, self.num_candidates)
+    def compute_winners(self, **kwargs):  # deprecated name / for backward compatibility
+        return self.compute_voting_rule(self, **kwargs)
 
-        if method == 'sntv':
-            self.winners = compute_sntv_winners(election=self, num_winners=num_winners)
-        if method == 'borda':
-            self.winners = compute_borda_winners(election=self, num_winners=num_winners)
-        if method == 'stv':
-            self.winners = compute_stv_winners(election=self, num_winners=num_winners)
-        if method in {'approx_cc', 'approx_hb', 'approx_pav'}:
-            self.winners = generate_winners(election=self, num_winners=num_winners)
 
     def prepare_instance(self, is_exported=None, is_aggregated=True):
         """ Prepares instance """

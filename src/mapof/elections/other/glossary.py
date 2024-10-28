@@ -6,10 +6,6 @@ ELECTION_GLOBAL_FEATURES = {
     'an_vs_st'
 }
 
-NOT_ABCVOTING_RULES = {'borda_c4', 'random'}
-
-APPROVAL_FAKE_MODELS = {'approval_half_1', 'approval_half_2', 'approval_skeleton'}
-
 APPROVAL_MODELS = {
     'impartial_culture',
     'ic',

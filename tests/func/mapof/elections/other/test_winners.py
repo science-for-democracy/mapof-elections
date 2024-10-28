@@ -2,10 +2,10 @@
 
 import mapof.elections as mapof
 
-from mapof.elections.other.winners import (
-    compute_sntv_winners,
-    compute_borda_winners,
-    compute_stv_winners,
+from mapof.elections.other.ordinal_rules import (
+    compute_sntv_voting_rule,
+    compute_borda_voting_rule,
+    compute_stv_voting_rule,
     get_borda_points
 )
 
@@ -20,15 +20,15 @@ class TestWinners:
         )
 
     def test_compute_sntv_winners(self):
-        winners = compute_sntv_winners(self.election, num_winners=3)
+        winners = compute_sntv_voting_rule(self.election, num_winners=3)
         assert len(winners) == 3
 
     def test_compute_borda_winners(self):
-        winners = compute_borda_winners(self.election, num_winners=3)
+        winners = compute_borda_voting_rule(self.election, num_winners=3)
         assert len(winners) == 3
 
     def test_compute_stv_winners(self):
-        winners = compute_stv_winners(self.election, num_winners=3)
+        winners = compute_stv_voting_rule(self.election, num_winners=3)
         assert len(winners) == 3
 
     def test_get_borda_points(self):

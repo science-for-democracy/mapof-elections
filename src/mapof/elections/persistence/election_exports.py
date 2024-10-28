@@ -3,8 +3,6 @@ from collections import Counter
 
 from mapof.core.utils import *
 
-from mapof.elections.other.glossary import APPROVAL_FAKE_MODELS
-
 
 def export_votes_to_file(
         election,
@@ -129,15 +127,7 @@ def export_approval_election(
     make_folder_if_do_not_exist(path_to_folder)
     path_to_file = os.path.join(path_to_folder, f'{election.election_id}.app')
 
-    if election.culture_id in APPROVAL_FAKE_MODELS:
-        file_ = open(path_to_file, 'w')
-        file_.write(f'$ {election.culture_id} {election.params} \n')
-        file_.write(str(election.num_candidates) + '\n')
-        file_.write(str(election.num_voters) + '\n')
-        file_.close()
-
-    else:
-        export_votes_to_file(election,
+    export_votes_to_file(election,
                              election.culture_id,
                              election.num_candidates,
                              election.num_voters,

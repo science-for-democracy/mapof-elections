@@ -1,3 +1,4 @@
+import logging
 import math
 
 
@@ -53,6 +54,7 @@ def get_effective_num_candidates(election, mode='Borda') -> dict:
     elif mode == 'Plurality':
         all_scores = [sum([vectors[j][i] for i in range(1)]) for j in range(c)]
     else:
+        logging.warning(f"Mode {mode} is not supported.")
         all_scores = []
 
     return {'value': 1. / sum([x * x for x in all_scores])}

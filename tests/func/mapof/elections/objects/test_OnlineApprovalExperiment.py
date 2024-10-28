@@ -74,3 +74,9 @@ class TestOnlineApprovalExperiment:
         self.experiment.embed_2d(embedding_id='kk')
         self.experiment.print_map_2d(show=False)
 
+    def test_compute_rules(self):
+        self.add_families()
+
+        list_of_rules = ['av', 'sav']
+
+        self.experiment.compute_rules(list_of_rules, committee_size=2, resolute=False)

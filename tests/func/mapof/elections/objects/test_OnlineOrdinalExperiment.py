@@ -92,7 +92,8 @@ class TestOnlineOrdinalExperiment:
             feature_id=feature_id
         )
 
+    def test_compute_voting_rule(self):
+        self.add_families()
 
-
-
-
+        for method in ['sntv', 'borda', 'stv']:
+            self.experiment.compute_voting_rule(method=method, num_winners=2)

@@ -5,7 +5,6 @@ import mapof.elections as mapof
 from mapof.elections.distances.committee_distances import get_matching_cost_committee
 
 
-
 registered_committee_distances_to_test = {
     'discrete',
     'hamming',

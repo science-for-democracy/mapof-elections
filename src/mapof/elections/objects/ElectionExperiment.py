@@ -14,7 +14,7 @@ from mapof.core.utils import get_instance_id
 from tqdm import tqdm
 
 import mapof.elections.features as features
-import mapof.elections.other.rules as rules
+import mapof.elections.other.approval_rules as rules
 from mapof.elections.cultures import registered_ordinal_cultures, registered_pseudo_ordinal_cultures
 from mapof.elections.distances import get_distance
 from mapof.elections.objects.ApprovalElection import ApprovalElection
@@ -22,7 +22,6 @@ from mapof.elections.objects.ElectionFamily import ElectionFamily
 from mapof.elections.objects.ElectionFeatures import ST_KEY, AN_KEY, ID_KEY, UN_KEY
 from mapof.elections.objects.OrdinalElection import OrdinalElection
 from mapof.elections.other.glossary import ELECTION_GLOBAL_FEATURES
-from mapof.elections.other.glossary import NOT_ABCVOTING_RULES
 
 try:
     from sklearn.manifold import MDS
@@ -416,9 +415,9 @@ class ElectionExperiment(Experiment):
             for instance_id in new_instances:
                 self.instances[instance_id] = new_instances[instance_id]
 
-    def compute_winners(self, method=None, num_winners=1):
+    def compute_voting_rule(self, method=None, num_winners=1):
         for election_id in self.elections:
-            self.elections[election_id].compute_winners(method=method, num_winners=num_winners)
+            self.elections[election_id].compute_voting_rule(method=method, num_winners=num_winners)
 
     def compute_alternative_winners(self, method=None, num_winners=None, num_parties=None):
         for election_id in self.elections:
@@ -625,21 +624,21 @@ class ElectionExperiment(Experiment):
         self.features[saveas] = feature_dict
         return feature_dict
 
-    def compute_rules(self, list_of_rules,
-                      committee_size: int = 10,
-                      resolute: bool = False) -> None:
+    def compute_rules(
+            self,
+            list_of_rules,
+            committee_size: int = 10,
+            resolute: bool = False
+    ) -> None:
+        """ Computes the winning committees for a list of rules."""
 
         for rule_name in list_of_rules:
             print('Computing', rule_name)
-            if rule_name in NOT_ABCVOTING_RULES:
-                rules.compute_not_abcvoting_rule(experiment=self,
-                                                 rule_name=rule_name,
-                                                 committee_size=committee_size,
-                                                 resolute=resolute)
-            else:
-                rules.compute_abcvoting_rule(experiment=self, rule_name=rule_name,
-                                             committee_size=committee_size,
-                                             resolute=resolute)
+            rules.compute_abcvoting_rule(
+                experiment=self,
+                rule_name=rule_name,
+                committee_size=committee_size,
+                resolute=resolute)
 
     def import_committees(self, list_of_rules):
         for rule_name in list_of_rules:

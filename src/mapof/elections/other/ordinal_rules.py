@@ -1,8 +1,43 @@
+import logging
 import math
 
 import numpy as np
 
 from mapof.elections.distances import ilp_other as lp
+
+
+def voting_rule(election, method=None, num_winners=None) -> set:
+
+    election.borda_points = get_borda_points(
+        election.votes, election.num_voters, election.num_candidates)
+
+    if method == 'sntv':
+        winners = compute_sntv_voting_rule(election=election, num_winners=num_winners)
+    elif method == 'borda':
+        winners = compute_borda_voting_rule(election=election, num_winners=num_winners)
+    elif method == 'stv':
+        winners = compute_stv_voting_rule(election=election, num_winners=num_winners)
+    elif method in {'approx_cc', 'approx_hb', 'approx_pav'}:
+        winners = compute_standard_voting_rule(election=election, num_winners=num_winners)
+    else:
+        logging.warning(f"Method {method} is not supported.")
+        winners = set()
+
+    return winners
+
+
+def compute_standard_voting_rule(election=None, num_winners=1, ballot="ordinal", type=None, name=None):
+    votes, num_voters, num_candidates = election.votes, election.num_voters, election.num_candidates
+    params = {"orders": num_winners,
+              "pure": True,
+              "elections": 1,
+              'candidates': num_candidates,
+              'voters': num_voters}
+    rule = {'type_id': type,
+            'name': name,
+            'length': num_candidates}
+    winners, total_time = get_winners(params, votes, rule, ballot)
+    return winners, total_time
 
 
 def randomize(vector, num_winners):
@@ -24,7 +59,7 @@ def randomize(vector, num_winners):
     return ranking
 
 
-def compute_sntv_winners(election=None, num_winners=1):
+def compute_sntv_voting_rule(election=None, num_winners=1):
     """ Compute SNTV winners for a given election """
     scores = [0 for _ in range(election.num_candidates)]
     for vote in election.votes:
@@ -35,7 +70,7 @@ def compute_sntv_winners(election=None, num_winners=1):
     return ranking[0:num_winners]
 
 
-def compute_borda_winners(election=None, num_winners=1):
+def compute_borda_voting_rule(election=None, num_winners=1):
     """ Compute Borda winners for a given election """
 
     scores = [0 for _ in range(election.num_candidates)]
@@ -48,7 +83,7 @@ def compute_borda_winners(election=None, num_winners=1):
     return ranking[0:num_winners]
 
 
-def compute_stv_winners(election=None, num_winners=1):
+def compute_stv_voting_rule(election=None, num_winners=1):
     """ Compute STV winners for a given election """
 
     winners = []
@@ -131,20 +166,6 @@ def get_borda_points(votes, num_voters, num_candidates):
     return points
 
 
-def generate_winners(election=None, num_winners=1, ballot="ordinal", type=None, name=None):
-    votes, num_voters, num_candidates = election.votes, election.num_voters, election.num_candidates
-    params = {"orders": num_winners,
-              "pure": True,
-              "elections": 1,
-              'candidates': num_candidates,
-              'voters': num_voters}
-    rule = {'type_id': type,
-            'name': name,
-            'length': num_candidates}
-    winners, total_time = get_winners(params, votes, rule, ballot)
-    return winners, total_time
-
-
 def get_winners(params, votes, rule, ballot='ordinal'):
     if ballot == "ordinal":
         return get_ordinal_winners(params, votes, rule)
@@ -200,7 +221,7 @@ def get_ordinal_winners(params, votes, rule):
 
             all_winners += winners
         return all_winners
-
+    #
     # elif rule['type_id'] == "approx_cc":
     #     all_winners = []
     #     winners = get_winners_approx_cc(votes, params)

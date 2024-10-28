@@ -1,5 +1,6 @@
 import numpy as np
 
+
 def num_of_diff_votes(election):
     if election.is_pseudo:
         return {'value': None}

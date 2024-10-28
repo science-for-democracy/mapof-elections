@@ -18,10 +18,10 @@ import mapof.elections.persistence.election_imports as imports
 from mapof.elections.features import get_local_feature
 from mapof.elections.objects.ElectionFeatures import ElectionFeatures
 from mapof.elections.other.glossary import *
-from mapof.elections.other.winners import (
-    compute_sntv_winners,
-    compute_borda_winners,
-    compute_stv_winners
+from mapof.elections.other.ordinal_rules import (
+    compute_sntv_voting_rule,
+    compute_borda_voting_rule,
+    compute_stv_voting_rule
 )
 
 OBJECT_TYPES = ['vote', 'candidate']
@@ -161,13 +161,13 @@ class Election(Instance):
         election_without_party_id = map_the_votes(election_without_party_id, party_id, num_winners)
 
         if method == 'sntv':
-            winners_without_party_id = compute_sntv_winners(election=election_without_party_id,
+            winners_without_party_id = compute_sntv_voting_rule(election=election_without_party_id,
                                                             num_winners=num_winners)
         elif method == 'borda':
-            winners_without_party_id = compute_borda_winners(election=election_without_party_id,
+            winners_without_party_id = compute_borda_voting_rule(election=election_without_party_id,
                                                              num_winners=num_winners)
         elif method == 'stv':
-            winners_without_party_id = compute_stv_winners(election=election_without_party_id,
+            winners_without_party_id = compute_stv_voting_rule(election=election_without_party_id,
                                                            num_winners=num_winners)
         else:
             winners_without_party_id = []

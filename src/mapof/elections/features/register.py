@@ -1,4 +1,3 @@
-
 registered_ordinal_election_features = {}
 
 registered_approval_election_features = {}

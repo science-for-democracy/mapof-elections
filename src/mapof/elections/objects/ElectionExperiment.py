@@ -15,15 +15,20 @@ from tqdm import tqdm
 
 import mapof.elections.features as features
 import mapof.elections.other.approval_rules as rules
-from mapof.elections.cultures import registered_ordinal_cultures, registered_pseudo_ordinal_cultures
+from mapof.elections.cultures import \
+    registered_ordinal_cultures, \
+    registered_pseudo_ordinal_cultures
 from mapof.elections.distances import get_distance
+from mapof.elections.features.register import features_with_params, features_rule_related
 from mapof.elections.objects.ApprovalElection import ApprovalElection
 from mapof.elections.objects.ElectionFamily import ElectionFamily
 from mapof.elections.objects.ElectionFeatures import ST_KEY, AN_KEY, ID_KEY, UN_KEY
 from mapof.elections.objects.OrdinalElection import OrdinalElection
 from mapof.elections.other.glossary import ELECTION_GLOBAL_FEATURES
 
-from mapof.elections.features.register import features_with_params, features_rule_related
+from mapof.core.features.register import \
+    registered_experiment_features, \
+    features_embedding_related
 
 try:
     from sklearn.manifold import MDS
@@ -541,7 +546,7 @@ class ElectionExperiment(Experiment):
 
         if feature_id in features_rule_related:
             feature_long_id = f'{feature_id}_{feature_params["rule"]}'
-        elif feature_id in ['distortion', 'monotonicity']:
+        elif feature_id in features_embedding_related:
             feature_long_id = f'{feature_id}_{self.embedding_id}'
         else:
             feature_long_id = feature_id
@@ -578,13 +583,13 @@ class ElectionExperiment(Experiment):
                 for _ in range(num_iterations):
 
                     if feature_id in ['ejr',
-                                       'pareto',
-                                       'cohesiveness']:
+                                      'pareto',
+                                      'cohesiveness']:
                         value = instance.get_feature(feature_id, feature_long_id,
                                                      feature_params=feature_params)
                     elif feature_id in features_with_params:
                         solution = instance.get_feature(feature_id, feature_long_id,
-                                                     feature_params=feature_params)
+                                                        feature_params=feature_params)
 
                     else:
                         solution = instance.get_feature(feature_id, feature_long_id,

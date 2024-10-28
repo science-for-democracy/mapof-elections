@@ -306,8 +306,8 @@ class OrdinalElection(Election):
 
         return vector, len(vector)
 
-    def compute_voting_rule(self, method=None, num_winners=None):
-        self.winners = voting_rule(election=self, method=method, num_winners=num_winners)
+    def compute_voting_rule(self, method=None, committee_size=None):
+        self.winners = voting_rule(election=self, method=method, committee_size=committee_size)
 
     def compute_winners(self, **kwargs):  # deprecated name / for backward compatibility
         return self.compute_voting_rule(self, **kwargs)

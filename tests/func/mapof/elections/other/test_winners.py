@@ -20,15 +20,15 @@ class TestWinners:
         )
 
     def test_compute_sntv_winners(self):
-        winners = compute_sntv_voting_rule(self.election, num_winners=3)
+        winners = compute_sntv_voting_rule(self.election, committee_size=3)
         assert len(winners) == 3
 
     def test_compute_borda_winners(self):
-        winners = compute_borda_voting_rule(self.election, num_winners=3)
+        winners = compute_borda_voting_rule(self.election, committee_size=3)
         assert len(winners) == 3
 
     def test_compute_stv_winners(self):
-        winners = compute_stv_voting_rule(self.election, num_winners=3)
+        winners = compute_stv_voting_rule(self.election, committee_size=3)
         assert len(winners) == 3
 
     def test_get_borda_points(self):

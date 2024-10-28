@@ -108,7 +108,7 @@ def generate_mallows_party(num_voters=None,
                            election_model=None,
                            params=None):
     num_parties = params['num_parties']
-    num_winners = params['num_winners']
+    num_winners = params['committee_size']
     party_size = num_winners
 
     params['phi'] = ml.phi_from_normphi(num_parties, normphi=params['main-phi'])

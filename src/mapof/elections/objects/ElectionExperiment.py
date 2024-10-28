@@ -81,7 +81,13 @@ class ElectionExperiment(Experiment):
         else:
             self.__dict__[name] = value
 
-    def add_instances_to_experiment(self):
+    def add_instances_to_experiment(self) -> None:
+        """
+        Add instances to the experiment.
+
+        Returns:
+            None
+        """
         instances = {}
 
         for family_id in self.families:
@@ -111,15 +117,48 @@ class ElectionExperiment(Experiment):
         return instances
 
     def set_default_num_candidates(self, num_candidates: int) -> None:
-        """ Set default number of candidates """
+        """
+        Sets default number of candidates
+
+        Parameters
+        ----------
+            num_candidates : int
+                Number of candidates.
+
+        Returns
+        -------
+            None
+        """
         self.default_num_candidates = num_candidates
 
     def set_default_num_voters(self, num_voters: int) -> None:
-        """ Set default number of voters """
+        """
+        Sets default number of voters
+
+        Parameters
+        ----------
+            num_voters : int
+                Number of voters.
+
+        Returns
+        -------
+            None
+        """
         self.default_num_voters = num_voters
 
     def set_default_committee_size(self, committee_size: int) -> None:
-        """ Set default size of the committee """
+        """
+        Sets default size of the committee
+
+        Parameters
+        ----------
+            committee_size : int
+                Committee size.
+
+        Returns
+        -------
+            None
+        """
         self.default_committee_size = committee_size
 
     def add_election_from_matrix(self,
@@ -138,7 +177,6 @@ class ElectionExperiment(Experiment):
 
     def add_election(self,
                      culture_id="none",
-                     params=None,
                      label=None,
                      color="black",
                      alpha: float = 1.,
@@ -149,12 +187,54 @@ class ElectionExperiment(Experiment):
                      size: int = 1,
                      num_candidates: int = None,
                      num_voters: int = None,
-                     election_id=None,  # deprecated
-                     instance_id=None,
+                     election_id: str = None,  # deprecated
+                     instance_id: str = None,
                      frequency_matrix=None,
                      is_temporary: bool = False,
                      **kwargs):
-        """ Add election to the experiment """
+        """
+        Adds election to the experiment.
+
+        Parameters
+        ----------
+            culture_id : str
+                Culture id.
+            label : str
+                Label.
+            color
+                Color.
+            alpha : float
+                Alpha.
+            show : bool
+                If true the election is shown.
+            marker : str
+                Marker.
+            ms : int
+                Marker size.
+            starting_from : int
+                Starting index.
+            size : int
+                Size.
+            num_candidates : int
+                Number of candidates.
+            num_voters : int
+                Number of voters.
+            election_id : str
+                Election id.
+            instance_id : str
+                Instance id.
+            frequency_matrix : list
+                Frequency matrix.
+            is_temporary : bool
+                If true the election is temporary.
+            **kwargs : dict
+                Additional parameters.
+
+        Returns
+        -------
+            list
+                List of IDs of added instances.
+        """
 
         if instance_id is None:
             instance_id = election_id
@@ -185,7 +265,6 @@ class ElectionExperiment(Experiment):
 
     def add_family(self,
                    culture_id: str = "none",
-                   params: dict = None,
                    size: int = 1,
                    label: str = None,
                    color: str = "black",
@@ -196,17 +275,61 @@ class ElectionExperiment(Experiment):
                    starting_from: int = 0,
                    num_candidates: int = None,
                    num_voters: int = None,
+                   frequency_matrix=None,
+                   is_temporary: bool = False,
+                   params: dict = None,
                    family_id: str = None,
                    single: bool = False,
                    path: dict = None,
-                   election_id: str = None,
-                   frequency_matrix=None,
-                   is_temporary: bool = False,
                    **kwargs) -> list:
-        """ Add family of elections to the experiment """
+        """
+        Adds family of elections to the experiment.
 
-        if election_id is not None:
-            family_id = election_id
+        Parameters
+        ----------
+            culture_id : str
+                Culture id.
+            label : str
+                Label.
+            color
+                Color.
+            alpha : float
+                Alpha.
+            show : bool
+                If true the family is shown.
+            marker : str
+                Marker.
+            ms : int
+                Marker size.
+            starting_from : int
+                Starting index.
+            size : int
+                Size.
+            num_candidates : int
+                Number of candidates.
+            num_voters : int
+                Number of voters.
+            frequency_matrix : list
+                Frequency matrix.
+            is_temporary : bool
+                If true the election is temporary.
+            params : dict
+                Additional parameters.
+            family_id : str
+                Family id.
+            single : bool
+                If true only one election is added.
+            path : dict
+                Path.
+            **kwargs : dict
+                Additional parameters.
+
+        Returns
+        -------
+            list
+                List of IDs of added instances.
+
+        """
 
         if num_candidates is None:
             num_candidates = self.default_num_candidates
@@ -271,15 +394,34 @@ class ElectionExperiment(Experiment):
         self.families[family_id].instance_ids = list(new_instances.keys())
 
         if self.is_exported and not is_temporary:
-            self.update_map_csv()
+            self._update_map_csv()
 
         return list(new_instances.keys())
 
-    def add_existing_family_from_dir(self,
-                                     dir=None,
-                                     culture_id=None,
-                                     **kwargs) -> list:
-        """ Add family of elections to the experiment """
+    def add_existing_family_from_dir(
+            self,
+            dir: str = None,
+            culture_id: str = None,
+            **kwargs
+    ) -> list:
+        """
+        Adds family of elections to the experiment from the given directory.
+
+        Parameters
+        ----------
+            dir : str
+                Directory.
+            culture_id : str
+                Culture id.
+            **kwargs : dict
+                Additional parameters.
+
+        Returns
+        -------
+            list
+                List of the families.
+
+        """
         if dir is None:
             logging.warning('dir not specified')
         if culture_id is None:
@@ -316,12 +458,8 @@ class ElectionExperiment(Experiment):
 
         return self.add_family(culture_id=culture_id, **kwargs)
 
-    def update_map_csv(self):
-
-        """ Import controllers from a file """
-
+    def _update_map_csv(self):
         families = {}
-
         path_to_file = os.path.join(os.getcwd(), 'experiments', self.experiment_id, 'map.csv')
         with open(path_to_file, 'w', newline='') as csv_file:
             writer = csv.writer(csv_file, delimiter=';')
@@ -361,16 +499,42 @@ class ElectionExperiment(Experiment):
 
         return families
 
-    def add_empty_family(self,
-                         culture_id: str = "none",
-                         label: str = None,
-                         color: str = "black",
-                         alpha: float = 1.,
-                         show: bool = True,
-                         marker: str = 'o',
-                         num_candidates: int = None,
-                         num_voters: int = None,
-                         family_id: str = None):
+    def add_empty_family(
+            self,
+            culture_id: str = "none",
+            label: str = None,
+            color: str = "black",
+            alpha: float = 1.,
+            show: bool = True,
+            marker: str = 'o',
+            num_candidates: int = None,
+            num_voters: int = None,
+            family_id: str = None
+    ):
+        """
+        Adds an empty family of elections to the experiment.
+
+        Parameters
+        ----------
+            culture_id : str
+                Culture id.
+            label : str
+                Label.
+            color : str
+                Color.
+            alpha : float
+                Alpha.
+            show : bool
+                If true the family is shown.
+            marker : str
+                Marker.
+            num_candidates : int
+                Number of candidates.
+            num_voters : int
+                Number of voters.
+            family_id : str
+                Family id.
+        """
 
         if label is None:
             label = family_id
@@ -392,9 +556,21 @@ class ElectionExperiment(Experiment):
 
         return self.families[family_id]
 
-    def prepare_elections(self, store_points=False, is_aggregated=True):
-        """ Prepare elections for a given experiment """
+    def prepare_elections(self, store_points=False, is_aggregated=True) -> None:
+        """
+        Prepares elections for a given experiment.
 
+        Parameters
+        ----------
+        store_points : bool
+            Whether to store points in the instance.
+        is_aggregated : bool
+            Whether to aggregate the instances.
+
+        Returns
+        -------
+            None
+        """
         self.store_points = store_points
         self.is_aggregated = is_aggregated
 
@@ -418,9 +594,24 @@ class ElectionExperiment(Experiment):
             for instance_id in new_instances:
                 self.instances[instance_id] = new_instances[instance_id]
 
-    def compute_voting_rule(self, method=None, num_winners=1):
+    def compute_voting_rule(self, method=None, committee_size=1) -> None:
+        """
+        Computes voting rule for all elections in the experiment.
+
+        Parameters
+        ----------
+            method : str
+                Name of the boting rule to be computed.
+            committee_size : int
+                Size of the committee.
+
+        Returns
+        -------
+            None
+        """
         for election_id in self.elections:
-            self.elections[election_id].compute_voting_rule(method=method, num_winners=num_winners)
+            self.elections[election_id].compute_voting_rule(
+                method=method, committee_size=committee_size)
 
     def compute_alternative_winners(self, method=None, num_winners=None, num_parties=None):
         for election_id in self.elections:
@@ -428,24 +619,27 @@ class ElectionExperiment(Experiment):
                 self.elections[election_id].compute_alternative_winners(
                     method=method, party_id=party_id, num_winners=num_winners)
 
-    def get_distance(self,
-                     election_1,
-                     election_2,
-                     distance_id: str = None,
-                     **kwargs
-                     ) -> float or (float, list):
+    def get_distance(
+            self,
+            election_1,
+            election_2,
+            distance_id: str = None,
+            **kwargs
+    ) -> float or (float, list):
         return get_distance(election_1, election_2, distance_id)
-
-    def get_election_id_from_model_name(self, culture_id: str) -> str:
-        for family_id in self.families:
-            if self.families[family_id].culture_id == culture_id:
-                return family_id
 
     def print_matrix(self, **kwargs):
         pr.print_matrix(experiment=self, **kwargs)
 
-    def import_controllers(self):
-        """ Import controllers from a file """
+    def import_controllers(self) -> list:
+        """
+        Import controllers from a file
+
+        Returns
+        -------
+            list
+                List of families.
+        """
 
         families = {}
 
@@ -520,8 +714,8 @@ class ElectionExperiment(Experiment):
                 all_num_candidates.append(num_candidates)
                 all_num_voters.append(num_voters)
 
-            check_if_all_equal(all_num_candidates, 'num_candidates')
-            check_if_all_equal(all_num_voters, 'num_voters')
+            _check_if_all_equal(all_num_candidates, 'num_candidates')
+            _check_if_all_equal(all_num_voters, 'num_voters')
 
             self.num_families = len(families)
             self.num_elections = sum([families[family_id].size for family_id in families])
@@ -537,6 +731,24 @@ class ElectionExperiment(Experiment):
             saveas: str = None,
             **kwargs
     ) -> dict:
+        """
+        Computes a feature for each in instances in the experiment.
+
+        Parameters
+        ----------
+            feature_id : str
+                The id of the feature to compute.
+            feature_params : dict
+                The parameters of the feature to compute.
+            overwrite : bool
+                Whether to overwrite the feature if it already exists.
+            saveas : str
+
+        Returns
+        -------
+            dict
+                A dictionary with the computed feature for each instance.
+        """
 
         if feature_params is None:
             feature_params = {}
@@ -620,11 +832,26 @@ class ElectionExperiment(Experiment):
 
     def compute_rules(
             self,
-            list_of_rules : list,
+            list_of_rules: list,
             committee_size: int = 10,
             resolute: bool = False
     ) -> None:
-        """ Computes the winning committees for a list of rules."""
+        """
+        Computes the winning committees for a list of rules.
+
+        Parameters
+        ----------
+            list_of_rules : list
+                A list of rules to compute the winning committees for.
+            committee_size : int
+                The size of the winning committees.
+            resolute : bool
+                Whether to compute the resolute committees.
+
+        Returns
+        -------
+            None
+        """
 
         for rule_name in list_of_rules:
             print('Computing', rule_name)
@@ -634,12 +861,38 @@ class ElectionExperiment(Experiment):
                 committee_size=committee_size,
                 resolute=resolute)
 
-    def import_committees(self, list_of_rules):
+    def import_committees(self, list_of_rules) -> None:
+        """
+        Imports the winning committees for a list of rules.
+
+        Parameters
+        ----------
+            list_of_rules : list
+                A list of rules to import the winning committees for.
+
+        Returns
+        -------
+            None
+        """
         for rule_name in list_of_rules:
             self.all_winning_committees[rule_name] = rules.import_committees_from_file(
                 experiment_id=self.experiment_id, rule_name=rule_name)
 
-    def add_election_to_family(self, election=None, family_id=None):
+    def add_election_to_family(self, election=None, family_id=None) -> None:
+        """
+        Adds an election to a family.
+
+        Parameters
+        ----------
+            election : Election
+                The election to add to the family.
+            family_id : str
+                The id of the family to add the election to.
+
+        Returns
+        -------
+            None
+        """
         election.instance_id = f'{self.families[family_id]}_{self.families[family_id].size}'
         self.instances[election.instance_id] = election
         self.families[family_id].add_election(election)
@@ -714,7 +967,7 @@ class ElectionExperiment(Experiment):
         self.__dict__.update(state)
 
 
-def check_if_all_equal(values, subject):
+def _check_if_all_equal(values, subject):
     if any(x != values[0] for x in values):
         text = f'Not all {subject} values are equal!'
         warnings.warn(text)

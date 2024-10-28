@@ -96,4 +96,4 @@ class TestOnlineOrdinalExperiment:
         self.add_families()
 
         for method in ['sntv', 'borda', 'stv']:
-            self.experiment.compute_voting_rule(method=method, num_winners=2)
+            self.experiment.compute_voting_rule(method=method, committee_size=2)

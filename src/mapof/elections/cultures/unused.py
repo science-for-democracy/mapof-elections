@@ -7,7 +7,7 @@ from prefsampling.ordinal import single_peaked_walsh as generate_ordinal_sp_wals
 def generate_ic_party(num_voters: int = None, params: dict = None) -> list:
     """ Return: party votes from Impartial Culture"""
     num_parties = params['num_parties']
-    party_size = params['num_winners']
+    party_size = params['committee_size']
 
     votes = np.zeros([num_voters, num_parties], dtype=int)
 
@@ -29,8 +29,8 @@ def generate_sp_party(model=None, num_voters=None, num_candidates=None, params=N
     _ids = [i for i in range(num_candidates)]
 
     for j in range(params['num_parties']):
-        for w in range(params['num_winners']):
-            _id = j * params['num_winners'] + w
+        for w in range(params['committee_size']):
+            _id = j * params['committee_size'] + w
             candidates[_id] = [np.random.normal(params['party'][j][0], params['var'])]
 
     mapping = [x for _, x in sorted(zip(candidates, _ids))]

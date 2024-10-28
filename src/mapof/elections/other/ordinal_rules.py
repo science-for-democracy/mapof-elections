@@ -6,19 +6,19 @@ import numpy as np
 from mapof.elections.distances import ilp_other as lp
 
 
-def voting_rule(election, method=None, num_winners=None) -> set:
+def voting_rule(election, method=None, committee_size=None) -> set:
 
     election.borda_points = get_borda_points(
         election.votes, election.num_voters, election.num_candidates)
 
     if method == 'sntv':
-        winners = compute_sntv_voting_rule(election=election, num_winners=num_winners)
+        winners = compute_sntv_voting_rule(election=election, committee_size=committee_size)
     elif method == 'borda':
-        winners = compute_borda_voting_rule(election=election, num_winners=num_winners)
+        winners = compute_borda_voting_rule(election=election, committee_size=committee_size)
     elif method == 'stv':
-        winners = compute_stv_voting_rule(election=election, num_winners=num_winners)
+        winners = compute_stv_voting_rule(election=election, committee_size=committee_size)
     elif method in {'approx_cc', 'approx_hb', 'approx_pav'}:
-        winners = compute_standard_voting_rule(election=election, num_winners=num_winners)
+        winners = compute_standard_voting_rule(election=election, committee_size=committee_size)
     else:
         logging.warning(f"Method {method} is not supported.")
         winners = set()
@@ -26,9 +26,9 @@ def voting_rule(election, method=None, num_winners=None) -> set:
     return winners
 
 
-def compute_standard_voting_rule(election=None, num_winners=1, ballot="ordinal", type=None, name=None):
+def compute_standard_voting_rule(election=None, committee_size=1, ballot="ordinal", type=None, name=None):
     votes, num_voters, num_candidates = election.votes, election.num_voters, election.num_candidates
-    params = {"orders": num_winners,
+    params = {"orders": committee_size,
               "pure": True,
               "elections": 1,
               'candidates': num_candidates,
@@ -40,17 +40,17 @@ def compute_standard_voting_rule(election=None, num_winners=1, ballot="ordinal",
     return winners, total_time
 
 
-def randomize(vector, num_winners):
+def randomize(vector, committee_size):
     scores = [x for x, _ in vector]
     ranking = [x for _, x in vector]
-    last_value = scores[num_winners-1]
+    last_value = scores[committee_size-1]
     # LEFT
-    left = num_winners - 2
+    left = committee_size - 2
     while left >= 0 and scores[left] == last_value:
         left -= 1
     left += 1
     # RIGHT
-    right = num_winners
+    right = committee_size
     while right < len(scores) and scores[right] == last_value:
         right += 1
     if left < right:
@@ -59,18 +59,18 @@ def randomize(vector, num_winners):
     return ranking
 
 
-def compute_sntv_voting_rule(election=None, num_winners=1):
+def compute_sntv_voting_rule(election=None, committee_size=1):
     """ Compute SNTV winners for a given election """
     scores = [0 for _ in range(election.num_candidates)]
     for vote in election.votes:
         scores[vote[0]] += 1
     candidates = [i for i in range(election.num_candidates)]
     results = sorted(zip(scores, candidates), reverse=True)
-    ranking = randomize(results, num_winners)
-    return ranking[0:num_winners]
+    ranking = randomize(results, committee_size)
+    return ranking[0:committee_size]
 
 
-def compute_borda_voting_rule(election=None, num_winners=1):
+def compute_borda_voting_rule(election=None, committee_size=1):
     """ Compute Borda winners for a given election """
 
     scores = [0 for _ in range(election.num_candidates)]
@@ -79,17 +79,17 @@ def compute_borda_voting_rule(election=None, num_winners=1):
             scores[vote[i]] += election.num_candidates - i - 1
     candidates = [i for i in range(election.num_candidates)]
     results = sorted(zip(scores, candidates), reverse=True)
-    ranking = randomize(results, num_winners)
-    return ranking[0:num_winners]
+    ranking = randomize(results, committee_size)
+    return ranking[0:committee_size]
 
 
-def compute_stv_voting_rule(election=None, num_winners=1):
+def compute_stv_voting_rule(election=None, committee_size=1):
     """ Compute STV winners for a given election """
 
     winners = []
     active = [True] * election.num_candidates
 
-    droop_quota = math.floor(election.num_voters / (num_winners + 1.)) + 1
+    droop_quota = math.floor(election.num_voters / (committee_size + 1.)) + 1
 
     votes_on_1 = [0.] * election.num_candidates
     for i in range(election.num_voters):
@@ -97,7 +97,7 @@ def compute_stv_voting_rule(election=None, num_winners=1):
 
     v_power = [1.] * election.num_voters
 
-    while len(winners) + sum(active) > num_winners:
+    while len(winners) + sum(active) > committee_size:
 
         ctr = election.num_candidates
         winner_id = 0

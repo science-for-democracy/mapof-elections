@@ -19,6 +19,8 @@ import mapof.elections.features.ranging_cc as ranging_cc
 import mapof.elections.features.scores as scores
 import mapof.elections.features.vc_diversity as vcd
 
+from mapof.elections.features.register import registered_simple_ordinal_features
+
 registered_approval_features = {
     'max_approval_score': simple_approval.max_approval_score,
     'number_of_cohesive_groups': cohesive.count_number_of_cohesive_groups,
@@ -32,68 +34,6 @@ registered_approval_features = {
     'abstract': simple_approval.abstract,  # unsupported feature
 
     'ejr': jr.test_ejr,  # unsupported feature
-}
-
-registered_ordinal_features = {
-    'highest_borda_score': scores.highest_borda_score,
-    'highest_plurality_score': scores.highest_plurality_score,
-    'highest_copeland_score': scores.highest_copeland_score,
-    'lowest_dodgson_score': scores.lowest_dodgson_score,
-    'highest_cc_score': scores.highest_cc_score,
-    'highest_hb_score': scores.highest_hb_score,
-    'highest_pav_score': scores.highest_pav_score,
-    'greedy_approx_cc_score': approx.get_greedy_approx_cc_score,
-    'removal_approx_cc_score': approx.get_removal_approx_cc_score,
-    'greedy_approx_hb_score': approx.get_greedy_approx_hb_score,
-    'removal_approx_hb_score': approx.get_removal_approx_hb_score,
-    'greedy_approx_pav_score': approx.get_greedy_approx_pav_score,
-    'removal_approx_pav_score': approx.get_removal_approx_pav_score,
-    'banzhaf_cc_score': banzhaf_cc.get_banzhaf_cc_score,
-    'ranging_cc_score': ranging_cc.get_ranging_cc_score,
-    'num_of_diff_votes': vcd.num_of_diff_votes,
-    'borda_diversity': vcd.borda_diversity,
-    'borda_std': diversity.borda_std,
-    'borda_range': diversity.borda_range,
-    'borda_gini': diversity.borda_gini,
-    'borda_meandev': diversity.borda_meandev,
-    'cand_dom_dist_mean': diversity.cand_dom_dist_mean,
-    'cand_dom_dist_std': diversity.cand_dom_dist_std,
-    'cand_pos_dist_std': diversity.cand_pos_dist_std,
-    'cand_pos_dist_gini': diversity.cand_pos_dist_gini,
-    'cand_pos_dist_meandev': diversity.cand_pos_dist_meandev,
-    'med_cands_summed': diversity.med_cands_summed,
-    'vote_dist_mean': diversity.vote_dist_mean,
-    'vote_dist_max': diversity.vote_dist_max,
-    'vote_dist_med': diversity.vote_dist_med,
-    'vote_dist_gini': diversity.vote_dist_gini,
-    'vote_sqr_dist_mean': diversity.vote_sqr_dist_mean,
-    'vote_sqr_dist_med': diversity.vote_sqr_dist_med,
-    'vote_diversity_Karpov': diversity.vote_diversity_Karpov,
-    'greedy_kKemenys_summed': diversity.greedy_kKemenys_summed,
-    'greedy_2kKemenys_summed': diversity.greedy_2kKemenys_summed,
-    'greedy_kKemenys_divk_summed': diversity.greedy_kKemenys_divk_summed,
-    'polarization_1by2Kemenys': diversity.polarization_1by2Kemenys,
-    'greedy_kmeans_summed': diversity.greedy_kmeans_summed,
-    'support_pairs': diversity.support_pairs,
-    'support_triplets': diversity.support_triplets,
-    'support_votes': diversity.support_votes,
-    'support_diversity_summed': diversity.support_diversity_summed,
-    'support_diversity_normed_summed': diversity.support_diversity_normed_summed,
-    'support_diversity_normed2_summed': diversity.support_diversity_normed2_summed,
-    'support_diversity_normed3_summed': diversity.support_diversity_normed3_summed,
-    'dist_to_Borda_mean': diversity.dist_to_Borda_mean,
-    'dist_to_Kemeny_mean': diversity.dist_to_Kemeny_mean,
-    'borda_spread': scores.borda_spread,
-    'Entropy': entropy.entropy,
-    'Agreement': diversity.agreement_index,
-    'Diversity': diversity.diversity_index,
-    'Polarization': diversity.polarization_index,
-    'AgreementApprox': dap_approx.agreement_index,
-    'DiversityApprox': dap_approx.diversity_index,
-    'PolarizationApprox': dap_approx.polarization_index,
-    'partylist': partylist.partylistdistance,
-
-    'rand_approx_pav_score': approx.get_rand_approx_pav_score,  # unsupported feature
 }
 
 
@@ -118,8 +58,8 @@ def get_local_feature(feature_id):
 
     if feature_id in registered_approval_features:
         return registered_approval_features.get(feature_id)
-    elif feature_id in registered_ordinal_features:
-        return registered_ordinal_features.get(feature_id)
+    elif feature_id in registered_simple_ordinal_features:
+        return registered_simple_ordinal_features.get(feature_id)
     else:
         raise ValueError(f'Incorrect feature id: {feature_id}')
 
@@ -157,7 +97,7 @@ def add_ordinal_feature(name: str, function: callable) -> None:
     -------
         None
     """
-    registered_ordinal_features[name] = function
+    registered_simple_ordinal_features[name] = function
 
 
 __all__ = [
@@ -166,3 +106,4 @@ __all__ = [
     'add_approval_feature',
     'add_ordinal_feature'
 ]
+

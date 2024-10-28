@@ -3,6 +3,9 @@ import numpy as np
 
 from mapof.elections.features.scores import get_cc_score, get_cc_dissat
 
+from mapof.elections.features.register import register_simple_ordinal_feature
+
+@register_simple_ordinal_feature('ranging_cc_score')
 def get_ranging_cc_score(election, committee_size=1):
     if election.is_pseudo:
         return {'value': None, 'dissat': None}

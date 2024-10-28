@@ -1,31 +1,13 @@
-import logging
 import math
-import os
-import sys
-import logging
 
 import numpy as np
 
-try:
-    import pulp
-except Exception:
-    logging.warning("Pulp not found. Some features may not work.")
-    pulp = None
-
-try:
-    from dotenv import load_dotenv
-    load_dotenv()
-    sys.path.append(os.environ["PATH"])
-    from abcvoting import abcrules, preferences
-except ImportError:
-    logging.warning("ABC Voting library not found. Some features may not work.")
-    abcrules = None
-    preferences = None
-
 from mapof.elections.distances import ilp_other
+from mapof.elections.features.register import register_simple_ordinal_feature
 from mapof.elections.other import ordinal_rules as win
 
 
+@register_simple_ordinal_feature('highest_borda_score')
 def highest_borda_score(election) -> dict:
     """
     Computes the highest Borda score of a given election.
@@ -51,6 +33,7 @@ def highest_borda_score(election) -> dict:
     return {'value': max(scores)}
 
 
+@register_simple_ordinal_feature('highest_plurality_score')
 def highest_plurality_score(election) -> dict:
     """
     Computes the highest Plurality score of a given election.
@@ -70,6 +53,7 @@ def highest_plurality_score(election) -> dict:
     return {'value': max(first_pos)}
 
 
+@register_simple_ordinal_feature('highest_copeland_score')
 def highest_copeland_score(election) -> dict:
     """
     Computes the highest Copeland score of a given election.
@@ -107,6 +91,7 @@ def highest_copeland_score(election) -> dict:
     return {'value': max(scores)}
 
 
+@register_simple_ordinal_feature('lowest_dodgson_score')
 def lowest_dodgson_score(election):
     """
     Computes the lowest Dodgson score of a given election
@@ -161,7 +146,7 @@ def lowest_dodgson_score(election):
 
     return {'value': min_score}
 
-
+@register_simple_ordinal_feature('highest_cc_score')
 def highest_cc_score(election, committee_size=1):
     if election.is_pseudo:
         return {'value': None, 'dissat': None}
@@ -172,6 +157,7 @@ def highest_cc_score(election, committee_size=1):
     return {'value': get_cc_score(election, winners), 'dissat': get_cc_dissat(election, winners)}
 
 
+@register_simple_ordinal_feature('highest_hb_score')
 def highest_hb_score(election, committee_size=1):
     if election.is_pseudo:
         return {'value': None, 'dissat': None}
@@ -182,6 +168,7 @@ def highest_hb_score(election, committee_size=1):
     return {'value': get_hb_score(election, winners), 'dissat': get_hb_dissat(election, winners)}
 
 
+@register_simple_ordinal_feature('highest_pav_score')
 def highest_pav_score(election, committee_size=1):
     if election.is_pseudo:
         return {'value': None, 'dissat': None}
@@ -337,7 +324,7 @@ def get_pav_dissat(election, winners) -> float:
     return dissat
 
 
-# OTHER
+@register_simple_ordinal_feature('borda_spread')
 def borda_spread(election) -> int:
     """ Compute the difference between the highest and the lowest Borda score """
     c = election.num_candidates

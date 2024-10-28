@@ -1,6 +1,8 @@
 from collections import defaultdict
 import math
 
+from mapof.elections.features.register import register_simple_ordinal_feature
+
 
 def _calculate_maximum_entropy(m):
     num_candidates = m
@@ -52,6 +54,7 @@ def _calculate_entropy_ordinal(votes):
     return average_entropy / _calculate_maximum_entropy(num_candidates)
 
 
+@register_simple_ordinal_feature('entropy')
 def entropy(election) -> dict:
     if election.is_pseudo:
         return {'value': None}

@@ -1,6 +1,9 @@
 import numpy as np
 
+from mapof.elections.features.register import register_simple_ordinal_feature
 
+
+@register_simple_ordinal_feature('num_of_diff_votes')
 def num_of_diff_votes(election):
     if election.is_pseudo:
         return {'value': None}
@@ -9,6 +12,7 @@ def num_of_diff_votes(election):
     return {'value': len(set(str_votes))}
 
 
+@register_simple_ordinal_feature('borda_diversity')
 def borda_diversity(election):
     if election.is_pseudo:
         return {'value': None}

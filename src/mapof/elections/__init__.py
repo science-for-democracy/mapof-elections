@@ -8,6 +8,8 @@ from mapof.elections.objects.OrdinalElection import OrdinalElection
 from mapof.elections.objects.ApprovalElection import ApprovalElection
 from mapof.elections.objects.OrdinalElectionExperiment import OrdinalElectionExperiment
 
+from mapof.elections.features import scores
+
 
 def prepare_online_ordinal_experiment(**kwargs):
     return prepare_experiment(

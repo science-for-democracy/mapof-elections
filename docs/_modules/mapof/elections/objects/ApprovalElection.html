@@ -155,13 +155,17 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/cultures/index.html">Cultures</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/list_of_cultures.html">List of Cultures</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/main.html">Main</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/euclidean.html">Euclidean</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/guardians.html">Guardians</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/compass_approx.html">Compass Approximation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/compass_true.html">Compass True</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/prefsampling_mask.html">Prefsampling Mask</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/pseudo_cultures.html">Pseudo Cultures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/params.html">Params</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/distances/index.html">Distances</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/list_of_distances.html">List of Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/main.html">Main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/register.html">Register</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/main_approval_distances.html">Approval Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/main_ordinal_distances.html">Ordinal Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/committee_distances.html">Committee Distances</a></li>
@@ -171,11 +175,21 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/features/index.html">Features</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/list_of_features.html">List of Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/main.html">Main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/register.html">Register</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/scores.html">Scores</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/diversity.html">Diversity</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/dap_approximate.html">Diversity Approximate</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/simple_ordinal.html">Simple Ordinal</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/simple_approval.html">Simple Approval</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/abc_features.html">ABC Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/banzhaf_cc.html">Banzhaf CC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/ranging_cc.html">Ranging CC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/approx.html">Approx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/cohesive.html">Cohesive</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/entropy.html">Entropy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/justified_representation.html">Justified Representation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/partylist.html">Partylist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/proportionality_degree.html">Proportionality Degree</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/objects/index.html">Objects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -318,14 +332,15 @@ document.write(`
 <span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
 
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">mapof.core.distances</span> <span class="kn">import</span> <span class="n">hamming</span>
-<span class="kn">from</span> <span class="nn">mapof.core.utils</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 
 <span class="kn">import</span> <span class="nn">mapof.elections.persistence.election_exports</span> <span class="k">as</span> <span class="nn">exports</span>
 <span class="kn">import</span> <span class="nn">mapof.elections.persistence.election_imports</span> <span class="k">as</span> <span class="nn">imports</span>
 <span class="kn">from</span> <span class="nn">mapof.elections.cultures</span> <span class="kn">import</span> <span class="n">generate_approval_votes</span>
-<span class="kn">from</span> <span class="nn">mapof.elections.cultures.params</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">mapof.elections.cultures.params</span> <span class="kn">import</span> <span class="n">update_params_approval</span>
 <span class="kn">from</span> <span class="nn">mapof.elections.objects.Election</span> <span class="kn">import</span> <span class="n">Election</span>
 
 
@@ -356,15 +371,19 @@ document.write(`
 
         <span class="bp">self</span><span class="o">.</span><span class="n">import_approval_election</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">import_approval_election</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ApprovalElection.import_approval_election">
+<a class="viewcode-back" href="../../../../reference/objects/ApprovalElection.html#mapof.elections.objects.ApprovalElection.ApprovalElection.import_approval_election">[docs]</a>
+    <span class="k">def</span> <span class="nf">import_approval_election</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Imports approval elections from a file.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_imported</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">experiment_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="n">fake</span> <span class="o">=</span> <span class="n">imports</span><span class="o">.</span><span class="n">check_if_fake</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">experiment_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">election_id</span><span class="p">,</span> <span class="s1">&#39;app&#39;</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">fake</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">culture_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_voters</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_candidates</span> <span class="o">=</span> \
-                        <span class="n">imports</span><span class="o">.</span><span class="n">import_fake_app_election</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">experiment_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">election_id</span><span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">votes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_voters</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">,</span> \
+                <span class="bp">self</span><span class="o">.</span><span class="n">votes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_voters</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">,</span> \
                         <span class="bp">self</span><span class="o">.</span><span class="n">culture_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_options</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">quantities</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">distinct_votes</span> \
                         <span class="o">=</span> <span class="n">imports</span><span class="o">.</span><span class="n">import_real_app_election</span><span class="p">(</span>
                             <span class="n">experiment_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">experiment_id</span><span class="p">,</span>
@@ -381,12 +400,19 @@ document.write(`
                                                                        <span class="bp">self</span><span class="o">.</span><span class="n">printing_params</span><span class="p">,</span>
                                                                        <span class="bp">self</span><span class="o">.</span><span class="n">variable</span><span class="p">,</span>
                                                                        <span class="bp">self</span><span class="o">.</span><span class="n">culture_id</span><span class="p">,</span>
-                                                                       <span class="bp">self</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">)</span>
+                                                                       <span class="bp">self</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">)</span></div>
+
 
 <div class="viewcode-block" id="ApprovalElection.votes_to_approvalwise_vector">
 <a class="viewcode-back" href="../../../../reference/objects/ApprovalElection.html#mapof.elections.objects.ApprovalElection.ApprovalElection.votes_to_approvalwise_vector">[docs]</a>
     <span class="k">def</span> <span class="nf">votes_to_approvalwise_vector</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot; Convert votes to approvalwise vectors &quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Converts votes to approvalwise vectors.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">approvalwise_vector</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">])</span>
         <span class="k">for</span> <span class="n">vote</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">votes</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">vote</span><span class="p">:</span>
@@ -395,16 +421,52 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">approvalwise_vector</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">approvalwise_vector</span><span class="p">)</span></div>
 
 
-    <span class="k">def</span> <span class="nf">compute_reverse_approvals</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">reverse_approvals</span> <span class="o">=</span> <span class="p">[</span><span class="nb">set</span><span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">vote</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">votes</span><span class="p">)</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">vote</span><span class="p">)</span>
-                                  <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">)]</span>
+<div class="viewcode-block" id="ApprovalElection.compute_reverse_approvals">
+<a class="viewcode-back" href="../../../../reference/objects/ApprovalElection.html#mapof.elections.objects.ApprovalElection.ApprovalElection.compute_reverse_approvals">[docs]</a>
+    <span class="k">def</span> <span class="nf">compute_reverse_approvals</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Computes the reverse approvals.</span>
 
-    <span class="k">def</span> <span class="nf">get_reverse_approvals</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reverse_approvals</span> <span class="o">=</span> <span class="p">[</span><span class="nb">set</span><span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">vote</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">votes</span><span class="p">)</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">vote</span><span class="p">)</span>
+                                  <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">)]</span></div>
+
+
+<div class="viewcode-block" id="ApprovalElection.get_reverse_approvals">
+<a class="viewcode-back" href="../../../../reference/objects/ApprovalElection.html#mapof.elections.objects.ApprovalElection.ApprovalElection.get_reverse_approvals">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_reverse_approvals</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">set</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the reverse approvals.</span>
+<span class="sd">        Additionally, if they are not computed, it computes them.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">            list[set]</span>
+<span class="sd">                The reverse approvals.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">reverse_approvals</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">reverse_approvals</span> <span class="o">==</span> <span class="p">[]:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">compute_reverse_approvals</span><span class="p">()</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">reverse_approvals</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">reverse_approvals</span></div>
 
-    <span class="k">def</span> <span class="nf">prepare_instance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">is_exported</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">is_aggregated</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+
+<div class="viewcode-block" id="ApprovalElection.prepare_instance">
+<a class="viewcode-back" href="../../../../reference/objects/ApprovalElection.html#mapof.elections.objects.ApprovalElection.ApprovalElection.prepare_instance">[docs]</a>
+    <span class="k">def</span> <span class="nf">prepare_instance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">is_exported</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">is_aggregated</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Prepares all the instances within the experiment.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">            is_exported : bool</span>
+<span class="sd">            is_aggregated : bool</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">votes</span> <span class="o">=</span> <span class="n">generate_approval_votes</span><span class="p">(</span><span class="n">culture_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">culture_id</span><span class="p">,</span>
                                              <span class="n">num_candidates</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">,</span>
                                              <span class="n">num_voters</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">num_voters</span><span class="p">,</span>
@@ -421,9 +483,23 @@ document.write(`
             <span class="bp">self</span><span class="o">.</span><span class="n">num_options</span> <span class="o">=</span> <span class="mi">1</span>
 
         <span class="k">if</span> <span class="n">is_exported</span><span class="p">:</span>
-            <span class="n">exports</span><span class="o">.</span><span class="n">export_approval_election</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">is_aggregated</span><span class="o">=</span><span class="n">is_aggregated</span><span class="p">)</span>
+            <span class="n">exports</span><span class="o">.</span><span class="n">export_approval_election</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">is_aggregated</span><span class="o">=</span><span class="n">is_aggregated</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">_compute_distances_between_votes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">distance_id</span><span class="o">=</span><span class="s1">&#39;hamming&#39;</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">_compute_distances_between_votes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">distance_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;hamming&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Computes distances between the votes.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">            distance_id : str</span>
+<span class="sd">                Name of the distance.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">            np.ndarray</span>
+<span class="sd">                Distances.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">distances</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">num_voters</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_voters</span><span class="p">])</span>
         <span class="k">for</span> <span class="n">v1</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_voters</span><span class="p">):</span>
             <span class="k">for</span> <span class="n">v2</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_voters</span><span class="p">):</span>
@@ -444,7 +520,20 @@ document.write(`
 
         <span class="k">return</span> <span class="n">distances</span>
 
-    <span class="k">def</span> <span class="nf">_compute_distances_between_candidates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">distance_id</span><span class="o">=</span><span class="s1">&#39;hamming&#39;</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_compute_distances_between_candidates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">distance_id</span><span class="o">=</span><span class="s1">&#39;hamming&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Computes distances between the candidates.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">            distance_id : str</span>
+<span class="sd">                Name of the distance.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">            np.ndarray</span>
+<span class="sd">                Distances.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">compute_reverse_approvals</span><span class="p">()</span>
         <span class="n">distances</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">])</span>
         <span class="k">for</span> <span class="n">c1</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">):</span>
@@ -475,8 +564,10 @@ document.write(`
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">candidatelikeness_original_vectors</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_voted_to_candidatelikeness_original_vectors</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">_voted_to_candidatelikeness_original_vectors</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot; convert VOTES to candidate-likeness VECTORS &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">_voted_to_candidatelikeness_original_vectors</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Converts votes to candidate-likeness vectors</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">])</span>
 
         <span class="k">for</span> <span class="n">c_1</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">):</span>
@@ -488,43 +579,44 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">candidatelikeness_original_vectors</span> <span class="o">=</span> <span class="n">candidatelikeness_original_vectors</span>
         <span class="k">return</span> <span class="n">candidatelikeness_original_vectors</span>
 
-    <span class="k">def</span> <span class="nf">compute_distances</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">object_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">distance_id</span><span class="o">=</span><span class="s1">&#39;hamming&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="ApprovalElection.compute_distances">
+<a class="viewcode-back" href="../../../../reference/objects/ApprovalElection.html#mapof.elections.objects.ApprovalElection.ApprovalElection.compute_distances">[docs]</a>
+    <span class="k">def</span> <span class="nf">compute_distances</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">object_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">distance_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;hamming&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; Computes distances between the votes or candidates. &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">object_type</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">object_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">object_type</span>
 
         <span class="k">if</span> <span class="n">object_type</span> <span class="o">==</span> <span class="s1">&#39;vote&#39;</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_distances_between_votes</span><span class="p">(</span><span class="n">distance_id</span><span class="o">=</span><span class="n">distance_id</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">object_type</span> <span class="o">==</span> <span class="s1">&#39;candidate&#39;</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_distances_between_candidates</span><span class="p">(</span><span class="n">distance_id</span><span class="o">=</span><span class="n">distance_id</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_distances_between_candidates</span><span class="p">(</span><span class="n">distance_id</span><span class="o">=</span><span class="n">distance_id</span><span class="p">)</span></div>
+
 
 <div class="viewcode-block" id="ApprovalElection.print_map">
 <a class="viewcode-back" href="../../../../reference/objects/ApprovalElection.html#mapof.elections.objects.ApprovalElection.ApprovalElection.print_map">[docs]</a>
     <span class="k">def</span> <span class="nf">print_map</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
-            <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-            <span class="n">radius</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-            <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-            <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+            <span class="n">show</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="n">radius</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">alpha</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span>
             <span class="n">s</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
             <span class="n">object_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">double_gradient</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
             <span class="n">saveas</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span>
             <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span>
-            <span class="n">title_size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
-            <span class="n">annotate</span><span class="o">=</span><span class="kc">False</span>
+            <span class="n">annotate</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot; Print a map of the elections. &quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; Print a map of the election (i.e., microscope). &quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="n">object_type</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">object_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">object_type</span>
 
         <span class="k">if</span> <span class="n">object_type</span> <span class="o">==</span> <span class="s1">&#39;vote&#39;</span><span class="p">:</span>
             <span class="n">length</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_voters</span>
-            <span class="n">votes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">votes</span>
         <span class="k">elif</span> <span class="n">object_type</span> <span class="o">==</span> <span class="s1">&#39;candidate&#39;</span><span class="p">:</span>
             <span class="n">length</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_candidates</span>
-            <span class="n">votes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_reverse_approvals</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Incorrect object type: </span><span class="si">{</span><span class="n">object_type</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
             <span class="n">length</span> <span class="o">=</span> <span class="mi">0</span>

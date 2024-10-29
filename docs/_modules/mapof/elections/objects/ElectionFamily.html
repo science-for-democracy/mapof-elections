@@ -155,13 +155,17 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/cultures/index.html">Cultures</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/list_of_cultures.html">List of Cultures</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/main.html">Main</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/euclidean.html">Euclidean</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/guardians.html">Guardians</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/compass_approx.html">Compass Approximation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/compass_true.html">Compass True</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/prefsampling_mask.html">Prefsampling Mask</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/pseudo_cultures.html">Pseudo Cultures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/params.html">Params</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/distances/index.html">Distances</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/list_of_distances.html">List of Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/main.html">Main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/register.html">Register</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/main_approval_distances.html">Approval Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/main_ordinal_distances.html">Ordinal Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/committee_distances.html">Committee Distances</a></li>
@@ -171,11 +175,21 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/features/index.html">Features</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/list_of_features.html">List of Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/main.html">Main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/register.html">Register</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/scores.html">Scores</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/diversity.html">Diversity</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/dap_approximate.html">Diversity Approximate</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/simple_ordinal.html">Simple Ordinal</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/simple_approval.html">Simple Approval</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/abc_features.html">ABC Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/banzhaf_cc.html">Banzhaf CC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/ranging_cc.html">Ranging CC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/approx.html">Approx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/cohesive.html">Cohesive</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/entropy.html">Entropy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/justified_representation.html">Justified Representation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/partylist.html">Partylist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/proportionality_degree.html">Proportionality Degree</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/objects/index.html">Objects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -320,8 +334,8 @@ document.write(`
 <span class="kn">from</span> <span class="nn">mapof.core.objects.Family</span> <span class="kn">import</span> <span class="n">Family</span>
 <span class="kn">from</span> <span class="nn">mapof.elections.objects.OrdinalElection</span> <span class="kn">import</span> <span class="n">OrdinalElection</span>
 <span class="kn">from</span> <span class="nn">mapof.elections.objects.ApprovalElection</span> <span class="kn">import</span> <span class="n">ApprovalElection</span>
-<span class="kn">from</span> <span class="nn">mapof.core.utils</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">mapof.elections.cultures.params</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">mapof.core.utils</span> <span class="kn">import</span> <span class="n">get_instance_id</span>
+<span class="kn">from</span> <span class="nn">mapof.elections.cultures.params</span> <span class="kn">import</span> <span class="n">get_params_for_paths</span><span class="p">,</span> <span class="n">get_params_for_crate</span>
 
 
 <div class="viewcode-block" id="ElectionFamily">
@@ -393,12 +407,36 @@ document.write(`
     <span class="k">def</span> <span class="nf">__setstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
         
+<div class="viewcode-block" id="ElectionFamily.prepare_family">
+<a class="viewcode-back" href="../../../../reference/objects/ElectionFamily.html#mapof.elections.objects.ElectionFamily.ElectionFamily.prepare_family">[docs]</a>
     <span class="k">def</span> <span class="nf">prepare_family</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                        <span class="n">experiment_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                        <span class="n">is_exported</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                        <span class="n">store_points</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                        <span class="n">is_aggregated</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                       <span class="n">instance_type</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+                       <span class="n">instance_type</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Prepares the family of elections.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">            experiment_id : str</span>
+<span class="sd">                Experiment ID.</span>
+<span class="sd">            is_exported : bool</span>
+<span class="sd">                Whether to export the family.</span>
+<span class="sd">            store_points : bool</span>
+<span class="sd">                Whether to store the points.</span>
+<span class="sd">            is_aggregated : bool</span>
+<span class="sd">                    Whether the family is aggregated.</span>
+<span class="sd">            instance_type : str</span>
+<span class="sd">                Type of the instance.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">            list | None</span>
+<span class="sd">                List of elections.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="n">instance_type</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">instance_type</span> <span class="o">=</span> <span class="n">instance_type</span>
@@ -496,7 +534,8 @@ document.write(`
             <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;No such instance type!&#39;</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">None</span>
 
-        <span class="k">return</span> <span class="n">elections</span>
+        <span class="k">return</span> <span class="n">elections</span></div>
+
 
     <span class="k">def</span> <span class="nf">add_election</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">election</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">+=</span> <span class="mi">1</span>

@@ -155,13 +155,17 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/cultures/index.html">Cultures</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/list_of_cultures.html">List of Cultures</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/main.html">Main</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/euclidean.html">Euclidean</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/guardians.html">Guardians</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/compass_approx.html">Compass Approximation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/compass_true.html">Compass True</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/prefsampling_mask.html">Prefsampling Mask</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/pseudo_cultures.html">Pseudo Cultures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/params.html">Params</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/distances/index.html">Distances</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/list_of_distances.html">List of Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/main.html">Main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/register.html">Register</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/main_approval_distances.html">Approval Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/main_ordinal_distances.html">Ordinal Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/committee_distances.html">Committee Distances</a></li>
@@ -171,11 +175,21 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/features/index.html">Features</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/list_of_features.html">List of Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/main.html">Main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/register.html">Register</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/scores.html">Scores</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/diversity.html">Diversity</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/dap_approximate.html">Diversity Approximate</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/simple_ordinal.html">Simple Ordinal</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/simple_approval.html">Simple Approval</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/abc_features.html">ABC Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/banzhaf_cc.html">Banzhaf CC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/ranging_cc.html">Ranging CC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/approx.html">Approx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/cohesive.html">Cohesive</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/entropy.html">Entropy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/justified_representation.html">Justified Representation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/partylist.html">Partylist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/proportionality_degree.html">Proportionality Degree</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/objects/index.html">Objects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -315,11 +329,11 @@ document.write(`
                   
   <h1>Source code for mapof.elections.objects.ApprovalElectionExperiment</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">csv</span>
+<span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">mapof.core.matchings</span> <span class="kn">import</span> <span class="n">solve_matching_vectors</span>
-<span class="kn">from</span> <span class="nn">mapof.core.utils</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
 
 <span class="kn">import</span> <span class="nn">mapof.elections.cultures</span> <span class="k">as</span> <span class="nn">cultures</span>
@@ -359,8 +373,13 @@ document.write(`
     <span class="k">def</span> <span class="nf">add_distance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">function</span><span class="p">):</span>
         <span class="n">distances</span><span class="o">.</span><span class="n">add_approval_distance</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">function</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">compute_distance_between_rules</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">list_of_rules</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">printing</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                                       <span class="n">distance_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">committee_size</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">compute_distance_between_rules</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">list_of_rules</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">printing</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">distance_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">committee_size</span><span class="o">=</span><span class="mi">10</span>
+    <span class="p">):</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">import_committees</span><span class="p">(</span><span class="n">list_of_rules</span><span class="o">=</span><span class="n">list_of_rules</span><span class="p">)</span>
 
@@ -385,11 +404,8 @@ document.write(`
 
                             <span class="k">if</span> <span class="n">distance_id</span> <span class="o">==</span> <span class="s1">&#39;discrete&#39;</span><span class="p">:</span>
                                 <span class="n">distance</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">com1</span><span class="o">.</span><span class="n">symmetric_difference</span><span class="p">(</span><span class="n">com2</span><span class="p">))</span>
-                            <span class="k">elif</span> <span class="n">distance_id</span> <span class="o">==</span> <span class="s1">&#39;wrong&#39;</span><span class="p">:</span>
-                                <span class="n">distance</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">com1</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">com2</span><span class="p">))</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">com1</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">com2</span><span class="p">))</span>
                             <span class="k">elif</span> <span class="n">distance_id</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;hamming&#39;</span><span class="p">,</span> <span class="s1">&#39;jaccard&#39;</span><span class="p">]:</span>
                                 <span class="n">cand_dist</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">committee_size</span><span class="p">,</span> <span class="n">committee_size</span><span class="p">])</span>
-
                                 <span class="bp">self</span><span class="o">.</span><span class="n">elections</span><span class="p">[</span><span class="n">election_id</span><span class="p">]</span><span class="o">.</span><span class="n">compute_reverse_approvals</span><span class="p">()</span>
                                 <span class="k">for</span> <span class="n">k1</span><span class="p">,</span> <span class="n">c1</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">com1</span><span class="p">):</span>
                                     <span class="k">for</span> <span class="n">k2</span><span class="p">,</span> <span class="n">c2</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">com2</span><span class="p">):</span>
@@ -507,7 +523,16 @@ document.write(`
                     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">all_results</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">feature_id</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">column_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">][</span><span class="n">model</span><span class="p">][</span><span class="n">rule</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot; \ &quot;</span><span class="p">)</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\\\</span><span class="s2"> </span><span class="se">\\</span><span class="s2">midrule&quot;</span><span class="p">)</span>
 
+<div class="viewcode-block" id="ApprovalElectionExperiment.add_folders_to_experiment">
+<a class="viewcode-back" href="../../../../reference/objects/ApprovalElectionExperiment.html#mapof.elections.objects.ApprovalElectionExperiment.ApprovalElectionExperiment.add_folders_to_experiment">[docs]</a>
     <span class="k">def</span> <span class="nf">add_folders_to_experiment</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates the folders within the experiment directory.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">dirs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;experiments&quot;</span><span class="p">]</span>
         <span class="k">for</span> <span class="nb">dir</span> <span class="ow">in</span> <span class="n">dirs</span><span class="p">:</span>
@@ -535,6 +560,7 @@ document.write(`
                 <span class="n">file_csv</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;size;num_candidates;num_voters;pseudo_culture_id;params;color;alpha;&quot;</span>
                                <span class="s2">&quot;label;marker;show;path&quot;</span><span class="p">)</span>
                 <span class="n">file_csv</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;1;50;200;ic;{&#39;p&#39;: 0.5};black;0.75;IC 0.5;*;process_id;</span><span class="si">{}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+</div>
 
 </pre></div>
 

@@ -42,8 +42,6 @@ def pseudo_stan(num_candidates, params=None):
 
 
 
-
-
 def get_pseudo_multiplication(num_candidates, params, model):
     params['weight'] = 0.
     params['normphi'] = params['alpha']

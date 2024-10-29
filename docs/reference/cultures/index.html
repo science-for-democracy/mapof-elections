@@ -156,13 +156,17 @@
 <li class="toctree-l2 current active has-children"><a class="current reference internal" href="#">Cultures</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="list_of_cultures.html">List of Cultures</a></li>
 <li class="toctree-l3"><a class="reference internal" href="main.html">Main</a></li>
-<li class="toctree-l3"><a class="reference internal" href="euclidean.html">Euclidean</a></li>
-<li class="toctree-l3"><a class="reference internal" href="guardians.html">Guardians</a></li>
+<li class="toctree-l3"><a class="reference internal" href="compass_approx.html">Compass Approximation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="compass_true.html">Compass True</a></li>
+<li class="toctree-l3"><a class="reference internal" href="prefsampling_mask.html">Prefsampling Mask</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pseudo_cultures.html">Pseudo Cultures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="params.html">Params</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../distances/index.html">Distances</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../distances/list_of_distances.html">List of Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../distances/main.html">Main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../distances/register.html">Register</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../distances/main_approval_distances.html">Approval Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../distances/main_ordinal_distances.html">Ordinal Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../distances/committee_distances.html">Committee Distances</a></li>
@@ -172,11 +176,21 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="../features/index.html">Features</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../features/list_of_features.html">List of Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../features/main.html">Main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../features/register.html">Register</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../features/scores.html">Scores</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../features/diversity.html">Diversity</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../features/dap_approximate.html">Diversity Approximate</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../features/simple_ordinal.html">Simple Ordinal</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../features/simple_approval.html">Simple Approval</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../features/abc_features.html">ABC Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../features/banzhaf_cc.html">Banzhaf CC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../features/ranging_cc.html">Ranging CC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../features/approx.html">Approx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../features/cohesive.html">Cohesive</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../features/entropy.html">Entropy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../features/justified_representation.html">Justified Representation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../features/partylist.html">Partylist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../features/proportionality_degree.html">Proportionality Degree</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../objects/index.html">Objects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -379,24 +393,34 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="main.html#mapof.elections.cultures.generate_ordinal_votes"><code class="docutils literal notranslate"><span class="pre">generate_ordinal_votes()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="euclidean.html">Euclidean</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="euclidean.html#mapof.elections.cultures.euclidean.euclidean_app_mask"><code class="docutils literal notranslate"><span class="pre">euclidean_app_mask()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="euclidean.html#mapof.elections.cultures.euclidean.euclidean_ord_mask"><code class="docutils literal notranslate"><span class="pre">euclidean_ord_mask()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="compass_approx.html">Compass Approximation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="compass_approx.html#mapof.elections.cultures.compass_approx.generate_anst_part_votes"><code class="docutils literal notranslate"><span class="pre">generate_anst_part_votes()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="compass_approx.html#mapof.elections.cultures.compass_approx.generate_anun_part_votes"><code class="docutils literal notranslate"><span class="pre">generate_anun_part_votes()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="compass_approx.html#mapof.elections.cultures.compass_approx.generate_approx_stratification_votes"><code class="docutils literal notranslate"><span class="pre">generate_approx_stratification_votes()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="compass_approx.html#mapof.elections.cultures.compass_approx.generate_approx_uniformity_votes"><code class="docutils literal notranslate"><span class="pre">generate_approx_uniformity_votes()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="compass_approx.html#mapof.elections.cultures.compass_approx.generate_idan_part_votes"><code class="docutils literal notranslate"><span class="pre">generate_idan_part_votes()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="compass_approx.html#mapof.elections.cultures.compass_approx.generate_idst_blocks_votes"><code class="docutils literal notranslate"><span class="pre">generate_idst_blocks_votes()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="compass_approx.html#mapof.elections.cultures.compass_approx.generate_idst_part_votes"><code class="docutils literal notranslate"><span class="pre">generate_idst_part_votes()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="compass_approx.html#mapof.elections.cultures.compass_approx.generate_idun_part_votes"><code class="docutils literal notranslate"><span class="pre">generate_idun_part_votes()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="compass_approx.html#mapof.elections.cultures.compass_approx.generate_unst_part_votes"><code class="docutils literal notranslate"><span class="pre">generate_unst_part_votes()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="compass_approx.html#mapof.elections.cultures.compass_approx.generate_unst_topsize_votes"><code class="docutils literal notranslate"><span class="pre">generate_unst_topsize_votes()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="guardians.html">Guardians</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="guardians.html#mapof.elections.cultures.guardians_approx.generate_anst_part_votes"><code class="docutils literal notranslate"><span class="pre">generate_anst_part_votes()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="guardians.html#mapof.elections.cultures.guardians_approx.generate_anun_part_votes"><code class="docutils literal notranslate"><span class="pre">generate_anun_part_votes()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="guardians.html#mapof.elections.cultures.guardians_approx.generate_approx_stratification_votes"><code class="docutils literal notranslate"><span class="pre">generate_approx_stratification_votes()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="guardians.html#mapof.elections.cultures.guardians_approx.generate_approx_uniformity_votes"><code class="docutils literal notranslate"><span class="pre">generate_approx_uniformity_votes()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="guardians.html#mapof.elections.cultures.guardians_approx.generate_idan_part_votes"><code class="docutils literal notranslate"><span class="pre">generate_idan_part_votes()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="guardians.html#mapof.elections.cultures.guardians_approx.generate_idst_blocks_votes"><code class="docutils literal notranslate"><span class="pre">generate_idst_blocks_votes()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="guardians.html#mapof.elections.cultures.guardians_approx.generate_idst_part_votes"><code class="docutils literal notranslate"><span class="pre">generate_idst_part_votes()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="guardians.html#mapof.elections.cultures.guardians_approx.generate_idun_part_votes"><code class="docutils literal notranslate"><span class="pre">generate_idun_part_votes()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="guardians.html#mapof.elections.cultures.guardians_approx.generate_unst_part_votes"><code class="docutils literal notranslate"><span class="pre">generate_unst_part_votes()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="guardians.html#mapof.elections.cultures.guardians_approx.generate_unst_topsize_votes"><code class="docutils literal notranslate"><span class="pre">generate_unst_topsize_votes()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="compass_true.html">Compass True</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="compass_true.html#mapof.elections.cultures.compass_true.generate_real_antagonism_votes"><code class="docutils literal notranslate"><span class="pre">generate_real_antagonism_votes()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="compass_true.html#mapof.elections.cultures.compass_true.generate_real_identity_votes"><code class="docutils literal notranslate"><span class="pre">generate_real_identity_votes()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="prefsampling_mask.html">Prefsampling Mask</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="prefsampling_mask.html#mapof.elections.cultures.prefsampling_mask.euclidean_app_mask"><code class="docutils literal notranslate"><span class="pre">euclidean_app_mask()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="prefsampling_mask.html#mapof.elections.cultures.prefsampling_mask.euclidean_ord_mask"><code class="docutils literal notranslate"><span class="pre">euclidean_ord_mask()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="prefsampling_mask.html#mapof.elections.cultures.prefsampling_mask.gs_mask"><code class="docutils literal notranslate"><span class="pre">gs_mask()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="prefsampling_mask.html#mapof.elections.cultures.prefsampling_mask.identity_mask"><code class="docutils literal notranslate"><span class="pre">identity_mask()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="prefsampling_mask.html#mapof.elections.cultures.prefsampling_mask.truncated_urn_mask"><code class="docutils literal notranslate"><span class="pre">truncated_urn_mask()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pseudo_cultures.html">Pseudo Cultures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="params.html">Params</a></li>
 </ul>
 </div>
 </section>

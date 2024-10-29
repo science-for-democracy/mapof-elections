@@ -14,9 +14,11 @@ def get_greedy_approx_cc_score(election, committee_size=1):
 def get_greedy_approx_hb_score(election, committee_size=1):
     return get_greedy_approx_score(election, 'hb', committee_size=committee_size)
 
+
 @register_ordinal_election_feature('greedy_approx_pav_score')
 def get_greedy_approx_pav_score(election, committee_size=1):
     return get_greedy_approx_score(election, 'pav', committee_size=committee_size)
+
 
 def get_greedy_approx_score(election, rule, committee_size=1):
     if election.is_pseudo:
@@ -180,7 +182,6 @@ def get_winners_approx_removal(election, committee_size, rule):
             winners.append(i)
 
     return winners
-
 
 
 def get_vectors(election, rule, committee_size):

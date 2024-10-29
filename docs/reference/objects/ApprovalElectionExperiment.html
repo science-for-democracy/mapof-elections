@@ -156,13 +156,17 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="../cultures/index.html">Cultures</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../cultures/list_of_cultures.html">List of Cultures</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../cultures/main.html">Main</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../cultures/euclidean.html">Euclidean</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../cultures/guardians.html">Guardians</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../cultures/compass_approx.html">Compass Approximation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../cultures/compass_true.html">Compass True</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../cultures/prefsampling_mask.html">Prefsampling Mask</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../cultures/pseudo_cultures.html">Pseudo Cultures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../cultures/params.html">Params</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../distances/index.html">Distances</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../distances/list_of_distances.html">List of Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../distances/main.html">Main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../distances/register.html">Register</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../distances/main_approval_distances.html">Approval Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../distances/main_ordinal_distances.html">Ordinal Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../distances/committee_distances.html">Committee Distances</a></li>
@@ -172,11 +176,21 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="../features/index.html">Features</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../features/list_of_features.html">List of Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../features/main.html">Main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../features/register.html">Register</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../features/scores.html">Scores</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../features/diversity.html">Diversity</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../features/dap_approximate.html">Diversity Approximate</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../features/simple_ordinal.html">Simple Ordinal</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../features/simple_approval.html">Simple Approval</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../features/abc_features.html">ABC Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../features/banzhaf_cc.html">Banzhaf CC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../features/ranging_cc.html">Ranging CC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../features/approx.html">Approx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../features/cohesive.html">Cohesive</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../features/entropy.html">Entropy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../features/justified_representation.html">Justified Representation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../features/partylist.html">Partylist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../features/proportionality_degree.html">Proportionality Degree</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="index.html">Objects</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
@@ -360,7 +374,10 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.ApprovalElectionExperiment.ApprovalElectionExperiment"><code class="docutils literal notranslate"><span class="pre">ApprovalElectionExperiment</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.ApprovalElectionExperiment.ApprovalElectionExperiment"><code class="docutils literal notranslate"><span class="pre">ApprovalElectionExperiment</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.ApprovalElectionExperiment.ApprovalElectionExperiment.add_folders_to_experiment"><code class="docutils literal notranslate"><span class="pre">ApprovalElectionExperiment.add_folders_to_experiment()</span></code></a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -378,6 +395,17 @@ document.write(`
 <dt class="sig sig-object py" id="mapof.elections.objects.ApprovalElectionExperiment.ApprovalElectionExperiment">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ApprovalElectionExperiment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mapof/elections/objects/ApprovalElectionExperiment.html#ApprovalElectionExperiment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.objects.ApprovalElectionExperiment.ApprovalElectionExperiment" title="Link to this definition">#</a></dt>
 <dd><p>Abstract set of approval elections.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mapof.elections.objects.ApprovalElectionExperiment.ApprovalElectionExperiment.add_folders_to_experiment">
+<span class="sig-name descname"><span class="pre">add_folders_to_experiment</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../../_modules/mapof/elections/objects/ApprovalElectionExperiment.html#ApprovalElectionExperiment.add_folders_to_experiment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.objects.ApprovalElectionExperiment.ApprovalElectionExperiment.add_folders_to_experiment" title="Link to this definition">#</a></dt>
+<dd><p>Creates the folders within the experiment directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>None</em></p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 </section>
@@ -427,7 +455,10 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.ApprovalElectionExperiment.ApprovalElectionExperiment"><code class="docutils literal notranslate"><span class="pre">ApprovalElectionExperiment</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.ApprovalElectionExperiment.ApprovalElectionExperiment"><code class="docutils literal notranslate"><span class="pre">ApprovalElectionExperiment</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.ApprovalElectionExperiment.ApprovalElectionExperiment.add_folders_to_experiment"><code class="docutils literal notranslate"><span class="pre">ApprovalElectionExperiment.add_folders_to_experiment()</span></code></a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

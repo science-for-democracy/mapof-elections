@@ -3,24 +3,21 @@ import logging
 import prefsampling.approval as pref_approval
 import prefsampling.ordinal as pref_ordinal
 
-import mapof.elections.cultures.euclidean as euclidean
-import mapof.elections.cultures.group_separable as group_separable
-import mapof.elections.cultures.guardians_approx as guardians_approx
-import mapof.elections.cultures.guardians_true as guardians_true
-import mapof.elections.cultures.identity as identity
+import mapof.elections.cultures.prefsampling_mask as mask
+import mapof.elections.cultures.compass_approx as compass_approx
+import mapof.elections.cultures.compass_true as compass_true
 import mapof.elections.cultures.mallows as mallows
 import mapof.elections.cultures.matrices.single_crossing_matrices as sc_matrices
 import mapof.elections.cultures.matrices.single_peaked_matrices as sp_matrices
 import mapof.elections.cultures.pseudo_cultures as pseudo
-import mapof.elections.cultures.unused as unused
-import mapof.elections.cultures.urn as urn
+import mapof.elections.cultures.nonstandard.unused as unused
 from mapof.elections.cultures.nonstandard.alliances import *
 from mapof.elections.cultures.preflib import generate_preflib_votes
 from mapof.elections.other.glossary import is_pseudo_culture, LIST_OF_PREFLIB_MODELS
 
 registered_approval_cultures = {
-    'identity': identity.identity_mask,
-    'id': identity.identity_mask,
+    'identity': mask.identity_mask,
+    'id': mask.identity_mask,
     'ic': pref_approval.impartial,
     'impartial': pref_approval.impartial,
     'impartial_culture': pref_approval.impartial,
@@ -29,10 +26,10 @@ registered_approval_cultures = {
     'disjoint_resampling': pref_approval.disjoint_resampling,
     'moving_resampling': pref_approval.moving_resampling,
     'noise': pref_approval.noise,
-    'euclidean': euclidean.euclidean_app_mask,
+    'euclidean': mask.euclidean_app_mask,
     'full': pref_approval.full,
     'empty': pref_approval.empty,
-    'truncated_urn': urn.truncated_urn_mask,
+    'truncated_urn': mask.truncated_urn_mask,
     'urn_partylist': pref_approval.urn_partylist,
 
     'truncated_mallows': mallows.generate_approval_truncated_mallows_votes,  # unsupported culture
@@ -49,9 +46,9 @@ registered_ordinal_cultures = {
     'impartial_culture': pref_ordinal.impartial,
 
     'iac': pref_ordinal.impartial_anonymous,
-    'real_antagonism': guardians_true.generate_real_antagonism_votes,
-    'antagonism': guardians_true.generate_real_antagonism_votes,
-    'an': guardians_true.generate_real_antagonism_votes,  # deprecated name
+    'real_antagonism': compass_true.generate_real_antagonism_votes,
+    'antagonism': compass_true.generate_real_antagonism_votes,
+    'an': compass_true.generate_real_antagonism_votes,  # deprecated name
 
     'urn': pref_ordinal.urn,
     'single-crossing': pref_ordinal.single_crossing,
@@ -62,29 +59,29 @@ registered_ordinal_cultures = {
     'didi': pref_ordinal.didi,
     'plackett-luce': pref_ordinal.plackett_luce,
 
-    'approx_stratification': guardians_approx.generate_approx_stratification_votes,
-    'approx_uniformity': guardians_approx.generate_approx_uniformity_votes,
-    'un_from_matrix': guardians_approx.generate_approx_uniformity_votes,  # deprecated name
+    'approx_stratification': compass_approx.generate_approx_stratification_votes,
+    'approx_uniformity': compass_approx.generate_approx_uniformity_votes,
+    'un_from_matrix': compass_approx.generate_approx_uniformity_votes,  # deprecated name
 
-    'group-separable': group_separable.gs_mask,
-    'euclidean': euclidean.euclidean_ord_mask,
+    'group-separable': mask.gs_mask,
+    'euclidean': mask.euclidean_ord_mask,
 
     'norm-mallows': mallows.generate_mallows_votes,
 
-    'idan_part': guardians_approx.generate_idan_part_votes,  # unsupported culture
-    'idun_part': guardians_approx.generate_idun_part_votes,  # unsupported culture
-    'idst_part': guardians_approx.generate_idst_part_votes,  # unsupported culture
-    'anun_part': guardians_approx.generate_anun_part_votes,  # unsupported culture
-    'anst_part': guardians_approx.generate_anst_part_votes,  # unsupported culture
-    'unst_part': guardians_approx.generate_unst_part_votes,  # unsupported culture
+    'idan_part': compass_approx.generate_idan_part_votes,  # unsupported culture
+    'idun_part': compass_approx.generate_idun_part_votes,  # unsupported culture
+    'idst_part': compass_approx.generate_idst_part_votes,  # unsupported culture
+    'anun_part': compass_approx.generate_anun_part_votes,  # unsupported culture
+    'anst_part': compass_approx.generate_anst_part_votes,  # unsupported culture
+    'unst_part': compass_approx.generate_unst_part_votes,  # unsupported culture
 
-    'idan_mallows': guardians_approx.generate_idan_mallows_votes,  # unsupported culture
-    'idst_mallows': guardians_approx.generate_idst_mallows_votes,  # unsupported culture
-    'anun_mallows': guardians_approx.generate_anun_mallows_votes,  # unsupported culture
-    'unst_mallows': guardians_approx.generate_unst_mallows_votes,  # unsupported culture
+    'idan_mallows': compass_approx.generate_idan_mallows_votes,  # unsupported culture
+    'idst_mallows': compass_approx.generate_idst_mallows_votes,  # unsupported culture
+    'anun_mallows': compass_approx.generate_anun_mallows_votes,  # unsupported culture
+    'unst_mallows': compass_approx.generate_unst_mallows_votes,  # unsupported culture
 
-    'unst_topsize': guardians_approx.generate_unst_topsize_votes,  # unsupported culture
-    'idst_blocks': guardians_approx.generate_idst_blocks_votes,
+    'unst_topsize': compass_approx.generate_unst_topsize_votes,  # unsupported culture
+    'idst_blocks': compass_approx.generate_idst_blocks_votes,
     'norm-mallows_mixture': mallows.generate_norm_mallows_mixture_votes,  # unsupported culture
 
     # 'walsh_mallows': sp_matrices.generate_walsh_mallows_votes,  # unsupported culture
@@ -94,7 +91,7 @@ registered_ordinal_cultures = {
     'conitzer_party': unused.generate_sp_party,  # unsupported culture
     'mallows_party': mallows.generate_mallows_party,  # unsupported culture
     'ic_party': unused.generate_ic_party,  # unsupported culture
-    'un_from_list': guardians_approx.generate_un_from_list,  # unsupported culture
+    'un_from_list': compass_approx.generate_un_from_list,  # unsupported culture
     'urn_model': pref_ordinal.urn,  # deprecated name
 }
 

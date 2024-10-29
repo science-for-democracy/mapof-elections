@@ -64,3 +64,15 @@ class TestOfflineApprovalExperiment:
         self.experiment.compute_rule_features(feature_id='ejr',
                                               list_of_rules=['av', 'sav'],
                                               feature_params={'committee_size': 2})
+
+    # def test_distance_between_voting_rules(self):
+    #     self.experiment.prepare_elections()
+    #
+    #     list_of_rules = ['av', 'sav']
+    #
+    #     self.experiment.compute_rules(list_of_rules, committee_size=2, resolute=False)
+    #
+    #     self.experiment.compute_distance_between_rules(
+    #         list_of_rules=['av', 'sav'],
+    #         distance_id='hamming',
+    #         committee_size=2)

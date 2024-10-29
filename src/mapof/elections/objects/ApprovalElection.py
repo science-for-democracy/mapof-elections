@@ -2,14 +2,15 @@ import logging
 from abc import ABC
 from collections import Counter
 
+import os
+import numpy as np
 from mapof.core.distances import hamming
-from mapof.core.utils import *
 from matplotlib import pyplot as plt
 
 import mapof.elections.persistence.election_exports as exports
 import mapof.elections.persistence.election_imports as imports
 from mapof.elections.cultures import generate_approval_votes
-from mapof.elections.cultures.params import *
+from mapof.elections.cultures.params import update_params_approval
 from mapof.elections.objects.Election import Election
 
 
@@ -38,15 +39,17 @@ class ApprovalElection(Election, ABC):
 
         self.import_approval_election()
 
-    def import_approval_election(self):
+    def import_approval_election(self) -> None:
+        """
+        Imports approval elections from a file.
+
+        Returns
+        -------
+            None
+        """
         if self.is_imported and self.experiment_id is not None:
             try:
-                fake = imports.check_if_fake(self.experiment_id, self.election_id, 'app')
-                if fake:
-                    self.culture_id, self.params, self.num_voters, self.num_candidates = \
-                        imports.import_fake_app_election(self.experiment_id, self.election_id)
-                else:
-                    self.votes, self.num_voters, self.num_candidates, self.params, \
+                self.votes, self.num_voters, self.num_candidates, self.params, \
                         self.culture_id, self.num_options, self.quantities, self.distinct_votes \
                         = imports.import_real_app_election(
                             experiment_id=self.experiment_id,
@@ -66,7 +69,13 @@ class ApprovalElection(Election, ABC):
                                                                        self.num_candidates)
 
     def votes_to_approvalwise_vector(self) -> None:
-        """ Convert votes to approvalwise vectors """
+        """
+        Converts votes to approvalwise vectors.
+
+        Returns
+        -------
+            None
+        """
         approvalwise_vector = np.zeros([self.num_candidates])
         for vote in self.votes:
             for c in vote:
@@ -74,16 +83,44 @@ class ApprovalElection(Election, ABC):
         approvalwise_vector = approvalwise_vector / self.num_voters
         self.approvalwise_vector = np.sort(approvalwise_vector)
 
-    def compute_reverse_approvals(self):
+    def compute_reverse_approvals(self) -> None:
+        """
+        Computes the reverse approvals.
+
+        Returns
+        -------
+            None
+        """
         self.reverse_approvals = [set(i for i, vote in enumerate(self.votes) if c in vote)
                                   for c in range(self.num_candidates)]
 
-    def get_reverse_approvals(self):
+    def get_reverse_approvals(self) -> list[set]:
+        """
+        Returns the reverse approvals.
+        Additionally, if they are not computed, it computes them.
+
+        Returns
+        -------
+            list[set]
+                The reverse approvals.
+        """
         if self.reverse_approvals is None or self.reverse_approvals == []:
             self.compute_reverse_approvals()
         return self.reverse_approvals
 
-    def prepare_instance(self, is_exported=None, is_aggregated=True):
+    def prepare_instance(self, is_exported=False, is_aggregated=True) -> None:
+        """
+        Prepares all the instances within the experiment.
+
+        Parameters
+        ----------
+            is_exported : bool
+            is_aggregated : bool
+
+        Returns
+        -------
+            None
+        """
         self.votes = generate_approval_votes(culture_id=self.culture_id,
                                              num_candidates=self.num_candidates,
                                              num_voters=self.num_voters,
@@ -102,7 +139,20 @@ class ApprovalElection(Election, ABC):
         if is_exported:
             exports.export_approval_election(self, is_aggregated=is_aggregated)
 
-    def _compute_distances_between_votes(self, distance_id='hamming'):
+    def _compute_distances_between_votes(self, distance_id: str = 'hamming') -> np.ndarray:
+        """
+        Computes distances between the votes.
+
+        Parameters
+        ----------
+            distance_id : str
+                Name of the distance.
+
+        Returns
+        -------
+            np.ndarray
+                Distances.
+        """
         distances = np.zeros([self.num_voters, self.num_voters])
         for v1 in range(self.num_voters):
             for v2 in range(self.num_voters):
@@ -123,7 +173,20 @@ class ApprovalElection(Election, ABC):
 
         return distances
 
-    def _compute_distances_between_candidates(self, distance_id='hamming'):
+    def _compute_distances_between_candidates(self, distance_id='hamming') -> np.ndarray:
+        """
+        Computes distances between the candidates.
+
+        Parameters
+        ----------
+            distance_id : str
+                Name of the distance.
+
+        Returns
+        -------
+            np.ndarray
+                Distances.
+        """
         self.compute_reverse_approvals()
         distances = np.zeros([self.num_candidates, self.num_candidates])
         for c1 in range(self.num_candidates):
@@ -154,8 +217,10 @@ class ApprovalElection(Election, ABC):
             return self.candidatelikeness_original_vectors
         return self._voted_to_candidatelikeness_original_vectors()
 
-    def _voted_to_candidatelikeness_original_vectors(self) -> None:
-        """ convert VOTES to candidate-likeness VECTORS """
+    def _voted_to_candidatelikeness_original_vectors(self):
+        """
+        Converts votes to candidate-likeness vectors
+        """
         matrix = np.zeros([self.num_candidates, self.num_candidates])
 
         for c_1 in range(self.num_candidates):
@@ -167,7 +232,8 @@ class ApprovalElection(Election, ABC):
         self.candidatelikeness_original_vectors = candidatelikeness_original_vectors
         return candidatelikeness_original_vectors
 
-    def compute_distances(self, object_type=None, distance_id='hamming'):
+    def compute_distances(self, object_type=None, distance_id: str = 'hamming') -> np.ndarray:
+        """ Computes distances between the votes or candidates. """
         if object_type is None:
             object_type = self.object_type
 
@@ -178,30 +244,27 @@ class ApprovalElection(Election, ABC):
 
     def print_map(
             self,
-            show=True,
-            radius=None,
-            name=None,
-            alpha=0.1,
+            show: bool = True,
+            radius: float = None,
+            name: str = None,
+            alpha: float = 0.1,
             s=30,
             object_type=None,
             double_gradient=False,
             saveas=None,
             color='blue',
             marker='o',
-            title_size=20,
-            annotate=False
+            annotate: bool = False
     ):
-        """ Print a map of the elections. """
+        """ Print a map of the election (i.e., microscope). """
 
         if object_type is None:
             object_type = self.object_type
 
         if object_type == 'vote':
             length = self.num_voters
-            votes = self.votes
         elif object_type == 'candidate':
             length = self.num_candidates
-            votes = self.get_reverse_approvals()
         else:
             logging.warning(f'Incorrect object type: {object_type}')
             length = 0

@@ -156,13 +156,17 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="../cultures/index.html">Cultures</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../cultures/list_of_cultures.html">List of Cultures</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../cultures/main.html">Main</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../cultures/euclidean.html">Euclidean</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../cultures/guardians.html">Guardians</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../cultures/compass_approx.html">Compass Approximation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../cultures/compass_true.html">Compass True</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../cultures/prefsampling_mask.html">Prefsampling Mask</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../cultures/pseudo_cultures.html">Pseudo Cultures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../cultures/params.html">Params</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../distances/index.html">Distances</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../distances/list_of_distances.html">List of Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../distances/main.html">Main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../distances/register.html">Register</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../distances/main_approval_distances.html">Approval Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../distances/main_ordinal_distances.html">Ordinal Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../distances/committee_distances.html">Committee Distances</a></li>
@@ -172,11 +176,21 @@
 <li class="toctree-l2 current active has-children"><a class="current reference internal" href="#">Features</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="list_of_features.html">List of Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="main.html">Main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="register.html">Register</a></li>
 <li class="toctree-l3"><a class="reference internal" href="scores.html">Scores</a></li>
 <li class="toctree-l3"><a class="reference internal" href="diversity.html">Diversity</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dap_approximate.html">Diversity Approximate</a></li>
 <li class="toctree-l3"><a class="reference internal" href="simple_ordinal.html">Simple Ordinal</a></li>
 <li class="toctree-l3"><a class="reference internal" href="simple_approval.html">Simple Approval</a></li>
+<li class="toctree-l3"><a class="reference internal" href="abc_features.html">ABC Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="banzhaf_cc.html">Banzhaf CC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ranging_cc.html">Ranging CC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="approx.html">Approx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cohesive.html">Cohesive</a></li>
+<li class="toctree-l3"><a class="reference internal" href="entropy.html">Entropy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="justified_representation.html">Justified Representation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="partylist.html">Partylist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="proportionality_degree.html">Proportionality Degree</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../objects/index.html">Objects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -377,6 +391,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="main.html#mapof.elections.features.get_local_feature"><code class="docutils literal notranslate"><span class="pre">get_local_feature()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="register.html">Register</a></li>
 <li class="toctree-l1"><a class="reference internal" href="scores.html">Scores</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="scores.html#mapof.elections.features.scores.borda_spread"><code class="docutils literal notranslate"><span class="pre">borda_spread()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="scores.html#mapof.elections.features.scores.highest_borda_score"><code class="docutils literal notranslate"><span class="pre">highest_borda_score()</span></code></a></li>
@@ -410,6 +425,30 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="simple_approval.html#mapof.elections.features.simple_approval.abstract"><code class="docutils literal notranslate"><span class="pre">abstract()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="simple_approval.html#mapof.elections.features.simple_approval.justified_ratio"><code class="docutils literal notranslate"><span class="pre">justified_ratio()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="simple_approval.html#mapof.elections.features.simple_approval.max_approval_score"><code class="docutils literal notranslate"><span class="pre">max_approval_score()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="abc_features.html">ABC Features</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="abc_features.html#mapof.elections.features.abc_features.get_core"><code class="docutils literal notranslate"><span class="pre">get_core()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="abc_features.html#mapof.elections.features.abc_features.get_priceability"><code class="docutils literal notranslate"><span class="pre">get_priceability()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="banzhaf_cc.html">Banzhaf CC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ranging_cc.html">Ranging CC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="approx.html">Approx</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="approx.html#mapof.elections.features.approx.get_winners_approx_greedy"><code class="docutils literal notranslate"><span class="pre">get_winners_approx_greedy()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cohesive.html">Cohesive</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cohesive.html#mapof.elections.features.cohesive.count_number_of_cohesive_groups_brute"><code class="docutils literal notranslate"><span class="pre">count_number_of_cohesive_groups_brute()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="cohesive.html#mapof.elections.features.cohesive.powerset"><code class="docutils literal notranslate"><span class="pre">powerset()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="entropy.html">Entropy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="justified_representation.html">Justified Representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="partylist.html">Partylist</a></li>
+<li class="toctree-l1"><a class="reference internal" href="proportionality_degree.html">Proportionality Degree</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="proportionality_degree.html#mapof.elections.features.proportionality_degree.calculate_committees"><code class="docutils literal notranslate"><span class="pre">calculate_committees()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="proportionality_degree.html#mapof.elections.features.proportionality_degree.count_proportionality_degree_of_a_committee"><code class="docutils literal notranslate"><span class="pre">count_proportionality_degree_of_a_committee()</span></code></a></li>
 </ul>
 </li>
 </ul>

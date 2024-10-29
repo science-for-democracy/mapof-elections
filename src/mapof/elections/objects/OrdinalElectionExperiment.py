@@ -38,6 +38,13 @@ class OrdinalElectionExperiment(ElectionExperiment, ABC):
         distances.add_ordinal_distance(name, function)
 
     def add_folders_to_experiment(self) -> None:
+        """
+        Creates the folders within the experiment directory.
+
+        Returns
+        -------
+            None
+        """
 
         dirs = ["experiments"]
         for dir in dirs:
@@ -67,5 +74,13 @@ class OrdinalElectionExperiment(ElectionExperiment, ABC):
                     "family_id;label;marker\n")
                 file_csv.write("3;10;100;ic;{};black;1;ic;Impartial Culture;o\n")
 
-    def export_frequency_matrices(self):
+    def export_frequency_matrices(self) -> None:
+        """
+
+        Exports the frequency matrices of the election experiment.
+
+        Returns
+        -------
+            None
+        """
         exports.export_frequency_matrices(self)

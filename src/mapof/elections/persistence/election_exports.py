@@ -1,7 +1,8 @@
 import csv
+import os
 from collections import Counter
 
-from mapof.core.utils import *
+from mapof.core.utils import make_folder_if_do_not_exist
 
 
 def export_votes_to_file(

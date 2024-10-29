@@ -1,7 +1,57 @@
+import prefsampling.approval as pref_approval
+import prefsampling.ordinal as pref_ordinal
+
+
+def truncated_urn_mask(num_voters=None,
+                       num_candidates=None,
+                       p=None,
+                       alpha=None,
+                       **kwargs):
+    """ Mask for the urn culture. """
+    return pref_approval.truncated_ordinal(num_voters=num_voters,
+                                           num_candidates=num_candidates,
+                                           rel_num_approvals=p,
+                                           ordinal_sampler=pref_ordinal.urn,
+                                           ordinal_sampler_parameters={'alpha': alpha},
+                                           **kwargs)
+
+
+def identity_mask(num_voters=None,
+                  num_candidates=None,
+                  p=None,
+                  **kwargs):
+    """ Mask for the ID culture. """
+    return pref_approval.identity(num_voters=num_voters,
+                                  num_candidates=num_candidates,
+                                  rel_num_approvals=p,
+                                  **kwargs)
+
+
 import logging
 
-import prefsampling.ordinal as pref_ordinal
-import prefsampling.approval as pref_approval
+
+def gs_mask(num_voters=None,
+            num_candidates=None,
+            tree_sampler=None,
+            seed=None,
+            **_kwargs):
+    """ Mask for the group-separable culture. """
+
+    if type(tree_sampler) is str:
+        logging.warning("group separable BALANCED & CATERPILLAR trees are temporarily unavailable")
+        if tree_sampler.lower() == 'balanced':
+            tree_sampler = pref_ordinal.TreeSampler.BALANCED
+        elif tree_sampler.lower() == 'caterpillar':
+            tree_sampler = pref_ordinal.TreeSampler.CATERPILLAR
+
+    if tree_sampler is None:
+        tree_sampler = pref_ordinal.TreeSampler.SCHROEDER
+
+    return pref_ordinal.group_separable(num_voters=num_voters,
+                                        num_candidates=num_candidates,
+                                        tree_sampler=tree_sampler,
+                                        seed=seed)
+
 
 from prefsampling.core.euclidean import EuclideanSpace
 

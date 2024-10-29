@@ -155,13 +155,17 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="reference/cultures/index.html">Cultures</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="reference/cultures/list_of_cultures.html">List of Cultures</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/cultures/main.html">Main</a></li>
-<li class="toctree-l3"><a class="reference internal" href="reference/cultures/euclidean.html">Euclidean</a></li>
-<li class="toctree-l3"><a class="reference internal" href="reference/cultures/guardians.html">Guardians</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/cultures/compass_approx.html">Compass Approximation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/cultures/compass_true.html">Compass True</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/cultures/prefsampling_mask.html">Prefsampling Mask</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/cultures/pseudo_cultures.html">Pseudo Cultures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/cultures/params.html">Params</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="reference/distances/index.html">Distances</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="reference/distances/list_of_distances.html">List of Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/distances/main.html">Main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/distances/register.html">Register</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/distances/main_approval_distances.html">Approval Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/distances/main_ordinal_distances.html">Ordinal Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/distances/committee_distances.html">Committee Distances</a></li>
@@ -171,11 +175,21 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="reference/features/index.html">Features</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="reference/features/list_of_features.html">List of Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/features/main.html">Main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/features/register.html">Register</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/features/scores.html">Scores</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/features/diversity.html">Diversity</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/features/dap_approximate.html">Diversity Approximate</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/features/simple_ordinal.html">Simple Ordinal</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/features/simple_approval.html">Simple Approval</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/features/abc_features.html">ABC Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/features/banzhaf_cc.html">Banzhaf CC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/features/ranging_cc.html">Ranging CC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/features/approx.html">Approx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/features/cohesive.html">Cohesive</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/features/entropy.html">Entropy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/features/justified_representation.html">Justified Representation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/features/partylist.html">Partylist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/features/proportionality_degree.html">Proportionality Degree</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="reference/objects/index.html">Objects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -333,6 +347,7 @@ document.write(`
  | <a href="#P"><strong>P</strong></a>
  | <a href="#R"><strong>R</strong></a>
  | <a href="#S"><strong>S</strong></a>
+ | <a href="#T"><strong>T</strong></a>
  | <a href="#V"><strong>V</strong></a>
  
 </div>
@@ -355,6 +370,12 @@ document.write(`
 </li>
       <li><a href="reference/objects/ElectionExperiment.html#mapof.elections.objects.ElectionExperiment.ElectionExperiment.add_family">add_family() (ElectionExperiment method)</a>
 </li>
+      <li><a href="reference/objects/ApprovalElectionExperiment.html#mapof.elections.objects.ApprovalElectionExperiment.ApprovalElectionExperiment.add_folders_to_experiment">add_folders_to_experiment() (ApprovalElectionExperiment method)</a>
+
+      <ul>
+        <li><a href="reference/objects/OrdinalElectionExperiment.html#mapof.elections.objects.OrdinalElectionExperiment.OrdinalElectionExperiment.add_folders_to_experiment">(OrdinalElectionExperiment method)</a>
+</li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/objects/ElectionExperiment.html#mapof.elections.objects.ElectionExperiment.ElectionExperiment.add_instances_to_experiment">add_instances_to_experiment() (ElectionExperiment method)</a>
@@ -389,6 +410,8 @@ document.write(`
 <h2 id="C">C</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/features/proportionality_degree.html#mapof.elections.features.proportionality_degree.calculate_committees">calculate_committees() (in module mapof.elections.features.proportionality_degree)</a>
+</li>
       <li><a href="reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.compute_agg_voterlikeness_distance">compute_agg_voterlikeness_distance() (in module mapof.elections.distances.main_ordinal_distances)</a>
 </li>
       <li><a href="reference/distances/main_approval_distances.html#mapof.elections.distances.main_approval_distances.compute_approvalwise_distance">compute_approvalwise_distance() (in module mapof.elections.distances.main_approval_distances)</a>
@@ -401,8 +424,12 @@ document.write(`
 </li>
       <li><a href="reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.compute_discrete_distance">compute_discrete_distance() (in module mapof.elections.distances.main_ordinal_distances)</a>
 </li>
-      <li><a href="reference/objects/OrdinalElection.html#mapof.elections.objects.OrdinalElection.OrdinalElection.compute_distances">compute_distances() (OrdinalElection method)</a>
+      <li><a href="reference/objects/ApprovalElection.html#mapof.elections.objects.ApprovalElection.ApprovalElection.compute_distances">compute_distances() (ApprovalElection method)</a>
+
+      <ul>
+        <li><a href="reference/objects/OrdinalElection.html#mapof.elections.objects.OrdinalElection.OrdinalElection.compute_distances">(OrdinalElection method)</a>
 </li>
+      </ul></li>
       <li><a href="reference/objects/ElectionExperiment.html#mapof.elections.objects.ElectionExperiment.ElectionExperiment.compute_feature">compute_feature() (ElectionExperiment method)</a>
 </li>
       <li><a href="reference/distances/main_approval_distances.html#mapof.elections.distances.main_approval_distances.compute_hamming_distance">compute_hamming_distance() (in module mapof.elections.distances.main_approval_distances)</a>
@@ -416,6 +443,8 @@ document.write(`
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/objects/Election.html#mapof.elections.objects.Election.Election.compute_potes">compute_potes() (Election method)</a>
+</li>
+      <li><a href="reference/objects/ApprovalElection.html#mapof.elections.objects.ApprovalElection.ApprovalElection.compute_reverse_approvals">compute_reverse_approvals() (ApprovalElection method)</a>
 </li>
       <li><a href="reference/objects/ElectionExperiment.html#mapof.elections.objects.ElectionExperiment.ElectionExperiment.compute_rules">compute_rules() (ElectionExperiment method)</a>
 </li>
@@ -438,6 +467,10 @@ document.write(`
       <li><a href="reference/objects/ElectionExperiment.html#mapof.elections.objects.ElectionExperiment.ElectionExperiment.compute_voting_rule">compute_voting_rule() (ElectionExperiment method)</a>
 </li>
       <li><a href="reference/objects/OrdinalElection.html#mapof.elections.objects.OrdinalElection.convert_votes_to_potes">convert_votes_to_potes() (in module mapof.elections.objects.OrdinalElection)</a>
+</li>
+      <li><a href="reference/features/cohesive.html#mapof.elections.features.cohesive.count_number_of_cohesive_groups_brute">count_number_of_cohesive_groups_brute() (in module mapof.elections.features.cohesive)</a>
+</li>
+      <li><a href="reference/features/proportionality_degree.html#mapof.elections.features.proportionality_degree.count_proportionality_degree_of_a_committee">count_proportionality_degree_of_a_committee() (in module mapof.elections.features.proportionality_degree)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -463,20 +496,24 @@ document.write(`
 </li>
       <li><a href="reference/objects/ElectionFamily.html#mapof.elections.objects.ElectionFamily.ElectionFamily">ElectionFamily (class in mapof.elections.objects.ElectionFamily)</a>
 </li>
-      <li><a href="reference/cultures/euclidean.html#mapof.elections.cultures.euclidean.euclidean_app_mask">euclidean_app_mask() (in module mapof.elections.cultures.euclidean)</a>
+      <li><a href="reference/cultures/prefsampling_mask.html#mapof.elections.cultures.prefsampling_mask.euclidean_app_mask">euclidean_app_mask() (in module mapof.elections.cultures.prefsampling_mask)</a>
 </li>
-      <li><a href="reference/cultures/euclidean.html#mapof.elections.cultures.euclidean.euclidean_ord_mask">euclidean_ord_mask() (in module mapof.elections.cultures.euclidean)</a>
+      <li><a href="reference/cultures/prefsampling_mask.html#mapof.elections.cultures.prefsampling_mask.euclidean_ord_mask">euclidean_ord_mask() (in module mapof.elections.cultures.prefsampling_mask)</a>
+</li>
+      <li><a href="reference/persistence/election_exports.html#mapof.elections.persistence.election_exports.export_approval_election">export_approval_election() (in module mapof.elections.persistence.election_exports)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="reference/persistence/election_exports.html#mapof.elections.persistence.election_exports.export_approval_election">export_approval_election() (in module mapof.elections.persistence.election_exports)</a>
-</li>
       <li><a href="reference/persistence/election_exports.html#mapof.elections.persistence.election_exports.export_coordinates">export_coordinates() (in module mapof.elections.persistence.election_exports)</a>
 </li>
       <li><a href="reference/persistence/election_exports.html#mapof.elections.persistence.election_exports.export_distances">export_distances() (in module mapof.elections.persistence.election_exports)</a>
 </li>
       <li><a href="reference/persistence/election_exports.html#mapof.elections.persistence.election_exports.export_frequency_matrices">export_frequency_matrices() (in module mapof.elections.persistence.election_exports)</a>
+
+      <ul>
+        <li><a href="reference/objects/OrdinalElectionExperiment.html#mapof.elections.objects.OrdinalElectionExperiment.OrdinalElectionExperiment.export_frequency_matrices">(OrdinalElectionExperiment method)</a>
 </li>
+      </ul></li>
       <li><a href="reference/persistence/election_exports.html#mapof.elections.persistence.election_exports.export_ordinal_election">export_ordinal_election() (in module mapof.elections.persistence.election_exports)</a>
 </li>
       <li><a href="reference/persistence/election_exports.html#mapof.elections.persistence.election_exports.export_votes_to_file">export_votes_to_file() (in module mapof.elections.persistence.election_exports)</a>
@@ -499,33 +536,39 @@ document.write(`
 <h2 id="G">G</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="reference/cultures/guardians.html#mapof.elections.cultures.guardians_approx.generate_anst_part_votes">generate_anst_part_votes() (in module mapof.elections.cultures.guardians_approx)</a>
+      <li><a href="reference/cultures/compass_approx.html#mapof.elections.cultures.compass_approx.generate_anst_part_votes">generate_anst_part_votes() (in module mapof.elections.cultures.compass_approx)</a>
 </li>
-      <li><a href="reference/cultures/guardians.html#mapof.elections.cultures.guardians_approx.generate_anun_part_votes">generate_anun_part_votes() (in module mapof.elections.cultures.guardians_approx)</a>
+      <li><a href="reference/cultures/compass_approx.html#mapof.elections.cultures.compass_approx.generate_anun_part_votes">generate_anun_part_votes() (in module mapof.elections.cultures.compass_approx)</a>
 </li>
       <li><a href="reference/cultures/main.html#mapof.elections.cultures.generate_approval_votes">generate_approval_votes() (in module mapof.elections.cultures)</a>
 </li>
-      <li><a href="reference/cultures/guardians.html#mapof.elections.cultures.guardians_approx.generate_approx_stratification_votes">generate_approx_stratification_votes() (in module mapof.elections.cultures.guardians_approx)</a>
+      <li><a href="reference/cultures/compass_approx.html#mapof.elections.cultures.compass_approx.generate_approx_stratification_votes">generate_approx_stratification_votes() (in module mapof.elections.cultures.compass_approx)</a>
 </li>
-      <li><a href="reference/cultures/guardians.html#mapof.elections.cultures.guardians_approx.generate_approx_uniformity_votes">generate_approx_uniformity_votes() (in module mapof.elections.cultures.guardians_approx)</a>
+      <li><a href="reference/cultures/compass_approx.html#mapof.elections.cultures.compass_approx.generate_approx_uniformity_votes">generate_approx_uniformity_votes() (in module mapof.elections.cultures.compass_approx)</a>
 </li>
-      <li><a href="reference/cultures/guardians.html#mapof.elections.cultures.guardians_approx.generate_idan_part_votes">generate_idan_part_votes() (in module mapof.elections.cultures.guardians_approx)</a>
+      <li><a href="reference/cultures/compass_approx.html#mapof.elections.cultures.compass_approx.generate_idan_part_votes">generate_idan_part_votes() (in module mapof.elections.cultures.compass_approx)</a>
 </li>
-      <li><a href="reference/cultures/guardians.html#mapof.elections.cultures.guardians_approx.generate_idst_blocks_votes">generate_idst_blocks_votes() (in module mapof.elections.cultures.guardians_approx)</a>
+      <li><a href="reference/cultures/compass_approx.html#mapof.elections.cultures.compass_approx.generate_idst_blocks_votes">generate_idst_blocks_votes() (in module mapof.elections.cultures.compass_approx)</a>
 </li>
-      <li><a href="reference/cultures/guardians.html#mapof.elections.cultures.guardians_approx.generate_idst_part_votes">generate_idst_part_votes() (in module mapof.elections.cultures.guardians_approx)</a>
+      <li><a href="reference/cultures/compass_approx.html#mapof.elections.cultures.compass_approx.generate_idst_part_votes">generate_idst_part_votes() (in module mapof.elections.cultures.compass_approx)</a>
 </li>
-      <li><a href="reference/cultures/guardians.html#mapof.elections.cultures.guardians_approx.generate_idun_part_votes">generate_idun_part_votes() (in module mapof.elections.cultures.guardians_approx)</a>
+      <li><a href="reference/cultures/compass_approx.html#mapof.elections.cultures.compass_approx.generate_idun_part_votes">generate_idun_part_votes() (in module mapof.elections.cultures.compass_approx)</a>
 </li>
       <li><a href="reference/cultures/main.html#mapof.elections.cultures.generate_ordinal_votes">generate_ordinal_votes() (in module mapof.elections.cultures)</a>
 </li>
-      <li><a href="reference/cultures/guardians.html#mapof.elections.cultures.guardians_approx.generate_unst_part_votes">generate_unst_part_votes() (in module mapof.elections.cultures.guardians_approx)</a>
+      <li><a href="reference/cultures/compass_true.html#mapof.elections.cultures.compass_true.generate_real_antagonism_votes">generate_real_antagonism_votes() (in module mapof.elections.cultures.compass_true)</a>
+</li>
+      <li><a href="reference/cultures/compass_true.html#mapof.elections.cultures.compass_true.generate_real_identity_votes">generate_real_identity_votes() (in module mapof.elections.cultures.compass_true)</a>
+</li>
+      <li><a href="reference/cultures/compass_approx.html#mapof.elections.cultures.compass_approx.generate_unst_part_votes">generate_unst_part_votes() (in module mapof.elections.cultures.compass_approx)</a>
+</li>
+      <li><a href="reference/cultures/compass_approx.html#mapof.elections.cultures.compass_approx.generate_unst_topsize_votes">generate_unst_topsize_votes() (in module mapof.elections.cultures.compass_approx)</a>
+</li>
+      <li><a href="reference/distances/main.html#mapof.elections.distances.get_approval_distance">get_approval_distance() (in module mapof.elections.distances)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="reference/cultures/guardians.html#mapof.elections.cultures.guardians_approx.generate_unst_topsize_votes">generate_unst_topsize_votes() (in module mapof.elections.cultures.guardians_approx)</a>
-</li>
-      <li><a href="reference/distances/main.html#mapof.elections.distances.get_approval_distance">get_approval_distance() (in module mapof.elections.distances)</a>
+      <li><a href="reference/features/abc_features.html#mapof.elections.features.abc_features.get_core">get_core() (in module mapof.elections.features.abc_features)</a>
 </li>
       <li><a href="reference/distances/main.html#mapof.elections.distances.get_distance">get_distance() (in module mapof.elections.distances)</a>
 </li>
@@ -547,6 +590,14 @@ document.write(`
 </li>
       <li><a href="reference/objects/OrdinalElection.html#mapof.elections.objects.OrdinalElection.OrdinalElection.get_potes">get_potes() (OrdinalElection method)</a>
 </li>
+      <li><a href="reference/features/abc_features.html#mapof.elections.features.abc_features.get_priceability">get_priceability() (in module mapof.elections.features.abc_features)</a>
+</li>
+      <li><a href="reference/objects/ApprovalElection.html#mapof.elections.objects.ApprovalElection.ApprovalElection.get_reverse_approvals">get_reverse_approvals() (ApprovalElection method)</a>
+</li>
+      <li><a href="reference/features/approx.html#mapof.elections.features.approx.get_winners_approx_greedy">get_winners_approx_greedy() (in module mapof.elections.features.approx)</a>
+</li>
+      <li><a href="reference/cultures/prefsampling_mask.html#mapof.elections.cultures.prefsampling_mask.gs_mask">gs_mask() (in module mapof.elections.cultures.prefsampling_mask)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -567,6 +618,10 @@ document.write(`
 <h2 id="I">I</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/cultures/prefsampling_mask.html#mapof.elections.cultures.prefsampling_mask.identity_mask">identity_mask() (in module mapof.elections.cultures.prefsampling_mask)</a>
+</li>
+      <li><a href="reference/objects/ApprovalElection.html#mapof.elections.objects.ApprovalElection.ApprovalElection.import_approval_election">import_approval_election() (ApprovalElection method)</a>
+</li>
       <li><a href="reference/objects/ElectionExperiment.html#mapof.elections.objects.ElectionExperiment.ElectionExperiment.import_committees">import_committees() (ElectionExperiment method)</a>
 </li>
       <li><a href="reference/objects/ElectionExperiment.html#mapof.elections.objects.ElectionExperiment.ElectionExperiment.import_controllers">import_controllers() (ElectionExperiment method)</a>
@@ -583,10 +638,10 @@ document.write(`
         <li><a href="reference/persistence/election_imports.html#mapof.elections.persistence.election_imports.import_distances">(in module mapof.elections.persistence.election_imports)</a>
 </li>
       </ul></li>
-      <li><a href="reference/persistence/election_imports.html#mapof.elections.persistence.election_imports.import_fake_app_election">import_fake_app_election() (in module mapof.elections.persistence.election_imports)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/persistence/election_imports.html#mapof.elections.persistence.election_imports.import_fake_app_election">import_fake_app_election() (in module mapof.elections.persistence.election_imports)</a>
+</li>
       <li><a href="reference/objects/OrdinalElection.html#mapof.elections.objects.OrdinalElection.OrdinalElection.import_ordinal_election">import_ordinal_election() (OrdinalElection method)</a>
 </li>
       <li><a href="reference/persistence/election_imports.html#mapof.elections.persistence.election_imports.import_pseudo_old_soc_election">import_pseudo_old_soc_election() (in module mapof.elections.persistence.election_imports)</a>
@@ -635,17 +690,38 @@ document.write(`
 </li>
       </ul></li>
       <li>
-    mapof.elections.cultures.euclidean
+    mapof.elections.cultures.compass_approx
 
       <ul>
-        <li><a href="reference/cultures/euclidean.html#module-mapof.elections.cultures.euclidean">module</a>
+        <li><a href="reference/cultures/compass_approx.html#module-mapof.elections.cultures.compass_approx">module</a>
 </li>
       </ul></li>
       <li>
-    mapof.elections.cultures.guardians_approx
+    mapof.elections.cultures.compass_true
 
       <ul>
-        <li><a href="reference/cultures/guardians.html#module-mapof.elections.cultures.guardians_approx">module</a>
+        <li><a href="reference/cultures/compass_true.html#module-mapof.elections.cultures.compass_true">module</a>
+</li>
+      </ul></li>
+      <li>
+    mapof.elections.cultures.params
+
+      <ul>
+        <li><a href="reference/cultures/params.html#module-mapof.elections.cultures.params">module</a>
+</li>
+      </ul></li>
+      <li>
+    mapof.elections.cultures.prefsampling_mask
+
+      <ul>
+        <li><a href="reference/cultures/prefsampling_mask.html#module-mapof.elections.cultures.prefsampling_mask">module</a>
+</li>
+      </ul></li>
+      <li>
+    mapof.elections.cultures.pseudo_cultures
+
+      <ul>
+        <li><a href="reference/cultures/pseudo_cultures.html#module-mapof.elections.cultures.pseudo_cultures">module</a>
 </li>
       </ul></li>
       <li>
@@ -684,10 +760,45 @@ document.write(`
 </li>
       </ul></li>
       <li>
+    mapof.elections.distances.register
+
+      <ul>
+        <li><a href="reference/distances/register.html#module-mapof.elections.distances.register">module</a>
+</li>
+      </ul></li>
+      <li>
     mapof.elections.features
 
       <ul>
         <li><a href="reference/features/main.html#module-mapof.elections.features">module</a>
+</li>
+      </ul></li>
+      <li>
+    mapof.elections.features.abc_features
+
+      <ul>
+        <li><a href="reference/features/abc_features.html#module-mapof.elections.features.abc_features">module</a>
+</li>
+      </ul></li>
+      <li>
+    mapof.elections.features.approx
+
+      <ul>
+        <li><a href="reference/features/approx.html#module-mapof.elections.features.approx">module</a>
+</li>
+      </ul></li>
+      <li>
+    mapof.elections.features.banzhaf_cc
+
+      <ul>
+        <li><a href="reference/features/banzhaf_cc.html#module-mapof.elections.features.banzhaf_cc">module</a>
+</li>
+      </ul></li>
+      <li>
+    mapof.elections.features.cohesive
+
+      <ul>
+        <li><a href="reference/features/cohesive.html#module-mapof.elections.features.cohesive">module</a>
 </li>
       </ul></li>
       <li>
@@ -702,6 +813,48 @@ document.write(`
 
       <ul>
         <li><a href="reference/features/diversity.html#module-mapof.elections.features.diversity">module</a>
+</li>
+      </ul></li>
+      <li>
+    mapof.elections.features.entropy
+
+      <ul>
+        <li><a href="reference/features/entropy.html#module-mapof.elections.features.entropy">module</a>
+</li>
+      </ul></li>
+      <li>
+    mapof.elections.features.justified_representation
+
+      <ul>
+        <li><a href="reference/features/justified_representation.html#module-mapof.elections.features.justified_representation">module</a>
+</li>
+      </ul></li>
+      <li>
+    mapof.elections.features.partylist
+
+      <ul>
+        <li><a href="reference/features/partylist.html#module-mapof.elections.features.partylist">module</a>
+</li>
+      </ul></li>
+      <li>
+    mapof.elections.features.proportionality_degree
+
+      <ul>
+        <li><a href="reference/features/proportionality_degree.html#module-mapof.elections.features.proportionality_degree">module</a>
+</li>
+      </ul></li>
+      <li>
+    mapof.elections.features.ranging_cc
+
+      <ul>
+        <li><a href="reference/features/ranging_cc.html#module-mapof.elections.features.ranging_cc">module</a>
+</li>
+      </ul></li>
+      <li>
+    mapof.elections.features.register
+
+      <ul>
+        <li><a href="reference/features/register.html#module-mapof.elections.features.register">module</a>
 </li>
       </ul></li>
       <li>
@@ -725,6 +878,8 @@ document.write(`
         <li><a href="reference/features/simple_ordinal.html#module-mapof.elections.features.simple_ordinal">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     mapof.elections.objects.ApprovalElection
 
@@ -753,8 +908,6 @@ document.write(`
         <li><a href="reference/objects/ElectionExperiment.html#module-mapof.elections.objects.ElectionExperiment">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     mapof.elections.objects.ElectionFamily
 
@@ -798,9 +951,15 @@ document.write(`
       <ul>
         <li><a href="reference/cultures/main.html#module-mapof.elections.cultures">mapof.elections.cultures</a>
 </li>
-        <li><a href="reference/cultures/euclidean.html#module-mapof.elections.cultures.euclidean">mapof.elections.cultures.euclidean</a>
+        <li><a href="reference/cultures/compass_approx.html#module-mapof.elections.cultures.compass_approx">mapof.elections.cultures.compass_approx</a>
 </li>
-        <li><a href="reference/cultures/guardians.html#module-mapof.elections.cultures.guardians_approx">mapof.elections.cultures.guardians_approx</a>
+        <li><a href="reference/cultures/compass_true.html#module-mapof.elections.cultures.compass_true">mapof.elections.cultures.compass_true</a>
+</li>
+        <li><a href="reference/cultures/params.html#module-mapof.elections.cultures.params">mapof.elections.cultures.params</a>
+</li>
+        <li><a href="reference/cultures/prefsampling_mask.html#module-mapof.elections.cultures.prefsampling_mask">mapof.elections.cultures.prefsampling_mask</a>
+</li>
+        <li><a href="reference/cultures/pseudo_cultures.html#module-mapof.elections.cultures.pseudo_cultures">mapof.elections.cultures.pseudo_cultures</a>
 </li>
         <li><a href="reference/distances/main.html#module-mapof.elections.distances">mapof.elections.distances</a>
 </li>
@@ -812,11 +971,33 @@ document.write(`
 </li>
         <li><a href="reference/distances/main_ordinal_distances.html#module-mapof.elections.distances.main_ordinal_distances">mapof.elections.distances.main_ordinal_distances</a>
 </li>
+        <li><a href="reference/distances/register.html#module-mapof.elections.distances.register">mapof.elections.distances.register</a>
+</li>
         <li><a href="reference/features/main.html#module-mapof.elections.features">mapof.elections.features</a>
+</li>
+        <li><a href="reference/features/abc_features.html#module-mapof.elections.features.abc_features">mapof.elections.features.abc_features</a>
+</li>
+        <li><a href="reference/features/approx.html#module-mapof.elections.features.approx">mapof.elections.features.approx</a>
+</li>
+        <li><a href="reference/features/banzhaf_cc.html#module-mapof.elections.features.banzhaf_cc">mapof.elections.features.banzhaf_cc</a>
+</li>
+        <li><a href="reference/features/cohesive.html#module-mapof.elections.features.cohesive">mapof.elections.features.cohesive</a>
 </li>
         <li><a href="reference/features/dap_approximate.html#module-mapof.elections.features.dap_approximate">mapof.elections.features.dap_approximate</a>
 </li>
         <li><a href="reference/features/diversity.html#module-mapof.elections.features.diversity">mapof.elections.features.diversity</a>
+</li>
+        <li><a href="reference/features/entropy.html#module-mapof.elections.features.entropy">mapof.elections.features.entropy</a>
+</li>
+        <li><a href="reference/features/justified_representation.html#module-mapof.elections.features.justified_representation">mapof.elections.features.justified_representation</a>
+</li>
+        <li><a href="reference/features/partylist.html#module-mapof.elections.features.partylist">mapof.elections.features.partylist</a>
+</li>
+        <li><a href="reference/features/proportionality_degree.html#module-mapof.elections.features.proportionality_degree">mapof.elections.features.proportionality_degree</a>
+</li>
+        <li><a href="reference/features/ranging_cc.html#module-mapof.elections.features.ranging_cc">mapof.elections.features.ranging_cc</a>
+</li>
+        <li><a href="reference/features/register.html#module-mapof.elections.features.register">mapof.elections.features.register</a>
 </li>
         <li><a href="reference/features/scores.html#module-mapof.elections.features.scores">mapof.elections.features.scores</a>
 </li>
@@ -867,12 +1048,20 @@ document.write(`
         <li><a href="reference/features/diversity.html#mapof.elections.features.diversity.polarization_index">(in module mapof.elections.features.diversity)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/features/cohesive.html#mapof.elections.features.cohesive.powerset">powerset() (in module mapof.elections.features.cohesive)</a>
+</li>
       <li><a href="reference/objects/ElectionExperiment.html#mapof.elections.objects.ElectionExperiment.ElectionExperiment.prepare_elections">prepare_elections() (ElectionExperiment method)</a>
 </li>
-      <li><a href="reference/objects/OrdinalElection.html#mapof.elections.objects.OrdinalElection.OrdinalElection.prepare_instance">prepare_instance() (OrdinalElection method)</a>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/objects/ElectionFamily.html#mapof.elections.objects.ElectionFamily.ElectionFamily.prepare_family">prepare_family() (ElectionFamily method)</a>
 </li>
+      <li><a href="reference/objects/ApprovalElection.html#mapof.elections.objects.ApprovalElection.ApprovalElection.prepare_instance">prepare_instance() (ApprovalElection method)</a>
+
+      <ul>
+        <li><a href="reference/objects/OrdinalElection.html#mapof.elections.objects.OrdinalElection.OrdinalElection.prepare_instance">(OrdinalElection method)</a>
+</li>
+      </ul></li>
       <li><a href="reference/objects/ApprovalElection.html#mapof.elections.objects.ApprovalElection.ApprovalElection.print_map">print_map() (ApprovalElection method)</a>
 </li>
   </ul></td>
@@ -913,6 +1102,14 @@ document.write(`
         <li><a href="reference/features/diversity.html#mapof.elections.features.diversity.swap_distance_between_potes">(in module mapof.elections.features.diversity)</a>
 </li>
       </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="T">T</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/cultures/prefsampling_mask.html#mapof.elections.cultures.prefsampling_mask.truncated_urn_mask">truncated_urn_mask() (in module mapof.elections.cultures.prefsampling_mask)</a>
+</li>
   </ul></td>
 </tr></table>
 

@@ -1,9 +1,9 @@
 import csv
+import os
 from abc import ABC
 
 import numpy as np
 from mapof.core.matchings import solve_matching_vectors
-from mapof.core.utils import *
 from tqdm import tqdm
 
 import mapof.elections.cultures as cultures
@@ -41,8 +41,13 @@ class ApprovalElectionExperiment(ElectionExperiment, ABC):
     def add_distance(self, name, function):
         distances.add_approval_distance(name, function)
 
-    def compute_distance_between_rules(self, list_of_rules=None, printing=False,
-                                       distance_id=None, committee_size=10):
+    def compute_distance_between_rules(
+            self,
+            list_of_rules=None,
+            printing=False,
+            distance_id=None,
+            committee_size=10
+    ):
 
         self.import_committees(list_of_rules=list_of_rules)
 
@@ -67,11 +72,8 @@ class ApprovalElectionExperiment(ElectionExperiment, ABC):
 
                             if distance_id == 'discrete':
                                 distance = len(com1.symmetric_difference(com2))
-                            elif distance_id == 'wrong':
-                                distance = 1 - len(com1.intersection(com2)) / len(com1.union(com2))
                             elif distance_id in ['hamming', 'jaccard']:
                                 cand_dist = np.zeros([committee_size, committee_size])
-
                                 self.elections[election_id].compute_reverse_approvals()
                                 for k1, c1 in enumerate(com1):
                                     for k2, c2 in enumerate(com2):
@@ -190,6 +192,13 @@ class ApprovalElectionExperiment(ElectionExperiment, ABC):
             print("\\\\ \\midrule")
 
     def add_folders_to_experiment(self) -> None:
+        """
+        Creates the folders within the experiment directory.
+
+        Returns
+        -------
+            None
+        """
 
         dirs = ["experiments"]
         for dir in dirs:

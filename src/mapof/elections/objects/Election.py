@@ -17,7 +17,7 @@ import mapof.elections.persistence.election_exports as exports
 import mapof.elections.persistence.election_imports as imports
 from mapof.elections.features import get_local_feature
 from mapof.elections.objects.ElectionFeatures import ElectionFeatures
-from mapof.elections.other.glossary import *
+from mapof.elections.other.glossary import is_pseudo_culture
 from mapof.elections.other.ordinal_rules import (
     compute_sntv_voting_rule,
     compute_borda_voting_rule,
@@ -158,26 +158,26 @@ class Election(Instance):
                 interval.append(vector[i] / w)
         return interval
 
-    def compute_alternative_winners(self, method=None, party_id=None, num_winners=None):
+    def compute_alternative_winners(self, method=None, party_id=None, committee_size=None):
 
-        election_without_party_id = remove_candidate_from_election(copy.deepcopy(self),
-                                                                   party_id, num_winners)
-        election_without_party_id = map_the_votes(election_without_party_id, party_id, num_winners)
+        election_without_party_id = _remove_candidate_from_election(copy.deepcopy(self),
+                                                                    party_id, committee_size)
+        election_without_party_id = map_the_votes(election_without_party_id, party_id, committee_size)
 
         if method == 'sntv':
-            winners_without_party_id = compute_sntv_voting_rule(election=election_without_party_id,
-                                                            num_winners=num_winners)
+            winners_without_party_id = compute_sntv_voting_rule(
+                election=election_without_party_id, committee_size=committee_size)
         elif method == 'borda':
-            winners_without_party_id = compute_borda_voting_rule(election=election_without_party_id,
-                                                             num_winners=num_winners)
+            winners_without_party_id = compute_borda_voting_rule(
+                election=election_without_party_id, committee_size=committee_size)
         elif method == 'stv':
-            winners_without_party_id = compute_stv_voting_rule(election=election_without_party_id,
-                                                           num_winners=num_winners)
+            winners_without_party_id = compute_stv_voting_rule(
+                election=election_without_party_id, committee_size=committee_size)
         else:
             winners_without_party_id = []
 
-        self.alternative_winners[party_id] = unmap_the_winners(winners_without_party_id, party_id,
-                                                               num_winners)
+        self.alternative_winners[party_id] = _unmap_the_winners(winners_without_party_id, party_id,
+                                                                committee_size)
 
     def print_euclidean_voters_and_candidates_map(self, show=True, radius=None, name=None,
                                                   alpha=0.5, s=30, circles=False,
@@ -186,15 +186,10 @@ class Election(Instance):
 
         plt.figure(figsize=(6.4, 6.4))
 
-        X_voters = []
-        Y_voters = []
         for i in range(self.num_voters):
             x = self.points['voters'][i][0]
             y = self.points['voters'][i][1]
             plt.scatter(x, y, color=[0, y, x], s=s, alpha=0.3)
-            # X_voters.append(election.points['voters'][i][0])
-            # Y_voters.append(election.points['voters'][i][1])
-        # plt.scatter(X_voters, Y_voters, color='grey', s=s, alpha=0.1)
 
         X_candidates = []
         Y_candidates = []
@@ -219,12 +214,10 @@ class Election(Instance):
         else:
             plt.clf()
 
-
     @abstractmethod
     def compute_distances(self):
         pass
 
-    #DIV-MERGE
     def embed(self, algorithm='MDS', object_type=None, virtual=False):
 
         if object_type is None:
@@ -304,12 +297,6 @@ class Election(Instance):
             except Exception:
                 pass
 
-        if object_type == 'vote':
-            length = self.num_options
-        elif object_type == 'candidate':
-            length = self.num_candidates
-            pass
-
         if self.is_exported and not virtual:
             exports.export_coordinates(self, object_type=object_type)
 
@@ -358,7 +345,6 @@ class Election(Instance):
             self.compute_feature(feature_id, feature_long_id, **kwargs)
         return self.features[feature_long_id]
 
-
 def map_the_votes(election, party_id, party_size) -> Election:
     new_votes = [[] for _ in range(election.num_voters)]
     for i in range(election.num_voters):
@@ -371,7 +357,7 @@ def map_the_votes(election, party_id, party_size) -> Election:
     return election
 
 
-def unmap_the_winners(winners, party_id, party_size):
+def _unmap_the_winners(winners, party_id, party_size):
     new_winners = []
     for j in range(len(winners)):
         if winners[j] >= party_id * party_size:
@@ -381,7 +367,7 @@ def unmap_the_winners(winners, party_id, party_size):
     return new_winners
 
 
-def remove_candidate_from_election(election, party_id, party_size) -> Election:
+def _remove_candidate_from_election(election, party_id, party_size) -> Election:
     for vote in election.votes:
         for i in range(party_size):
             _id = party_id * party_size + i
@@ -389,17 +375,13 @@ def remove_candidate_from_election(election, party_id, party_size) -> Election:
     election.num_candidates -= party_size
     return election
 
-#DIV-MERGE
+
 def pca(distance_matrix):
-    # print(distance_matrix)
-    # df = pd.read_csv("http://rosetta.reltech.org/TC/v15/Mapping/data/dist-Aus.csv")
-    # A = df.values.T[1:].astype(float)
     A = distance_matrix
     # square it
     A = A ** 2
     # centering frequency_matrix
     n = A.shape[0]
-    # J_c = 1. / n * (np.eye(n) - 1 + (n - 1) * np.eye(n))
     J_c = np.eye(n) - 1./n
 
     # perform double centering
@@ -410,21 +392,7 @@ def pca(distance_matrix):
     eigen_vec = la.eig(B)[1].T
 
     eigen_vec_real = np.round(np.real(eigen_vec), 5)
-    # eigen_vec_imag = np.round(np.imag(eigen_vec), 5)
-    # if np.abs(eigen_vec_imag).sum() > 1:
-    #     print("Complex eigenvectors!")
-    #     print(np.abs(eigen_vec_imag).sum())
-        # print(eigen_vec_imag)
-        # print(eigen_vec)
-
     eigen_val_real = np.round(np.real(eigen_val), 5)
-    # eigen_val_imag = np.round(np.imag(eigen_val), 5)
-    # print(eigen_val_real)
-    # print(eigen_val_imag)
-    # if np.abs(eigen_val_imag).sum() > 1:
-    #     print("Complex eigenvalues!")
-        # print(eigen_val_imag)
-        # print(eigen_val)
     bests = np.argsort(-eigen_val_real)
     i = bests[0]
     j = bests[1]
@@ -432,7 +400,5 @@ def pca(distance_matrix):
     PC1 = np.sqrt(eigen_val_real[i]) * eigen_vec_real[i]
     PC2 = np.sqrt(eigen_val_real[j]) * eigen_vec_real[j]
     res = np.array([[x, y] for x, y in zip(PC1, PC2)])
-    # print(PC1)
-    # print(PC2)
     return res
 

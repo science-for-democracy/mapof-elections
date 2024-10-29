@@ -8,22 +8,32 @@ from abc import ABCMeta, abstractmethod
 
 import mapof.core.persistence.experiment_exports as exports
 import mapof.core.printing as pr
-from mapof.core.features.register import \
-    registered_experiment_features, \
+from mapof.core.features.register import (
+    registered_experiment_features,
     features_embedding_related
+)
 from mapof.core.objects.Experiment import Experiment
 from mapof.core.utils import get_instance_id
 from tqdm import tqdm
 
 import mapof.elections.other.approval_rules as rules
-from mapof.elections.cultures import \
-    registered_ordinal_cultures, \
+from mapof.elections.cultures import (
+    registered_ordinal_cultures,
     registered_pseudo_ordinal_cultures
+)
 from mapof.elections.distances import get_distance
-from mapof.elections.features.register import features_with_params, features_rule_related
+from mapof.elections.features.register import (
+    features_with_params,
+    features_rule_related
+)
 from mapof.elections.objects.ApprovalElection import ApprovalElection
 from mapof.elections.objects.ElectionFamily import ElectionFamily
-from mapof.elections.objects.ElectionFeatures import ST_KEY, AN_KEY, ID_KEY, UN_KEY
+from mapof.elections.objects.ElectionFeatures import (
+    ST_KEY,
+    AN_KEY,
+    ID_KEY,
+    UN_KEY
+)
 from mapof.elections.objects.OrdinalElection import OrdinalElection
 
 try:
@@ -613,11 +623,11 @@ class ElectionExperiment(Experiment):
             self.elections[election_id].compute_voting_rule(
                 method=method, committee_size=committee_size)
 
-    def compute_alternative_winners(self, method=None, num_winners=None, num_parties=None):
+    def compute_alternative_winners(self, method=None, committee_size=None, num_parties=None):
         for election_id in self.elections:
             for party_id in range(num_parties):
                 self.elections[election_id].compute_alternative_winners(
-                    method=method, party_id=party_id, num_winners=num_winners)
+                    method=method, party_id=party_id, committee_size=committee_size)
 
     def get_distance(
             self,

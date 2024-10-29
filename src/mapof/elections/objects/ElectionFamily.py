@@ -4,8 +4,8 @@ import logging
 from mapof.core.objects.Family import Family
 from mapof.elections.objects.OrdinalElection import OrdinalElection
 from mapof.elections.objects.ApprovalElection import ApprovalElection
-from mapof.core.utils import *
-from mapof.elections.cultures.params import *
+from mapof.core.utils import get_instance_id
+from mapof.elections.cultures.params import get_params_for_paths, get_params_for_crate
 
 
 class ElectionFamily(Family):
@@ -80,7 +80,29 @@ class ElectionFamily(Family):
                        is_exported=True,
                        store_points=False,
                        is_aggregated=True,
-                       instance_type=None):
+                       instance_type=None) -> list | None:
+        """
+
+        Prepares the family of elections.
+
+        Parameters
+        ----------
+            experiment_id : str
+                Experiment ID.
+            is_exported : bool
+                Whether to export the family.
+            store_points : bool
+                Whether to store the points.
+            is_aggregated : bool
+                    Whether the family is aggregated.
+            instance_type : str
+                Type of the instance.
+
+        Returns
+        -------
+            list | None
+                List of elections.
+        """
 
         if instance_type is not None:
             self.instance_type = instance_type

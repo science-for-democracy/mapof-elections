@@ -155,13 +155,17 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/cultures/index.html">Cultures</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/list_of_cultures.html">List of Cultures</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/main.html">Main</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/euclidean.html">Euclidean</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/guardians.html">Guardians</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/compass_approx.html">Compass Approximation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/compass_true.html">Compass True</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/prefsampling_mask.html">Prefsampling Mask</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/pseudo_cultures.html">Pseudo Cultures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/params.html">Params</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/distances/index.html">Distances</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/list_of_distances.html">List of Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/main.html">Main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/register.html">Register</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/main_approval_distances.html">Approval Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/main_ordinal_distances.html">Ordinal Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/committee_distances.html">Committee Distances</a></li>
@@ -171,11 +175,21 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/features/index.html">Features</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/list_of_features.html">List of Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/main.html">Main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/register.html">Register</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/scores.html">Scores</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/diversity.html">Diversity</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/dap_approximate.html">Diversity Approximate</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/simple_ordinal.html">Simple Ordinal</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/simple_approval.html">Simple Approval</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/abc_features.html">ABC Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/banzhaf_cc.html">Banzhaf CC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/ranging_cc.html">Ranging CC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/approx.html">Approx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/cohesive.html">Cohesive</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/entropy.html">Entropy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/justified_representation.html">Justified Representation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/partylist.html">Partylist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/proportionality_degree.html">Proportionality Degree</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/objects/index.html">Objects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -333,7 +347,7 @@ document.write(`
 <span class="kn">import</span> <span class="nn">mapof.elections.persistence.election_imports</span> <span class="k">as</span> <span class="nn">imports</span>
 <span class="kn">from</span> <span class="nn">mapof.elections.features</span> <span class="kn">import</span> <span class="n">get_local_feature</span>
 <span class="kn">from</span> <span class="nn">mapof.elections.objects.ElectionFeatures</span> <span class="kn">import</span> <span class="n">ElectionFeatures</span>
-<span class="kn">from</span> <span class="nn">mapof.elections.other.glossary</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">mapof.elections.other.glossary</span> <span class="kn">import</span> <span class="n">is_pseudo_culture</span>
 <span class="kn">from</span> <span class="nn">mapof.elections.other.ordinal_rules</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">compute_sntv_voting_rule</span><span class="p">,</span>
     <span class="n">compute_borda_voting_rule</span><span class="p">,</span>
@@ -485,26 +499,26 @@ document.write(`
                 <span class="n">interval</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vector</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">/</span> <span class="n">w</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">interval</span>
 
-    <span class="k">def</span> <span class="nf">compute_alternative_winners</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">party_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">num_winners</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">compute_alternative_winners</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">party_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">committee_size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 
-        <span class="n">election_without_party_id</span> <span class="o">=</span> <span class="n">remove_candidate_from_election</span><span class="p">(</span><span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span>
-                                                                   <span class="n">party_id</span><span class="p">,</span> <span class="n">num_winners</span><span class="p">)</span>
-        <span class="n">election_without_party_id</span> <span class="o">=</span> <span class="n">map_the_votes</span><span class="p">(</span><span class="n">election_without_party_id</span><span class="p">,</span> <span class="n">party_id</span><span class="p">,</span> <span class="n">num_winners</span><span class="p">)</span>
+        <span class="n">election_without_party_id</span> <span class="o">=</span> <span class="n">_remove_candidate_from_election</span><span class="p">(</span><span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span>
+                                                                    <span class="n">party_id</span><span class="p">,</span> <span class="n">committee_size</span><span class="p">)</span>
+        <span class="n">election_without_party_id</span> <span class="o">=</span> <span class="n">map_the_votes</span><span class="p">(</span><span class="n">election_without_party_id</span><span class="p">,</span> <span class="n">party_id</span><span class="p">,</span> <span class="n">committee_size</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;sntv&#39;</span><span class="p">:</span>
-            <span class="n">winners_without_party_id</span> <span class="o">=</span> <span class="n">compute_sntv_voting_rule</span><span class="p">(</span><span class="n">election</span><span class="o">=</span><span class="n">election_without_party_id</span><span class="p">,</span>
-                                                            <span class="n">num_winners</span><span class="o">=</span><span class="n">num_winners</span><span class="p">)</span>
+            <span class="n">winners_without_party_id</span> <span class="o">=</span> <span class="n">compute_sntv_voting_rule</span><span class="p">(</span>
+                <span class="n">election</span><span class="o">=</span><span class="n">election_without_party_id</span><span class="p">,</span> <span class="n">committee_size</span><span class="o">=</span><span class="n">committee_size</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;borda&#39;</span><span class="p">:</span>
-            <span class="n">winners_without_party_id</span> <span class="o">=</span> <span class="n">compute_borda_voting_rule</span><span class="p">(</span><span class="n">election</span><span class="o">=</span><span class="n">election_without_party_id</span><span class="p">,</span>
-                                                             <span class="n">num_winners</span><span class="o">=</span><span class="n">num_winners</span><span class="p">)</span>
+            <span class="n">winners_without_party_id</span> <span class="o">=</span> <span class="n">compute_borda_voting_rule</span><span class="p">(</span>
+                <span class="n">election</span><span class="o">=</span><span class="n">election_without_party_id</span><span class="p">,</span> <span class="n">committee_size</span><span class="o">=</span><span class="n">committee_size</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;stv&#39;</span><span class="p">:</span>
-            <span class="n">winners_without_party_id</span> <span class="o">=</span> <span class="n">compute_stv_voting_rule</span><span class="p">(</span><span class="n">election</span><span class="o">=</span><span class="n">election_without_party_id</span><span class="p">,</span>
-                                                           <span class="n">num_winners</span><span class="o">=</span><span class="n">num_winners</span><span class="p">)</span>
+            <span class="n">winners_without_party_id</span> <span class="o">=</span> <span class="n">compute_stv_voting_rule</span><span class="p">(</span>
+                <span class="n">election</span><span class="o">=</span><span class="n">election_without_party_id</span><span class="p">,</span> <span class="n">committee_size</span><span class="o">=</span><span class="n">committee_size</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">winners_without_party_id</span> <span class="o">=</span> <span class="p">[]</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">alternative_winners</span><span class="p">[</span><span class="n">party_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">unmap_the_winners</span><span class="p">(</span><span class="n">winners_without_party_id</span><span class="p">,</span> <span class="n">party_id</span><span class="p">,</span>
-                                                               <span class="n">num_winners</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alternative_winners</span><span class="p">[</span><span class="n">party_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">_unmap_the_winners</span><span class="p">(</span><span class="n">winners_without_party_id</span><span class="p">,</span> <span class="n">party_id</span><span class="p">,</span>
+                                                                <span class="n">committee_size</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">print_euclidean_voters_and_candidates_map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                                                   <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">circles</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
@@ -513,15 +527,10 @@ document.write(`
 
         <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">6.4</span><span class="p">,</span> <span class="mf">6.4</span><span class="p">))</span>
 
-        <span class="n">X_voters</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">Y_voters</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_voters</span><span class="p">):</span>
             <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">points</span><span class="p">[</span><span class="s1">&#39;voters&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
             <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">points</span><span class="p">[</span><span class="s1">&#39;voters&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
             <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="n">s</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
-            <span class="c1"># X_voters.append(election.points[&#39;voters&#39;][i][0])</span>
-            <span class="c1"># Y_voters.append(election.points[&#39;voters&#39;][i][1])</span>
-        <span class="c1"># plt.scatter(X_voters, Y_voters, color=&#39;grey&#39;, s=s, alpha=0.1)</span>
 
         <span class="n">X_candidates</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">Y_candidates</span> <span class="o">=</span> <span class="p">[]</span>
@@ -546,12 +555,10 @@ document.write(`
         <span class="k">else</span><span class="p">:</span>
             <span class="n">plt</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
 
-
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">compute_distances</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">pass</span>
 
-    <span class="c1">#DIV-MERGE</span>
     <span class="k">def</span> <span class="nf">embed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="s1">&#39;MDS&#39;</span><span class="p">,</span> <span class="n">object_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">virtual</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 
         <span class="k">if</span> <span class="n">object_type</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -631,12 +638,6 @@ document.write(`
             <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
                 <span class="k">pass</span>
 
-        <span class="k">if</span> <span class="n">object_type</span> <span class="o">==</span> <span class="s1">&#39;vote&#39;</span><span class="p">:</span>
-            <span class="n">length</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_options</span>
-        <span class="k">elif</span> <span class="n">object_type</span> <span class="o">==</span> <span class="s1">&#39;candidate&#39;</span><span class="p">:</span>
-            <span class="n">length</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_candidates</span>
-            <span class="k">pass</span>
-
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_exported</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">virtual</span><span class="p">:</span>
             <span class="n">exports</span><span class="o">.</span><span class="n">export_coordinates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">object_type</span><span class="o">=</span><span class="n">object_type</span><span class="p">)</span>
 
@@ -692,7 +693,6 @@ document.write(`
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">[</span><span class="n">feature_long_id</span><span class="p">]</span></div>
 
 
-
 <span class="k">def</span> <span class="nf">map_the_votes</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">party_id</span><span class="p">,</span> <span class="n">party_size</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Election</span><span class="p">:</span>
     <span class="n">new_votes</span> <span class="o">=</span> <span class="p">[[]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">election</span><span class="o">.</span><span class="n">num_voters</span><span class="p">)]</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">election</span><span class="o">.</span><span class="n">num_voters</span><span class="p">):</span>
@@ -705,7 +705,7 @@ document.write(`
     <span class="k">return</span> <span class="n">election</span>
 
 
-<span class="k">def</span> <span class="nf">unmap_the_winners</span><span class="p">(</span><span class="n">winners</span><span class="p">,</span> <span class="n">party_id</span><span class="p">,</span> <span class="n">party_size</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_unmap_the_winners</span><span class="p">(</span><span class="n">winners</span><span class="p">,</span> <span class="n">party_id</span><span class="p">,</span> <span class="n">party_size</span><span class="p">):</span>
     <span class="n">new_winners</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">winners</span><span class="p">)):</span>
         <span class="k">if</span> <span class="n">winners</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">party_id</span> <span class="o">*</span> <span class="n">party_size</span><span class="p">:</span>
@@ -715,7 +715,7 @@ document.write(`
     <span class="k">return</span> <span class="n">new_winners</span>
 
 
-<span class="k">def</span> <span class="nf">remove_candidate_from_election</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">party_id</span><span class="p">,</span> <span class="n">party_size</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Election</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">_remove_candidate_from_election</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">party_id</span><span class="p">,</span> <span class="n">party_size</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Election</span><span class="p">:</span>
     <span class="k">for</span> <span class="n">vote</span> <span class="ow">in</span> <span class="n">election</span><span class="o">.</span><span class="n">votes</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">party_size</span><span class="p">):</span>
             <span class="n">_id</span> <span class="o">=</span> <span class="n">party_id</span> <span class="o">*</span> <span class="n">party_size</span> <span class="o">+</span> <span class="n">i</span>
@@ -723,17 +723,13 @@ document.write(`
     <span class="n">election</span><span class="o">.</span><span class="n">num_candidates</span> <span class="o">-=</span> <span class="n">party_size</span>
     <span class="k">return</span> <span class="n">election</span>
 
-<span class="c1">#DIV-MERGE</span>
+
 <span class="k">def</span> <span class="nf">pca</span><span class="p">(</span><span class="n">distance_matrix</span><span class="p">):</span>
-    <span class="c1"># print(distance_matrix)</span>
-    <span class="c1"># df = pd.read_csv(&quot;http://rosetta.reltech.org/TC/v15/Mapping/data/dist-Aus.csv&quot;)</span>
-    <span class="c1"># A = df.values.T[1:].astype(float)</span>
     <span class="n">A</span> <span class="o">=</span> <span class="n">distance_matrix</span>
     <span class="c1"># square it</span>
     <span class="n">A</span> <span class="o">=</span> <span class="n">A</span> <span class="o">**</span> <span class="mi">2</span>
     <span class="c1"># centering frequency_matrix</span>
     <span class="n">n</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="c1"># J_c = 1. / n * (np.eye(n) - 1 + (n - 1) * np.eye(n))</span>
     <span class="n">J_c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">-</span> <span class="mf">1.</span><span class="o">/</span><span class="n">n</span>
 
     <span class="c1"># perform double centering</span>
@@ -744,21 +740,7 @@ document.write(`
     <span class="n">eigen_vec</span> <span class="o">=</span> <span class="n">la</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">B</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">T</span>
 
     <span class="n">eigen_vec_real</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">eigen_vec</span><span class="p">),</span> <span class="mi">5</span><span class="p">)</span>
-    <span class="c1"># eigen_vec_imag = np.round(np.imag(eigen_vec), 5)</span>
-    <span class="c1"># if np.abs(eigen_vec_imag).sum() &gt; 1:</span>
-    <span class="c1">#     print(&quot;Complex eigenvectors!&quot;)</span>
-    <span class="c1">#     print(np.abs(eigen_vec_imag).sum())</span>
-        <span class="c1"># print(eigen_vec_imag)</span>
-        <span class="c1"># print(eigen_vec)</span>
-
     <span class="n">eigen_val_real</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">eigen_val</span><span class="p">),</span> <span class="mi">5</span><span class="p">)</span>
-    <span class="c1"># eigen_val_imag = np.round(np.imag(eigen_val), 5)</span>
-    <span class="c1"># print(eigen_val_real)</span>
-    <span class="c1"># print(eigen_val_imag)</span>
-    <span class="c1"># if np.abs(eigen_val_imag).sum() &gt; 1:</span>
-    <span class="c1">#     print(&quot;Complex eigenvalues!&quot;)</span>
-        <span class="c1"># print(eigen_val_imag)</span>
-        <span class="c1"># print(eigen_val)</span>
     <span class="n">bests</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="o">-</span><span class="n">eigen_val_real</span><span class="p">)</span>
     <span class="n">i</span> <span class="o">=</span> <span class="n">bests</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">j</span> <span class="o">=</span> <span class="n">bests</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
@@ -766,8 +748,6 @@ document.write(`
     <span class="n">PC1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">eigen_val_real</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">*</span> <span class="n">eigen_vec_real</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
     <span class="n">PC2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">eigen_val_real</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="o">*</span> <span class="n">eigen_vec_real</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
     <span class="n">res</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">PC1</span><span class="p">,</span> <span class="n">PC2</span><span class="p">)])</span>
-    <span class="c1"># print(PC1)</span>
-    <span class="c1"># print(PC2)</span>
     <span class="k">return</span> <span class="n">res</span>
 
 </pre></div>

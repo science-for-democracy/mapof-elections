@@ -1,5 +1,3 @@
-
-
 try:
     from abcvoting.preferences import Profile
     from abcvoting import abcrules, properties
@@ -158,6 +156,7 @@ def _check_priceability_gurobi(profile, committee, stable=False):
 
 @register_approval_election_feature("priceability", has_params=True, is_rule_related=True)
 def get_priceability(election, feature_params):
+    """ Computes priceability using ABC Python package. """
 
     rule = feature_params['rule']
 
@@ -170,6 +169,7 @@ def get_priceability(election, feature_params):
 
 @register_approval_election_feature("core", has_params=True, is_rule_related=True)
 def get_core(election, feature_params):
+    """ Computes the core using ABC Python package. """
 
     rule = feature_params['rule']
 

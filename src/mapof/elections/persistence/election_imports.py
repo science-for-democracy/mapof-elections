@@ -6,7 +6,7 @@ from collections import Counter
 
 import numpy as np
 
-from mapof.core.glossary import *
+from mapof.core.glossary import NICE_NAME
 from mapof.elections.other.glossary import is_pseudo_culture
 
 regex_file_name = r'# FILE NAME:'

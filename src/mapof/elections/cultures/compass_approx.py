@@ -8,7 +8,7 @@ import mapof.elections.cultures.mallows as mallows
 import mapof.elections.cultures.sampling.samplemat as smpl
 
 
-def distribute_in_matrix(n, m):
+def _distribute_in_matrix(n, m):
     if m == 0:
         return []
     k = n // m
@@ -24,13 +24,13 @@ def distribute_in_matrix(n, m):
     return matrix
 
 
-def distribute_in_block_matrix(n, blocks):
+def _distribute_in_block_matrix(n, blocks):
     before = 0
     after = sum(blocks)
     matrix = []
     for b in blocks:
         after = after - b
-        block = distribute_in_matrix(n, b)
+        block = _distribute_in_matrix(n, b)
         for row in block:
             matrix.append([0 for _ in range(before)] + row + [0 for _ in range(after)])
         before = before + b
@@ -41,29 +41,28 @@ def draw_election(matrix):
     return smpl.sample_election_using_permanent(matrix)
 
 
-def build_perms(matrix):
-    if len(matrix[0]) == 0:
-        return [[]]
-    perms = []
-    last_col = []
-    for j in range(len(matrix)):
-        last_col.append(matrix[j].pop())
-    if sum(last_col) > 0:
-        for last_cand, elig in enumerate(last_col):
-            if elig <= 0:
-                continue
-            zeroed_vector = matrix[last_cand][:]
-            matrix[last_cand][:] = len(matrix[last_cand]) * [0]
-            for perm in build_perms(matrix):
-                perms.append(perm + [last_cand])
-            matrix[last_cand][:] = zeroed_vector[:]
-    for j in range(len(matrix)):
-        matrix[j].append(last_col[j])
-    return perms
+# def build_perms(matrix):
+#     if len(matrix[0]) == 0:
+#         return [[]]
+#     perms = []
+#     last_col = []
+#     for j in range(len(matrix)):
+#         last_col.append(matrix[j].pop())
+#     if sum(last_col) > 0:
+#         for last_cand, elig in enumerate(last_col):
+#             if elig <= 0:
+#                 continue
+#             zeroed_vector = matrix[last_cand][:]
+#             matrix[last_cand][:] = len(matrix[last_cand]) * [0]
+#             for perm in build_perms(matrix):
+#                 perms.append(perm + [last_cand])
+#             matrix[last_cand][:] = zeroed_vector[:]
+#     for j in range(len(matrix)):
+#         matrix[j].append(last_col[j])
+#     return perms
 
 
-# Models
-def generate_un_from_list(num_voters=None, num_candidates=None):
+def generate_un_from_list(num_voters: int = None, num_candidates: int = None):
     id_perm = list(range(num_candidates))
     m_fac = math.factorial(num_candidates)
     alls = num_voters // m_fac
@@ -75,14 +74,51 @@ def generate_un_from_list(num_voters=None, num_candidates=None):
     return res
 
 
-def generate_approx_uniformity_votes(num_voters=None, num_candidates=None):
-    """ Generate real election that have UN positionwise frequency_matrix """
-    matrix = distribute_in_matrix(num_voters, num_candidates)
+def generate_approx_uniformity_votes(num_voters: int = None, num_candidates: int = None) -> list:
+    """
+
+    Generates real election that have UN positionwise frequency_matrix.
+
+    Parameters
+    ----------
+        num_voters : int
+            Number of voters.
+        num_candidates : int
+            Number of candidates.
+
+    Returns
+    -------
+        list
+            Votes
+    """
+    matrix = _distribute_in_matrix(num_voters, num_candidates)
     return draw_election(matrix)
 
 
-def generate_idan_part_votes(num_voters=None, num_candidates=None, part_share=None, **kwargs):
-    """ Generate real election between (ID) and (AN) """
+def generate_idan_part_votes(
+        num_voters: int = None,
+        num_candidates: int = None,
+        part_share: float = None,
+        **_kwargs
+) -> list:
+    """
+    Generates election between (ID) and (AN).
+
+    Parameters
+    ----------
+        num_voters : int
+            Number of voters.
+        num_candidates : int
+            Number of candidates.
+        part_share : float
+            Share of ID voters.
+
+    Returns
+    -------
+        list
+            Votes
+    """
+
     if part_share is None:
         print("IDAN_part generation : params None : random param generated")
         part_size = np.random.choice(range(num_voters))
@@ -97,7 +133,12 @@ def generate_idan_part_votes(num_voters=None, num_candidates=None, part_share=No
     return votes
 
 
-def generate_idun_part_votes(num_voters=None, num_candidates=None, part_share=None, **kwargs):
+def generate_idun_part_votes(
+        num_voters: int = None,
+        num_candidates: int = None,
+        part_share: float = None,
+        **_kwargs
+) -> list:
     """ Generate elections realizing linear combinations of pos-matrices between (ID) and (UN) """
     if part_share is None:
         print("IDUN_part generation : params None : random param generated")
@@ -108,11 +149,16 @@ def generate_idun_part_votes(num_voters=None, num_candidates=None, part_share=No
     id_share = num_voters - part_size
     un_share = part_size
     votes = [[j for j in range(num_candidates)] for _ in range(id_share)]
-    votes = votes + draw_election(distribute_in_matrix(un_share, num_candidates))
+    votes = votes + draw_election(_distribute_in_matrix(un_share, num_candidates))
     return votes
 
 
-def generate_idst_part_votes(num_voters=None, num_candidates=None, part_share=None, **kwargs):
+def generate_idst_part_votes(
+        num_voters: int = None,
+        num_candidates: int = None,
+        part_share: float = None,
+        **_kwargs
+) -> list:
     """ Generate elections realizing linear combinations of pos-matrices between (ID) and (ST) """
     if part_share is None:
         print("IDST_part generation : params None : random param generated")
@@ -125,11 +171,16 @@ def generate_idst_part_votes(num_voters=None, num_candidates=None, part_share=No
     topsize = num_candidates // 2
     bottomsize = num_candidates - topsize
     votes_id = [[j for j in range(num_candidates)] for _ in range(id_share)]
-    votes_st = draw_election(distribute_in_block_matrix(st_share, [topsize, bottomsize]))
+    votes_st = draw_election(_distribute_in_block_matrix(st_share, [topsize, bottomsize]))
     return votes_id + votes_st
 
 
-def generate_anun_part_votes(num_voters=None, num_candidates=None, part_share=None, **kwargs):
+def generate_anun_part_votes(
+        num_voters: int = None,
+        num_candidates: int = None,
+        part_share: float = None,
+        **_kwargs
+) -> list:
     """ Generate elections realizing linear combinations of pos-matrices between (AN) and (UN) """
     if part_share is None:
         print("ANUN_part generation : params None : random param generated")
@@ -143,11 +194,16 @@ def generate_anun_part_votes(num_voters=None, num_candidates=None, part_share=No
     votes = [[j for j in range(num_candidates)] for _ in range(id_share)]
     votes = votes + [[(num_candidates - j - 1) for j in range(num_candidates)] for _ in
                      range(op_share)]
-    votes = votes + draw_election(distribute_in_matrix(un_share, num_candidates))
+    votes = votes + draw_election(_distribute_in_matrix(un_share, num_candidates))
     return votes
 
 
-def generate_anst_part_votes(num_voters=None, num_candidates=None, part_share=None, **kwargs):
+def generate_anst_part_votes(
+        num_voters: int = None,
+        num_candidates: int = None,
+        part_share: float = None,
+        **_kwargs
+) -> list:
     """ Generate elections realizing linear combinations of pos-matrices between (AN) and (ST) """
     if part_share is None:
         print("ANST_part generation : params None : random param generated")
@@ -163,11 +219,16 @@ def generate_anst_part_votes(num_voters=None, num_candidates=None, part_share=No
     votes = [[j for j in range(num_candidates)] for _ in range(id_share)]
     votes = votes + [[(num_candidates - j - 1) for j in range(num_candidates)] for _ in
                      range(op_share)]
-    votes = votes + draw_election(distribute_in_block_matrix(st_share, [topsize, bottomsize]))
+    votes = votes + draw_election(_distribute_in_block_matrix(st_share, [topsize, bottomsize]))
     return votes
 
 
-def generate_unst_part_votes(num_voters=None, num_candidates=None, part_share=None, **kwargs):
+def generate_unst_part_votes(
+        num_voters: int = None,
+        num_candidates: int = None,
+        part_share: float = None,
+        **_kwargs
+) -> list:
     """ Generate elections realizing linear combinations of pos-matrices between (UN) and (ST) """
     if part_share is None:
         print("UNST_part generation : params None : random param generated")
@@ -179,8 +240,8 @@ def generate_unst_part_votes(num_voters=None, num_candidates=None, part_share=No
     st_share = part_size
     topsize = num_candidates // 2
     bottomsize = num_candidates - topsize
-    votes = draw_election(distribute_in_matrix(un_share, num_candidates))
-    votes = votes + draw_election(distribute_in_block_matrix(st_share, [topsize, bottomsize]))
+    votes = draw_election(_distribute_in_matrix(un_share, num_candidates))
+    votes = votes + draw_election(_distribute_in_block_matrix(st_share, [topsize, bottomsize]))
     return votes
 
 
@@ -243,7 +304,7 @@ def generate_unst_mallows_votes(num_voters=None, num_candidates=None, params=Non
         phi = params['phi'] / 2
     better = num_candidates // 2
     worse = num_candidates - better
-    votes = draw_election(distribute_in_block_matrix(num_voters, [better, worse]))
+    votes = draw_election(_distribute_in_block_matrix(num_voters, [better, worse]))
     # The next part works poorly for odd number of candidates (the last one is always from worse part)
     for v in votes:
         for i in range(better):
@@ -264,7 +325,7 @@ def generate_unst_topsize_votes(num_voters=None, num_candidates=None, top_share=
     top_size = int(round(top_share * num_candidates))
     better = top_size
     worse = num_candidates - top_size
-    matrix = distribute_in_block_matrix(num_voters, [better, worse])
+    matrix = _distribute_in_block_matrix(num_voters, [better, worse])
     return draw_election(matrix)
 
 
@@ -282,7 +343,7 @@ def generate_idst_blocks_votes(num_voters=None, num_candidates=None, no_blocks=N
     with_one_more = list(np.random.choice(range(no_blocks), r, replace=False))
     for i in with_one_more:
         blocks[i] = blocks[i] + 1
-    matrix = distribute_in_block_matrix(num_voters, blocks)
+    matrix = _distribute_in_block_matrix(num_voters, blocks)
     return draw_election(matrix)
 
 

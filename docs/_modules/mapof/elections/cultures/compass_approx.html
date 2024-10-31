@@ -354,7 +354,7 @@ document.write(`
     <span class="k">return</span> <span class="n">matrix</span>
 
 
-<span class="k">def</span> <span class="nf">distribute_in_block_matrix</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">blocks</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_distribute_in_block_matrix</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">blocks</span><span class="p">):</span>
     <span class="n">before</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">after</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">blocks</span><span class="p">)</span>
     <span class="n">matrix</span> <span class="o">=</span> <span class="p">[]</span>
@@ -466,7 +466,7 @@ document.write(`
     <span class="n">topsize</span> <span class="o">=</span> <span class="n">num_candidates</span> <span class="o">//</span> <span class="mi">2</span>
     <span class="n">bottomsize</span> <span class="o">=</span> <span class="n">num_candidates</span> <span class="o">-</span> <span class="n">topsize</span>
     <span class="n">votes_id</span> <span class="o">=</span> <span class="p">[[</span><span class="n">j</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">)]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">id_share</span><span class="p">)]</span>
-    <span class="n">votes_st</span> <span class="o">=</span> <span class="n">draw_election</span><span class="p">(</span><span class="n">distribute_in_block_matrix</span><span class="p">(</span><span class="n">st_share</span><span class="p">,</span> <span class="p">[</span><span class="n">topsize</span><span class="p">,</span> <span class="n">bottomsize</span><span class="p">]))</span>
+    <span class="n">votes_st</span> <span class="o">=</span> <span class="n">draw_election</span><span class="p">(</span><span class="n">_distribute_in_block_matrix</span><span class="p">(</span><span class="n">st_share</span><span class="p">,</span> <span class="p">[</span><span class="n">topsize</span><span class="p">,</span> <span class="n">bottomsize</span><span class="p">]))</span>
     <span class="k">return</span> <span class="n">votes_id</span> <span class="o">+</span> <span class="n">votes_st</span></div>
 
 
@@ -510,7 +510,7 @@ document.write(`
     <span class="n">votes</span> <span class="o">=</span> <span class="p">[[</span><span class="n">j</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">)]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">id_share</span><span class="p">)]</span>
     <span class="n">votes</span> <span class="o">=</span> <span class="n">votes</span> <span class="o">+</span> <span class="p">[[(</span><span class="n">num_candidates</span> <span class="o">-</span> <span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">)]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span>
                      <span class="nb">range</span><span class="p">(</span><span class="n">op_share</span><span class="p">)]</span>
-    <span class="n">votes</span> <span class="o">=</span> <span class="n">votes</span> <span class="o">+</span> <span class="n">draw_election</span><span class="p">(</span><span class="n">distribute_in_block_matrix</span><span class="p">(</span><span class="n">st_share</span><span class="p">,</span> <span class="p">[</span><span class="n">topsize</span><span class="p">,</span> <span class="n">bottomsize</span><span class="p">]))</span>
+    <span class="n">votes</span> <span class="o">=</span> <span class="n">votes</span> <span class="o">+</span> <span class="n">draw_election</span><span class="p">(</span><span class="n">_distribute_in_block_matrix</span><span class="p">(</span><span class="n">st_share</span><span class="p">,</span> <span class="p">[</span><span class="n">topsize</span><span class="p">,</span> <span class="n">bottomsize</span><span class="p">]))</span>
     <span class="k">return</span> <span class="n">votes</span></div>
 
 
@@ -530,7 +530,7 @@ document.write(`
     <span class="n">topsize</span> <span class="o">=</span> <span class="n">num_candidates</span> <span class="o">//</span> <span class="mi">2</span>
     <span class="n">bottomsize</span> <span class="o">=</span> <span class="n">num_candidates</span> <span class="o">-</span> <span class="n">topsize</span>
     <span class="n">votes</span> <span class="o">=</span> <span class="n">draw_election</span><span class="p">(</span><span class="n">distribute_in_matrix</span><span class="p">(</span><span class="n">un_share</span><span class="p">,</span> <span class="n">num_candidates</span><span class="p">))</span>
-    <span class="n">votes</span> <span class="o">=</span> <span class="n">votes</span> <span class="o">+</span> <span class="n">draw_election</span><span class="p">(</span><span class="n">distribute_in_block_matrix</span><span class="p">(</span><span class="n">st_share</span><span class="p">,</span> <span class="p">[</span><span class="n">topsize</span><span class="p">,</span> <span class="n">bottomsize</span><span class="p">]))</span>
+    <span class="n">votes</span> <span class="o">=</span> <span class="n">votes</span> <span class="o">+</span> <span class="n">draw_election</span><span class="p">(</span><span class="n">_distribute_in_block_matrix</span><span class="p">(</span><span class="n">st_share</span><span class="p">,</span> <span class="p">[</span><span class="n">topsize</span><span class="p">,</span> <span class="n">bottomsize</span><span class="p">]))</span>
     <span class="k">return</span> <span class="n">votes</span></div>
 
 
@@ -594,7 +594,7 @@ document.write(`
         <span class="n">phi</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;phi&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span>
     <span class="n">better</span> <span class="o">=</span> <span class="n">num_candidates</span> <span class="o">//</span> <span class="mi">2</span>
     <span class="n">worse</span> <span class="o">=</span> <span class="n">num_candidates</span> <span class="o">-</span> <span class="n">better</span>
-    <span class="n">votes</span> <span class="o">=</span> <span class="n">draw_election</span><span class="p">(</span><span class="n">distribute_in_block_matrix</span><span class="p">(</span><span class="n">num_voters</span><span class="p">,</span> <span class="p">[</span><span class="n">better</span><span class="p">,</span> <span class="n">worse</span><span class="p">]))</span>
+    <span class="n">votes</span> <span class="o">=</span> <span class="n">draw_election</span><span class="p">(</span><span class="n">_distribute_in_block_matrix</span><span class="p">(</span><span class="n">num_voters</span><span class="p">,</span> <span class="p">[</span><span class="n">better</span><span class="p">,</span> <span class="n">worse</span><span class="p">]))</span>
     <span class="c1"># The next part works poorly for odd number of candidates (the last one is always from worse part)</span>
     <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">votes</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">better</span><span class="p">):</span>
@@ -617,7 +617,7 @@ document.write(`
     <span class="n">top_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">top_share</span> <span class="o">*</span> <span class="n">num_candidates</span><span class="p">))</span>
     <span class="n">better</span> <span class="o">=</span> <span class="n">top_size</span>
     <span class="n">worse</span> <span class="o">=</span> <span class="n">num_candidates</span> <span class="o">-</span> <span class="n">top_size</span>
-    <span class="n">matrix</span> <span class="o">=</span> <span class="n">distribute_in_block_matrix</span><span class="p">(</span><span class="n">num_voters</span><span class="p">,</span> <span class="p">[</span><span class="n">better</span><span class="p">,</span> <span class="n">worse</span><span class="p">])</span>
+    <span class="n">matrix</span> <span class="o">=</span> <span class="n">_distribute_in_block_matrix</span><span class="p">(</span><span class="n">num_voters</span><span class="p">,</span> <span class="p">[</span><span class="n">better</span><span class="p">,</span> <span class="n">worse</span><span class="p">])</span>
     <span class="k">return</span> <span class="n">draw_election</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span></div>
 
 
@@ -638,7 +638,7 @@ document.write(`
     <span class="n">with_one_more</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">no_blocks</span><span class="p">),</span> <span class="n">r</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">with_one_more</span><span class="p">:</span>
         <span class="n">blocks</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">blocks</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
-    <span class="n">matrix</span> <span class="o">=</span> <span class="n">distribute_in_block_matrix</span><span class="p">(</span><span class="n">num_voters</span><span class="p">,</span> <span class="n">blocks</span><span class="p">)</span>
+    <span class="n">matrix</span> <span class="o">=</span> <span class="n">_distribute_in_block_matrix</span><span class="p">(</span><span class="n">num_voters</span><span class="p">,</span> <span class="n">blocks</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">draw_election</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span></div>
 
 

@@ -13,33 +13,6 @@ except ImportError:
     abcrules = None
 
 
-def compute_abcvoting_rule(experiment=None, rule_name=None, committee_size=1, resolute=False):
-    all_winning_committees = {}
-    for election in tqdm(experiment.instances.values()):
-        profile = Profile(election.num_candidates)
-        if experiment.instance_type == 'ordinal':
-            profile.add_voters(election.approval_votes)
-        elif experiment.instance_type == 'approval':
-            profile.add_voters(election.votes)
-        try:
-            winning_committees = abcrules.compute(rule_name, profile, committee_size,
-                                                  algorithm="gurobi", resolute=resolute)
-        except Exception:
-            try:
-                winning_committees = abcrules.compute(rule_name, profile, committee_size,
-                                                      resolute=resolute)
-            except:
-                winning_committees = {}
-
-        clean_winning_committees = []
-        for committee in winning_committees:
-            clean_winning_committees.append(set(committee))
-        all_winning_committees[election.election_id] = clean_winning_committees
-
-    if experiment.is_exported:
-        export_committees_to_file(experiment.experiment_id, rule_name, all_winning_committees)
-
-
 def export_committees_to_file(experiment_id, rule_name, all_winning_committees):
     path = os.path.join(os.getcwd(), "experiments", experiment_id, 'features',
                         f'{rule_name}.csv')
@@ -74,21 +47,40 @@ def compute_abcvoting_rule_for_single_election(
         committee_size=1,
         resolute=False
 ):
-        profile = Profile(election.num_candidates)
-        profile.add_voters(election.votes)
+    profile = Profile(election.num_candidates)
+    profile.add_voters(election.votes)
 
+    try:
+        winning_committees = abcrules.compute(rule_name, profile, committee_size,
+                                              algorithm="gurobi", resolute=resolute)
+    except Exception:
         try:
             winning_committees = abcrules.compute(rule_name, profile, committee_size,
-                                                  algorithm="gurobi", resolute=resolute)
-        except Exception:
-            try:
-                winning_committees = abcrules.compute(rule_name, profile, committee_size,
-                                                      resolute=resolute)
-            except:
-                winning_committees = {}
+                                                  resolute=resolute)
+        except:
+            winning_committees = {}
 
-        clean_winning_committees = []
-        for committee in winning_committees:
-            clean_winning_committees.append(set(committee))
+    clean_winning_committees = []
+    for committee in winning_committees:
+        clean_winning_committees.append(set(committee))
 
-        election.winning_committee[rule_name] = clean_winning_committees[0]
+    election.winning_committee[rule_name] = clean_winning_committees[0]
+
+    return clean_winning_committees
+
+
+def compute_abcvoting_rule(experiment=None, rule_name=None, committee_size=1, resolute=False):
+    all_winning_committees = {}
+    for election in tqdm(experiment.instances.values()):
+        clean_winning_committees = compute_abcvoting_rule_for_single_election(
+            election=election,
+            rule_name=rule_name,
+            committee_size=committee_size,
+            resolute=resolute
+        )
+
+        all_winning_committees[election.election_id] = clean_winning_committees
+
+    if experiment.is_exported:
+        export_committees_to_file(experiment.experiment_id, rule_name, all_winning_committees)
+

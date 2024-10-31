@@ -19,8 +19,8 @@ class TestOrdinalElection:
 
         election.object_type = 'vote'
         for distance_id in ['swap', 'spearman']:
-            election.compute_distances(distance_id=distance_id)
-            election.embed()
+            election.compute_distances(distance_id=distance_id, object_type='vote')
+            election.embed(object_type='vote')
             election.print_map(show=False)
 
     def test_candidate_microscope(self):
@@ -63,5 +63,17 @@ class TestOrdinalElection:
 
         assert not election.is_condorcet()
 
+    def test_export_election_without_experiment(self):
+
+        num_voters = np.random.randint(10, 50)
+        num_candidates = np.random.randint(10, 20)
+        culture_id = 'ic'
+
+        election = mapof.generate_ordinal_election(culture_id=culture_id,
+                                                   election_id='test_election',
+                                                   num_voters=num_voters,
+                                                   num_candidates=num_candidates)
+        path_to_folder = ''
+        election.export_to_file(path_to_folder)
 
 

@@ -16,7 +16,6 @@ from mapof.elections.cultures.matrices.group_separable_matrices import get_gs_ca
 from mapof.elections.cultures.matrices.single_crossing_matrices import get_single_crossing_matrix
 from mapof.elections.cultures.matrices.single_peaked_matrices import get_conitzer_matrix, \
     get_walsh_matrix
-from mapof.elections.cultures.preflib import get_sushi_matrix
 from mapof.elections.cultures.mallows import get_mallows_matrix
 from mapof.elections.cultures.pseudo_cultures import (
     get_frequency_matrix_for_guardian,
@@ -176,8 +175,6 @@ class OrdinalElection(Election):
             frequency_matrix = get_single_crossing_matrix(self.num_candidates)
         elif self.culture_id == 'gs_caterpillar_matrix':
             frequency_matrix = get_gs_caterpillar_matrix(self.num_candidates)
-        elif self.culture_id == 'sushi_matrix':
-            frequency_matrix = get_sushi_matrix()
         elif self.culture_id in {'norm-mallows_matrix', 'mallows_matrix_path'}:
             frequency_matrix = get_mallows_matrix(self.num_candidates, self.params)
         elif self.culture_id in {
@@ -344,7 +341,7 @@ class OrdinalElection(Election):
             self.num_options = 1
 
         if is_exported:
-            exports.export_ordinal_election(self, is_aggregated=is_aggregated)
+            exports.export_election_within_experiment(self, is_aggregated=is_aggregated)
 
     def compute_distances(self, distance_id='swap', object_type=None):
         """ Return: distances between votes """

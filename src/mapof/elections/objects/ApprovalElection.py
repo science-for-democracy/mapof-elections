@@ -137,7 +137,7 @@ class ApprovalElection(Election, ABC):
             self.num_options = 1
 
         if is_exported:
-            exports.export_approval_election(self, is_aggregated=is_aggregated)
+            exports.export_election_within_experiment(self, is_aggregated=is_aggregated)
 
     def _compute_distances_between_votes(self, distance_id: str = 'hamming') -> np.ndarray:
         """

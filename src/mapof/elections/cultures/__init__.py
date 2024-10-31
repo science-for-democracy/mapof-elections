@@ -1,4 +1,5 @@
 import logging
+import numpy as np
 
 import prefsampling.approval as pref_approval
 import prefsampling.ordinal as pref_ordinal
@@ -11,9 +12,14 @@ import mapof.elections.cultures.matrices.single_crossing_matrices as sc_matrices
 import mapof.elections.cultures.matrices.single_peaked_matrices as sp_matrices
 import mapof.elections.cultures.pseudo_cultures as pseudo
 import mapof.elections.cultures.nonstandard.unused as unused
-from mapof.elections.cultures.nonstandard.alliances import *
-from mapof.elections.cultures.preflib import generate_preflib_votes
-from mapof.elections.other.glossary import is_pseudo_culture, LIST_OF_PREFLIB_MODELS
+from mapof.elections.cultures.nonstandard.alliances import (
+    generate_ordinal_alliance_ic_votes,
+    generate_ordinal_alliance_urn_votes,
+    generate_ordinal_alliance_euclidean_votes,
+    generate_ordinal_alliance_allied_euclidean_votes,
+    generate_ordinal_alliance_norm_mallows_votes,
+)
+from mapof.elections.other.glossary import is_pseudo_culture
 
 registered_approval_cultures = {
     'identity': mask.identity_mask,
@@ -163,20 +169,7 @@ def generate_ordinal_votes(
             Culture parameters.
     """
 
-    if culture_id in LIST_OF_PREFLIB_MODELS:
-        try:
-            votes = generate_preflib_votes(culture_id=culture_id,
-                                           num_candidates=num_candidates,
-                                           num_voters=num_voters,
-                                           params=params)
-        except:
-            votes = []
-            logging.warning(
-                f'You are trying to create an election based on Preflib '
-                f'without having the original source election. '
-                f'Please use different pseudo_culture_id than: {culture_id}')
-
-    elif culture_id in registered_ordinal_cultures:
+    if culture_id in registered_ordinal_cultures:
         votes = registered_ordinal_cultures.get(culture_id)(num_voters=num_voters,
                                                             num_candidates=num_candidates,
                                                             **params)

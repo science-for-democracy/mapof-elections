@@ -8,7 +8,7 @@ from abc import abstractmethod
 
 import matplotlib.pyplot as plt
 import numpy as np
-import numpy.linalg as la
+
 from mapof.core.distances import l2
 from mapof.core.objects.Instance import Instance
 from sklearn.manifold import MDS
@@ -23,6 +23,9 @@ from mapof.elections.other.ordinal_rules import (
     compute_borda_voting_rule,
     compute_stv_voting_rule
 )
+
+from sklearn.decomposition import PCA
+
 
 from mapof.elections.other.approval_rules import compute_abcvoting_rule_for_single_election
 
@@ -53,8 +56,10 @@ class Election(Instance):
                          culture_id=culture_id,
                          **kwargs)
 
-        self.election_id = election_id
+
         self.ballot_type = ballot_type
+        self.format = get_format_from_ballot_type(ballot_type)
+        self.election_id = election_id
         self.label = label
         self.num_voters = num_voters
         self.num_candidates = num_candidates
@@ -104,7 +109,8 @@ class Election(Instance):
         self.coordinates = {}
         for object_type in OBJECT_TYPES:
             try:
-                self.coordinates[object_type] = imports.import_coordinates(self, object_type)
+                self.coordinates[object_type] = \
+                    imports.import_coordinates(self.experiment_id, self.election_id, object_type)
             except:
                 pass
 
@@ -120,7 +126,8 @@ class Election(Instance):
         try:
             return self.coordinates[object_type]
         except:
-            self.coordinates[object_type] = imports.import_coordinates(self, object_type)
+            self.coordinates[object_type] = \
+                imports.import_coordinates(self.experiment_id, self.election_id, object_type)
             return self.coordinates[object_type]
 
     def set_default_object_type(self, object_type):
@@ -218,20 +225,21 @@ class Election(Instance):
     def compute_distances(self):
         pass
 
-    def embed(self, algorithm='MDS', object_type=None, virtual=False):
+    def embed(self, algorithm='mds', object_type=None, virtual=False):
 
         if object_type is None:
             object_type = self.object_type
 
-        MDS_object = MDS(n_components=2,
-                         dissimilarity='precomputed',
-                         normalized_stress='auto',
-            )
-
-        if algorithm == 'PCA':
-            self.coordinates[object_type] = pca(self.distances[object_type])
-        else:
+        if algorithm.lower() == 'pca':
+            pca = PCA(n_components=2)
+            self.coordinates[object_type] = pca.fit_transform(self.distances[object_type])
+        elif algorithm.lower() == 'mds':
+            MDS_object = MDS(n_components=2,
+                             dissimilarity='precomputed',
+                             normalized_stress='auto')
             self.coordinates[object_type] = MDS_object.fit_transform(self.distances[object_type])
+        else:
+            logging.warning('No such algorithm!')
 
         if object_type == 'vote':
             length = self.num_options
@@ -241,10 +249,6 @@ class Election(Instance):
             logging.warning('No such type of object!')
             length = None
 
-        # ADJUST
-        # find max dist
-        # if (not ('identity' in election.pseudo_culture_id.lower() and object_type=='vote')) \
-        #         and (not ('approval_id' in election.pseudo_culture_id.lower() and object_type=='vote')):
         if not self.all_dist_zeros(object_type):
             dist = np.zeros(
                 [len(self.coordinates[object_type]), len(self.coordinates[object_type])])
@@ -345,6 +349,10 @@ class Election(Instance):
             self.compute_feature(feature_id, feature_long_id, **kwargs)
         return self.features[feature_long_id]
 
+    def export_to_file(self, path_to_folder):
+        return exports.export_election_without_experiment(path_to_folder, self)
+
+
 def map_the_votes(election, party_id, party_size) -> Election:
     new_votes = [[] for _ in range(election.num_voters)]
     for i in range(election.num_voters):
@@ -376,29 +384,9 @@ def _remove_candidate_from_election(election, party_id, party_size) -> Election:
     return election
 
 
-def pca(distance_matrix):
-    A = distance_matrix
-    # square it
-    A = A ** 2
-    # centering frequency_matrix
-    n = A.shape[0]
-    J_c = np.eye(n) - 1./n
 
-    # perform double centering
-    B = -0.5 * np.matmul(np.matmul(J_c, A), J_c)
-
-    # find eigenvalues and eigenvectors
-    eigen_val = la.eig(B)[0]
-    eigen_vec = la.eig(B)[1].T
-
-    eigen_vec_real = np.round(np.real(eigen_vec), 5)
-    eigen_val_real = np.round(np.real(eigen_val), 5)
-    bests = np.argsort(-eigen_val_real)
-    i = bests[0]
-    j = bests[1]
-
-    PC1 = np.sqrt(eigen_val_real[i]) * eigen_vec_real[i]
-    PC2 = np.sqrt(eigen_val_real[j]) * eigen_vec_real[j]
-    res = np.array([[x, y] for x, y in zip(PC1, PC2)])
-    return res
-
+def get_format_from_ballot_type(ballot_type):
+    if ballot_type == 'approval':
+        return 'app'
+    elif ballot_type == 'ordinal':
+        return 'soc'

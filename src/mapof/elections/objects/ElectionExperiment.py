@@ -589,7 +589,8 @@ class ElectionExperiment(Experiment):
 
         for family_id in tqdm(self.families, desc="Preparing instances"):
 
-            if self.families[family_id].culture_id not in registered_pseudo_ordinal_cultures and \
+            if self.instance_type == 'ordinal' and \
+                    self.families[family_id].culture_id not in registered_pseudo_ordinal_cultures and \
                     self.families[family_id].culture_id not in registered_ordinal_cultures:
                 continue
 

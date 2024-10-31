@@ -41,7 +41,7 @@ class Election(Instance):
                  election_id=None,
                  culture_id=None,
                  votes=None,
-                 ballot_type: str = 'ordinal',
+                 ballot_type: str = None,
                  num_voters: int = None,
                  num_candidates: int = None,
                  label=None,
@@ -55,7 +55,6 @@ class Election(Instance):
                          instance_id=election_id,
                          culture_id=culture_id,
                          **kwargs)
-
 
         self.ballot_type = ballot_type
         self.format = get_format_from_ballot_type(ballot_type)
@@ -349,8 +348,8 @@ class Election(Instance):
             self.compute_feature(feature_id, feature_long_id, **kwargs)
         return self.features[feature_long_id]
 
-    def export_to_file(self, path_to_folder):
-        return exports.export_election_without_experiment(path_to_folder, self)
+    def export_to_file(self, path_to_folder, is_aggregated=False):
+        return exports.export_election_without_experiment(self, path_to_folder, is_aggregated)
 
 
 def map_the_votes(election, party_id, party_size) -> Election:

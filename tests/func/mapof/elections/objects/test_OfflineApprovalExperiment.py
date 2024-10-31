@@ -5,7 +5,7 @@ import mapof.elections as mapof
 class TestOfflineApprovalExperiment:
 
     def setup_method(self):
-        self.experiment = mapof.prepare_offline_approval_experiment(experiment_id="test_id")
+        self.experiment = mapof.prepare_offline_approval_experiment(experiment_id="test_id_app")
 
     def test_prepare_eletions(self):
         self.experiment.prepare_elections()

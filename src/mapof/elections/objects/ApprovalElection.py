@@ -29,6 +29,7 @@ class ApprovalElection(Election, ABC):
                          election_id=election_id,
                          culture_id=culture_id,
                          num_candidates=num_candidates,
+                         ballot_type='approval',
                          **kwargs)
 
         self.variable = variable

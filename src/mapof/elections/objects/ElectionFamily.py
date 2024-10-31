@@ -181,7 +181,6 @@ class ElectionFamily(Family):
                                             num_voters=self.num_voters,
                                             label=self.label,
                                             num_candidates=self.num_candidates,
-                                            ballot_type=self.instance_type,
                                             variable=variable,
                                             is_imported=False,
                                             **params

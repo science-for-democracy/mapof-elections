@@ -76,4 +76,30 @@ class TestOrdinalElection:
         path_to_folder = ''
         election.export_to_file(path_to_folder)
 
+    def test_export_aggregated_election_without_experiment(self):
+
+        num_voters = np.random.randint(10, 50)
+        num_candidates = np.random.randint(10, 20)
+        culture_id = 'ic'
+
+        election = mapof.generate_ordinal_election(culture_id=culture_id,
+                                                   election_id='test_election',
+                                                   num_voters=num_voters,
+                                                   num_candidates=num_candidates)
+        path_to_folder = ''
+        election.export_to_file(path_to_folder, is_aggregated=True)
+
+    def test_export_pseudo_ordinal_election(self):
+
+        num_voters = np.random.randint(10, 50)
+        num_candidates = np.random.randint(10, 20)
+        culture_id = 'ic'
+
+        election = mapof.generate_ordinal_election(culture_id=culture_id,
+                                                   election_id='psuedo_uniformity',
+                                                   num_voters=num_voters,
+                                                   num_candidates=num_candidates)
+        path_to_folder = ''
+        election.export_to_file(path_to_folder)
+
 

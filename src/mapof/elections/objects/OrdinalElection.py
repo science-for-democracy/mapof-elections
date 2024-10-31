@@ -55,6 +55,7 @@ class OrdinalElection(Election):
                          num_voters=num_voters,
                          num_candidates=num_candidates,
                          fast_import=fast_import,
+                         ballot_type='ordinal',
                          **kwargs)
 
         self.variable = variable
@@ -318,6 +319,7 @@ class OrdinalElection(Election):
 
     def prepare_instance(self, is_exported=None, is_aggregated=True):
         """ Prepares instance """
+
         if 'num_alliances' in self.params:
             self.votes, self.alliances = generate_ordinal_alliance_votes(
                 culture_id=self.culture_id,

@@ -71,8 +71,8 @@ class OrdinalElectionExperiment(ElectionExperiment, ABC):
             with open(path, 'w') as file_csv:
                 file_csv.write(
                     "size;num_candidates;num_voters;culture_id;params;color;alpha;"
-                    "family_id;label;marker\n")
-                file_csv.write("3;10;100;ic;{};black;1;ic;Impartial Culture;o\n")
+                    "family_id;label;marker;path\n")
+                file_csv.write("3;10;100;ic;{};black;1;ic;Impartial Culture;o;{}\n")
 
     def export_frequency_matrices(self) -> None:
         """

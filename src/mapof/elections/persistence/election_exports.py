@@ -29,6 +29,7 @@ def export_votes_to_file(
     -------
         None
     """
+
     if votes is None:
         votes = election.votes
 
@@ -84,9 +85,10 @@ def export_votes_to_file(
                     file_.write("\n")
 
 
+
 def export_election_without_experiment(
-        path_to_folder,
         election,
+        path_to_folder,
         is_aggregated: bool = True
 ) -> None:
     """
@@ -94,10 +96,10 @@ def export_election_without_experiment(
 
     Parameters
     ----------
-        path_to_folder
-            Path to a folder to which the election should be exported.
         election
             Election.
+        path_to_folder
+            Path to a folder to which the election should be exported.
         is_aggregated : bool
             If True then votes are stored in aggregated way.
 
@@ -108,10 +110,13 @@ def export_election_without_experiment(
 
     path_to_file = os.path.join(path_to_folder, f'{election.election_id}.{election.format}')
 
-    export_votes_to_file(election,
-                         path_to_file,
-                         votes=election.votes,
-                         is_aggregated=is_aggregated)
+    if election.is_pseudo:
+        export_pseudo_ordinal_election(election, path_to_file)
+    else:
+        export_votes_to_file(election,
+                             path_to_file,
+                             votes=election.votes,
+                             is_aggregated=is_aggregated)
 
 
 def export_election_within_experiment(
@@ -137,14 +142,18 @@ def export_election_within_experiment(
 
     path_to_file = os.path.join(path_to_folder, f'{election.election_id}.{election.format}')
 
-    export_votes_to_file(election,
-                         path_to_file,
-                         votes=election.votes,
-                         is_aggregated=is_aggregated)
+    if election.is_pseudo:
+        export_pseudo_ordinal_election(election, path_to_file)
+    else:
+        export_votes_to_file(election,
+                             path_to_file,
+                             votes=election.votes,
+                             is_aggregated=is_aggregated)
 
 
-def export_pseudo_ordinal_election(election, path_to_file):
-    file_ = open(path_to_file, 'w')
+def export_pseudo_ordinal_election(election, path):
+
+    file_ = open(path, 'w')
     file_.write(f'# FILE NAME: {election.election_id}.{election.format}\n')
     file_.write(f'# DATA TYPE: soc \n')
     file_.write(f'# CULTURE ID: {election.culture_id} \n')

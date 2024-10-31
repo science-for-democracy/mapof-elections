@@ -338,7 +338,7 @@ document.write(`
 
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">numpy.linalg</span> <span class="k">as</span> <span class="nn">la</span>
+
 <span class="kn">from</span> <span class="nn">mapof.core.distances</span> <span class="kn">import</span> <span class="n">l2</span>
 <span class="kn">from</span> <span class="nn">mapof.core.objects.Instance</span> <span class="kn">import</span> <span class="n">Instance</span>
 <span class="kn">from</span> <span class="nn">sklearn.manifold</span> <span class="kn">import</span> <span class="n">MDS</span>
@@ -353,6 +353,9 @@ document.write(`
     <span class="n">compute_borda_voting_rule</span><span class="p">,</span>
     <span class="n">compute_stv_voting_rule</span>
 <span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span>
+
 
 <span class="kn">from</span> <span class="nn">mapof.elections.other.approval_rules</span> <span class="kn">import</span> <span class="n">compute_abcvoting_rule_for_single_election</span>
 
@@ -385,8 +388,10 @@ document.write(`
                          <span class="n">culture_id</span><span class="o">=</span><span class="n">culture_id</span><span class="p">,</span>
                          <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">election_id</span> <span class="o">=</span> <span class="n">election_id</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">ballot_type</span> <span class="o">=</span> <span class="n">ballot_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">format</span> <span class="o">=</span> <span class="n">get_format_from_ballot_type</span><span class="p">(</span><span class="n">ballot_type</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">election_id</span> <span class="o">=</span> <span class="n">election_id</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">label</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">num_voters</span> <span class="o">=</span> <span class="n">num_voters</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">num_candidates</span> <span class="o">=</span> <span class="n">num_candidates</span>
@@ -441,7 +446,8 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">coordinates</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">object_type</span> <span class="ow">in</span> <span class="n">OBJECT_TYPES</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">coordinates</span><span class="p">[</span><span class="n">object_type</span><span class="p">]</span> <span class="o">=</span> <span class="n">imports</span><span class="o">.</span><span class="n">import_coordinates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">object_type</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">coordinates</span><span class="p">[</span><span class="n">object_type</span><span class="p">]</span> <span class="o">=</span> \
+                    <span class="n">imports</span><span class="o">.</span><span class="n">import_coordinates</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">experiment_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">election_id</span><span class="p">,</span> <span class="n">object_type</span><span class="p">)</span>
             <span class="k">except</span><span class="p">:</span>
                 <span class="k">pass</span></div>
 
@@ -458,7 +464,8 @@ document.write(`
         <span class="k">try</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">coordinates</span><span class="p">[</span><span class="n">object_type</span><span class="p">]</span>
         <span class="k">except</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">coordinates</span><span class="p">[</span><span class="n">object_type</span><span class="p">]</span> <span class="o">=</span> <span class="n">imports</span><span class="o">.</span><span class="n">import_coordinates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">object_type</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">coordinates</span><span class="p">[</span><span class="n">object_type</span><span class="p">]</span> <span class="o">=</span> \
+                <span class="n">imports</span><span class="o">.</span><span class="n">import_coordinates</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">experiment_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">election_id</span><span class="p">,</span> <span class="n">object_type</span><span class="p">)</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">coordinates</span><span class="p">[</span><span class="n">object_type</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">set_default_object_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">object_type</span><span class="p">):</span>
@@ -559,20 +566,21 @@ document.write(`
     <span class="k">def</span> <span class="nf">compute_distances</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">pass</span>
 
-    <span class="k">def</span> <span class="nf">embed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="s1">&#39;MDS&#39;</span><span class="p">,</span> <span class="n">object_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">virtual</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">embed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="s1">&#39;mds&#39;</span><span class="p">,</span> <span class="n">object_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">virtual</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 
         <span class="k">if</span> <span class="n">object_type</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">object_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">object_type</span>
 
-        <span class="n">MDS_object</span> <span class="o">=</span> <span class="n">MDS</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-                         <span class="n">dissimilarity</span><span class="o">=</span><span class="s1">&#39;precomputed&#39;</span><span class="p">,</span>
-                         <span class="n">normalized_stress</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span>
-            <span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">algorithm</span> <span class="o">==</span> <span class="s1">&#39;PCA&#39;</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">coordinates</span><span class="p">[</span><span class="n">object_type</span><span class="p">]</span> <span class="o">=</span> <span class="n">pca</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">distances</span><span class="p">[</span><span class="n">object_type</span><span class="p">])</span>
-        <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">algorithm</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;pca&#39;</span><span class="p">:</span>
+            <span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">coordinates</span><span class="p">[</span><span class="n">object_type</span><span class="p">]</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">distances</span><span class="p">[</span><span class="n">object_type</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="n">algorithm</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;mds&#39;</span><span class="p">:</span>
+            <span class="n">MDS_object</span> <span class="o">=</span> <span class="n">MDS</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                             <span class="n">dissimilarity</span><span class="o">=</span><span class="s1">&#39;precomputed&#39;</span><span class="p">,</span>
+                             <span class="n">normalized_stress</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">coordinates</span><span class="p">[</span><span class="n">object_type</span><span class="p">]</span> <span class="o">=</span> <span class="n">MDS_object</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">distances</span><span class="p">[</span><span class="n">object_type</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;No such algorithm!&#39;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">object_type</span> <span class="o">==</span> <span class="s1">&#39;vote&#39;</span><span class="p">:</span>
             <span class="n">length</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_options</span>
@@ -582,10 +590,6 @@ document.write(`
             <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;No such type of object!&#39;</span><span class="p">)</span>
             <span class="n">length</span> <span class="o">=</span> <span class="kc">None</span>
 
-        <span class="c1"># ADJUST</span>
-        <span class="c1"># find max dist</span>
-        <span class="c1"># if (not (&#39;identity&#39; in election.pseudo_culture_id.lower() and object_type==&#39;vote&#39;)) \</span>
-        <span class="c1">#         and (not (&#39;approval_id&#39; in election.pseudo_culture_id.lower() and object_type==&#39;vote&#39;)):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_dist_zeros</span><span class="p">(</span><span class="n">object_type</span><span class="p">):</span>
             <span class="n">dist</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span>
                 <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coordinates</span><span class="p">[</span><span class="n">object_type</span><span class="p">]),</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coordinates</span><span class="p">[</span><span class="n">object_type</span><span class="p">])])</span>
@@ -690,7 +694,11 @@ document.write(`
             <span class="n">feature_long_id</span> <span class="o">=</span> <span class="n">feature_id</span>
         <span class="k">if</span> <span class="n">feature_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">features</span> <span class="ow">or</span> <span class="n">overwrite</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">compute_feature</span><span class="p">(</span><span class="n">feature_id</span><span class="p">,</span> <span class="n">feature_long_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">[</span><span class="n">feature_long_id</span><span class="p">]</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">[</span><span class="n">feature_long_id</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">export_to_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path_to_folder</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">exports</span><span class="o">.</span><span class="n">export_election_without_experiment</span><span class="p">(</span><span class="n">path_to_folder</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span></div>
+
 
 
 <span class="k">def</span> <span class="nf">map_the_votes</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">party_id</span><span class="p">,</span> <span class="n">party_size</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Election</span><span class="p">:</span>
@@ -724,32 +732,12 @@ document.write(`
     <span class="k">return</span> <span class="n">election</span>
 
 
-<span class="k">def</span> <span class="nf">pca</span><span class="p">(</span><span class="n">distance_matrix</span><span class="p">):</span>
-    <span class="n">A</span> <span class="o">=</span> <span class="n">distance_matrix</span>
-    <span class="c1"># square it</span>
-    <span class="n">A</span> <span class="o">=</span> <span class="n">A</span> <span class="o">**</span> <span class="mi">2</span>
-    <span class="c1"># centering frequency_matrix</span>
-    <span class="n">n</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">J_c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">-</span> <span class="mf">1.</span><span class="o">/</span><span class="n">n</span>
 
-    <span class="c1"># perform double centering</span>
-    <span class="n">B</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">J_c</span><span class="p">,</span> <span class="n">A</span><span class="p">),</span> <span class="n">J_c</span><span class="p">)</span>
-
-    <span class="c1"># find eigenvalues and eigenvectors</span>
-    <span class="n">eigen_val</span> <span class="o">=</span> <span class="n">la</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">B</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">eigen_vec</span> <span class="o">=</span> <span class="n">la</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">B</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">T</span>
-
-    <span class="n">eigen_vec_real</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">eigen_vec</span><span class="p">),</span> <span class="mi">5</span><span class="p">)</span>
-    <span class="n">eigen_val_real</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">eigen_val</span><span class="p">),</span> <span class="mi">5</span><span class="p">)</span>
-    <span class="n">bests</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="o">-</span><span class="n">eigen_val_real</span><span class="p">)</span>
-    <span class="n">i</span> <span class="o">=</span> <span class="n">bests</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">j</span> <span class="o">=</span> <span class="n">bests</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-
-    <span class="n">PC1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">eigen_val_real</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">*</span> <span class="n">eigen_vec_real</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-    <span class="n">PC2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">eigen_val_real</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="o">*</span> <span class="n">eigen_vec_real</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
-    <span class="n">res</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">PC1</span><span class="p">,</span> <span class="n">PC2</span><span class="p">)])</span>
-    <span class="k">return</span> <span class="n">res</span>
-
+<span class="k">def</span> <span class="nf">get_format_from_ballot_type</span><span class="p">(</span><span class="n">ballot_type</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">ballot_type</span> <span class="o">==</span> <span class="s1">&#39;approval&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;app&#39;</span>
+    <span class="k">elif</span> <span class="n">ballot_type</span> <span class="o">==</span> <span class="s1">&#39;ordinal&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;soc&#39;</span>
 </pre></div>
 
                 </article>

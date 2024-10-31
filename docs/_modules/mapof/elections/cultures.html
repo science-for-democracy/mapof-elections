@@ -329,6 +329,7 @@ document.write(`
                   
   <h1>Source code for mapof.elections.cultures</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="kn">import</span> <span class="nn">prefsampling.approval</span> <span class="k">as</span> <span class="nn">pref_approval</span>
 <span class="kn">import</span> <span class="nn">prefsampling.ordinal</span> <span class="k">as</span> <span class="nn">pref_ordinal</span>
@@ -341,9 +342,14 @@ document.write(`
 <span class="kn">import</span> <span class="nn">mapof.elections.cultures.matrices.single_peaked_matrices</span> <span class="k">as</span> <span class="nn">sp_matrices</span>
 <span class="kn">import</span> <span class="nn">mapof.elections.cultures.pseudo_cultures</span> <span class="k">as</span> <span class="nn">pseudo</span>
 <span class="kn">import</span> <span class="nn">mapof.elections.cultures.nonstandard.unused</span> <span class="k">as</span> <span class="nn">unused</span>
-<span class="kn">from</span> <span class="nn">mapof.elections.cultures.nonstandard.alliances</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">mapof.elections.cultures.preflib</span> <span class="kn">import</span> <span class="n">generate_preflib_votes</span>
-<span class="kn">from</span> <span class="nn">mapof.elections.other.glossary</span> <span class="kn">import</span> <span class="n">is_pseudo_culture</span><span class="p">,</span> <span class="n">LIST_OF_PREFLIB_MODELS</span>
+<span class="kn">from</span> <span class="nn">mapof.elections.cultures.nonstandard.alliances</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">generate_ordinal_alliance_ic_votes</span><span class="p">,</span>
+    <span class="n">generate_ordinal_alliance_urn_votes</span><span class="p">,</span>
+    <span class="n">generate_ordinal_alliance_euclidean_votes</span><span class="p">,</span>
+    <span class="n">generate_ordinal_alliance_allied_euclidean_votes</span><span class="p">,</span>
+    <span class="n">generate_ordinal_alliance_norm_mallows_votes</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">mapof.elections.other.glossary</span> <span class="kn">import</span> <span class="n">is_pseudo_culture</span>
 
 <span class="n">registered_approval_cultures</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">&#39;identity&#39;</span><span class="p">:</span> <span class="n">mask</span><span class="o">.</span><span class="n">identity_mask</span><span class="p">,</span>
@@ -405,10 +411,10 @@ document.write(`
     <span class="s1">&#39;anst_part&#39;</span><span class="p">:</span> <span class="n">compass_approx</span><span class="o">.</span><span class="n">generate_anst_part_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
     <span class="s1">&#39;unst_part&#39;</span><span class="p">:</span> <span class="n">compass_approx</span><span class="o">.</span><span class="n">generate_unst_part_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
 
-    <span class="s1">&#39;idan_mallows&#39;</span><span class="p">:</span> <span class="n">compass_approx</span><span class="o">.</span><span class="n">generate_idan_mallows_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
-    <span class="s1">&#39;idst_mallows&#39;</span><span class="p">:</span> <span class="n">compass_approx</span><span class="o">.</span><span class="n">generate_idst_mallows_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
-    <span class="s1">&#39;anun_mallows&#39;</span><span class="p">:</span> <span class="n">compass_approx</span><span class="o">.</span><span class="n">generate_anun_mallows_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
-    <span class="s1">&#39;unst_mallows&#39;</span><span class="p">:</span> <span class="n">compass_approx</span><span class="o">.</span><span class="n">generate_unst_mallows_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
+    <span class="c1"># &#39;idan_mallows&#39;: compass_approx.generate_idan_mallows_votes,  # unsupported culture</span>
+    <span class="c1"># &#39;idst_mallows&#39;: compass_approx.generate_idst_mallows_votes,  # unsupported culture</span>
+    <span class="c1"># &#39;anun_mallows&#39;: compass_approx.generate_anun_mallows_votes,  # unsupported culture</span>
+    <span class="c1"># &#39;unst_mallows&#39;: compass_approx.generate_unst_mallows_votes,  # unsupported culture</span>
 
     <span class="s1">&#39;unst_topsize&#39;</span><span class="p">:</span> <span class="n">compass_approx</span><span class="o">.</span><span class="n">generate_unst_topsize_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
     <span class="s1">&#39;idst_blocks&#39;</span><span class="p">:</span> <span class="n">compass_approx</span><span class="o">.</span><span class="n">generate_idst_blocks_votes</span><span class="p">,</span>
@@ -498,20 +504,7 @@ document.write(`
 <span class="sd">            Culture parameters.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">if</span> <span class="n">culture_id</span> <span class="ow">in</span> <span class="n">LIST_OF_PREFLIB_MODELS</span><span class="p">:</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">votes</span> <span class="o">=</span> <span class="n">generate_preflib_votes</span><span class="p">(</span><span class="n">culture_id</span><span class="o">=</span><span class="n">culture_id</span><span class="p">,</span>
-                                           <span class="n">num_candidates</span><span class="o">=</span><span class="n">num_candidates</span><span class="p">,</span>
-                                           <span class="n">num_voters</span><span class="o">=</span><span class="n">num_voters</span><span class="p">,</span>
-                                           <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
-        <span class="k">except</span><span class="p">:</span>
-            <span class="n">votes</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s1">&#39;You are trying to create an election based on Preflib &#39;</span>
-                <span class="sa">f</span><span class="s1">&#39;without having the original source election. &#39;</span>
-                <span class="sa">f</span><span class="s1">&#39;Please use different pseudo_culture_id than: </span><span class="si">{</span><span class="n">culture_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-
-    <span class="k">elif</span> <span class="n">culture_id</span> <span class="ow">in</span> <span class="n">registered_ordinal_cultures</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">culture_id</span> <span class="ow">in</span> <span class="n">registered_ordinal_cultures</span><span class="p">:</span>
         <span class="n">votes</span> <span class="o">=</span> <span class="n">registered_ordinal_cultures</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">culture_id</span><span class="p">)(</span><span class="n">num_voters</span><span class="o">=</span><span class="n">num_voters</span><span class="p">,</span>
                                                             <span class="n">num_candidates</span><span class="o">=</span><span class="n">num_candidates</span><span class="p">,</span>
                                                             <span class="o">**</span><span class="n">params</span><span class="p">)</span>

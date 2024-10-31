@@ -483,7 +483,7 @@ document.write(`
             <span class="bp">self</span><span class="o">.</span><span class="n">num_options</span> <span class="o">=</span> <span class="mi">1</span>
 
         <span class="k">if</span> <span class="n">is_exported</span><span class="p">:</span>
-            <span class="n">exports</span><span class="o">.</span><span class="n">export_approval_election</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">is_aggregated</span><span class="o">=</span><span class="n">is_aggregated</span><span class="p">)</span></div>
+            <span class="n">exports</span><span class="o">.</span><span class="n">export_election_within_experiment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">is_aggregated</span><span class="o">=</span><span class="n">is_aggregated</span><span class="p">)</span></div>
 
 
     <span class="k">def</span> <span class="nf">_compute_distances_between_votes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">distance_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;hamming&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>

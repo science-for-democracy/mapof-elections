@@ -346,7 +346,6 @@ document.write(`
 <span class="kn">from</span> <span class="nn">mapof.elections.cultures.matrices.single_crossing_matrices</span> <span class="kn">import</span> <span class="n">get_single_crossing_matrix</span>
 <span class="kn">from</span> <span class="nn">mapof.elections.cultures.matrices.single_peaked_matrices</span> <span class="kn">import</span> <span class="n">get_conitzer_matrix</span><span class="p">,</span> \
     <span class="n">get_walsh_matrix</span>
-<span class="kn">from</span> <span class="nn">mapof.elections.cultures.preflib</span> <span class="kn">import</span> <span class="n">get_sushi_matrix</span>
 <span class="kn">from</span> <span class="nn">mapof.elections.cultures.mallows</span> <span class="kn">import</span> <span class="n">get_mallows_matrix</span>
 <span class="kn">from</span> <span class="nn">mapof.elections.cultures.pseudo_cultures</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">get_frequency_matrix_for_guardian</span><span class="p">,</span>
@@ -517,8 +516,6 @@ document.write(`
             <span class="n">frequency_matrix</span> <span class="o">=</span> <span class="n">get_single_crossing_matrix</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">)</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">culture_id</span> <span class="o">==</span> <span class="s1">&#39;gs_caterpillar_matrix&#39;</span><span class="p">:</span>
             <span class="n">frequency_matrix</span> <span class="o">=</span> <span class="n">get_gs_caterpillar_matrix</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">culture_id</span> <span class="o">==</span> <span class="s1">&#39;sushi_matrix&#39;</span><span class="p">:</span>
-            <span class="n">frequency_matrix</span> <span class="o">=</span> <span class="n">get_sushi_matrix</span><span class="p">()</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">culture_id</span> <span class="ow">in</span> <span class="p">{</span><span class="s1">&#39;norm-mallows_matrix&#39;</span><span class="p">,</span> <span class="s1">&#39;mallows_matrix_path&#39;</span><span class="p">}:</span>
             <span class="n">frequency_matrix</span> <span class="o">=</span> <span class="n">get_mallows_matrix</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">)</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">culture_id</span> <span class="ow">in</span> <span class="p">{</span>
@@ -696,7 +693,7 @@ document.write(`
             <span class="bp">self</span><span class="o">.</span><span class="n">num_options</span> <span class="o">=</span> <span class="mi">1</span>
 
         <span class="k">if</span> <span class="n">is_exported</span><span class="p">:</span>
-            <span class="n">exports</span><span class="o">.</span><span class="n">export_ordinal_election_with_experiment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">is_aggregated</span><span class="o">=</span><span class="n">is_aggregated</span><span class="p">)</span></div>
+            <span class="n">exports</span><span class="o">.</span><span class="n">export_election_within_experiment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">is_aggregated</span><span class="o">=</span><span class="n">is_aggregated</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="OrdinalElection.compute_distances">

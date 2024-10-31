@@ -333,16 +333,46 @@ document.write(`
 
 <div class="viewcode-block" id="generate_real_identity_votes">
 <a class="viewcode-back" href="../../../../reference/cultures/compass_true.html#mapof.elections.cultures.compass_true.generate_real_identity_votes">[docs]</a>
-<span class="k">def</span> <span class="nf">generate_real_identity_votes</span><span class="p">(</span><span class="n">num_voters</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">num_candidates</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; Generate real election that approximates identity (ID) &quot;&quot;&quot;</span>
+<span class="k">def</span> <span class="nf">generate_real_identity_votes</span><span class="p">(</span><span class="n">num_voters</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">num_candidates</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generates identity election.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">        num_voters : int</span>
+<span class="sd">            Number of voters.</span>
+<span class="sd">        num_candidates : int</span>
+<span class="sd">            Number of candidates.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">        list</span>
+<span class="sd">            Votes.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="p">[[</span><span class="n">j</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">)]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_voters</span><span class="p">)]</span></div>
 
 
 
 <div class="viewcode-block" id="generate_real_antagonism_votes">
 <a class="viewcode-back" href="../../../../reference/cultures/compass_true.html#mapof.elections.cultures.compass_true.generate_real_antagonism_votes">[docs]</a>
-<span class="k">def</span> <span class="nf">generate_real_antagonism_votes</span><span class="p">(</span><span class="n">num_voters</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">num_candidates</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; Generate real election that approximates antagonism (AN) &quot;&quot;&quot;</span>
+<span class="k">def</span> <span class="nf">generate_real_antagonism_votes</span><span class="p">(</span><span class="n">num_voters</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">num_candidates</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generates antagonism election.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">        num_voters : int</span>
+<span class="sd">            Number of voters.</span>
+<span class="sd">        num_candidates : int</span>
+<span class="sd">            Number of candidates.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">        list</span>
+<span class="sd">            Votes.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">num_voters</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Antagonism is not properly defined for odd number of voters&quot;</span><span class="p">)</span>
 

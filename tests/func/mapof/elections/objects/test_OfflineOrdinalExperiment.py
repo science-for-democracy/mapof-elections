@@ -55,3 +55,6 @@ class TestOfflineOrdinalExperiment:
             num_candidates=10,
             num_voters=100
             )
+
+    def test_election_import(self):
+        self.experiment = mapof.prepare_offline_ordinal_experiment(experiment_id="test_id_soc")

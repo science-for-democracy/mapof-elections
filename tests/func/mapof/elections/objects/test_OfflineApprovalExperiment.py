@@ -76,3 +76,6 @@ class TestOfflineApprovalExperiment:
     #         list_of_rules=['av', 'sav'],
     #         distance_id='hamming',
     #         committee_size=2)
+
+    def test_election_import(self):
+        self.experiment = mapof.prepare_offline_approval_experiment(experiment_id="test_id_app")

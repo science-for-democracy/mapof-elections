@@ -330,13 +330,13 @@ document.write(`
   <h1>Source code for mapof.elections.persistence.election_imports</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">ast</span>
 <span class="kn">import</span> <span class="nn">csv</span>
+<span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">mapof.core.glossary</span> <span class="kn">import</span> <span class="n">NICE_NAME</span>
 <span class="kn">from</span> <span class="nn">mapof.elections.other.glossary</span> <span class="kn">import</span> <span class="n">is_pseudo_culture</span>
 
 <span class="n">regex_file_name</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;# FILE NAME:&#39;</span>
@@ -582,74 +582,75 @@ document.write(`
         <span class="n">is_shifted</span><span class="o">=</span><span class="kc">False</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Import real ordinal election form .soc file &quot;&quot;&quot;</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Old soc format is no longer supported!&quot;</span><span class="p">)</span></div>
 
-    <span class="n">file_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">election_id</span><span class="si">}</span><span class="s1">.soc&#39;</span>
-    <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s2">&quot;experiments&quot;</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="s2">&quot;elections&quot;</span><span class="p">,</span> <span class="n">file_name</span><span class="p">)</span>
-    <span class="n">my_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
 
-    <span class="n">params</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">first_line</span> <span class="o">=</span> <span class="n">my_file</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
-
-    <span class="k">if</span> <span class="n">first_line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;#&#39;</span><span class="p">:</span>
-        <span class="n">culture_id</span> <span class="o">=</span> <span class="s1">&#39;empty&#39;</span>
-        <span class="n">num_candidates</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">first_line</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">first_line</span> <span class="o">=</span> <span class="n">first_line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
-        <span class="n">culture_id</span> <span class="o">=</span> <span class="n">first_line</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">experiment_id</span> <span class="o">==</span> <span class="s1">&#39;original_ordinal_map&#39;</span><span class="p">:</span>
-            <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
-            <span class="n">culture_id</span> <span class="o">=</span> <span class="n">_old_name_extractor</span><span class="p">(</span><span class="n">first_line</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">first_line</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">2</span><span class="p">:</span>
-                <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">params</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">literal_eval</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">first_line</span><span class="p">[</span><span class="mi">2</span><span class="p">:]))</span>
-
-        <span class="n">num_candidates</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">my_file</span><span class="o">.</span><span class="n">readline</span><span class="p">())</span>
-
-    <span class="n">alliances</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">):</span>
-        <span class="n">line</span> <span class="o">=</span> <span class="n">my_file</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
-            <span class="n">alliances</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-
-    <span class="n">line</span> <span class="o">=</span> <span class="n">my_file</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
-    <span class="n">num_voters</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-    <span class="n">num_options</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-    <span class="n">votes</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">)]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_voters</span><span class="p">)]</span>
-
-    <span class="n">it</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">quantities</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_options</span><span class="p">):</span>
-        <span class="n">line</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">my_file</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)))</span>
-        <span class="n">quantity</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">quantities</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">quantity</span><span class="p">)</span>
-
-        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">quantity</span><span class="p">):</span>
-            <span class="n">votes</span><span class="p">[</span><span class="n">it</span><span class="p">]</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">num_candidates</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
-            <span class="n">it</span> <span class="o">+=</span> <span class="mi">1</span>
-
-    <span class="n">c</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="n">votes</span><span class="p">))</span>
-    <span class="n">counted_votes</span> <span class="o">=</span> <span class="p">[[</span><span class="n">count</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">row</span><span class="p">)]</span> <span class="k">for</span> <span class="n">row</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span>
-    <span class="n">counted_votes</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">counted_votes</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">quantities</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">counted_votes</span><span class="p">]</span>
-    <span class="n">distinct_votes</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">counted_votes</span><span class="p">]</span>
-    <span class="n">num_options</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">counted_votes</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">is_shifted</span><span class="p">:</span>
-        <span class="n">votes</span> <span class="o">=</span> <span class="p">[[</span><span class="n">vote</span> <span class="o">-</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">vote</span> <span class="ow">in</span> <span class="n">voter</span><span class="p">]</span> <span class="k">for</span> <span class="n">voter</span> <span class="ow">in</span> <span class="n">votes</span><span class="p">]</span>
-    <span class="n">my_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">votes</span><span class="p">),</span> \
-           <span class="n">num_voters</span><span class="p">,</span> \
-           <span class="n">num_candidates</span><span class="p">,</span> \
-           <span class="n">params</span><span class="p">,</span> \
-           <span class="n">culture_id</span><span class="p">,</span> \
-           <span class="n">alliances</span><span class="p">,</span> \
-           <span class="n">num_options</span><span class="p">,</span> \
-           <span class="n">quantities</span><span class="p">,</span> \
-           <span class="n">distinct_votes</span></div>
-
+    <span class="c1"># file_name = f&#39;{election_id}.soc&#39;</span>
+    <span class="c1"># path = os.path.join(os.getcwd(), &quot;experiments&quot;, experiment_id, &quot;elections&quot;, file_name)</span>
+    <span class="c1"># my_file = open(path, &#39;r&#39;)</span>
+    <span class="c1">#</span>
+    <span class="c1"># params = 0</span>
+    <span class="c1"># first_line = my_file.readline()</span>
+    <span class="c1">#</span>
+    <span class="c1"># if first_line[0] != &#39;#&#39;:</span>
+    <span class="c1">#     culture_id = &#39;empty&#39;</span>
+    <span class="c1">#     num_candidates = int(first_line)</span>
+    <span class="c1"># else:</span>
+    <span class="c1">#     first_line = first_line.strip().split()</span>
+    <span class="c1">#     culture_id = first_line[1]</span>
+    <span class="c1">#     if experiment_id == &#39;original_ordinal_map&#39;:</span>
+    <span class="c1">#         params = {}</span>
+    <span class="c1">#         culture_id = _old_name_extractor(first_line)</span>
+    <span class="c1">#     else:</span>
+    <span class="c1">#         if len(first_line) &lt;= 2:</span>
+    <span class="c1">#             params = {}</span>
+    <span class="c1">#         else:</span>
+    <span class="c1">#             params = ast.literal_eval(&quot; &quot;.join(first_line[2:]))</span>
+    <span class="c1">#</span>
+    <span class="c1">#     num_candidates = int(my_file.readline())</span>
+    <span class="c1">#</span>
+    <span class="c1"># alliances = {}</span>
+    <span class="c1"># for i in range(num_candidates):</span>
+    <span class="c1">#     line = my_file.readline().strip().split()</span>
+    <span class="c1">#     if len(line) &gt; 2:</span>
+    <span class="c1">#         alliances[i] = int(line[2])</span>
+    <span class="c1">#</span>
+    <span class="c1"># line = my_file.readline().rstrip(&quot;\n&quot;).split(&#39;,&#39;)</span>
+    <span class="c1"># num_voters = int(line[0])</span>
+    <span class="c1"># num_options = int(line[2])</span>
+    <span class="c1"># votes = [[0 for _ in range(num_candidates)] for _ in range(num_voters)]</span>
+    <span class="c1">#</span>
+    <span class="c1"># it = 0</span>
+    <span class="c1"># quantities = []</span>
+    <span class="c1"># for j in range(num_options):</span>
+    <span class="c1">#     line = list(map(int, my_file.readline().rstrip(&quot;\n&quot;).split(&#39;,&#39;)))</span>
+    <span class="c1">#     quantity = line[0]</span>
+    <span class="c1">#     quantities.append(quantity)</span>
+    <span class="c1">#</span>
+    <span class="c1">#     for k in range(quantity):</span>
+    <span class="c1">#         votes[it] = line[1:num_candidates + 1]</span>
+    <span class="c1">#         it += 1</span>
+    <span class="c1">#</span>
+    <span class="c1"># c = Counter(map(tuple, votes))</span>
+    <span class="c1"># counted_votes = [[count, list(row)] for row, count in c.items()]</span>
+    <span class="c1"># counted_votes = sorted(counted_votes, reverse=True)</span>
+    <span class="c1"># quantities = [a[0] for a in counted_votes]</span>
+    <span class="c1"># distinct_votes = [a[1] for a in counted_votes]</span>
+    <span class="c1"># num_options = len(counted_votes)</span>
+    <span class="c1">#</span>
+    <span class="c1"># if is_shifted:</span>
+    <span class="c1">#     votes = [[vote - 1 for vote in voter] for voter in votes]</span>
+    <span class="c1"># my_file.close()</span>
+    <span class="c1">#</span>
+    <span class="c1"># return np.array(votes), \</span>
+    <span class="c1">#        num_voters, \</span>
+    <span class="c1">#        num_candidates, \</span>
+    <span class="c1">#        params, \</span>
+    <span class="c1">#        culture_id, \</span>
+    <span class="c1">#        alliances, \</span>
+    <span class="c1">#        num_options, \</span>
+    <span class="c1">#        quantities, \</span>
+    <span class="c1">#        distinct_votes</span>
 
 
 <span class="k">def</span> <span class="nf">import_real_soc_election</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -849,69 +850,70 @@ document.write(`
         <span class="n">is_shifted</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Import real approval election from .app file &quot;&quot;&quot;</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Old app format is no longer supported!&quot;</span><span class="p">)</span></div>
 
-    <span class="n">file_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">election_id</span><span class="si">}</span><span class="s1">.app&#39;</span>
-    <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s2">&quot;experiments&quot;</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="s2">&quot;elections&quot;</span><span class="p">,</span> <span class="n">file_name</span><span class="p">)</span>
-    <span class="n">my_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
 
-    <span class="n">params</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">first_line</span> <span class="o">=</span> <span class="n">my_file</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
-    <span class="k">if</span> <span class="n">first_line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;#&#39;</span><span class="p">:</span>
-        <span class="n">culture_id</span> <span class="o">=</span> <span class="s1">&#39;empty&#39;</span>
-        <span class="n">num_candidates</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">first_line</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">first_line</span> <span class="o">=</span> <span class="n">first_line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
-        <span class="n">culture_id</span> <span class="o">=</span> <span class="n">first_line</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">first_line</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">2</span><span class="p">:</span>
-            <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">params</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">literal_eval</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">first_line</span><span class="p">[</span><span class="mi">2</span><span class="p">:]))</span>
-
-        <span class="n">num_candidates</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">my_file</span><span class="o">.</span><span class="n">readline</span><span class="p">())</span>
-
-    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">):</span>
-        <span class="n">my_file</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
-
-    <span class="n">line</span> <span class="o">=</span> <span class="n">my_file</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
-    <span class="n">num_voters</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-    <span class="n">num_options</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-    <span class="n">votes</span> <span class="o">=</span> <span class="p">[</span><span class="nb">set</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_voters</span><span class="p">)]</span>
-
-    <span class="n">it</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_options</span><span class="p">):</span>
-        <span class="n">line</span> <span class="o">=</span> <span class="n">my_file</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;{&quot;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span> \
-            <span class="n">replace</span><span class="p">(</span><span class="s2">&quot;}&quot;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
-            <span class="n">quantity</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">quantity</span><span class="p">):</span>
-                <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
-                    <span class="n">votes</span><span class="p">[</span><span class="n">it</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">el</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]))</span>
-                <span class="n">it</span> <span class="o">+=</span> <span class="mi">1</span>
-
-    <span class="k">if</span> <span class="n">culture_id</span> <span class="ow">in</span> <span class="n">NICE_NAME</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-        <span class="n">rev_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">NICE_NAME</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">NICE_NAME</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
-        <span class="n">culture_id</span> <span class="o">=</span> <span class="n">rev_dict</span><span class="p">[</span><span class="n">culture_id</span><span class="p">]</span>
-
-    <span class="k">if</span> <span class="n">is_shifted</span><span class="p">:</span>
-        <span class="n">votes</span> <span class="o">=</span> <span class="p">[{</span><span class="n">c</span> <span class="o">-</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">vote</span><span class="p">}</span> <span class="k">for</span> <span class="n">vote</span> <span class="ow">in</span> <span class="n">votes</span><span class="p">]</span>
-    <span class="n">my_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-
-    <span class="n">c</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="n">votes</span><span class="p">))</span>
-    <span class="n">counted_votes</span> <span class="o">=</span> <span class="p">[[</span><span class="n">count</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">row</span><span class="p">)]</span> <span class="k">for</span> <span class="n">row</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span>
-    <span class="n">counted_votes</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">counted_votes</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">quantities</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">counted_votes</span><span class="p">]</span>
-    <span class="n">distinct_votes</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">counted_votes</span><span class="p">]</span>
-    <span class="n">num_options</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">counted_votes</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">votes</span><span class="p">,</span> \
-           <span class="n">num_voters</span><span class="p">,</span> \
-           <span class="n">num_candidates</span><span class="p">,</span> \
-           <span class="n">params</span><span class="p">,</span> \
-           <span class="n">culture_id</span><span class="p">,</span> \
-           <span class="n">num_options</span><span class="p">,</span> \
-           <span class="n">quantities</span><span class="p">,</span> \
-           <span class="n">distinct_votes</span></div>
-
+    <span class="c1"># file_name = f&#39;{election_id}.app&#39;</span>
+    <span class="c1"># path = os.path.join(os.getcwd(), &quot;experiments&quot;, experiment_id, &quot;elections&quot;, file_name)</span>
+    <span class="c1"># my_file = open(path, &#39;r&#39;)</span>
+    <span class="c1">#</span>
+    <span class="c1"># params = 0</span>
+    <span class="c1"># first_line = my_file.readline()</span>
+    <span class="c1"># if first_line[0] != &#39;#&#39;:</span>
+    <span class="c1">#     culture_id = &#39;empty&#39;</span>
+    <span class="c1">#     num_candidates = int(first_line)</span>
+    <span class="c1"># else:</span>
+    <span class="c1">#     first_line = first_line.strip().split()</span>
+    <span class="c1">#     culture_id = first_line[1]</span>
+    <span class="c1">#     if len(first_line) &lt;= 2:</span>
+    <span class="c1">#         params = {}</span>
+    <span class="c1">#     else:</span>
+    <span class="c1">#         params = ast.literal_eval(&quot; &quot;.join(first_line[2:]))</span>
+    <span class="c1">#</span>
+    <span class="c1">#     num_candidates = int(my_file.readline())</span>
+    <span class="c1">#</span>
+    <span class="c1"># for _ in range(num_candidates):</span>
+    <span class="c1">#     my_file.readline()</span>
+    <span class="c1">#</span>
+    <span class="c1"># line = my_file.readline().rstrip(&quot;\n&quot;).split(&#39;,&#39;)</span>
+    <span class="c1"># num_voters = int(line[0])</span>
+    <span class="c1"># num_options = int(line[2])</span>
+    <span class="c1"># votes = [set() for _ in range(num_voters)]</span>
+    <span class="c1">#</span>
+    <span class="c1"># it = 0</span>
+    <span class="c1"># for j in range(num_options):</span>
+    <span class="c1">#     line = my_file.readline().rstrip(&quot;\n&quot;).replace(&quot;{&quot;, &#39;&#39;). \</span>
+    <span class="c1">#         replace(&quot;}&quot;, &#39;&#39;).replace(&#39; &#39;, &#39;&#39;).split(&#39;,&#39;)</span>
+    <span class="c1">#     if line[1] != &#39;&#39;:</span>
+    <span class="c1">#         quantity = int(line[0])</span>
+    <span class="c1">#         for k in range(quantity):</span>
+    <span class="c1">#             for el in range(len(line) - 1):</span>
+    <span class="c1">#                 votes[it].add(int(line[el + 1]))</span>
+    <span class="c1">#             it += 1</span>
+    <span class="c1">#</span>
+    <span class="c1"># if culture_id in NICE_NAME.values():</span>
+    <span class="c1">#     rev_dict = dict(zip(NICE_NAME.values(), NICE_NAME.keys()))</span>
+    <span class="c1">#     culture_id = rev_dict[culture_id]</span>
+    <span class="c1">#</span>
+    <span class="c1"># if is_shifted:</span>
+    <span class="c1">#     votes = [{c - 1 for c in vote} for vote in votes]</span>
+    <span class="c1"># my_file.close()</span>
+    <span class="c1">#</span>
+    <span class="c1"># c = Counter(map(tuple, votes))</span>
+    <span class="c1"># counted_votes = [[count, list(row)] for row, count in c.items()]</span>
+    <span class="c1"># counted_votes = sorted(counted_votes, reverse=True)</span>
+    <span class="c1"># quantities = [a[0] for a in counted_votes]</span>
+    <span class="c1"># distinct_votes = [a[1] for a in counted_votes]</span>
+    <span class="c1"># num_options = len(counted_votes)</span>
+    <span class="c1">#</span>
+    <span class="c1"># return votes, \</span>
+    <span class="c1">#        num_voters, \</span>
+    <span class="c1">#        num_candidates, \</span>
+    <span class="c1">#        params, \</span>
+    <span class="c1">#        culture_id, \</span>
+    <span class="c1">#        num_options, \</span>
+    <span class="c1">#        quantities, \</span>
+    <span class="c1">#        distinct_votes</span>
 
 
 <span class="k">def</span> <span class="nf">import_real_app_election</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -919,29 +921,6 @@ document.write(`
         <span class="k">return</span> <span class="n">import_real_old_app_election</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="k">except</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">import_real_new_app_election</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-
-<div class="viewcode-block" id="import_fake_app_election">
-<a class="viewcode-back" href="../../../../reference/persistence/election_imports.html#mapof.elections.persistence.election_imports.import_fake_app_election">[docs]</a>
-<span class="k">def</span> <span class="nf">import_fake_app_election</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; Import is_pseudo approval election from .app file &quot;&quot;&quot;</span>
-
-    <span class="n">file_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">.app&#39;</span>
-    <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s2">&quot;experiments&quot;</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="s2">&quot;elections&quot;</span><span class="p">,</span> <span class="n">file_name</span><span class="p">)</span>
-    <span class="n">my_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
-    <span class="n">first_line</span> <span class="o">=</span> <span class="n">my_file</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
-    <span class="n">first_line</span> <span class="o">=</span> <span class="n">first_line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
-    <span class="n">fake_culture_id</span> <span class="o">=</span> <span class="n">first_line</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">first_line</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">2</span><span class="p">:</span>
-        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">params</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">literal_eval</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">first_line</span><span class="p">[</span><span class="mi">2</span><span class="p">:]))</span>
-
-    <span class="n">num_candidates</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">my_file</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
-    <span class="n">num_voters</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">my_file</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
-
-    <span class="k">return</span> <span class="n">fake_culture_id</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">num_voters</span><span class="p">,</span> <span class="n">num_candidates</span></div>
-
 
 
 <span class="k">def</span> <span class="nf">check_if_pseudo</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">election_id</span><span class="p">):</span>
@@ -993,16 +972,16 @@ document.write(`
     <span class="k">return</span> <span class="n">is_pseudo_culture</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">culture_id</span><span class="p">))</span>
 
 
-<span class="k">def</span> <span class="nf">_old_name_extractor</span><span class="p">(</span><span class="n">first_line</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">first_line</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
-        <span class="n">culture_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">first_line</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">first_line</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">first_line</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span>
-    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">first_line</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
-        <span class="n">culture_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">first_line</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">first_line</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span>
-    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">first_line</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-        <span class="n">culture_id</span> <span class="o">=</span> <span class="n">first_line</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">culture_id</span> <span class="o">=</span> <span class="s1">&#39;noname&#39;</span>
-    <span class="k">return</span> <span class="n">culture_id</span>
+<span class="c1"># def _old_name_extractor(first_line: str) -&gt; str:</span>
+<span class="c1">#     if len(first_line) == 4:</span>
+<span class="c1">#         culture_id = f&#39;{first_line[1]} {first_line[2]} {first_line[3]}&#39;</span>
+<span class="c1">#     elif len(first_line) == 3:</span>
+<span class="c1">#         culture_id = f&#39;{first_line[1]} {first_line[2]}&#39;</span>
+<span class="c1">#     elif len(first_line) == 2:</span>
+<span class="c1">#         culture_id = first_line[1]</span>
+<span class="c1">#     else:</span>
+<span class="c1">#         culture_id = &#39;noname&#39;</span>
+<span class="c1">#     return culture_id</span>
 </pre></div>
 
                 </article>

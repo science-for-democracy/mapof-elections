@@ -146,8 +146,21 @@ def lowest_dodgson_score(election):
 
     return {'value': min_score}
 
+
 @register_ordinal_election_feature('highest_cc_score')
 def highest_cc_score(election, committee_size=1):
+    """
+    Computes the highest CC score of a given election.
+
+    Parameters
+    ----------
+        election : OrdinalElection
+
+    Returns
+    -------
+        dict
+            'value': highest CC score
+    """
     if election.is_pseudo:
         return {'value': None, 'dissat': None}
     winners, total_time = win.compute_standard_voting_rule(election=election,
@@ -159,6 +172,18 @@ def highest_cc_score(election, committee_size=1):
 
 @register_ordinal_election_feature('highest_hb_score')
 def highest_hb_score(election, committee_size=1):
+    """
+    Computes the highest HB score of a given election.
+
+    Parameters
+    ----------
+        election : OrdinalElection
+
+    Returns
+    -------
+        dict
+            'value': highest HB score
+    """
     if election.is_pseudo:
         return {'value': None, 'dissat': None}
     winners, total_time = win.compute_standard_voting_rule(election=election,
@@ -170,6 +195,18 @@ def highest_hb_score(election, committee_size=1):
 
 @register_ordinal_election_feature('highest_pav_score')
 def highest_pav_score(election, committee_size=1):
+    """
+    Computes the highest PAV score of a given election.
+
+    Parameters
+    ----------
+        election : OrdinalElection
+
+    Returns
+    -------
+        dict
+            'value': highest PAV score
+    """
     if election.is_pseudo:
         return {'value': None, 'dissat': None}
     winners, total_time = win.compute_standard_voting_rule(election=election,
@@ -178,6 +215,15 @@ def highest_pav_score(election, committee_size=1):
                                                   type='bloc_owa', name='hb')
     return {'value': get_pav_score(election, winners), 'dissat': get_pav_dissat(election, winners)}
 
+
+@register_ordinal_election_feature('borda_spread')
+def borda_spread(election) -> int:
+    """ Compute the difference between the highest and the lowest Borda score """
+    c = election.num_candidates
+    frequency_matrix = election.get_frequency_matrix()
+    borda = [sum([frequency_matrix[i][pos] * (c - pos - 1) for pos in range(c)])
+             for i in range(c)]
+    return (max(borda)-min(borda)) * election.num_voters
 
 # HELPER FUNCTIONS
 def _potes_to_unique_potes(potes):
@@ -323,12 +369,3 @@ def get_pav_dissat(election, winners) -> float:
 
     return dissat
 
-
-@register_ordinal_election_feature('borda_spread')
-def borda_spread(election) -> int:
-    """ Compute the difference between the highest and the lowest Borda score """
-    c = election.num_candidates
-    frequency_matrix = election.get_frequency_matrix()
-    borda = [sum([frequency_matrix[i][pos] * (c - pos - 1) for pos in range(c)])
-             for i in range(c)]
-    return (max(borda)-min(borda)) * election.num_voters

@@ -361,6 +361,7 @@ document.write(`
 <span class="sd">    -------</span>
 <span class="sd">        None</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">if</span> <span class="n">votes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">votes</span> <span class="o">=</span> <span class="n">election</span><span class="o">.</span><span class="n">votes</span>
 
@@ -417,11 +418,12 @@ document.write(`
 
 
 
+
 <div class="viewcode-block" id="export_election_without_experiment">
 <a class="viewcode-back" href="../../../../reference/persistence/election_exports.html#mapof.elections.persistence.election_exports.export_election_without_experiment">[docs]</a>
 <span class="k">def</span> <span class="nf">export_election_without_experiment</span><span class="p">(</span>
-        <span class="n">path_to_folder</span><span class="p">,</span>
         <span class="n">election</span><span class="p">,</span>
+        <span class="n">path_to_folder</span><span class="p">,</span>
         <span class="n">is_aggregated</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -429,10 +431,10 @@ document.write(`
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">        path_to_folder</span>
-<span class="sd">            Path to a folder to which the election should be exported.</span>
 <span class="sd">        election</span>
 <span class="sd">            Election.</span>
+<span class="sd">        path_to_folder</span>
+<span class="sd">            Path to a folder to which the election should be exported.</span>
 <span class="sd">        is_aggregated : bool</span>
 <span class="sd">            If True then votes are stored in aggregated way.</span>
 
@@ -443,10 +445,13 @@ document.write(`
 
     <span class="n">path_to_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path_to_folder</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">election</span><span class="o">.</span><span class="n">election_id</span><span class="si">}</span><span class="s1">.</span><span class="si">{</span><span class="n">election</span><span class="o">.</span><span class="n">format</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
-    <span class="n">export_votes_to_file</span><span class="p">(</span><span class="n">election</span><span class="p">,</span>
-                         <span class="n">path_to_file</span><span class="p">,</span>
-                         <span class="n">votes</span><span class="o">=</span><span class="n">election</span><span class="o">.</span><span class="n">votes</span><span class="p">,</span>
-                         <span class="n">is_aggregated</span><span class="o">=</span><span class="n">is_aggregated</span><span class="p">)</span></div>
+    <span class="k">if</span> <span class="n">election</span><span class="o">.</span><span class="n">is_pseudo</span><span class="p">:</span>
+        <span class="n">export_pseudo_ordinal_election</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">path_to_file</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">export_votes_to_file</span><span class="p">(</span><span class="n">election</span><span class="p">,</span>
+                             <span class="n">path_to_file</span><span class="p">,</span>
+                             <span class="n">votes</span><span class="o">=</span><span class="n">election</span><span class="o">.</span><span class="n">votes</span><span class="p">,</span>
+                             <span class="n">is_aggregated</span><span class="o">=</span><span class="n">is_aggregated</span><span class="p">)</span></div>
 
 
 
@@ -475,15 +480,19 @@ document.write(`
 
     <span class="n">path_to_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path_to_folder</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">election</span><span class="o">.</span><span class="n">election_id</span><span class="si">}</span><span class="s1">.</span><span class="si">{</span><span class="n">election</span><span class="o">.</span><span class="n">format</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
-    <span class="n">export_votes_to_file</span><span class="p">(</span><span class="n">election</span><span class="p">,</span>
-                         <span class="n">path_to_file</span><span class="p">,</span>
-                         <span class="n">votes</span><span class="o">=</span><span class="n">election</span><span class="o">.</span><span class="n">votes</span><span class="p">,</span>
-                         <span class="n">is_aggregated</span><span class="o">=</span><span class="n">is_aggregated</span><span class="p">)</span></div>
+    <span class="k">if</span> <span class="n">election</span><span class="o">.</span><span class="n">is_pseudo</span><span class="p">:</span>
+        <span class="n">export_pseudo_ordinal_election</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">path_to_file</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">export_votes_to_file</span><span class="p">(</span><span class="n">election</span><span class="p">,</span>
+                             <span class="n">path_to_file</span><span class="p">,</span>
+                             <span class="n">votes</span><span class="o">=</span><span class="n">election</span><span class="o">.</span><span class="n">votes</span><span class="p">,</span>
+                             <span class="n">is_aggregated</span><span class="o">=</span><span class="n">is_aggregated</span><span class="p">)</span></div>
 
 
 
-<span class="k">def</span> <span class="nf">export_pseudo_ordinal_election</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">path_to_file</span><span class="p">):</span>
-    <span class="n">file_</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">path_to_file</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">export_pseudo_ordinal_election</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+
+    <span class="n">file_</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
     <span class="n">file_</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;# FILE NAME: </span><span class="si">{</span><span class="n">election</span><span class="o">.</span><span class="n">election_id</span><span class="si">}</span><span class="s1">.</span><span class="si">{</span><span class="n">election</span><span class="o">.</span><span class="n">format</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
     <span class="n">file_</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;# DATA TYPE: soc </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
     <span class="n">file_</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;# CULTURE ID: </span><span class="si">{</span><span class="n">election</span><span class="o">.</span><span class="n">culture_id</span><span class="si">}</span><span class="s1"> </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>

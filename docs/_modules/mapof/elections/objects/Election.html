@@ -373,7 +373,7 @@ document.write(`
                  <span class="n">election_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">culture_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">votes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                 <span class="n">ballot_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;ordinal&#39;</span><span class="p">,</span>
+                 <span class="n">ballot_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                  <span class="n">num_voters</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                  <span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                  <span class="n">label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -387,7 +387,6 @@ document.write(`
                          <span class="n">instance_id</span><span class="o">=</span><span class="n">election_id</span><span class="p">,</span>
                          <span class="n">culture_id</span><span class="o">=</span><span class="n">culture_id</span><span class="p">,</span>
                          <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
 
         <span class="bp">self</span><span class="o">.</span><span class="n">ballot_type</span> <span class="o">=</span> <span class="n">ballot_type</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">format</span> <span class="o">=</span> <span class="n">get_format_from_ballot_type</span><span class="p">(</span><span class="n">ballot_type</span><span class="p">)</span>
@@ -696,8 +695,8 @@ document.write(`
             <span class="bp">self</span><span class="o">.</span><span class="n">compute_feature</span><span class="p">(</span><span class="n">feature_id</span><span class="p">,</span> <span class="n">feature_long_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">[</span><span class="n">feature_long_id</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="nf">export_to_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path_to_folder</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">exports</span><span class="o">.</span><span class="n">export_election_without_experiment</span><span class="p">(</span><span class="n">path_to_folder</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span></div>
+    <span class="k">def</span> <span class="nf">export_to_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path_to_folder</span><span class="p">,</span> <span class="n">is_aggregated</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">exports</span><span class="o">.</span><span class="n">export_election_without_experiment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path_to_folder</span><span class="p">,</span> <span class="n">is_aggregated</span><span class="p">)</span></div>
 
 
 

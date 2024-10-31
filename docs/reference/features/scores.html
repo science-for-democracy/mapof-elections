@@ -44,7 +44,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Diversity" href="diversity.html" />
-    <link rel="prev" title="Main" href="main.html" />
+    <link rel="prev" title="Register" href="register.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -156,13 +156,17 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="../cultures/index.html">Cultures</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../cultures/list_of_cultures.html">List of Cultures</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../cultures/main.html">Main</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../cultures/euclidean.html">Euclidean</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../cultures/guardians.html">Guardians</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../cultures/compass_approx.html">Compass Approximation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../cultures/compass_true.html">Compass True</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../cultures/prefsampling_mask.html">Prefsampling Mask</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../cultures/pseudo_cultures.html">Pseudo Cultures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../cultures/params.html">Params</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../distances/index.html">Distances</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../distances/list_of_distances.html">List of Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../distances/main.html">Main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../distances/register.html">Register</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../distances/main_approval_distances.html">Approval Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../distances/main_ordinal_distances.html">Ordinal Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../distances/committee_distances.html">Committee Distances</a></li>
@@ -172,11 +176,21 @@
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="index.html">Features</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="list_of_features.html">List of Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="main.html">Main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="register.html">Register</a></li>
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">Scores</a></li>
 <li class="toctree-l3"><a class="reference internal" href="diversity.html">Diversity</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dap_approximate.html">Diversity Approximate</a></li>
 <li class="toctree-l3"><a class="reference internal" href="simple_ordinal.html">Simple Ordinal</a></li>
 <li class="toctree-l3"><a class="reference internal" href="simple_approval.html">Simple Approval</a></li>
+<li class="toctree-l3"><a class="reference internal" href="abc_features.html">ABC Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="banzhaf_cc.html">Banzhaf CC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ranging_cc.html">Ranging CC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="approx.html">Approx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cohesive.html">Cohesive</a></li>
+<li class="toctree-l3"><a class="reference internal" href="entropy.html">Entropy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="justified_representation.html">Justified Representation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="partylist.html">Partylist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="proportionality_degree.html">Proportionality Degree</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../objects/index.html">Objects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -362,7 +376,10 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.features.scores.borda_spread"><code class="docutils literal notranslate"><span class="pre">borda_spread()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.features.scores.highest_borda_score"><code class="docutils literal notranslate"><span class="pre">highest_borda_score()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.features.scores.highest_cc_score"><code class="docutils literal notranslate"><span class="pre">highest_cc_score()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.features.scores.highest_copeland_score"><code class="docutils literal notranslate"><span class="pre">highest_copeland_score()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.features.scores.highest_hb_score"><code class="docutils literal notranslate"><span class="pre">highest_hb_score()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.features.scores.highest_pav_score"><code class="docutils literal notranslate"><span class="pre">highest_pav_score()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.features.scores.highest_plurality_score"><code class="docutils literal notranslate"><span class="pre">highest_plurality_score()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.features.scores.lowest_dodgson_score"><code class="docutils literal notranslate"><span class="pre">lowest_dodgson_score()</span></code></a></li>
 </ul>
@@ -402,6 +419,23 @@ document.write(`
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="mapof.elections.features.scores.highest_cc_score">
+<span class="sig-name descname"><span class="pre">highest_cc_score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">election</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">committee_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mapof/elections/features/scores.html#highest_cc_score"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.features.scores.highest_cc_score" title="Link to this definition">#</a></dt>
+<dd><p>Computes the highest CC score of a given election.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>election</strong> (<a class="reference internal" href="../objects/OrdinalElection.html#mapof.elections.objects.OrdinalElection.OrdinalElection" title="mapof.elections.objects.OrdinalElection.OrdinalElection"><em>OrdinalElection</em></a>)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>‘value’: highest CC score</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>dict</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="mapof.elections.features.scores.highest_copeland_score">
 <span class="sig-name descname"><span class="pre">highest_copeland_score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">election</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../../_modules/mapof/elections/features/scores.html#highest_copeland_score"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.features.scores.highest_copeland_score" title="Link to this definition">#</a></dt>
 <dd><p>Computes the highest Copeland score of a given election.</p>
@@ -411,6 +445,40 @@ document.write(`
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>‘value’: highest Copeland score</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>dict</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mapof.elections.features.scores.highest_hb_score">
+<span class="sig-name descname"><span class="pre">highest_hb_score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">election</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">committee_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mapof/elections/features/scores.html#highest_hb_score"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.features.scores.highest_hb_score" title="Link to this definition">#</a></dt>
+<dd><p>Computes the highest HB score of a given election.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>election</strong> (<a class="reference internal" href="../objects/OrdinalElection.html#mapof.elections.objects.OrdinalElection.OrdinalElection" title="mapof.elections.objects.OrdinalElection.OrdinalElection"><em>OrdinalElection</em></a>)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>‘value’: highest HB score</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>dict</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mapof.elections.features.scores.highest_pav_score">
+<span class="sig-name descname"><span class="pre">highest_pav_score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">election</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">committee_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mapof/elections/features/scores.html#highest_pav_score"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.features.scores.highest_pav_score" title="Link to this definition">#</a></dt>
+<dd><p>Computes the highest PAV score of a given election.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>election</strong> (<a class="reference internal" href="../objects/OrdinalElection.html#mapof.elections.objects.OrdinalElection.OrdinalElection" title="mapof.elections.objects.OrdinalElection.OrdinalElection"><em>OrdinalElection</em></a>)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>‘value’: highest PAV score</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><em>dict</em></p>
@@ -466,12 +534,12 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="main.html"
+       href="register.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Main</p>
+        <p class="prev-next-title">Register</p>
       </div>
     </a>
     <a class="right-next"
@@ -501,7 +569,10 @@ document.write(`
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.features.scores.borda_spread"><code class="docutils literal notranslate"><span class="pre">borda_spread()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.features.scores.highest_borda_score"><code class="docutils literal notranslate"><span class="pre">highest_borda_score()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.features.scores.highest_cc_score"><code class="docutils literal notranslate"><span class="pre">highest_cc_score()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.features.scores.highest_copeland_score"><code class="docutils literal notranslate"><span class="pre">highest_copeland_score()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.features.scores.highest_hb_score"><code class="docutils literal notranslate"><span class="pre">highest_hb_score()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.features.scores.highest_pav_score"><code class="docutils literal notranslate"><span class="pre">highest_pav_score()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.features.scores.highest_plurality_score"><code class="docutils literal notranslate"><span class="pre">highest_plurality_score()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.features.scores.lowest_dodgson_score"><code class="docutils literal notranslate"><span class="pre">lowest_dodgson_score()</span></code></a></li>
 </ul>

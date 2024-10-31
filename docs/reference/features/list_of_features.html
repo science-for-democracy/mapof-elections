@@ -156,13 +156,17 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="../cultures/index.html">Cultures</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../cultures/list_of_cultures.html">List of Cultures</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../cultures/main.html">Main</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../cultures/euclidean.html">Euclidean</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../cultures/guardians.html">Guardians</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../cultures/compass_approx.html">Compass Approximation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../cultures/compass_true.html">Compass True</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../cultures/prefsampling_mask.html">Prefsampling Mask</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../cultures/pseudo_cultures.html">Pseudo Cultures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../cultures/params.html">Params</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../distances/index.html">Distances</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../distances/list_of_distances.html">List of Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../distances/main.html">Main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../distances/register.html">Register</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../distances/main_approval_distances.html">Approval Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../distances/main_ordinal_distances.html">Ordinal Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../distances/committee_distances.html">Committee Distances</a></li>
@@ -172,15 +176,26 @@
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="index.html">Features</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">List of Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="main.html">Main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="register.html">Register</a></li>
 <li class="toctree-l3"><a class="reference internal" href="scores.html">Scores</a></li>
 <li class="toctree-l3"><a class="reference internal" href="diversity.html">Diversity</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dap_approximate.html">Diversity Approximate</a></li>
 <li class="toctree-l3"><a class="reference internal" href="simple_ordinal.html">Simple Ordinal</a></li>
 <li class="toctree-l3"><a class="reference internal" href="simple_approval.html">Simple Approval</a></li>
+<li class="toctree-l3"><a class="reference internal" href="abc_features.html">ABC Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="banzhaf_cc.html">Banzhaf CC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ranging_cc.html">Ranging CC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="approx.html">Approx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cohesive.html">Cohesive</a></li>
+<li class="toctree-l3"><a class="reference internal" href="entropy.html">Entropy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="justified_representation.html">Justified Representation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="partylist.html">Partylist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="proportionality_degree.html">Proportionality Degree</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../objects/index.html">Objects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../objects/Election.html">Election</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../objects/ElectionExperiment.html">ElectionExperiment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../objects/ApprovalElection.html">ApprovalElection</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../objects/ApprovalElectionExperiment.html">ApprovalElectionExperiment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../objects/OrdinalElection.html">OrdinalElection</a></li>
@@ -399,6 +414,18 @@ document.write(`
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">lowest_dodgson_score</span></code></p></td>
 <td><p><a class="reference internal" href="scores.html#mapof.elections.features.scores.lowest_dodgson_score" title="mapof.elections.features.scores.lowest_dodgson_score"><code class="xref py py-func docutils literal notranslate"><span class="pre">lowest_dodgson_score()</span></code></a></p></td>
 </tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">borda_spread</span></code></p></td>
+<td><p><a class="reference internal" href="scores.html#mapof.elections.features.scores.borda_spread" title="mapof.elections.features.scores.borda_spread"><code class="xref py py-func docutils literal notranslate"><span class="pre">borda_spread()</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">highest_cc_score</span></code></p></td>
+<td><p><a class="reference internal" href="scores.html#mapof.elections.features.scores.highest_cc_score" title="mapof.elections.features.scores.highest_cc_score"><code class="xref py py-func docutils literal notranslate"><span class="pre">highest_cc_score()</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">highest_hb_score</span></code></p></td>
+<td><p><a class="reference internal" href="scores.html#mapof.elections.features.scores.highest_hb_score" title="mapof.elections.features.scores.highest_hb_score"><code class="xref py py-func docutils literal notranslate"><span class="pre">highest_hb_score()</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">highest_pav_score</span></code></p></td>
+<td><p><a class="reference internal" href="scores.html#mapof.elections.features.scores.highest_pav_score" title="mapof.elections.features.scores.highest_pav_score"><code class="xref py py-func docutils literal notranslate"><span class="pre">highest_pav_score()</span></code></a></p></td>
+</tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Agreement</span></code></p></td>
 <td><p><a class="reference internal" href="diversity.html#mapof.elections.features.diversity.agreement_index" title="mapof.elections.features.diversity.agreement_index"><code class="xref py py-func docutils literal notranslate"><span class="pre">agreement_index()</span></code></a></p></td>
 </tr>
@@ -420,6 +447,9 @@ document.write(`
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">is_condorcet</span></code></p></td>
 <td><p><a class="reference internal" href="simple_ordinal.html#mapof.elections.features.simple_ordinal.is_condorcet" title="mapof.elections.features.simple_ordinal.is_condorcet"><code class="xref py py-func docutils literal notranslate"><span class="pre">is_condorcet()</span></code></a></p></td>
 </tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">effective_num_candidates</span></code></p></td>
+<td><p><a class="reference internal" href="simple_ordinal.html#mapof.elections.features.simple_ordinal.get_effective_num_candidates" title="mapof.elections.features.simple_ordinal.get_effective_num_candidates"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_effective_num_candidates()</span></code></a></p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -439,6 +469,30 @@ document.write(`
 <tbody>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">max_approval_score</span></code></p></td>
 <td><p><a class="reference internal" href="simple_approval.html#mapof.elections.features.simple_approval.max_approval_score" title="mapof.elections.features.simple_approval.max_approval_score"><code class="xref py py-func docutils literal notranslate"><span class="pre">max_approval_score()</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">abstract</span></code></p></td>
+<td><p><a class="reference internal" href="simple_approval.html#mapof.elections.features.simple_approval.abstract" title="mapof.elections.features.simple_approval.abstract"><code class="xref py py-func docutils literal notranslate"><span class="pre">abstract()</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">justified_ratio</span></code></p></td>
+<td><p><a class="reference internal" href="simple_approval.html#mapof.elections.features.simple_approval.justified_ratio" title="mapof.elections.features.simple_approval.justified_ratio"><code class="xref py py-func docutils literal notranslate"><span class="pre">justified_ratio()</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">cohesiveness</span></code></p></td>
+<td><p><code class="xref py py-func docutils literal notranslate"><span class="pre">count_largest_cohesiveness_level_l_of_cohesive_group()</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">number_of_cohesive_groups</span></code></p></td>
+<td><p><code class="xref py py-func docutils literal notranslate"><span class="pre">count_number_of_cohesive_groups()</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">number_of_cohesive_groups_brute</span></code></p></td>
+<td><p><code class="xref py py-func docutils literal notranslate"><span class="pre">count_number_of_cohesive_groups_brute()</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">proportionality_degree_av</span></code></p></td>
+<td><p><code class="xref py py-func docutils literal notranslate"><span class="pre">proportionality_degree_av()</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">proportionality_degree_pav</span></code></p></td>
+<td><p><code class="xref py py-func docutils literal notranslate"><span class="pre">proportionality_degree_pav()</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">proportionality_degree_cc</span></code></p></td>
+<td><p><code class="xref py py-func docutils literal notranslate"><span class="pre">proportionality_degree_cc()</span></code></p></td>
 </tr>
 </tbody>
 </table>

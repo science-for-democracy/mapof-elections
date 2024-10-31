@@ -387,6 +387,7 @@ document.write(`
                          <span class="n">num_voters</span><span class="o">=</span><span class="n">num_voters</span><span class="p">,</span>
                          <span class="n">num_candidates</span><span class="o">=</span><span class="n">num_candidates</span><span class="p">,</span>
                          <span class="n">fast_import</span><span class="o">=</span><span class="n">fast_import</span><span class="p">,</span>
+                         <span class="n">ballot_type</span><span class="o">=</span><span class="s1">&#39;ordinal&#39;</span><span class="p">,</span>
                          <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">variable</span> <span class="o">=</span> <span class="n">variable</span>
@@ -670,6 +671,7 @@ document.write(`
 <a class="viewcode-back" href="../../../../reference/objects/OrdinalElection.html#mapof.elections.objects.OrdinalElection.OrdinalElection.prepare_instance">[docs]</a>
     <span class="k">def</span> <span class="nf">prepare_instance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">is_exported</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">is_aggregated</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; Prepares instance &quot;&quot;&quot;</span>
+
         <span class="k">if</span> <span class="s1">&#39;num_alliances&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">votes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">alliances</span> <span class="o">=</span> <span class="n">generate_ordinal_alliance_votes</span><span class="p">(</span>
                 <span class="n">culture_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">culture_id</span><span class="p">,</span>

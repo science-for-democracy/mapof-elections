@@ -21,6 +21,16 @@ List of Ordinal Features
      - :py:func:`~mapof.elections.features.scores.highest_copeland_score`
    * - ``lowest_dodgson_score``
      - :py:func:`~mapof.elections.features.scores.lowest_dodgson_score`
+   * - ``borda_spread``
+     - :py:func:`~mapof.elections.features.scores.borda_spread`
+   * - ``highest_cc_score``
+     - :py:func:`~mapof.elections.features.scores.highest_cc_score`
+   * - ``highest_hb_score``
+     - :py:func:`~mapof.elections.features.scores.highest_hb_score`
+   * - ``highest_pav_score``
+     - :py:func:`~mapof.elections.features.scores.highest_pav_score`
+
+
    * - ``Agreement``
      - :py:func:`~mapof.elections.features.diversity.agreement_index`
    * - ``Diversity``
@@ -35,7 +45,8 @@ List of Ordinal Features
      - :py:func:`~mapof.elections.features.dap_approximate.polarization_index`
    * - ``is_condorcet``
      - :py:func:`~mapof.elections.features.simple_ordinal.is_condorcet`
-
+   * - ``effective_num_candidates``
+     - :py:func:`~mapof.elections.features.simple_ordinal.get_effective_num_candidates`
 
 
 List of Approval Features
@@ -49,4 +60,20 @@ List of Approval Features
      - implementation
    * - ``max_approval_score``
      - :py:func:`~mapof.elections.features.simple_approval.max_approval_score`
+   * - ``abstract``
+     - :py:func:`~mapof.elections.features.simple_approval.abstract`
+   * - ``justified_ratio``
+     - :py:func:`~mapof.elections.features.simple_approval.justified_ratio`
+   * - ``cohesiveness``
+     - :py:func:`~mapof.elections.features.simple_approval.count_largest_cohesiveness_level_l_of_cohesive_group`
+   * - ``number_of_cohesive_groups``
+     - :py:func:`~mapof.elections.features.simple_approval.count_number_of_cohesive_groups`
+   * - ``number_of_cohesive_groups_brute``
+     - :py:func:`~mapof.elections.features.simple_approval.count_number_of_cohesive_groups_brute`
+   * - ``proportionality_degree_av``
+     - :py:func:`~mapof.elections.features.simple_approval.proportionality_degree_av`
+   * - ``proportionality_degree_pav``
+     - :py:func:`~mapof.elections.features.simple_approval.proportionality_degree_pav`
+   * - ``proportionality_degree_cc``
+     - :py:func:`~mapof.elections.features.simple_approval.proportionality_degree_cc`
 

@@ -81,10 +81,10 @@ registered_ordinal_cultures = {
     'anst_part': compass_approx.generate_anst_part_votes,  # unsupported culture
     'unst_part': compass_approx.generate_unst_part_votes,  # unsupported culture
 
-    'idan_mallows': compass_approx.generate_idan_mallows_votes,  # unsupported culture
-    'idst_mallows': compass_approx.generate_idst_mallows_votes,  # unsupported culture
-    'anun_mallows': compass_approx.generate_anun_mallows_votes,  # unsupported culture
-    'unst_mallows': compass_approx.generate_unst_mallows_votes,  # unsupported culture
+    # 'idan_mallows': compass_approx.generate_idan_mallows_votes,  # unsupported culture
+    # 'idst_mallows': compass_approx.generate_idst_mallows_votes,  # unsupported culture
+    # 'anun_mallows': compass_approx.generate_anun_mallows_votes,  # unsupported culture
+    # 'unst_mallows': compass_approx.generate_unst_mallows_votes,  # unsupported culture
 
     'unst_topsize': compass_approx.generate_unst_topsize_votes,  # unsupported culture
     'idst_blocks': compass_approx.generate_idst_blocks_votes,

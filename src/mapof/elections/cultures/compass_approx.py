@@ -139,7 +139,22 @@ def generate_idun_part_votes(
         part_share: float = None,
         **_kwargs
 ) -> list:
-    """ Generate elections realizing linear combinations of pos-matrices between (ID) and (UN) """
+    """ Generate elections realizing linear combinations of pos-matrices between (ID) and (UN).
+
+    Parameters
+    ----------
+        num_voters : int
+            Number of voters.
+        num_candidates : int
+            Number of candidates.
+        part_share : float
+            Share of ID voters.
+
+    Returns
+    -------
+        list
+            Votes
+    """
     if part_share is None:
         print("IDUN_part generation : params None : random param generated")
         part_size = np.random.choice(range(num_voters))
@@ -159,7 +174,23 @@ def generate_idst_part_votes(
         part_share: float = None,
         **_kwargs
 ) -> list:
-    """ Generate elections realizing linear combinations of pos-matrices between (ID) and (ST) """
+    """
+    Generates elections realizing linear combinations of pos-matrices between (ID) and (ST)
+
+    Parameters
+    ----------
+        num_voters : int
+            Number of voters.
+        num_candidates : int
+            Number of candidates.
+        part_share : float
+            Share of ID voters.
+
+    Returns
+    -------
+        list
+            Votes
+    """
     if part_share is None:
         print("IDST_part generation : params None : random param generated")
         part_size = np.random.choice(range(num_voters))
@@ -181,7 +212,23 @@ def generate_anun_part_votes(
         part_share: float = None,
         **_kwargs
 ) -> list:
-    """ Generate elections realizing linear combinations of pos-matrices between (AN) and (UN) """
+    """
+    Generates elections realizing linear combinations of pos-matrices between (AN) and (UN).
+
+    Parameters
+    ----------
+        num_voters : int
+            Number of voters.
+        num_candidates : int
+            Number of candidates.
+        part_share : float
+            Share of AN voters.
+
+    Returns
+    -------
+        list
+            Votes
+    """
     if part_share is None:
         print("ANUN_part generation : params None : random param generated")
         part_size = np.random.choice(range(num_voters))
@@ -204,7 +251,23 @@ def generate_anst_part_votes(
         part_share: float = None,
         **_kwargs
 ) -> list:
-    """ Generate elections realizing linear combinations of pos-matrices between (AN) and (ST) """
+    """
+    Generates elections realizing linear combinations of pos-matrices between (AN) and (ST)
+
+    Parameters
+    ----------
+        num_voters : int
+            Number of voters.
+        num_candidates : int
+            Number of candidates.
+        part_share : float
+            Share of AN voters.
+
+    Returns
+    -------
+        list
+            Votes
+    """
     if part_share is None:
         print("ANST_part generation : params None : random param generated")
         part_size = np.random.choice(range(num_voters))
@@ -229,7 +292,23 @@ def generate_unst_part_votes(
         part_share: float = None,
         **_kwargs
 ) -> list:
-    """ Generate elections realizing linear combinations of pos-matrices between (UN) and (ST) """
+    """
+    Generates elections realizing linear combinations of pos-matrices between (UN) and (ST).
+
+    Parameters
+    ----------
+        num_voters : int
+            Number of voters.
+        num_candidates : int
+            Number of candidates.
+        part_share : float
+            Share of UN voters.
+
+    Returns
+    -------
+        list
+            Votes
+    """
     if part_share is None:
         print("UNST_part generation : params None : random param generated")
         part_size = np.random.choice(range(num_voters))
@@ -245,74 +324,74 @@ def generate_unst_part_votes(
     return votes
 
 
-def generate_idan_mallows_votes(num_voters=None, num_candidates=None, params=None):
-    if params is None or not ('scaled-phi' in params):
-        print("IDAN_mallows generation : params None : random param generated")
-        is_reversed = np.random.choice([True, False])
-        phi = core_mallows.phi_from_normphi(num_candidates, normphi=np.random.uniform())
-    else:
-        if params['scaled-phi'] > 0.5:
-            is_reversed = True
-            phi = core_mallows.phi_from_normphi(num_candidates, (1 - params['scaled-phi']) * 2)
-        else:
-            is_reversed = False
-            phi = core_mallows.phi_from_normphi(num_candidates, params['scaled-phi'] * 2)
-    id_share = num_voters // 2
-    op_share = num_voters - id_share
-    votes_id = [[j for j in range(num_candidates)] for _ in range(id_share)]
-    votes_op = mallows.generate_mallows_votes(op_share, num_candidates, {'phi': phi})
-    if is_reversed:
-        for v in votes_op:
-            v.reverse()
-    return votes_id + votes_op
+# def generate_idan_mallows_votes(num_voters=None, num_candidates=None, params=None):
+#     if params is None or not ('scaled-phi' in params):
+#         print("IDAN_mallows generation : params None : random param generated")
+#         is_reversed = np.random.choice([True, False])
+#         phi = core_mallows.phi_from_normphi(num_candidates, normphi=np.random.uniform())
+#     else:
+#         if params['scaled-phi'] > 0.5:
+#             is_reversed = True
+#             phi = core_mallows.phi_from_normphi(num_candidates, (1 - params['scaled-phi']) * 2)
+#         else:
+#             is_reversed = False
+#             phi = core_mallows.phi_from_normphi(num_candidates, params['scaled-phi'] * 2)
+#     id_share = num_voters // 2
+#     op_share = num_voters - id_share
+#     votes_id = [[j for j in range(num_candidates)] for _ in range(id_share)]
+#     votes_op = mallows.generate_mallows_votes(op_share, num_candidates, {'phi': phi})
+#     if is_reversed:
+#         for v in votes_op:
+#             v.reverse()
+#     return votes_id + votes_op
 
 
-def generate_idst_mallows_votes(num_voters=None, num_candidates=None, params=None):
-    if params is None or not ('phi' in params):
-        print("IDST_mallows generation : params None : random param generated")
-        phi = core_mallows.phi_from_normphi(num_candidates, normphi=np.random.uniform())
-    else:
-        phi = params['phi']
-    better = num_candidates // 2
-    worse = num_candidates - better
-    votes_better = mallows.generate_mallows_votes(num_voters, better, {'phi': phi})
-    votes_worse = mallows.generate_mallows_votes(num_voters, worse, {'phi': phi})
-    votes = []
-    for b, w in zip(votes_better, votes_worse):
-        w_ = [c + better for c in w]
-        v = b + w_
-        votes.append(v)
-    return votes
+# def generate_idst_mallows_votes(num_voters=None, num_candidates=None, params=None):
+#     if params is None or not ('phi' in params):
+#         print("IDST_mallows generation : params None : random param generated")
+#         phi = core_mallows.phi_from_normphi(num_candidates, normphi=np.random.uniform())
+#     else:
+#         phi = params['phi']
+#     better = num_candidates // 2
+#     worse = num_candidates - better
+#     votes_better = mallows.generate_mallows_votes(num_voters, better, {'phi': phi})
+#     votes_worse = mallows.generate_mallows_votes(num_voters, worse, {'phi': phi})
+#     votes = []
+#     for b, w in zip(votes_better, votes_worse):
+#         w_ = [c + better for c in w]
+#         v = b + w_
+#         votes.append(v)
+#     return votes
 
 
-def generate_anun_mallows_votes(num_voters=None, num_candidates=None, params=None):
-    mallows_params = {}
-    if params is None or not ('phi' in params):
-        print("IDST_mallows generation : params None : random param generated")
-        mallows_params['phi'] = core_mallows.phi_from_normphi(num_candidates, normphi=np.random.uniform())
-    else:
-        mallows_params['phi'] = params['phi']
-    mallows_params['weight'] = 0.5
-    return mallows.generate_mallows_votes(num_voters, num_candidates, mallows_params)
+# def generate_anun_mallows_votes(num_voters=None, num_candidates=None, params=None):
+#     mallows_params = {}
+#     if params is None or not ('phi' in params):
+#         print("IDST_mallows generation : params None : random param generated")
+#         mallows_params['phi'] = core_mallows.phi_from_normphi(num_candidates, normphi=np.random.uniform())
+#     else:
+#         mallows_params['phi'] = params['phi']
+#     mallows_params['weight'] = 0.5
+#     return mallows.generate_mallows_votes(num_voters, num_candidates, mallows_params)
 
 
-def generate_unst_mallows_votes(num_voters=None, num_candidates=None, params=None):
-    if params is None or not ('phi' in params):
-        print("IDST_mallows generation : params None : random param generated")
-        phi = core_mallows.phi_from_normphi(num_candidates, normphi=np.random.uniform()) / 2
-    else:
-        phi = params['phi'] / 2
-    better = num_candidates // 2
-    worse = num_candidates - better
-    votes = draw_election(_distribute_in_block_matrix(num_voters, [better, worse]))
-    # The next part works poorly for odd number of candidates (the last one is always from worse part)
-    for v in votes:
-        for i in range(better):
-            if np.random.random() < phi:
-                c = v[i]
-                v[i] = v[i + better]
-                v[i + better] = c
-    return votes
+# def generate_unst_mallows_votes(num_voters=None, num_candidates=None, params=None):
+#     if params is None or not ('phi' in params):
+#         print("IDST_mallows generation : params None : random param generated")
+#         phi = core_mallows.phi_from_normphi(num_candidates, normphi=np.random.uniform()) / 2
+#     else:
+#         phi = params['phi'] / 2
+#     better = num_candidates // 2
+#     worse = num_candidates - better
+#     votes = draw_election(_distribute_in_block_matrix(num_voters, [better, worse]))
+#     # The next part works poorly for odd number of candidates (the last one is always from worse part)
+#     for v in votes:
+#         for i in range(better):
+#             if np.random.random() < phi:
+#                 c = v[i]
+#                 v[i] = v[i + better]
+#                 v[i + better] = c
+#     return votes
 
 
 def generate_unst_topsize_votes(num_voters=None, num_candidates=None, top_share=None, **kwargs):

@@ -1,11 +1,11 @@
 import numpy as np
 from scipy.stats import gamma
-import random as rand
 import mapof.core.features.mallows as mallows
-from mapof.elections.other.glossary import APPROVAL_MODELS, LIST_OF_PREFLIB_MODELS
+from mapof.elections.other.glossary import APPROVAL_MODELS
 
 
 def update_params_ordinal_mallows(params):
+    """ Updates parameters for ordinal Mallows model. """
     if 'phi' in params and type(params['phi']) is list:
         params['phi'] = np.random.uniform(low=params['phi'][0], high=params['phi'][1])
     elif 'phi' not in params:
@@ -13,6 +13,7 @@ def update_params_ordinal_mallows(params):
 
 
 def update_params_ordinal_norm_mallows(params, num_candidates):
+    """ Updates parameters for ordinal Norm-Mallows model. """
     if 'normphi' not in params:
         params['normphi'] = np.random.random()
     params['phi'] = mallows.phi_from_normphi(num_candidates, normphi=params['normphi'])
@@ -21,6 +22,7 @@ def update_params_ordinal_norm_mallows(params, num_candidates):
 
 
 def update_params_ordinal_urn_model(params):
+    """ Updates parameters for ordinal Urn model. """
     if 'alpha' not in params:
         params['alpha'] = gamma.rvs(0.8)
 
@@ -45,72 +47,6 @@ def update_params_ordinal_alpha(printing_params):
         printing_params['alpha'] = np.random.uniform(low=printing_params['alpha'][0],
                                                      high=printing_params['alpha'][1])
 
-
-def update_params_ordinal_preflib(params, model_id):
-    # list of IDs larger than 10
-    folder = ''
-    if model_id == 'irish':
-        folder = 'irish_s1'
-        # folder = 'irish_f'
-        ids = [1, 3]
-    elif model_id == 'glasgow':
-        folder = 'glasgow_s1'
-        # folder = 'glasgow_f'
-        ids = [2, 3, 4, 5, 6, 7, 8, 9, 11, 13, 16, 19, 21]
-    elif model_id == 'formula':
-        folder = 'formula_s1'
-        # 17 races or more
-        ids = [17, 35, 37, 40, 41, 42, 44, 45, 46, 47, 48]
-    elif model_id == 'skate':
-        folder = 'skate_ic'
-        # 9 judges
-        ids = [1, 2, 3, 4, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-               25, 26, 27, 28, 29, 30, 31, 32, 33, 34,
-               35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 47, 48]
-    elif model_id == 'sushi':
-        folder = 'sushi_ff'
-        ids = [1]
-    elif model_id == 'grenoble':
-        folder = 'grenoble_ff'
-        ids = [1]
-    elif model_id == 'tshirt':
-        folder = 'tshirt_ff'
-        ids = [1]
-    elif model_id == 'cities_survey':
-        folder = 'cities_survey_s1'
-        ids = [1, 2]
-    elif model_id == 'aspen':
-        folder = 'aspen_s1'
-        ids = [1]
-    elif model_id == 'marble':
-        folder = 'marble_ff'
-        ids = [1, 2, 3, 4, 5]
-    elif model_id == 'cycling_tdf':
-        folder = 'cycling_tdf_s1'
-        # ids = [e for e in range(1, 69+1)]
-        selection_method = 'random'
-        ids = [14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 25, 26]
-    elif model_id == 'cycling_gdi':
-        folder = 'cycling_gdi_s1'
-        ids = [i for i in range(2, 23 + 1)]
-    elif model_id == 'ers':
-        folder = 'ers_s1'
-        # folder = 'ers_f'
-        # 500 voters or more
-        ids = [3, 9, 23, 31, 32, 33, 36, 38, 40, 68, 77, 79, 80]
-    elif model_id == 'ice_races':
-        folder = 'ice_races_s1'
-        # 80 voters or more
-        ids = [4, 5, 8, 9, 15, 20, 23, 24, 31, 34, 35, 37, 43, 44, 49]
-    else:
-        ids = []
-
-    if 'id' not in params:
-        params['id'] = rand.choices(ids, k=1)[0]
-
-    params['folder'] = folder
-
-
 def update_params_ordinal(params, printing_params, variable, culture_id, num_candidates):
     if variable is not None:
         printing_params['alpha'] = params[variable]
@@ -130,13 +66,10 @@ def update_params_ordinal(params, printing_params, variable, culture_id, num_can
             update_params_ordinal_mallows_matrix_path(params, num_candidates)
         elif culture_id.lower() == 'mallows_triangle':
             update_params_ordinal_mallows_triangle(params, num_candidates)
-        elif culture_id.lower() in LIST_OF_PREFLIB_MODELS:
-            update_params_ordinal_preflib(params, culture_id)
         update_params_ordinal_alpha(printing_params)
     return params, printing_params
 
 
-# Approval #
 def update_params_approval_rel_size_central_vote(params, culture_id):
     if 'p' in params and culture_id in \
             ['resampling', 'disjoint_resampling', 'moving_resampling', 'noise']:

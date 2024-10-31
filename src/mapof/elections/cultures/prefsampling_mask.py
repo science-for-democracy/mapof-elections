@@ -1,6 +1,8 @@
 import prefsampling.approval as pref_approval
 import prefsampling.ordinal as pref_ordinal
+import logging
 
+from prefsampling.core.euclidean import EuclideanSpace
 
 def truncated_urn_mask(num_voters=None,
                        num_candidates=None,
@@ -27,7 +29,6 @@ def identity_mask(num_voters=None,
                                   **kwargs)
 
 
-import logging
 
 
 def gs_mask(num_voters=None,
@@ -51,9 +52,6 @@ def gs_mask(num_voters=None,
                                         num_candidates=num_candidates,
                                         tree_sampler=tree_sampler,
                                         seed=seed)
-
-
-from prefsampling.core.euclidean import EuclideanSpace
 
 
 def euclidean_ord_mask(num_voters=None,

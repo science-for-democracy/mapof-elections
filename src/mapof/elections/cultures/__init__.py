@@ -52,7 +52,6 @@ registered_ordinal_cultures = {
     'impartial_culture': pref_ordinal.impartial,
 
     'iac': pref_ordinal.impartial_anonymous,
-    'real_antagonism': compass_true.generate_real_antagonism_votes,
     'antagonism': compass_true.generate_real_antagonism_votes,
     'an': compass_true.generate_real_antagonism_votes,  # deprecated name
 

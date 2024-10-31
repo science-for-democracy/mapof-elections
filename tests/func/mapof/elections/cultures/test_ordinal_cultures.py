@@ -13,7 +13,8 @@ simple_ordinal_cultures_to_test = {
     'conitzer',
     'spoc_conitzer',
     'walsh',
-    'real_identity',
+    'identity',
+    'antagonism',
 }
 
 tree_samplers_to_test = {

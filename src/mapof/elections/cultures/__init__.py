@@ -151,7 +151,7 @@ def generate_ordinal_votes(
         num_candidates: int = None,
         num_voters: int = None,
         params: dict = None,
-        **kwargs
+        **_kwargs
 ) -> list | np.ndarray:
     """
     Generates approval votes according to the given culture id.

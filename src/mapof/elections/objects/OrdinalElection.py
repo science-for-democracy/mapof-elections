@@ -27,7 +27,7 @@ from mapof.elections.cultures.pseudo_cultures import (
 )
 from mapof.elections.features.simple_ordinal import is_condorcet
 from mapof.elections.objects.Election import Election
-from mapof.elections.other.glossary import PATHS, is_pseudo_culture
+from mapof.elections.other.glossary import PATHS
 from mapof.elections.other.ordinal_rules import voting_rule
 
 
@@ -70,75 +70,68 @@ class OrdinalElection(Election):
         if frequency_matrix is not None:
             self.frequency_matrix = frequency_matrix
 
-        self.import_ordinal_election()
-
-    def import_ordinal_election(self):
-        """ Import ordinal election. """
-
-        if self.is_imported and self.experiment_id != 'virtual':
-
-            try:
-                if self.votes is not None:
-                    self.culture_id = self.culture_id
-                    if is_pseudo_culture(str(self.votes[0])):
-                        self.is_pseudo = True
-                        self.votes = self.votes[0]
-                        self.num_candidates = self.votes[1]
-                        self.num_voters = self.votes[2]
-                    else:
-                        self.votes = self.votes
-                        self.num_candidates = len(self.votes[0])
-                        self.num_voters = len(self.votes)
-                        self.compute_potes()
-                else:
-
-                    if imports.check_if_pseudo(self.experiment_id, self.election_id):
-                        self.is_pseudo = True
-                        self.culture_id, self.params, self.num_voters, \
-                        self.num_candidates, self.frequency_matrix = imports.import_pseudo_soc_election(
-                            self.experiment_id,
-                            self.election_id)
-                    else:
-                        self.is_pseudo = False
-                        self.votes, self.num_voters, self.num_candidates, self.params, \
-                        self.culture_id, self.alliances, \
-                        self.num_options, self.quantities, \
-                        self.distinct_votes = imports.import_real_soc_election(
-                            experiment_id=self.experiment_id,
-                            election_id=self.election_id,
-                            is_shifted=self.is_shifted)
-                        try:
-                            self.points['voters'] = self.import_ideal_points('voters')
-                            self.points['candidates'] = self.import_ideal_points('candidates')
-                        except:
-                            pass
-
-                        try:
-                            self.alpha = 1
-                            if self.params and 'alpha' in self.params:
-                                self.alpha = self.params['alpha']
-                        except KeyError:
-                            print("Error")
-
-                self.candidatelikeness_original_matrix = {}
-
-                if not self.fast_import:
-                    self._votes_to_frequency_matrix()
-            except:
-                self.is_correct = False
+        if self.is_imported and self.experiment_id is not None:
+            self.import_ordinal_election()
 
         if self.params is None:
             self.params = {}
 
+        self.try_updating_params()
+
+    def import_ordinal_election(self):
+        """ Import ordinal election. """
+
         try:
+            self.is_pseudo = imports.check_if_pseudo(self.experiment_id, self.election_id)
+
+            if self.is_pseudo:
+                (
+                    self.culture_id,
+                    self.params,
+                    self.num_voters,
+                    self.num_candidates,
+                    self.frequency_matrix
+                ) = imports.import_pseudo_soc_election(
+                    self.experiment_id,
+                    self.election_id
+                )
+            else:
+                (
+                    self.votes,
+                    self.num_voters,
+                    self.num_candidates,
+                    self.params,
+                    self.culture_id,
+                    self.alliances,
+                    self.num_options,
+                    self.quantities,
+                    self.distinct_votes
+                ) = imports.import_real_soc_election(
+                    experiment_id=self.experiment_id,
+                    election_id=self.election_id,
+                    is_shifted=self.is_shifted)
+
+                try:
+                    self.points['voters'] = self.import_ideal_points('voters')
+                    self.points['candidates'] = self.import_ideal_points('candidates')
+                except Exception:
+                    pass
+
+            if not self.fast_import:
+                self._votes_to_frequency_matrix()
+
+        except Exception:
+            pass
+
+    def try_updating_params(self):
+        if self.culture_id is not None:
             self.params, self.printing_params = update_params_ordinal(
                 self.params,
                 self.printing_params,
                 self.variable,
                 self.culture_id,
-                self.num_candidates)
-        except:
-            pass
+                self.num_candidates
+            )
 
     def get_frequency_matrix(self, is_recomputed=False):
         """ Get frequency_matrix. """

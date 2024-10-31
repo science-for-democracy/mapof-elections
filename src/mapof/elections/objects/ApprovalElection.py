@@ -38,7 +38,13 @@ class ApprovalElection(Election, ABC):
         self.reverse_approvals = []
         self.candidatelikeness_original_vectors = []
 
-        self.import_approval_election()
+        if self.is_imported and self.experiment_id is not None:
+            self.import_approval_election()
+
+        if self.params is None:
+            self.params = {}
+
+        self.try_updating_params()
 
     def import_approval_election(self) -> None:
         """
@@ -48,26 +54,34 @@ class ApprovalElection(Election, ABC):
         -------
             None
         """
-        if self.is_imported and self.experiment_id is not None:
-            try:
-                self.votes, self.num_voters, self.num_candidates, self.params, \
-                        self.culture_id, self.num_options, self.quantities, self.distinct_votes \
-                        = imports.import_real_app_election(
-                            experiment_id=self.experiment_id,
-                            election_id=self.election_id,
-                            is_shifted=self.is_shifted)
-            except:
-                pass
 
-        if self.params is None:
-            self.params = {}
+        try:
+            (
+                self.votes,
+                self.num_voters,
+                self.num_candidates,
+                self.params,
+                self.culture_id,
+                self.num_options,
+                self.quantities,
+                self.distinct_votes,
+            ) = imports.import_real_app_election(
+                experiment_id=self.experiment_id,
+                election_id=self.election_id,
+                is_shifted=self.is_shifted
+            )
+        except Exception:
+            pass
 
+    def try_updating_params(self):
         if self.culture_id is not None:
-            self.params, self.printing_params = update_params_approval(self.params,
-                                                                       self.printing_params,
-                                                                       self.variable,
-                                                                       self.culture_id,
-                                                                       self.num_candidates)
+            self.params, self.printing_params = update_params_approval(
+                self.params,
+                self.printing_params,
+                self.variable,
+                self.culture_id,
+                self.num_candidates
+            )
 
     def votes_to_approvalwise_vector(self) -> None:
         """
@@ -313,7 +327,6 @@ class ApprovalElection(Election, ABC):
         if saveas is not None:
 
             if saveas == 'default':
-
                 saveas = f'{self.label}_{object_type}'
 
             file_name = os.path.join(os.getcwd(), "images", name, f'{saveas}.png')

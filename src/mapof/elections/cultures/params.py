@@ -47,6 +47,7 @@ def update_params_ordinal_alpha(printing_params):
         printing_params['alpha'] = np.random.uniform(low=printing_params['alpha'][0],
                                                      high=printing_params['alpha'][1])
 
+
 def update_params_ordinal(params, printing_params, variable, culture_id, num_candidates):
     if variable is not None:
         printing_params['alpha'] = params[variable]

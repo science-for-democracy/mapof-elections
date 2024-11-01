@@ -88,7 +88,10 @@ PRECISION = 1000
 DIGITS = 4
 
 
-def get_conitzer_matrix(num_candidates=None, **kwargs):
+def get_conitzer_matrix(num_candidates=None, **_kwargs):
+    """
+    Gets a Conitzer matrix for a given number of candidates.
+    """
     m = num_candidates
     P = np.zeros([m, m])
     for i in range(m):
@@ -114,7 +117,10 @@ def get_conitzer_matrix(num_candidates=None, **kwargs):
 #     return P
 
 
-def get_walsh_matrix(num_candidates=None, **kwargs):
+def get_walsh_matrix(num_candidates=None, **_kwargs):
+    """
+    Gets a Walsh matrix for a given number of candidates
+    """
     m = num_candidates
     P = np.zeros([m, m])
     for i in range(m):

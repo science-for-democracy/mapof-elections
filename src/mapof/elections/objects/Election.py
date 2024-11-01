@@ -77,7 +77,10 @@ class Election(Instance):
         self.winning_committee = {}
         self.election_features = ElectionFeatures(election_id)
 
+        self.distances = {}
         self.import_distances()
+
+        self.coordinates = {}
         self.import_coordinates()
 
     def import_distances(self) -> None:
@@ -88,13 +91,12 @@ class Election(Instance):
         -------
             None
         """
-        self.distances = {}
         if not self.fast_import:
             for object_type in OBJECT_TYPES:
                 try:
                     self.distances[object_type] = \
                         imports.import_distances(self.experiment_id, self.election_id, object_type)
-                except:
+                except Exception:
                     pass
 
     def import_coordinates(self) -> None:
@@ -105,18 +107,17 @@ class Election(Instance):
         -------
             None
         """
-        self.coordinates = {}
         for object_type in OBJECT_TYPES:
             try:
                 self.coordinates[object_type] = \
                     imports.import_coordinates(self.experiment_id, self.election_id, object_type)
-            except:
+            except Exception:
                 pass
 
     def get_distances(self, object_type):
         try:
             return self.distances[object_type]
-        except:
+        except Exception:
             self.distances[object_type] = \
                 imports.import_distances(self.experiment_id, self.election_id, object_type)
             return self.distances[object_type]
@@ -124,7 +125,7 @@ class Election(Instance):
     def get_coordiantes(self, object_type):
         try:
             return self.coordinates[object_type]
-        except:
+        except Exception:
             self.coordinates[object_type] = \
                 imports.import_coordinates(self.experiment_id, self.election_id, object_type)
             return self.coordinates[object_type]
@@ -185,46 +186,11 @@ class Election(Instance):
         self.alternative_winners[party_id] = _unmap_the_winners(winners_without_party_id, party_id,
                                                                 committee_size)
 
-    def print_euclidean_voters_and_candidates_map(self, show=True, radius=None, name=None,
-                                                  alpha=0.5, s=30, circles=False,
-                                                  saveas=None,
-                                                  object_type=None, double_gradient=False):
-
-        plt.figure(figsize=(6.4, 6.4))
-
-        for i in range(self.num_voters):
-            x = self.points['voters'][i][0]
-            y = self.points['voters'][i][1]
-            plt.scatter(x, y, color=[0, y, x], s=s, alpha=0.3)
-
-        X_candidates = []
-        Y_candidates = []
-        for i in range(self.num_candidates):
-            X_candidates.append(self.points['candidates'][i][0])
-            Y_candidates.append(self.points['candidates'][i][1])
-        plt.scatter(X_candidates, Y_candidates, color='red', s=s * 2, alpha=0.9)
-
-        if radius:
-            plt.xlim([-radius, radius])
-            plt.ylim([-radius, radius])
-        plt.title(self.label, size=38)
-        plt.axis('off')
-
-        if saveas is None:
-            saveas = f'{self.label}_euc.png'
-
-        file_name = os.path.join(os.getcwd(), "images", name, f'{saveas}.png')
-        plt.savefig(file_name, bbox_inches='tight', dpi=100)
-        if show:
-            plt.show()
-        else:
-            plt.clf()
-
     @abstractmethod
     def compute_distances(self):
         pass
 
-    def embed(self, algorithm='mds', object_type=None, virtual=False):
+    def embed(self, algorithm='mds', object_type=None):
 
         if object_type is None:
             object_type = self.object_type
@@ -300,7 +266,7 @@ class Election(Instance):
             except Exception:
                 pass
 
-        if self.is_exported and not virtual:
+        if self.is_exported and self.experiment_id is not None:
             exports.export_coordinates(self, object_type=object_type)
 
     def all_dist_zeros(self, object_type):

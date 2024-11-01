@@ -6,7 +6,9 @@ import mapof.elections as mapel
 
 registered_approval_cultures_to_test = {
     'ic',
+    'impartial',
     'id',
+    'identity',
     'resampling',
     'disjoint_resampling',
     'moving_resampling',

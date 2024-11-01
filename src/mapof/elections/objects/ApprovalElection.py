@@ -1,8 +1,8 @@
 import logging
+import os
 from abc import ABC
 from collections import Counter
 
-import os
 import numpy as np
 from mapof.core.distances import hamming
 from matplotlib import pyplot as plt

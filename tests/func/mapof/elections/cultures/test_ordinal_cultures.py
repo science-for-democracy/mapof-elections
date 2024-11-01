@@ -3,18 +3,42 @@ import numpy as np
 
 import mapof.elections as mapel
 
+#      waiting for the update in prefsampling
+#     'group-separable': mask.group_separable_mask,
+
+#     'unst_topsize': compass_approx.generate_unst_topsize_votes,  # unsupported culture
+#     'idst_blocks': compass_approx.generate_idst_blocks_votes,
+#     'norm-mallows_mixture': mallows.generate_norm_mallows_mixture_votes,  # unsupported culture
+#     'mallows_triangle': mallows.generate_mallows_votes,  # unsupported culture
+#     'walsh_party': unused.generate_sp_party,  # unsupported culture
+#     'conitzer_party': unused.generate_sp_party,  # unsupported culture
+#     'mallows_party': mallows.generate_mallows_party,  # unsupported culture
+#     'ic_party': unused.generate_ic_party,  # unsupported culture
+#     'un_from_list': compass_approx.generate_un_from_list,  # unsupported culture
+#     'urn_model': pref_ordinal.urn,  # deprecated name
+
+
+new_to_test = {
+    'didi',
+    'placektt_luce'
+}
+
 simple_ordinal_cultures_to_test = {
+    'identity',
+    'id',
     'ic',
+    'impartial',
+    'impartial_culture',
     'iac',
+    'an',
+    'antagonism',
     'urn',
+    'walsh',
+    'conitzer',
+    'spoc'
     'single-crossing',
     'mallows',
     'norm-mallows',
-    'conitzer',
-    'spoc_conitzer',
-    'walsh',
-    'identity',
-    'antagonism',
 }
 
 tree_samplers_to_test = {
@@ -87,7 +111,6 @@ class TestCultures:
                                                    weight=0.5)
         assert election.num_candidates == num_candidates
         assert election.num_voters == num_voters
-
 
     # @pytest.mark.parametrize("tree_sampler", tree_samplers_to_test)
     # def test_group_separable(self, tree_sampler):

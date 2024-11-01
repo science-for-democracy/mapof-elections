@@ -156,13 +156,16 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="reference/cultures/index.html">Cultures</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="reference/cultures/list_of_cultures.html">List of Cultures</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/cultures/main.html">Main</a></li>
-<li class="toctree-l3"><a class="reference internal" href="reference/cultures/euclidean.html">Euclidean</a></li>
-<li class="toctree-l3"><a class="reference internal" href="reference/cultures/guardians.html">Guardians</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/cultures/compass.html">Compass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/cultures/prefsampling_mask.html">Prefsampling Mask</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/cultures/pseudo_cultures.html">Pseudo Cultures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/cultures/params.html">Params</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="reference/distances/index.html">Distances</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="reference/distances/list_of_distances.html">List of Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/distances/main.html">Main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/distances/register.html">Register</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/distances/main_approval_distances.html">Approval Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/distances/main_ordinal_distances.html">Ordinal Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/distances/committee_distances.html">Committee Distances</a></li>
@@ -172,15 +175,26 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="reference/features/index.html">Features</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="reference/features/list_of_features.html">List of Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/features/main.html">Main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/features/register.html">Register</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/features/scores.html">Scores</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/features/diversity.html">Diversity</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/features/dap_approximate.html">Diversity Approximate</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/features/simple_ordinal.html">Simple Ordinal</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/features/simple_approval.html">Simple Approval</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/features/abc_features.html">ABC Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/features/banzhaf_cc.html">Banzhaf CC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/features/ranging_cc.html">Ranging CC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/features/approx.html">Approx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/features/cohesive.html">Cohesive</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/features/entropy.html">Entropy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/features/justified_representation.html">Justified Representation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/features/partylist.html">Partylist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/features/proportionality_degree.html">Proportionality Degree</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="reference/objects/index.html">Objects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="reference/objects/Election.html">Election</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/objects/ElectionExperiment.html">ElectionExperiment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/objects/ApprovalElection.html">ApprovalElection</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/objects/ApprovalElectionExperiment.html">ApprovalElectionExperiment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/objects/OrdinalElection.html">OrdinalElection</a></li>
@@ -363,7 +377,7 @@ document.write(`
                   
   <section id="installation">
 <span id="id1"></span><h1>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h1>
-<p>Mapof-election is hosted on <a class="reference external" href="https://pypi.org/project/mapof-elections/">PyPI</a> you can thus
+<p>Mapof-elections is hosted on <a class="reference external" href="https://pypi.org/project/mapof-elections/">PyPI</a> you can thus
 easily install it by using:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip3<span class="w"> </span>install<span class="w"> </span>mapof-elections
 </pre></div>

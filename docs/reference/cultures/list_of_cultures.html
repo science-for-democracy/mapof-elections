@@ -156,13 +156,16 @@
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="index.html">Cultures</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">List of Cultures</a></li>
 <li class="toctree-l3"><a class="reference internal" href="main.html">Main</a></li>
-<li class="toctree-l3"><a class="reference internal" href="euclidean.html">Euclidean</a></li>
-<li class="toctree-l3"><a class="reference internal" href="guardians.html">Guardians</a></li>
+<li class="toctree-l3"><a class="reference internal" href="compass.html">Compass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="prefsampling_mask.html">Prefsampling Mask</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pseudo_cultures.html">Pseudo Cultures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="params.html">Params</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../distances/index.html">Distances</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../distances/list_of_distances.html">List of Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../distances/main.html">Main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../distances/register.html">Register</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../distances/main_approval_distances.html">Approval Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../distances/main_ordinal_distances.html">Ordinal Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../distances/committee_distances.html">Committee Distances</a></li>
@@ -172,15 +175,26 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="../features/index.html">Features</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../features/list_of_features.html">List of Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../features/main.html">Main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../features/register.html">Register</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../features/scores.html">Scores</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../features/diversity.html">Diversity</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../features/dap_approximate.html">Diversity Approximate</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../features/simple_ordinal.html">Simple Ordinal</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../features/simple_approval.html">Simple Approval</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../features/abc_features.html">ABC Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../features/banzhaf_cc.html">Banzhaf CC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../features/ranging_cc.html">Ranging CC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../features/approx.html">Approx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../features/cohesive.html">Cohesive</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../features/entropy.html">Entropy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../features/justified_representation.html">Justified Representation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../features/partylist.html">Partylist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../features/proportionality_degree.html">Proportionality Degree</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../objects/index.html">Objects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../objects/Election.html">Election</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../objects/ElectionExperiment.html">ElectionExperiment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../objects/ApprovalElection.html">ApprovalElection</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../objects/ApprovalElectionExperiment.html">ApprovalElectionExperiment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../objects/OrdinalElection.html">OrdinalElection</a></li>
@@ -359,8 +373,9 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#list-of-ordinal-cultures">List of Ordinal Cultures</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#list-of-approval-cultures">List of Approval Cultures</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#list-of-ordinal-cultures">List of Ordinal Cultures</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#list-of-pseudo-ordinal-cultures">List of Pseudo Ordinal Cultures</a></li>
 </ul>
             </nav>
         </div>
@@ -374,56 +389,7 @@ document.write(`
                   
   <section id="list-of-cultures">
 <span id="id1"></span><h1>List of Cultures<a class="headerlink" href="#list-of-cultures" title="Link to this heading">#</a></h1>
-<section id="list-of-ordinal-cultures">
-<h2>List of Ordinal Cultures<a class="headerlink" href="#list-of-ordinal-cultures" title="Link to this heading">#</a></h2>
-<div class="pst-scrollable-table-container"><table class="table">
-<colgroup>
-<col style="width: 50.0%" />
-<col style="width: 50.0%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>culture_id</p></th>
-<th class="head"><p>PrefSampling implementation</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">id</span></code> <code class="docutils literal notranslate"><span class="pre">identity</span></code></p></td>
-<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/ordinal/identity.html#prefsampling.ordinal.identity.identity" title="(in prefsampling v0.1.21)"><code class="xref py py-func docutils literal notranslate"><span class="pre">identity()</span></code></a></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ic</span></code> <code class="docutils literal notranslate"><span class="pre">impartial</span></code> <code class="docutils literal notranslate"><span class="pre">impartial_culture</span></code></p></td>
-<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/ordinal/impartial.html#prefsampling.ordinal.impartial.impartial" title="(in prefsampling v0.1.21)"><code class="xref py py-func docutils literal notranslate"><span class="pre">impartial()</span></code></a></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">iac</span></code></p></td>
-<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/ordinal/impartial.html#prefsampling.ordinal.impartial.impartial_anonymous" title="(in prefsampling v0.1.21)"><code class="xref py py-func docutils literal notranslate"><span class="pre">impartial_anonymous()</span></code></a></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">stratification</span></code></p></td>
-<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/ordinal/impartial.html#prefsampling.ordinal.impartial.stratification" title="(in prefsampling v0.1.21)"><code class="xref py py-func docutils literal notranslate"><span class="pre">stratification()</span></code></a></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">urn</span></code></p></td>
-<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/ordinal/urn.html#prefsampling.ordinal.urn.urn" title="(in prefsampling v0.1.21)"><code class="xref py py-func docutils literal notranslate"><span class="pre">urn()</span></code></a></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">didi</span></code></p></td>
-<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/ordinal/didi.html#prefsampling.ordinal.didi.didi" title="(in prefsampling v0.1.21)"><code class="xref py py-func docutils literal notranslate"><span class="pre">didi()</span></code></a></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">plackett-luce</span></code></p></td>
-<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/ordinal/plackettluce.html#prefsampling.ordinal.plackettluce.plackett_luce" title="(in prefsampling v0.1.21)"><code class="xref py py-func docutils literal notranslate"><span class="pre">plackett_luce()</span></code></a></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">conitzer</span></code></p></td>
-<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/ordinal/singlepeaked.html#prefsampling.ordinal.singlepeaked.single_peaked_conitzer" title="(in prefsampling v0.1.21)"><code class="xref py py-func docutils literal notranslate"><span class="pre">single_peaked_conitzer()</span></code></a></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">walsh</span></code></p></td>
-<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/ordinal/singlepeaked.html#prefsampling.ordinal.singlepeaked.single_peaked_walsh" title="(in prefsampling v0.1.21)"><code class="xref py py-func docutils literal notranslate"><span class="pre">single_peaked_walsh()</span></code></a></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">spoc</span></code></p></td>
-<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/ordinal/singlepeaked.html#prefsampling.ordinal.singlepeaked.single_peaked_circle" title="(in prefsampling v0.1.21)"><code class="xref py py-func docutils literal notranslate"><span class="pre">single_peaked_circle()</span></code></a></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">plackett-luce</span></code></p></td>
-<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/ordinal/plackettluce.html#prefsampling.ordinal.plackettluce.plackett_luce" title="(in prefsampling v0.1.21)"><code class="xref py py-func docutils literal notranslate"><span class="pre">plackett_luce()</span></code></a></p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</section>
+<p>Note that many of the cultures are implemented in the <code class="xref py py-mod docutils literal notranslate"><span class="pre">prefsampling</span></code> Python package.</p>
 <section id="list-of-approval-cultures">
 <h2>List of Approval Cultures<a class="headerlink" href="#list-of-approval-cultures" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="table">
@@ -433,7 +399,7 @@ document.write(`
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>culture_id</p></th>
-<th class="head"><p>PrefSampling implementation</p></th>
+<th class="head"><p>(PrefSampling) Implementation</p></th>
 </tr>
 </thead>
 <tbody>
@@ -460,6 +426,106 @@ document.write(`
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">urn_partylist</span></code></p></td>
 <td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/approval/urn.html#prefsampling.approval.urn.urn_partylist" title="(in prefsampling v0.1.21)"><code class="xref py py-func docutils literal notranslate"><span class="pre">urn_partylist()</span></code></a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="list-of-ordinal-cultures">
+<h2>List of Ordinal Cultures<a class="headerlink" href="#list-of-ordinal-cultures" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 50.0%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>culture_id</p></th>
+<th class="head"><p>Implementation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">id</span></code> <code class="docutils literal notranslate"><span class="pre">identity</span></code></p></td>
+<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/ordinal/identity.html#prefsampling.ordinal.identity.identity" title="(in prefsampling v0.1.21)"><code class="xref py py-func docutils literal notranslate"><span class="pre">identity()</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ic</span></code> <code class="docutils literal notranslate"><span class="pre">impartial</span></code> <code class="docutils literal notranslate"><span class="pre">impartial_culture</span></code></p></td>
+<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/ordinal/impartial.html#prefsampling.ordinal.impartial.impartial" title="(in prefsampling v0.1.21)"><code class="xref py py-func docutils literal notranslate"><span class="pre">impartial()</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">iac</span></code></p></td>
+<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/ordinal/impartial.html#prefsampling.ordinal.impartial.impartial_anonymous" title="(in prefsampling v0.1.21)"><code class="xref py py-func docutils literal notranslate"><span class="pre">impartial_anonymous()</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">stratification</span></code></p></td>
+<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/ordinal/impartial.html#prefsampling.ordinal.impartial.impartial_anonymous" title="(in prefsampling v0.1.21)"><code class="xref py py-func docutils literal notranslate"><span class="pre">impartial_anonymous()</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">an</span></code> <code class="docutils literal notranslate"><span class="pre">antagonism</span></code></p></td>
+<td><p><code class="xref py py-func docutils literal notranslate"><span class="pre">antagonism()</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">urn</span></code></p></td>
+<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/ordinal/urn.html#prefsampling.ordinal.urn.urn" title="(in prefsampling v0.1.21)"><code class="xref py py-func docutils literal notranslate"><span class="pre">urn()</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">didi</span></code></p></td>
+<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/ordinal/didi.html#prefsampling.ordinal.didi.didi" title="(in prefsampling v0.1.21)"><code class="xref py py-func docutils literal notranslate"><span class="pre">didi()</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">plackett-luce</span></code></p></td>
+<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/ordinal/plackettluce.html#prefsampling.ordinal.plackettluce.plackett_luce" title="(in prefsampling v0.1.21)"><code class="xref py py-func docutils literal notranslate"><span class="pre">plackett_luce()</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">walsh</span></code></p></td>
+<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/ordinal/singlepeaked.html#prefsampling.ordinal.singlepeaked.single_peaked_walsh" title="(in prefsampling v0.1.21)"><code class="xref py py-func docutils literal notranslate"><span class="pre">single_peaked_walsh()</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">conitzer</span></code></p></td>
+<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/ordinal/singlepeaked.html#prefsampling.ordinal.singlepeaked.single_peaked_conitzer" title="(in prefsampling v0.1.21)"><code class="xref py py-func docutils literal notranslate"><span class="pre">single_peaked_conitzer()</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">spoc</span></code></p></td>
+<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/ordinal/singlepeaked.html#prefsampling.ordinal.singlepeaked.single_peaked_circle" title="(in prefsampling v0.1.21)"><code class="xref py py-func docutils literal notranslate"><span class="pre">single_peaked_circle()</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">spoc</span></code></p></td>
+<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/ordinal/singlecrossing.html#prefsampling.ordinal.singlecrossing.single_crossing" title="(in prefsampling v0.1.21)"><code class="xref py py-func docutils literal notranslate"><span class="pre">single_crossing()</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">approx_uniformity</span></code></p></td>
+<td><p><a class="reference internal" href="compass.html#mapof.elections.cultures.compass.generate_approx_uniformity_votes" title="mapof.elections.cultures.compass.generate_approx_uniformity_votes"><code class="xref py py-func docutils literal notranslate"><span class="pre">generate_approx_uniformity_votes()</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">approx_stratification</span></code></p></td>
+<td><p><a class="reference internal" href="compass.html#mapof.elections.cultures.compass.generate_approx_stratification_votes" title="mapof.elections.cultures.compass.generate_approx_stratification_votes"><code class="xref py py-func docutils literal notranslate"><span class="pre">generate_approx_stratification_votes()</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">euclidean</span></code></p></td>
+<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/ordinal/euclidean.html#prefsampling.ordinal.euclidean.euclidean" title="(in prefsampling v0.1.21)"><code class="xref py py-func docutils literal notranslate"><span class="pre">euclidean()</span></code></a>, <a class="reference internal" href="prefsampling_mask.html#mapof.elections.cultures.prefsampling_mask.euclidean_ord_mask" title="mapof.elections.cultures.prefsampling_mask.euclidean_ordinal_mask"><code class="xref py py-func docutils literal notranslate"><span class="pre">euclidean_ordinal_mask()</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">euclidean</span></code></p></td>
+<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/ordinal/groupseparable.html#prefsampling.ordinal.groupseparable.group_separable" title="(in prefsampling v0.1.21)"><code class="xref py py-func docutils literal notranslate"><span class="pre">group_separable()</span></code></a>, <a class="reference internal" href="prefsampling_mask.html#mapof.elections.cultures.prefsampling_mask.gs_mask" title="mapof.elections.cultures.prefsampling_mask.group_separable_mask"><code class="xref py py-func docutils literal notranslate"><span class="pre">group_separable_mask()</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mallows</span></code></p></td>
+<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/ordinal/mallows.html#prefsampling.ordinal.mallows.mallows" title="(in prefsampling v0.1.21)"><code class="xref py py-func docutils literal notranslate"><span class="pre">mallows()</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">norm-mallows</span></code></p></td>
+<td><p><code class="xref py py-func docutils literal notranslate"><span class="pre">generate_mallows_votes()</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="list-of-pseudo-ordinal-cultures">
+<h2>List of Pseudo Ordinal Cultures<a class="headerlink" href="#list-of-pseudo-ordinal-cultures" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 50.0%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>culture_id</p></th>
+<th class="head"><p>Implementation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">pseudo_uniformity</span></code></p></td>
+<td><p><code class="xref py py-func docutils literal notranslate"><span class="pre">pseudo_identity()</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">pseudo_uniformity</span></code></p></td>
+<td><p><code class="xref py py-func docutils literal notranslate"><span class="pre">pseudo_uniformity()</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">pseudo_antagonism</span></code></p></td>
+<td><p><code class="xref py py-func docutils literal notranslate"><span class="pre">pseudo_antagonism()</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">pseudo_stratification</span></code></p></td>
+<td><p><code class="xref py py-func docutils literal notranslate"><span class="pre">pseudo_stratification()</span></code></p></td>
 </tr>
 </tbody>
 </table>
@@ -512,8 +578,9 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#list-of-ordinal-cultures">List of Ordinal Cultures</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#list-of-approval-cultures">List of Approval Cultures</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#list-of-ordinal-cultures">List of Ordinal Cultures</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#list-of-pseudo-ordinal-cultures">List of Pseudo Ordinal Cultures</a></li>
 </ul>
   </nav></div>
 

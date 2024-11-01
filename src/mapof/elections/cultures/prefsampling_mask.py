@@ -4,6 +4,7 @@ import logging
 
 from prefsampling.core.euclidean import EuclideanSpace
 
+
 def truncated_urn_mask(num_voters=None,
                        num_candidates=None,
                        p=None,
@@ -29,13 +30,11 @@ def identity_mask(num_voters=None,
                                   **kwargs)
 
 
-
-
-def gs_mask(num_voters=None,
-            num_candidates=None,
-            tree_sampler=None,
-            seed=None,
-            **_kwargs):
+def group_separable_mask(num_voters=None,
+                         num_candidates=None,
+                         tree_sampler=None,
+                         seed=None,
+                         **_kwargs):
     """ Mask for the group-separable culture. """
 
     if type(tree_sampler) is str:
@@ -54,11 +53,11 @@ def gs_mask(num_voters=None,
                                         seed=seed)
 
 
-def euclidean_ord_mask(num_voters=None,
-                       num_candidates=None,
-                       space=None,
-                       dim=2,
-                       **kwargs):
+def euclidean_ordinal_mask(num_voters=None,
+                           num_candidates=None,
+                           space=None,
+                           dim=2,
+                           **kwargs):
     """ Euclidean Ordinal Masked"""
 
     num_dimensions = dim
@@ -87,12 +86,12 @@ def euclidean_ord_mask(num_voters=None,
         **kwargs)
 
 
-def euclidean_app_mask(num_voters=None,
-                       num_candidates=None,
-                       space=None,
-                       dim=2,
-                       radius=0.2,
-                       **kwargs):
+def euclidean_approval_mask(num_voters=None,
+                            num_candidates=None,
+                            space=None,
+                            dim=2,
+                            radius=0.2,
+                            **kwargs):
     """ Euclidean Approval Masked"""
 
     num_dimensions = dim
@@ -112,7 +111,6 @@ def euclidean_app_mask(num_voters=None,
     else:
         point_sampler = EuclideanSpace.UNIFORM_CUBE
 
-
     return pref_approval.euclidean_vcr(
         num_voters=num_voters,
         num_candidates=num_candidates,
@@ -122,3 +120,16 @@ def euclidean_app_mask(num_voters=None,
         voters_positions=point_sampler,
         candidates_positions=point_sampler,
         **kwargs)
+
+
+def norm_mallows_mask(num_voters=None,
+                      num_candidates=None,
+                      normphi=None,
+                      phi=None,
+                      weight=None,
+                      **kwargs):
+    """ Mask for the norm mallows culture. """
+    return pref_ordinal.norm_mallows(num_voters=num_voters,
+                                     num_candidates=num_candidates,
+                                     norm_phi=normphi,
+                                     **kwargs)

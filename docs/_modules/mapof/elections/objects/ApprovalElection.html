@@ -155,8 +155,7 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/cultures/index.html">Cultures</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/list_of_cultures.html">List of Cultures</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/main.html">Main</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/compass_approx.html">Compass Approximation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/compass_true.html">Compass True</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/compass.html">Compass</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/prefsampling_mask.html">Prefsampling Mask</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/pseudo_cultures.html">Pseudo Cultures</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/params.html">Params</a></li>
@@ -329,10 +328,10 @@ document.write(`
                   
   <h1>Source code for mapof.elections.objects.ApprovalElection</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
 
-<span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">mapof.core.distances</span> <span class="kn">import</span> <span class="n">hamming</span>
 <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
@@ -370,7 +369,13 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">reverse_approvals</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">candidatelikeness_original_vectors</span> <span class="o">=</span> <span class="p">[]</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">import_approval_election</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_imported</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">experiment_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">import_approval_election</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">try_updating_params</span><span class="p">()</span>
 
 <div class="viewcode-block" id="ApprovalElection.import_approval_election">
 <a class="viewcode-back" href="../../../../reference/objects/ApprovalElection.html#mapof.elections.objects.ApprovalElection.ApprovalElection.import_approval_election">[docs]</a>
@@ -382,27 +387,35 @@ document.write(`
 <span class="sd">        -------</span>
 <span class="sd">            None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_imported</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">experiment_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">votes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_voters</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">,</span> \
-                        <span class="bp">self</span><span class="o">.</span><span class="n">culture_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_options</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">quantities</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">distinct_votes</span> \
-                        <span class="o">=</span> <span class="n">imports</span><span class="o">.</span><span class="n">import_real_app_election</span><span class="p">(</span>
-                            <span class="n">experiment_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">experiment_id</span><span class="p">,</span>
-                            <span class="n">election_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">election_id</span><span class="p">,</span>
-                            <span class="n">is_shifted</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">is_shifted</span><span class="p">)</span>
-            <span class="k">except</span><span class="p">:</span>
-                <span class="k">pass</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">votes</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">num_voters</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">culture_id</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">num_options</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">quantities</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">distinct_votes</span><span class="p">,</span>
+            <span class="p">)</span> <span class="o">=</span> <span class="n">imports</span><span class="o">.</span><span class="n">import_real_app_election</span><span class="p">(</span>
+                <span class="n">experiment_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">experiment_id</span><span class="p">,</span>
+                <span class="n">election_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">election_id</span><span class="p">,</span>
+                <span class="n">is_shifted</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">is_shifted</span>
+            <span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">pass</span></div>
 
+
+    <span class="k">def</span> <span class="nf">try_updating_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">culture_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">printing_params</span> <span class="o">=</span> <span class="n">update_params_approval</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">,</span>
-                                                                       <span class="bp">self</span><span class="o">.</span><span class="n">printing_params</span><span class="p">,</span>
-                                                                       <span class="bp">self</span><span class="o">.</span><span class="n">variable</span><span class="p">,</span>
-                                                                       <span class="bp">self</span><span class="o">.</span><span class="n">culture_id</span><span class="p">,</span>
-                                                                       <span class="bp">self</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">)</span></div>
-
+            <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">printing_params</span> <span class="o">=</span> <span class="n">update_params_approval</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">printing_params</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">variable</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">culture_id</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">num_candidates</span>
+            <span class="p">)</span>
 
 <div class="viewcode-block" id="ApprovalElection.votes_to_approvalwise_vector">
 <a class="viewcode-back" href="../../../../reference/objects/ApprovalElection.html#mapof.elections.objects.ApprovalElection.ApprovalElection.votes_to_approvalwise_vector">[docs]</a>
@@ -665,7 +678,6 @@ document.write(`
         <span class="k">if</span> <span class="n">saveas</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
 
             <span class="k">if</span> <span class="n">saveas</span> <span class="o">==</span> <span class="s1">&#39;default&#39;</span><span class="p">:</span>
-
                 <span class="n">saveas</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">object_type</span><span class="si">}</span><span class="s1">&#39;</span>
 
             <span class="n">file_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s2">&quot;images&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">saveas</span><span class="si">}</span><span class="s1">.png&#39;</span><span class="p">)</span>

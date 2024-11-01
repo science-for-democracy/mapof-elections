@@ -100,7 +100,6 @@ def get_frequency_matrix_for_guardian(culture_id, num_candidates, params=None):
     return vectors
 
 
-
 def get_pseudo_convex(culture_id, num_candidates, params, function_name):
     if culture_id == 'pseudo_unid':
         base_1 = function_name('pseudo_uniformity', num_candidates)

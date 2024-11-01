@@ -155,8 +155,7 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/cultures/index.html">Cultures</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/list_of_cultures.html">List of Cultures</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/main.html">Main</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/compass_approx.html">Compass Approximation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/compass_true.html">Compass True</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/compass.html">Compass</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/prefsampling_mask.html">Prefsampling Mask</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/pseudo_cultures.html">Pseudo Cultures</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/params.html">Params</a></li>
@@ -357,7 +356,7 @@ document.write(`
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">mapof.elections.features.simple_ordinal</span> <span class="kn">import</span> <span class="n">is_condorcet</span>
 <span class="kn">from</span> <span class="nn">mapof.elections.objects.Election</span> <span class="kn">import</span> <span class="n">Election</span>
-<span class="kn">from</span> <span class="nn">mapof.elections.other.glossary</span> <span class="kn">import</span> <span class="n">PATHS</span><span class="p">,</span> <span class="n">is_pseudo_culture</span>
+<span class="kn">from</span> <span class="nn">mapof.elections.other.glossary</span> <span class="kn">import</span> <span class="n">PATHS</span>
 <span class="kn">from</span> <span class="nn">mapof.elections.other.ordinal_rules</span> <span class="kn">import</span> <span class="n">voting_rule</span>
 
 
@@ -402,78 +401,71 @@ document.write(`
         <span class="k">if</span> <span class="n">frequency_matrix</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">frequency_matrix</span> <span class="o">=</span> <span class="n">frequency_matrix</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">import_ordinal_election</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_imported</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">experiment_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">import_ordinal_election</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">try_updating_params</span><span class="p">()</span>
 
 <div class="viewcode-block" id="OrdinalElection.import_ordinal_election">
 <a class="viewcode-back" href="../../../../reference/objects/OrdinalElection.html#mapof.elections.objects.OrdinalElection.OrdinalElection.import_ordinal_election">[docs]</a>
     <span class="k">def</span> <span class="nf">import_ordinal_election</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; Import ordinal election. &quot;&quot;&quot;</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_imported</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">experiment_id</span> <span class="o">!=</span> <span class="s1">&#39;virtual&#39;</span><span class="p">:</span>
-
-            <span class="k">try</span><span class="p">:</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">votes</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">culture_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">culture_id</span>
-                    <span class="k">if</span> <span class="n">is_pseudo_culture</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">votes</span><span class="p">[</span><span class="mi">0</span><span class="p">])):</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">is_pseudo</span> <span class="o">=</span> <span class="kc">True</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">votes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">votes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">num_candidates</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">votes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">num_voters</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">votes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-                    <span class="k">else</span><span class="p">:</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">votes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">votes</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">num_candidates</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">votes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">num_voters</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">votes</span><span class="p">)</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">compute_potes</span><span class="p">()</span>
-                <span class="k">else</span><span class="p">:</span>
-
-                    <span class="k">if</span> <span class="n">imports</span><span class="o">.</span><span class="n">check_if_pseudo</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">experiment_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">election_id</span><span class="p">):</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">is_pseudo</span> <span class="o">=</span> <span class="kc">True</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">culture_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_voters</span><span class="p">,</span> \
-                        <span class="bp">self</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">frequency_matrix</span> <span class="o">=</span> <span class="n">imports</span><span class="o">.</span><span class="n">import_pseudo_soc_election</span><span class="p">(</span>
-                            <span class="bp">self</span><span class="o">.</span><span class="n">experiment_id</span><span class="p">,</span>
-                            <span class="bp">self</span><span class="o">.</span><span class="n">election_id</span><span class="p">)</span>
-                    <span class="k">else</span><span class="p">:</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">is_pseudo</span> <span class="o">=</span> <span class="kc">False</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">votes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_voters</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">,</span> \
-                        <span class="bp">self</span><span class="o">.</span><span class="n">culture_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">alliances</span><span class="p">,</span> \
-                        <span class="bp">self</span><span class="o">.</span><span class="n">num_options</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">quantities</span><span class="p">,</span> \
-                        <span class="bp">self</span><span class="o">.</span><span class="n">distinct_votes</span> <span class="o">=</span> <span class="n">imports</span><span class="o">.</span><span class="n">import_real_soc_election</span><span class="p">(</span>
-                            <span class="n">experiment_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">experiment_id</span><span class="p">,</span>
-                            <span class="n">election_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">election_id</span><span class="p">,</span>
-                            <span class="n">is_shifted</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">is_shifted</span><span class="p">)</span>
-                        <span class="k">try</span><span class="p">:</span>
-                            <span class="bp">self</span><span class="o">.</span><span class="n">points</span><span class="p">[</span><span class="s1">&#39;voters&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">import_ideal_points</span><span class="p">(</span><span class="s1">&#39;voters&#39;</span><span class="p">)</span>
-                            <span class="bp">self</span><span class="o">.</span><span class="n">points</span><span class="p">[</span><span class="s1">&#39;candidates&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">import_ideal_points</span><span class="p">(</span><span class="s1">&#39;candidates&#39;</span><span class="p">)</span>
-                        <span class="k">except</span><span class="p">:</span>
-                            <span class="k">pass</span>
-
-                        <span class="k">try</span><span class="p">:</span>
-                            <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="mi">1</span>
-                            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="ow">and</span> <span class="s1">&#39;alpha&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">:</span>
-                                <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">]</span>
-                        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-                            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span class="p">)</span>
-
-                <span class="bp">self</span><span class="o">.</span><span class="n">candidatelikeness_original_matrix</span> <span class="o">=</span> <span class="p">{}</span>
-
-                <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">fast_import</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_votes_to_frequency_matrix</span><span class="p">()</span>
-            <span class="k">except</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">is_correct</span> <span class="o">=</span> <span class="kc">False</span>
-
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
-
         <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">is_pseudo</span> <span class="o">=</span> <span class="n">imports</span><span class="o">.</span><span class="n">check_if_pseudo</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">experiment_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">election_id</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_pseudo</span><span class="p">:</span>
+                <span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">culture_id</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">num_voters</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">frequency_matrix</span>
+                <span class="p">)</span> <span class="o">=</span> <span class="n">imports</span><span class="o">.</span><span class="n">import_pseudo_soc_election</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">experiment_id</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">election_id</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">votes</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">num_voters</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">culture_id</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">alliances</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">num_options</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">quantities</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">distinct_votes</span>
+                <span class="p">)</span> <span class="o">=</span> <span class="n">imports</span><span class="o">.</span><span class="n">import_real_soc_election</span><span class="p">(</span>
+                    <span class="n">experiment_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">experiment_id</span><span class="p">,</span>
+                    <span class="n">election_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">election_id</span><span class="p">,</span>
+                    <span class="n">is_shifted</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">is_shifted</span><span class="p">)</span>
+
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">points</span><span class="p">[</span><span class="s1">&#39;voters&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">import_ideal_points</span><span class="p">(</span><span class="s1">&#39;voters&#39;</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">points</span><span class="p">[</span><span class="s1">&#39;candidates&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">import_ideal_points</span><span class="p">(</span><span class="s1">&#39;candidates&#39;</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                    <span class="k">pass</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">fast_import</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_votes_to_frequency_matrix</span><span class="p">()</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">pass</span></div>
+
+
+    <span class="k">def</span> <span class="nf">try_updating_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">culture_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">printing_params</span> <span class="o">=</span> <span class="n">update_params_ordinal</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">,</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">printing_params</span><span class="p">,</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">variable</span><span class="p">,</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">culture_id</span><span class="p">,</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">)</span>
-        <span class="k">except</span><span class="p">:</span>
-            <span class="k">pass</span></div>
-
+                <span class="bp">self</span><span class="o">.</span><span class="n">num_candidates</span>
+            <span class="p">)</span>
 
 <div class="viewcode-block" id="OrdinalElection.get_frequency_matrix">
 <a class="viewcode-back" href="../../../../reference/objects/OrdinalElection.html#mapof.elections.objects.OrdinalElection.OrdinalElection.get_frequency_matrix">[docs]</a>

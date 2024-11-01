@@ -155,8 +155,7 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../reference/cultures/index.html">Cultures</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/cultures/list_of_cultures.html">List of Cultures</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/cultures/main.html">Main</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../reference/cultures/compass_approx.html">Compass Approximation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../reference/cultures/compass_true.html">Compass True</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/cultures/compass.html">Compass</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/cultures/prefsampling_mask.html">Prefsampling Mask</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/cultures/pseudo_cultures.html">Pseudo Cultures</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/cultures/params.html">Params</a></li>
@@ -335,8 +334,7 @@ document.write(`
 <span class="kn">import</span> <span class="nn">prefsampling.ordinal</span> <span class="k">as</span> <span class="nn">pref_ordinal</span>
 
 <span class="kn">import</span> <span class="nn">mapof.elections.cultures.prefsampling_mask</span> <span class="k">as</span> <span class="nn">mask</span>
-<span class="kn">import</span> <span class="nn">mapof.elections.cultures.compass_approx</span> <span class="k">as</span> <span class="nn">compass_approx</span>
-<span class="kn">import</span> <span class="nn">mapof.elections.cultures.compass_true</span> <span class="k">as</span> <span class="nn">compass_true</span>
+<span class="kn">import</span> <span class="nn">mapof.elections.cultures.compass</span> <span class="k">as</span> <span class="nn">compass</span>
 <span class="kn">import</span> <span class="nn">mapof.elections.cultures.mallows</span> <span class="k">as</span> <span class="nn">mallows</span>
 <span class="kn">import</span> <span class="nn">mapof.elections.cultures.matrices.single_crossing_matrices</span> <span class="k">as</span> <span class="nn">sc_matrices</span>
 <span class="kn">import</span> <span class="nn">mapof.elections.cultures.matrices.single_peaked_matrices</span> <span class="k">as</span> <span class="nn">sp_matrices</span>
@@ -362,7 +360,7 @@ document.write(`
     <span class="s1">&#39;disjoint_resampling&#39;</span><span class="p">:</span> <span class="n">pref_approval</span><span class="o">.</span><span class="n">disjoint_resampling</span><span class="p">,</span>
     <span class="s1">&#39;moving_resampling&#39;</span><span class="p">:</span> <span class="n">pref_approval</span><span class="o">.</span><span class="n">moving_resampling</span><span class="p">,</span>
     <span class="s1">&#39;noise&#39;</span><span class="p">:</span> <span class="n">pref_approval</span><span class="o">.</span><span class="n">noise</span><span class="p">,</span>
-    <span class="s1">&#39;euclidean&#39;</span><span class="p">:</span> <span class="n">mask</span><span class="o">.</span><span class="n">euclidean_app_mask</span><span class="p">,</span>
+    <span class="s1">&#39;euclidean&#39;</span><span class="p">:</span> <span class="n">mask</span><span class="o">.</span><span class="n">euclidean_approval_mask</span><span class="p">,</span>
     <span class="s1">&#39;full&#39;</span><span class="p">:</span> <span class="n">pref_approval</span><span class="o">.</span><span class="n">full</span><span class="p">,</span>
     <span class="s1">&#39;empty&#39;</span><span class="p">:</span> <span class="n">pref_approval</span><span class="o">.</span><span class="n">empty</span><span class="p">,</span>
     <span class="s1">&#39;truncated_urn&#39;</span><span class="p">:</span> <span class="n">mask</span><span class="o">.</span><span class="n">truncated_urn_mask</span><span class="p">,</span>
@@ -380,54 +378,42 @@ document.write(`
     <span class="s1">&#39;ic&#39;</span><span class="p">:</span> <span class="n">pref_ordinal</span><span class="o">.</span><span class="n">impartial</span><span class="p">,</span>  <span class="c1"># deprecated name</span>
     <span class="s1">&#39;impartial&#39;</span><span class="p">:</span> <span class="n">pref_ordinal</span><span class="o">.</span><span class="n">impartial</span><span class="p">,</span>
     <span class="s1">&#39;impartial_culture&#39;</span><span class="p">:</span> <span class="n">pref_ordinal</span><span class="o">.</span><span class="n">impartial</span><span class="p">,</span>
-
     <span class="s1">&#39;iac&#39;</span><span class="p">:</span> <span class="n">pref_ordinal</span><span class="o">.</span><span class="n">impartial_anonymous</span><span class="p">,</span>
-    <span class="s1">&#39;antagonism&#39;</span><span class="p">:</span> <span class="n">compass_true</span><span class="o">.</span><span class="n">generate_real_antagonism_votes</span><span class="p">,</span>
-    <span class="s1">&#39;an&#39;</span><span class="p">:</span> <span class="n">compass_true</span><span class="o">.</span><span class="n">generate_real_antagonism_votes</span><span class="p">,</span>  <span class="c1"># deprecated name</span>
-
+    <span class="s1">&#39;antagonism&#39;</span><span class="p">:</span> <span class="n">compass</span><span class="o">.</span><span class="n">generate_antagonism_votes</span><span class="p">,</span>
+    <span class="s1">&#39;an&#39;</span><span class="p">:</span> <span class="n">compass</span><span class="o">.</span><span class="n">generate_antagonism_votes</span><span class="p">,</span>  <span class="c1"># deprecated name</span>
+    <span class="s1">&#39;didi&#39;</span><span class="p">:</span> <span class="n">pref_ordinal</span><span class="o">.</span><span class="n">didi</span><span class="p">,</span>
+    <span class="s1">&#39;plackett-luce&#39;</span><span class="p">:</span> <span class="n">pref_ordinal</span><span class="o">.</span><span class="n">plackett_luce</span><span class="p">,</span>
     <span class="s1">&#39;urn&#39;</span><span class="p">:</span> <span class="n">pref_ordinal</span><span class="o">.</span><span class="n">urn</span><span class="p">,</span>
     <span class="s1">&#39;single-crossing&#39;</span><span class="p">:</span> <span class="n">pref_ordinal</span><span class="o">.</span><span class="n">single_crossing</span><span class="p">,</span>
     <span class="s1">&#39;conitzer&#39;</span><span class="p">:</span> <span class="n">pref_ordinal</span><span class="o">.</span><span class="n">single_peaked_conitzer</span><span class="p">,</span>
     <span class="s1">&#39;walsh&#39;</span><span class="p">:</span> <span class="n">pref_ordinal</span><span class="o">.</span><span class="n">single_peaked_walsh</span><span class="p">,</span>
     <span class="s1">&#39;spoc&#39;</span><span class="p">:</span> <span class="n">pref_ordinal</span><span class="o">.</span><span class="n">single_peaked_circle</span><span class="p">,</span>
+    <span class="s1">&#39;approx_uniformity&#39;</span><span class="p">:</span> <span class="n">compass</span><span class="o">.</span><span class="n">generate_approx_uniformity_votes</span><span class="p">,</span>
+    <span class="s1">&#39;un_from_matrix&#39;</span><span class="p">:</span> <span class="n">compass</span><span class="o">.</span><span class="n">generate_approx_uniformity_votes</span><span class="p">,</span>  <span class="c1"># deprecated name</span>
+    <span class="s1">&#39;approx_stratification&#39;</span><span class="p">:</span> <span class="n">compass</span><span class="o">.</span><span class="n">generate_approx_stratification_votes</span><span class="p">,</span>
+
+    <span class="s1">&#39;euclidean&#39;</span><span class="p">:</span> <span class="n">mask</span><span class="o">.</span><span class="n">euclidean_ordinal_mask</span><span class="p">,</span>
+
+    <span class="s1">&#39;group-separable&#39;</span><span class="p">:</span> <span class="n">mask</span><span class="o">.</span><span class="n">group_separable_mask</span><span class="p">,</span>
     <span class="s1">&#39;mallows&#39;</span><span class="p">:</span> <span class="n">pref_ordinal</span><span class="o">.</span><span class="n">mallows</span><span class="p">,</span>
-    <span class="s1">&#39;didi&#39;</span><span class="p">:</span> <span class="n">pref_ordinal</span><span class="o">.</span><span class="n">didi</span><span class="p">,</span>
-    <span class="s1">&#39;plackett-luce&#39;</span><span class="p">:</span> <span class="n">pref_ordinal</span><span class="o">.</span><span class="n">plackett_luce</span><span class="p">,</span>
-
-    <span class="s1">&#39;approx_stratification&#39;</span><span class="p">:</span> <span class="n">compass_approx</span><span class="o">.</span><span class="n">generate_approx_stratification_votes</span><span class="p">,</span>
-    <span class="s1">&#39;approx_uniformity&#39;</span><span class="p">:</span> <span class="n">compass_approx</span><span class="o">.</span><span class="n">generate_approx_uniformity_votes</span><span class="p">,</span>
-    <span class="s1">&#39;un_from_matrix&#39;</span><span class="p">:</span> <span class="n">compass_approx</span><span class="o">.</span><span class="n">generate_approx_uniformity_votes</span><span class="p">,</span>  <span class="c1"># deprecated name</span>
-
-    <span class="s1">&#39;group-separable&#39;</span><span class="p">:</span> <span class="n">mask</span><span class="o">.</span><span class="n">gs_mask</span><span class="p">,</span>
-    <span class="s1">&#39;euclidean&#39;</span><span class="p">:</span> <span class="n">mask</span><span class="o">.</span><span class="n">euclidean_ord_mask</span><span class="p">,</span>
-
     <span class="s1">&#39;norm-mallows&#39;</span><span class="p">:</span> <span class="n">mallows</span><span class="o">.</span><span class="n">generate_mallows_votes</span><span class="p">,</span>
 
-    <span class="s1">&#39;idan_part&#39;</span><span class="p">:</span> <span class="n">compass_approx</span><span class="o">.</span><span class="n">generate_idan_part_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
-    <span class="s1">&#39;idun_part&#39;</span><span class="p">:</span> <span class="n">compass_approx</span><span class="o">.</span><span class="n">generate_idun_part_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
-    <span class="s1">&#39;idst_part&#39;</span><span class="p">:</span> <span class="n">compass_approx</span><span class="o">.</span><span class="n">generate_idst_part_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
-    <span class="s1">&#39;anun_part&#39;</span><span class="p">:</span> <span class="n">compass_approx</span><span class="o">.</span><span class="n">generate_anun_part_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
-    <span class="s1">&#39;anst_part&#39;</span><span class="p">:</span> <span class="n">compass_approx</span><span class="o">.</span><span class="n">generate_anst_part_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
-    <span class="s1">&#39;unst_part&#39;</span><span class="p">:</span> <span class="n">compass_approx</span><span class="o">.</span><span class="n">generate_unst_part_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
 
-    <span class="c1"># &#39;idan_mallows&#39;: compass_approx.generate_idan_mallows_votes,  # unsupported culture</span>
-    <span class="c1"># &#39;idst_mallows&#39;: compass_approx.generate_idst_mallows_votes,  # unsupported culture</span>
-    <span class="c1"># &#39;anun_mallows&#39;: compass_approx.generate_anun_mallows_votes,  # unsupported culture</span>
-    <span class="c1"># &#39;unst_mallows&#39;: compass_approx.generate_unst_mallows_votes,  # unsupported culture</span>
-
-    <span class="s1">&#39;unst_topsize&#39;</span><span class="p">:</span> <span class="n">compass_approx</span><span class="o">.</span><span class="n">generate_unst_topsize_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
-    <span class="s1">&#39;idst_blocks&#39;</span><span class="p">:</span> <span class="n">compass_approx</span><span class="o">.</span><span class="n">generate_idst_blocks_votes</span><span class="p">,</span>
+    <span class="s1">&#39;idan_part&#39;</span><span class="p">:</span> <span class="n">compass</span><span class="o">.</span><span class="n">generate_idan_part_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
+    <span class="s1">&#39;idun_part&#39;</span><span class="p">:</span> <span class="n">compass</span><span class="o">.</span><span class="n">generate_idun_part_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
+    <span class="s1">&#39;idst_part&#39;</span><span class="p">:</span> <span class="n">compass</span><span class="o">.</span><span class="n">generate_idst_part_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
+    <span class="s1">&#39;anun_part&#39;</span><span class="p">:</span> <span class="n">compass</span><span class="o">.</span><span class="n">generate_anun_part_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
+    <span class="s1">&#39;anst_part&#39;</span><span class="p">:</span> <span class="n">compass</span><span class="o">.</span><span class="n">generate_anst_part_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
+    <span class="s1">&#39;unst_part&#39;</span><span class="p">:</span> <span class="n">compass</span><span class="o">.</span><span class="n">generate_unst_part_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
+    <span class="s1">&#39;unst_topsize&#39;</span><span class="p">:</span> <span class="n">compass</span><span class="o">.</span><span class="n">generate_unst_topsize_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
+    <span class="s1">&#39;idst_blocks&#39;</span><span class="p">:</span> <span class="n">compass</span><span class="o">.</span><span class="n">generate_idst_blocks_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
     <span class="s1">&#39;norm-mallows_mixture&#39;</span><span class="p">:</span> <span class="n">mallows</span><span class="o">.</span><span class="n">generate_norm_mallows_mixture_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
-
-    <span class="c1"># &#39;walsh_mallows&#39;: sp_matrices.generate_walsh_mallows_votes,  # unsupported culture</span>
-    <span class="c1"># &#39;conitzer_mallows&#39;: sp_matrices.generate_conitzer_mallows_votes,  # unsupported culture</span>
     <span class="s1">&#39;mallows_triangle&#39;</span><span class="p">:</span> <span class="n">mallows</span><span class="o">.</span><span class="n">generate_mallows_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
     <span class="s1">&#39;walsh_party&#39;</span><span class="p">:</span> <span class="n">unused</span><span class="o">.</span><span class="n">generate_sp_party</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
     <span class="s1">&#39;conitzer_party&#39;</span><span class="p">:</span> <span class="n">unused</span><span class="o">.</span><span class="n">generate_sp_party</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
     <span class="s1">&#39;mallows_party&#39;</span><span class="p">:</span> <span class="n">mallows</span><span class="o">.</span><span class="n">generate_mallows_party</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
     <span class="s1">&#39;ic_party&#39;</span><span class="p">:</span> <span class="n">unused</span><span class="o">.</span><span class="n">generate_ic_party</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
-    <span class="s1">&#39;un_from_list&#39;</span><span class="p">:</span> <span class="n">compass_approx</span><span class="o">.</span><span class="n">generate_un_from_list</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
-    <span class="s1">&#39;urn_model&#39;</span><span class="p">:</span> <span class="n">pref_ordinal</span><span class="o">.</span><span class="n">urn</span><span class="p">,</span>  <span class="c1"># deprecated name</span>
+    <span class="s1">&#39;un_from_list&#39;</span><span class="p">:</span> <span class="n">compass</span><span class="o">.</span><span class="n">generate_un_from_list</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
 <span class="p">}</span>
 
 
@@ -486,7 +472,7 @@ document.write(`
         <span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">num_voters</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="o">**</span><span class="n">kwargs</span>
+        <span class="o">**</span><span class="n">_kwargs</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Generates approval votes according to the given culture id.</span>

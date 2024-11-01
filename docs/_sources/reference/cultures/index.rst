@@ -6,8 +6,7 @@ Cultures
 
     list_of_cultures
     main
-    compass_approx
-    compass_true
+    compass
     prefsampling_mask
     pseudo_cultures
     params

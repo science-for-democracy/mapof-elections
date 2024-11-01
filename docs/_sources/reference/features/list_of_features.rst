@@ -65,15 +65,15 @@ List of Approval Features
    * - ``justified_ratio``
      - :py:func:`~mapof.elections.features.simple_approval.justified_ratio`
    * - ``cohesiveness``
-     - :py:func:`~mapof.elections.features.simple_approval.count_largest_cohesiveness_level_l_of_cohesive_group`
+     - :py:func:`~mapof.elections.features.cohesive.count_largest_cohesiveness_level_l_of_cohesive_group`
    * - ``number_of_cohesive_groups``
-     - :py:func:`~mapof.elections.features.simple_approval.count_number_of_cohesive_groups`
+     - :py:func:`~mapof.elections.features.cohesive.count_number_of_cohesive_groups`
    * - ``number_of_cohesive_groups_brute``
-     - :py:func:`~mapof.elections.features.simple_approval.count_number_of_cohesive_groups_brute`
+     - :py:func:`~mapof.elections.features.cohesive.count_number_of_cohesive_groups_brute`
    * - ``proportionality_degree_av``
-     - :py:func:`~mapof.elections.features.simple_approval.proportionality_degree_av`
+     - :py:func:`~mapof.elections.features.proportionality_degree.proportionality_degree_av`
    * - ``proportionality_degree_pav``
-     - :py:func:`~mapof.elections.features.simple_approval.proportionality_degree_pav`
+     - :py:func:`~mapof.elections.features.proportionality_degree.proportionality_degree_pav`
    * - ``proportionality_degree_cc``
-     - :py:func:`~mapof.elections.features.simple_approval.proportionality_degree_cc`
+     - :py:func:`~mapof.elections.features.proportionality_degree.proportionality_degree_cc`
 

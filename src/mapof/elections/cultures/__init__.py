@@ -5,8 +5,7 @@ import prefsampling.approval as pref_approval
 import prefsampling.ordinal as pref_ordinal
 
 import mapof.elections.cultures.prefsampling_mask as mask
-import mapof.elections.cultures.compass_approx as compass_approx
-import mapof.elections.cultures.compass_true as compass_true
+import mapof.elections.cultures.compass as compass
 import mapof.elections.cultures.mallows as mallows
 import mapof.elections.cultures.matrices.single_crossing_matrices as sc_matrices
 import mapof.elections.cultures.matrices.single_peaked_matrices as sp_matrices
@@ -23,25 +22,23 @@ from mapof.elections.other.glossary import is_pseudo_culture
 
 registered_approval_cultures = {
     'identity': mask.identity_mask,
-    'id': mask.identity_mask,
-    'ic': pref_approval.impartial,
+    'id': mask.identity_mask,  # deprecated name
+    'ic': pref_approval.impartial,  # deprecated name
     'impartial': pref_approval.impartial,
-    'impartial_culture': pref_approval.impartial,
-
+    'impartial_culture': pref_approval.impartial,  # deprecated name
     'resampling': pref_approval.resampling,
     'disjoint_resampling': pref_approval.disjoint_resampling,
     'moving_resampling': pref_approval.moving_resampling,
     'noise': pref_approval.noise,
-    'euclidean': mask.euclidean_app_mask,
+    'euclidean': mask.euclidean_approval_mask,
     'full': pref_approval.full,
     'empty': pref_approval.empty,
+    'approval_full': pref_approval.full,  # deprecated name
+    'approval_empty': pref_approval.empty,  # deprecated name
     'truncated_urn': mask.truncated_urn_mask,
     'urn_partylist': pref_approval.urn_partylist,
 
-    'truncated_mallows': mallows.generate_approval_truncated_mallows_votes,  # unsupported culture
-
-    'approval_full': pref_approval.full,  # deprecated name
-    'approval_empty': pref_approval.empty,  # deprecated name
+    # 'truncated_mallows': mallows.generate_approval_truncated_mallows_votes,  # unsupported culture
 }
 
 registered_ordinal_cultures = {
@@ -50,54 +47,43 @@ registered_ordinal_cultures = {
     'ic': pref_ordinal.impartial,  # deprecated name
     'impartial': pref_ordinal.impartial,
     'impartial_culture': pref_ordinal.impartial,
-
     'iac': pref_ordinal.impartial_anonymous,
-    'antagonism': compass_true.generate_real_antagonism_votes,
-    'an': compass_true.generate_real_antagonism_votes,  # deprecated name
-
+    'antagonism': compass.generate_antagonism_votes,
+    'an': compass.generate_antagonism_votes,  # deprecated name
+    'didi': pref_ordinal.didi,
+    'plackett-luce': pref_ordinal.plackett_luce,
     'urn': pref_ordinal.urn,
     'single-crossing': pref_ordinal.single_crossing,
     'conitzer': pref_ordinal.single_peaked_conitzer,
     'walsh': pref_ordinal.single_peaked_walsh,
     'spoc': pref_ordinal.single_peaked_circle,
+    'approx_uniformity': compass.generate_approx_uniformity_votes,
+    'un_from_matrix': compass.generate_approx_uniformity_votes,  # deprecated name
+    'approx_stratification': compass.generate_approx_stratification_votes,
+
+    'euclidean': mask.euclidean_ordinal_mask,
+
+    'group-separable': mask.group_separable_mask,
     'mallows': pref_ordinal.mallows,
-    'didi': pref_ordinal.didi,
-    'plackett-luce': pref_ordinal.plackett_luce,
+    'norm-mallows': mask.norm_mallows_mask,
+    # 'norm-mallows': mallows.generate_mallows_votes,
 
-    'approx_stratification': compass_approx.generate_approx_stratification_votes,
-    'approx_uniformity': compass_approx.generate_approx_uniformity_votes,
-    'un_from_matrix': compass_approx.generate_approx_uniformity_votes,  # deprecated name
 
-    'group-separable': mask.gs_mask,
-    'euclidean': mask.euclidean_ord_mask,
-
-    'norm-mallows': mallows.generate_mallows_votes,
-
-    'idan_part': compass_approx.generate_idan_part_votes,  # unsupported culture
-    'idun_part': compass_approx.generate_idun_part_votes,  # unsupported culture
-    'idst_part': compass_approx.generate_idst_part_votes,  # unsupported culture
-    'anun_part': compass_approx.generate_anun_part_votes,  # unsupported culture
-    'anst_part': compass_approx.generate_anst_part_votes,  # unsupported culture
-    'unst_part': compass_approx.generate_unst_part_votes,  # unsupported culture
-
-    # 'idan_mallows': compass_approx.generate_idan_mallows_votes,  # unsupported culture
-    # 'idst_mallows': compass_approx.generate_idst_mallows_votes,  # unsupported culture
-    # 'anun_mallows': compass_approx.generate_anun_mallows_votes,  # unsupported culture
-    # 'unst_mallows': compass_approx.generate_unst_mallows_votes,  # unsupported culture
-
-    'unst_topsize': compass_approx.generate_unst_topsize_votes,  # unsupported culture
-    'idst_blocks': compass_approx.generate_idst_blocks_votes,
+    'idan_part': compass.generate_idan_part_votes,  # unsupported culture
+    'idun_part': compass.generate_idun_part_votes,  # unsupported culture
+    'idst_part': compass.generate_idst_part_votes,  # unsupported culture
+    'anun_part': compass.generate_anun_part_votes,  # unsupported culture
+    'anst_part': compass.generate_anst_part_votes,  # unsupported culture
+    'unst_part': compass.generate_unst_part_votes,  # unsupported culture
+    'unst_topsize': compass.generate_unst_topsize_votes,  # unsupported culture
+    'idst_blocks': compass.generate_idst_blocks_votes,  # unsupported culture
     'norm-mallows_mixture': mallows.generate_norm_mallows_mixture_votes,  # unsupported culture
-
-    # 'walsh_mallows': sp_matrices.generate_walsh_mallows_votes,  # unsupported culture
-    # 'conitzer_mallows': sp_matrices.generate_conitzer_mallows_votes,  # unsupported culture
     'mallows_triangle': mallows.generate_mallows_votes,  # unsupported culture
     'walsh_party': unused.generate_sp_party,  # unsupported culture
     'conitzer_party': unused.generate_sp_party,  # unsupported culture
     'mallows_party': mallows.generate_mallows_party,  # unsupported culture
     'ic_party': unused.generate_ic_party,  # unsupported culture
-    'un_from_list': compass_approx.generate_un_from_list,  # unsupported culture
-    'urn_model': pref_ordinal.urn,  # deprecated name
+    'un_from_list': compass.generate_un_from_list,  # unsupported culture
 }
 
 

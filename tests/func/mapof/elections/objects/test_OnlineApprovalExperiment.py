@@ -12,13 +12,13 @@ class TestOnlineApprovalExperiment:
             culture_id='ic',
             num_candidates=10,
             num_voters=50,
-            p=0.5
+            params={'p': 0.5}
         )
         self.experiment.add_election(
             culture_id='id',
             num_candidates=10,
             num_voters=50,
-            p=0.5
+            params={'p': 0.5}
         )
 
     def add_families(self):
@@ -28,7 +28,7 @@ class TestOnlineApprovalExperiment:
             num_candidates=10,
             num_voters=50,
             size=10,
-            p=0.5,
+            params={'p': 0.5},
             color='green',
             marker='x',
             label='IC'
@@ -39,8 +39,7 @@ class TestOnlineApprovalExperiment:
             num_candidates=10,
             num_voters=50,
             size=10,
-            phi=0.5,
-            p=0.5,
+            params={'p': 0.5, 'phi': 0.5},
             color='blue',
             marker='o',
             label='Resampling'

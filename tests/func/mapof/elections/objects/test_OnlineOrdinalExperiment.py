@@ -18,7 +18,7 @@ class TestOnlineOrdinalExperiment:
             culture_id='urn',
             num_candidates=5,
             num_voters=50,
-            alpha=0.1
+            params={'alpha': 0.1},
         )
 
     def add_families(self):
@@ -38,7 +38,7 @@ class TestOnlineOrdinalExperiment:
             num_candidates=5,
             num_voters=10,
             size=10,
-            normphi=0.5,
+            params={'normphi': 0.5},
             color='blue',
             marker='o',
             label='Norm-Mallows'

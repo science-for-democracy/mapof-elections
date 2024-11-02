@@ -350,12 +350,11 @@ document.write(`
 <span class="kn">from</span> <span class="nn">mapof.elections.other.glossary</span> <span class="kn">import</span> <span class="n">is_pseudo_culture</span>
 
 <span class="n">registered_approval_cultures</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;identity&#39;</span><span class="p">:</span> <span class="n">mask</span><span class="o">.</span><span class="n">identity_mask</span><span class="p">,</span>
-    <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">mask</span><span class="o">.</span><span class="n">identity_mask</span><span class="p">,</span>
-    <span class="s1">&#39;ic&#39;</span><span class="p">:</span> <span class="n">pref_approval</span><span class="o">.</span><span class="n">impartial</span><span class="p">,</span>
-    <span class="s1">&#39;impartial&#39;</span><span class="p">:</span> <span class="n">pref_approval</span><span class="o">.</span><span class="n">impartial</span><span class="p">,</span>
-    <span class="s1">&#39;impartial_culture&#39;</span><span class="p">:</span> <span class="n">pref_approval</span><span class="o">.</span><span class="n">impartial</span><span class="p">,</span>
-
+    <span class="s1">&#39;identity&#39;</span><span class="p">:</span> <span class="n">mask</span><span class="o">.</span><span class="n">identity_approval_mask</span><span class="p">,</span>
+    <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">mask</span><span class="o">.</span><span class="n">identity_approval_mask</span><span class="p">,</span>  <span class="c1"># deprecated name</span>
+    <span class="s1">&#39;ic&#39;</span><span class="p">:</span> <span class="n">mask</span><span class="o">.</span><span class="n">impartial_approval_mask</span><span class="p">,</span>  <span class="c1"># deprecated name</span>
+    <span class="s1">&#39;impartial&#39;</span><span class="p">:</span> <span class="n">mask</span><span class="o">.</span><span class="n">impartial_approval_mask</span><span class="p">,</span>
+    <span class="s1">&#39;impartial_culture&#39;</span><span class="p">:</span> <span class="n">mask</span><span class="o">.</span><span class="n">impartial_approval_mask</span><span class="p">,</span>  <span class="c1"># deprecated name</span>
     <span class="s1">&#39;resampling&#39;</span><span class="p">:</span> <span class="n">pref_approval</span><span class="o">.</span><span class="n">resampling</span><span class="p">,</span>
     <span class="s1">&#39;disjoint_resampling&#39;</span><span class="p">:</span> <span class="n">pref_approval</span><span class="o">.</span><span class="n">disjoint_resampling</span><span class="p">,</span>
     <span class="s1">&#39;moving_resampling&#39;</span><span class="p">:</span> <span class="n">pref_approval</span><span class="o">.</span><span class="n">moving_resampling</span><span class="p">,</span>
@@ -363,13 +362,12 @@ document.write(`
     <span class="s1">&#39;euclidean&#39;</span><span class="p">:</span> <span class="n">mask</span><span class="o">.</span><span class="n">euclidean_approval_mask</span><span class="p">,</span>
     <span class="s1">&#39;full&#39;</span><span class="p">:</span> <span class="n">pref_approval</span><span class="o">.</span><span class="n">full</span><span class="p">,</span>
     <span class="s1">&#39;empty&#39;</span><span class="p">:</span> <span class="n">pref_approval</span><span class="o">.</span><span class="n">empty</span><span class="p">,</span>
+    <span class="s1">&#39;approval_full&#39;</span><span class="p">:</span> <span class="n">pref_approval</span><span class="o">.</span><span class="n">full</span><span class="p">,</span>  <span class="c1"># deprecated name</span>
+    <span class="s1">&#39;approval_empty&#39;</span><span class="p">:</span> <span class="n">pref_approval</span><span class="o">.</span><span class="n">empty</span><span class="p">,</span>  <span class="c1"># deprecated name</span>
     <span class="s1">&#39;truncated_urn&#39;</span><span class="p">:</span> <span class="n">mask</span><span class="o">.</span><span class="n">truncated_urn_mask</span><span class="p">,</span>
     <span class="s1">&#39;urn_partylist&#39;</span><span class="p">:</span> <span class="n">pref_approval</span><span class="o">.</span><span class="n">urn_partylist</span><span class="p">,</span>
 
-    <span class="s1">&#39;truncated_mallows&#39;</span><span class="p">:</span> <span class="n">mallows</span><span class="o">.</span><span class="n">generate_approval_truncated_mallows_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
-
-    <span class="s1">&#39;approval_full&#39;</span><span class="p">:</span> <span class="n">pref_approval</span><span class="o">.</span><span class="n">full</span><span class="p">,</span>  <span class="c1"># deprecated name</span>
-    <span class="s1">&#39;approval_empty&#39;</span><span class="p">:</span> <span class="n">pref_approval</span><span class="o">.</span><span class="n">empty</span><span class="p">,</span>  <span class="c1"># deprecated name</span>
+    <span class="c1"># &#39;truncated_mallows&#39;: mallows.generate_approval_truncated_mallows_votes,  # unsupported culture</span>
 <span class="p">}</span>
 
 <span class="n">registered_ordinal_cultures</span> <span class="o">=</span> <span class="p">{</span>
@@ -385,8 +383,8 @@ document.write(`
     <span class="s1">&#39;plackett-luce&#39;</span><span class="p">:</span> <span class="n">pref_ordinal</span><span class="o">.</span><span class="n">plackett_luce</span><span class="p">,</span>
     <span class="s1">&#39;urn&#39;</span><span class="p">:</span> <span class="n">pref_ordinal</span><span class="o">.</span><span class="n">urn</span><span class="p">,</span>
     <span class="s1">&#39;single-crossing&#39;</span><span class="p">:</span> <span class="n">pref_ordinal</span><span class="o">.</span><span class="n">single_crossing</span><span class="p">,</span>
-    <span class="s1">&#39;conitzer&#39;</span><span class="p">:</span> <span class="n">pref_ordinal</span><span class="o">.</span><span class="n">single_peaked_conitzer</span><span class="p">,</span>
-    <span class="s1">&#39;walsh&#39;</span><span class="p">:</span> <span class="n">pref_ordinal</span><span class="o">.</span><span class="n">single_peaked_walsh</span><span class="p">,</span>
+    <span class="s1">&#39;single-peaked_conitzer&#39;</span><span class="p">:</span> <span class="n">pref_ordinal</span><span class="o">.</span><span class="n">single_peaked_conitzer</span><span class="p">,</span>
+    <span class="s1">&#39;single-peaked_walsh&#39;</span><span class="p">:</span> <span class="n">pref_ordinal</span><span class="o">.</span><span class="n">single_peaked_walsh</span><span class="p">,</span>
     <span class="s1">&#39;spoc&#39;</span><span class="p">:</span> <span class="n">pref_ordinal</span><span class="o">.</span><span class="n">single_peaked_circle</span><span class="p">,</span>
     <span class="s1">&#39;approx_uniformity&#39;</span><span class="p">:</span> <span class="n">compass</span><span class="o">.</span><span class="n">generate_approx_uniformity_votes</span><span class="p">,</span>
     <span class="s1">&#39;un_from_matrix&#39;</span><span class="p">:</span> <span class="n">compass</span><span class="o">.</span><span class="n">generate_approx_uniformity_votes</span><span class="p">,</span>  <span class="c1"># deprecated name</span>
@@ -396,7 +394,8 @@ document.write(`
 
     <span class="s1">&#39;group-separable&#39;</span><span class="p">:</span> <span class="n">mask</span><span class="o">.</span><span class="n">group_separable_mask</span><span class="p">,</span>
     <span class="s1">&#39;mallows&#39;</span><span class="p">:</span> <span class="n">pref_ordinal</span><span class="o">.</span><span class="n">mallows</span><span class="p">,</span>
-    <span class="s1">&#39;norm-mallows&#39;</span><span class="p">:</span> <span class="n">mallows</span><span class="o">.</span><span class="n">generate_mallows_votes</span><span class="p">,</span>
+    <span class="s1">&#39;norm-mallows&#39;</span><span class="p">:</span> <span class="n">mask</span><span class="o">.</span><span class="n">norm_mallows_mask</span><span class="p">,</span>
+    <span class="c1"># &#39;norm-mallows&#39;: mallows.generate_mallows_votes,</span>
 
 
     <span class="s1">&#39;idan_part&#39;</span><span class="p">:</span> <span class="n">compass</span><span class="o">.</span><span class="n">generate_idan_part_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>

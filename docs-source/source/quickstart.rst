@@ -22,16 +22,17 @@ General Tasks
 Generate Ordinal Election from Statistical Culture
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. raw:: html
+.. admonition:: Objective
 
-    <div style="background-color: #cce0ff; padding: 5px; border-radius: 5px;">
-        <strong>Objective</strong>
-        <em>Generate impartial culture election with 5 candidates and 50 voters.</em>
-    </div>
+    Generate impartial culture election with 5 candidates and 50 voters.
 
 In this section, you will learn how to generate ordinal elections from different statistical cultures. We will start by defining what we mean by an election.
 
-Formally, an ordinal election is a pair :math:`E=(C,V)` that consists of a set of candidates :math:`C` and a collection of voters :math:`V`, where each voter has a strict preference order (vote), that is, each voter ranks all the candidates in :math:`C` from the most to the least desirable one. We use terms voter and vote interchangeably. In practice, an ``OrdinalElection`` is an abstract object that, among other fields, contains:
+Formally, an ordinal election is a pair :math:`E=(C,V)` that consists of a set of candidates :math:`C`
+and a collection of voters :math:`V`, where each voter has a strict preference order (vote),
+that is, each voter ranks all the candidates in :math:`C` from the most to the least desirable one.
+We use terms voter and vote interchangeably.
+In practice, we represent an ordinal election by ``OrdinalElection`` object, which among other fields, contains:
 
 .. code-block:: python
 
@@ -53,17 +54,13 @@ E.g., ``votes = [[0,1,2,3],[2,0,3,1],[3,1,2,0]]`` refers to an election with thr
     2 ≻ 0 ≻ 3 ≻ 1
     3 ≻ 1 ≻ 2 ≻ 0
 
-.. raw:: html
 
-    <div style="background-color: #ccffcc; padding: 5px; border-radius: 5px;">
-    <strong>Solution</strong>
-    To generate an election we use the ``generate_ordinal_election()`` function:
-    </div>
+To generate an election we use the ``generate_ordinal_election()`` function:
 
 .. code-block:: python
 
     election = mapof.generate_ordinal_election(
-                                        culture_id='ic',
+                                        culture_id='impartial',
                                         num_candidates=5,
                                         num_voters=50)
 
@@ -75,12 +72,9 @@ E.g., ``votes = [[0,1,2,3],[2,0,3,1],[3,1,2,0]]`` refers to an election with thr
 Generate Approval Election from Statistical Culture
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. raw:: html
+.. admonition:: Objective
 
-    <div style="background-color: #cce0ff; padding: 5px; border-radius: 5px;">
-        <strong>Objective</strong>
-        <em>Generate impartial culture election with 20 candidates and 100 voters</em>
-    </div>
+    Generate impartial culture election with 20 candidates and 100 voters.
 
 .. role:: python(code)
    :language: python
@@ -88,7 +82,7 @@ Generate Approval Election from Statistical Culture
 
 In this section, you will learn how to generate approval elections from different statistical cultures. We will start by defining what we mean by an election.
 
-Formally, an approval election is a pair :math:`E=(C,V)` that consists of a set of candidates :math:`C` and a collection of voters :math:`V`, where each voter approves a certain subset of candidates. In practice, an ``ApprovalElection`` is an abstract object that, among others, contains the following fields:
+Formally, an approval election is a pair :math:`E=(C,V)` that consists of a set of candidates :math:`C` and a collection of voters :math:`V`, where each voter approves a certain subset of candidates. In practice, an ``ApprovalElection`` is an object that, among others, contains the following fields:
 
 .. code-block:: python
 
@@ -109,18 +103,14 @@ For example, ``votes = [{0,1},{1,2,3},{2}]`` refers to an election with three fo
    :math:`{1, 2, 3}`,
    :math:`{2}`.
 
+..
 
-.. raw:: html
-
-    <div style="background-color: #ccffcc; padding: 5px; border-radius: 5px;">
-    <strong>Solution</strong>
-    To generate an election, we use the ``generate_approval_election()`` function:
-    </div>
+To generate an election, we use the ``generate_approval_election()`` function:
 
 .. code-block:: python
 
    election = mapof.generate_approval_election(
-                                      culture_id='ic',
+                                      culture_id='impartial',
                                       num_candidates=20,
                                       num_voters=100)
 
@@ -148,12 +138,9 @@ Instead of using a statistical culture, you can also generate elections based on
 Compute Borda Score
 ~~~~~~~~~~~~~~~~~~~
 
-.. raw:: html
+.. admonition:: Objective
 
-    <div style="background-color: #cce0ff; padding: 5px; border-radius: 5px;">
-        <strong>Objective</strong>
-        <em>Compute Borda scores for a given ordinal election.</em>
-    </div>
+    Compute Borda scores for a given ordinal election.
 
 First, we need to create a ``scores`` list and fill it with zeros.
 
@@ -171,12 +158,7 @@ Second, we need to iterate through all the votes and add appropriate points to c
 
 
 
-.. raw:: html
-
-    <div style="background-color: #ccffcc; padding: 5px; border-radius: 5px;">
-    <strong>Solution</strong>
-    The complete function looks as follows:
-    </div>
+The complete function looks as follows:
 
 .. code-block:: python
 
@@ -191,12 +173,9 @@ Second, we need to iterate through all the votes and add appropriate points to c
 Compute Distance between Two Elections
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. raw:: html
+.. admonition:: Objective
 
-    <div style="background-color: #cce0ff; padding: 5px; border-radius: 5px;">
-    <strong>Objective</strong>
-    <em>Compute the EMD-Positionwise distance between two ordinal elections.</em>
-    </div>
+    Compute the EMD-Positionwise distance between two ordinal elections.
 
 To compute a distance, use the ``compute_distance`` function, which takes two elections and a ``distance_id`` as input.
 
@@ -209,21 +188,16 @@ To compute a distance, use the ``compute_distance`` function, which takes two el
 
 This function returns a tuple containing the distance and the mapping that witnesses this distance. If a given distance does not use a mapping, it returns ``None`` instead.
 
-.. raw:: html
-
-    <div style="background-color: #ccffcc; padding: 5px; border-radius: 5px;">
-    <strong>Solution</strong>
-    We start by generating two elections, and then we compute the distance:
-    </div>
+We start by generating two elections, and then we compute the distance:
 
 .. code-block:: python
 
    election_1 = mapof.generate_ordinal_election(
-                                           culture_id='ic',
+                                           culture_id='impartial',
                                            num_voters=5,
                                            num_candidates=3)
    election_2 = mapof.generate_ordinal_election(
-                                           culture_id='ic',
+                                           culture_id='impartial',
                                            num_voters=5,
                                            num_candidates=3)
    distance, mapping = mapof.compute_distance(
@@ -243,12 +217,9 @@ Experiments
 Generate Election as Part of Experiment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. raw:: html
+.. admonition:: Objective
 
-    <div style="background-color: #cce0ff; padding: 5px; border-radius: 5px;">
-    <strong>Objective</strong>
-    <em>Generate impartial culture election with 5 candidates and 50 voters</em>
-    </div>
+    Generate (within experiment) impartial culture election with 5 candidates and 50 voters
 
 In this section, we introduce an abstract object called ``Experiment``, which helps us keep things clear. Finally, we generate elections using the ``Experiment`` object.
 
@@ -278,19 +249,19 @@ Now, we will focus on the ``add_election()`` method. In order to generate an ele
 
 .. code-block:: python
 
-    experiment.add_election(culture_id='ic')
+    experiment.add_election(culture_id='impartial')
 
 All elections added to the experiment are stored in an ``experiment.elections`` dictionary, where the key is the ``election_id``, and the value is the ``Election`` object. If you want to specify your own ``election_id``, you can do so using the ``election_id`` argument, for example:
 
 .. code-block:: python
 
-    experiment.add_election(culture_id='ic', election_id='IC')
+    experiment.add_election(culture_id='impartial', election_id='IC')
 
 By default, the generated election will have 10 candidates and 100 voters. However, if you want to generate an election with a different number of candidates and voters, use the ``num_candidates`` and ``num_voters`` arguments:
 
 .. code-block:: python
 
-    experiment.add_election(culture_id='ic',
+    experiment.add_election(culture_id='impartial',
                             num_candidates=5,
                             num_voters=50)
 
@@ -301,33 +272,28 @@ If you want to change the default values not for a single election, but for all 
     experiment.set_default_num_candidates(5)
     experiment.set_default_num_voters(50)
 
-.. raw:: html
 
-    <div style="background-color: #ccffcc; padding: 5px; border-radius: 5px;">
-    <strong>Solution</strong> Our aim was to generate an impartial culture election (with 5 candidates and 50 voters) within the experiment. Below we present the code with the solution.
-    </div>
+Our aim was to generate an impartial culture election (with 5 candidates and 50 voters) within the experiment. Below we present the code with the solution.
 
 .. code-block:: python
 
     experiment = mapof.prepare_online_ordinal_experiment()
-    experiment.add_election(culture_id='ic',
+    experiment.add_election(culture_id='impartial',
                             num_candidates=5,
                             num_voters=50)
 
 Generate Family of Elections
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. raw:: html
+.. admonition:: Objective
 
-    <div style="background-color: #cce0ff; padding: 5px; border-radius: 5px;">
-    <strong>Objective</strong> <em>Generate 20 elections from Normalized Mallows culture with norm-ϕ = 0.5</em>
-    </div>
+    Generate 20 elections from Normalized Mallows culture with norm-ϕ = 0.5
 
 If you would like to add many elections from the same culture, instead of adding them one by one, you can add them as one family of elections.
 
 .. code-block:: python
 
-    experiment.add_family(culture_id='ic', size=10)
+    experiment.add_family(culture_id='impartial', size=10)
 
 The main difference between ``add_election`` and ``add_family`` is the fact that the latter function has an additional argument called size, which specifies how many elections from a given distribution will be created.
 
@@ -335,27 +301,31 @@ Moreover, note that instead of impartial culture, we want to generate Normalized
 
 .. code-block:: python
 
-    experiment.add_election(culture_id='norm-mallows', normphi=0.5)
+    experiment.add_election(culture_id='norm-mallows', params={'normphi': 0.5})
 
-.. raw:: html
 
-    <div style="background-color: #ccffcc; padding: 5px; border-radius: 5px;">
-    <strong>Solution</strong> Joining the upper two things together we obtain the solution.
-    </div>
+Joining the upper two things together we obtain the solution.
 
 .. code-block:: python
 
     experiment = mapof.prepare_online_ordinal_experiment()
-    experiment.add_family(culture_id='norm-mallows', size=10, normphi=0.5)
+    experiment.add_family(culture_id='norm-mallows', size=10, params={'normphi': 0.5})
+
+You can also specify the name of you family using the 'family_id' argument.
+
+.. code-block:: python
+
+    experiment.add_family(culture_id='norm-mallows', size=10, params={'normphi': 0.5},
+                          family_id='Norm-Mallows')
+
+Then, the elections will be stored in the ``experiment.elections`` dictionary under the keys ``Norm-Mallows_0``, ``Norm-Mallows_2``, ... ,``Norm-Mallows_9``.
 
 Create Map of Ordinal Elections
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. raw:: html
+.. admonition:: Objective
 
-    <div style="background-color: #cce0ff; padding: 5px; border-radius: 5px;">
-    <strong>Objective</strong> <em>Create a map of elections (from impartial and Norm-Mallows cultures)</em>
-    </div>
+    Create a map of elections (from impartial and Norm-Mallows cultures).
 
 Creating a map of elections is an ultimate tool of this package. We divide the procedure into four major steps, which we describe in detail one by one, with the exception of the first step which was described before. The steps are the following:
 
@@ -439,36 +409,28 @@ In order to print the map, run:
 
     Example 2.
 
-.. raw:: html
-
-    <div style="background-color: #ccffcc; padding: 5px; border-radius: 5px;">
-    <strong>Initial Solution</strong> After combining four steps described above we obtain the following code:
-    </div>
+After combining four steps described above we obtain the following code:
 
 .. code-block:: python
 
     experiment = mapof.prepare_online_ordinal_experiment()
     experiment.add_family(culture_id='ic', size=10)
-    experiment.add_family(culture_id='norm-mallows', size=10, normphi=0.5)
+    experiment.add_family(culture_id='norm-mallows', size=10, params={'normphi': 0.5})
     experiment.compute_distances(distance_id='emd-positionwise')
     experiment.embed_2d(embedding_id='fr')
     experiment.print_map_2d()
 
 As a result of the code above, you will see two separate black clouds of points (see :ref:`fig_ex_1`). In order to make the map more pleasing, we can specify the colors/markers/label of each election or family of elections separately. We do it via ``color``, ``marker``, ``label`` arguments.
 
-.. raw:: html
-
-    <div style="background-color: #ccffcc; padding: 5px; border-radius: 5px;">
-    <strong>Improved Solution</strong>
-    </div>
+Improved Solution:
 
 .. code-block:: python
 
     experiment = mapof.prepare_online_ordinal_experiment()
-    experiment.add_family(culture_id='ic', size=10,
+    experiment.add_family(culture_id='impartial', size=10,
                                    color='green', marker='x', label='IC')
     experiment.add_family(culture_id='norm-mallows', size=10,
-                                   normphi=0.5,
+                                   params={'normphi': 0.5},
                                    color='blue', marker='o',
                                    label='Norm-Mallows')
     experiment.compute_distances(distance_id='emd-positionwise')
@@ -484,6 +446,11 @@ As a result of the code above, you will see two separate black clouds of points 
     Example 3: A map for the 10x100 dataset of Szufa et al. [2020].
 
 The picture created by the improved version is presented in :ref:`fig_ex_2`. Moreover, for illustrative purposes, in :ref:`Example 3 <fig_original>` we present the map for the 10x100 dataset of Szufa et al. [2020]. Note that the labels and arrows are created in PowerPoint and are not part of the mapof software.
+
+
+.. rubric:: Compass
+To be updated.
+
 
 
 Create Map of Approval Elections
@@ -561,7 +528,6 @@ The function above will create the experiment structure as follows:
     ├── distances/
     ├── elections/
     ├── features/
-    ├── matrices/
     └── map.csv
 
 .. rubric:: Prepare Elections
@@ -583,15 +549,17 @@ The controlling `map.csv` file usually consists of:
 - **size**: Number of elections to be generated from a given culture
 - **num_candidates**: Number of candidates
 - **num_voters**: Number of voters/votes
-- **culture_id**: Code of the culture; all cultures are described in detail in the next section
+- **culture_id**: Code of the culture
 - **params**: Dictionary with parameters of a given culture
+- **family_id**: Family ID
+- **label**: Label that will be printed in the legend
 - **color**: Color of the point(s) on the map
 - **alpha**: Transparency of the point(s)
 - **marker**: Marker of the point(s)
 - **ms**: Marker size
-- **label**: Label that will be printed in the legend
-- **family_id**: Family ID
 - **path**: Dictionary with parameters for generating a path of elections
+- **show**: If False, the culture will not be displayed on the map
+
 
 .. rubric:: Imports
 
@@ -607,6 +575,31 @@ If you want to import specific elements (different from default), specify them w
                             embedding_id="kk")
 
 Regarding features, if they are precomputed, the program will import them while printing the map.
+
+Note that, if you will add new elections or families from the code, the map.csv file will be updated automatically.
+
+For example if you will run the following code:
+
+.. code-block:: python
+
+    experiment = mapof.prepare_offline_ordinal_experiment(experiment_id='name_of_the_experiment')
+    experiment.add_family(culture_id='impartial', size=10,
+                                      num_candidates=20, num_voters=200,
+                                   color='green', marker='s', label='IC')
+    experiment.add_family(culture_id='urn', size=10,
+                                   params={'alpha': 0.1},
+                                      num_candidates=20, num_voters=200,
+                                   color='blue', marker='o', label='Urn')
+
+
+The map.csv file will look like this:
+
+.. code-block:: python
+
+    size;num_candidates;num_voters;culture_id;params;family_id;label;color;alpha;marker;ms;path;show
+    10;20;200;impartial;{};impartial_10_100;IC;green;1.0;x;20;{};True
+    10;20;200;urn;{};urn_10_100;Urn;blue;0.1;o;20;{};True
+
 
 Other
 ~~~~~

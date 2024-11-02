@@ -21,11 +21,11 @@ from mapof.elections.cultures.nonstandard.alliances import (
 from mapof.elections.other.glossary import is_pseudo_culture
 
 registered_approval_cultures = {
-    'identity': mask.identity_mask,
-    'id': mask.identity_mask,  # deprecated name
-    'ic': pref_approval.impartial,  # deprecated name
-    'impartial': pref_approval.impartial,
-    'impartial_culture': pref_approval.impartial,  # deprecated name
+    'identity': mask.identity_approval_mask,
+    'id': mask.identity_approval_mask,  # deprecated name
+    'ic': mask.impartial_approval_mask,  # deprecated name
+    'impartial': mask.impartial_approval_mask,
+    'impartial_culture': mask.impartial_approval_mask,  # deprecated name
     'resampling': pref_approval.resampling,
     'disjoint_resampling': pref_approval.disjoint_resampling,
     'moving_resampling': pref_approval.moving_resampling,
@@ -54,8 +54,8 @@ registered_ordinal_cultures = {
     'plackett-luce': pref_ordinal.plackett_luce,
     'urn': pref_ordinal.urn,
     'single-crossing': pref_ordinal.single_crossing,
-    'conitzer': pref_ordinal.single_peaked_conitzer,
-    'walsh': pref_ordinal.single_peaked_walsh,
+    'single-peaked_conitzer': pref_ordinal.single_peaked_conitzer,
+    'single-peaked_walsh': pref_ordinal.single_peaked_walsh,
     'spoc': pref_ordinal.single_peaked_circle,
     'approx_uniformity': compass.generate_approx_uniformity_votes,
     'un_from_matrix': compass.generate_approx_uniformity_votes,  # deprecated name

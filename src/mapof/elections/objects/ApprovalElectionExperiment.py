@@ -223,6 +223,7 @@ class ApprovalElectionExperiment(ElectionExperiment, ABC):
         path = os.path.join(os.getcwd(), "experiments", self.experiment_id, "map.csv")
         if not os.path.exists(path):
             with open(path, 'w') as file_csv:
-                file_csv.write("size;num_candidates;num_voters;pseudo_culture_id;params;color;alpha;"
-                               "label;marker;show;path")
-                file_csv.write("1;50;200;ic;{'p': 0.5};black;0.75;IC 0.5;*;process_id;{}")
+                file_csv.write(
+                    "size;num_candidates;num_voters;culture_id;params;family_id;"
+                    "label;color;alpha;marker;ms;path;show\n"
+                )

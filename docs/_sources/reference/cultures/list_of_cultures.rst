@@ -14,9 +14,11 @@ List of Approval Cultures
    :header-rows: 1
 
    * - culture_id
-     - (PrefSampling) Implementation
-   * - ``ic`` ``impartial`` ``impartial_culture``
+     - Implementation
+   * - ``impartial``
      - :py:func:`~prefsampling.approval.impartial.impartial`
+   * - ``identity``
+     - :py:func:`~prefsampling.approval.identity.identity`, :py:func:`~mapof.elections.cultures.prefsampling_mask.identity_mask`
    * - ``empty``
      - :py:func:`~prefsampling.approval.identity.empty`
    * - ``full``
@@ -31,6 +33,10 @@ List of Approval Cultures
      - :py:func:`~prefsampling.approval.noise.noise`
    * - ``urn_partylist``
      - :py:func:`~prefsampling.approval.urn.urn_partylist`
+   * - ``truncated_urn``
+     - :py:func:`~prefsampling.approval.truncated_ordinal.truncated_ordinal`, :py:func:`~mapof.elections.cultures.prefsampling_mask.truncated_urn_mask`
+   * - ``euclidean``
+     - :py:func:`~prefsampling.approval.euclidean.euclidean_vcr`, :py:func:`~mapof.elections.cultures.prefsampling_mask.euclidean_approval_mask`
 
 
 List of Ordinal Cultures
@@ -42,16 +48,16 @@ List of Ordinal Cultures
 
    * - culture_id
      - Implementation
-   * - ``id`` ``identity``
+   * - ``identity``
      - :py:func:`~prefsampling.ordinal.identity.identity`
-   * - ``ic`` ``impartial`` ``impartial_culture``
+   * -  ``impartial``
      - :py:func:`~prefsampling.ordinal.impartial.impartial`
    * - ``iac``
      - :py:func:`~prefsampling.ordinal.impartial.impartial_anonymous`
    * - ``stratification``
      - :py:func:`~prefsampling.ordinal.impartial.impartial_anonymous`
-   * - ``an`` ``antagonism``
-     - :py:func:`~prefsampling.ordinal.compass.antagonism`
+   * - ``antagonism``
+     - :py:func:`~prefsampling.ordinal.compass.generate_antagonism_votes`
    * - ``urn``
      - :py:func:`~prefsampling.ordinal.urn.urn`
    * - ``didi``
@@ -72,17 +78,17 @@ List of Ordinal Cultures
      - :py:func:`~mapof.elections.cultures.compass.generate_approx_stratification_votes`
    * - ``euclidean``
      - :py:func:`~prefsampling.ordinal.euclidean.euclidean`, :py:func:`~mapof.elections.cultures.prefsampling_mask.euclidean_ordinal_mask`
-   * - ``euclidean``
+   * - ``group-separable``
      - :py:func:`~prefsampling.ordinal.groupseparable.group_separable`, :py:func:`~mapof.elections.cultures.prefsampling_mask.group_separable_mask`
    * - ``mallows``
      - :py:func:`~prefsampling.ordinal.mallows.mallows`
    * - ``norm-mallows``
-     - :py:func:`~mapof.elections.cultures.mallows.generate_mallows_votes`
+     - :py:func:`~prefsampling.ordinal.mallows.norm_mallows`, :py:func:`~mapof.elections.cultures.prefsampling_mask.norm_mallows_mask`
 
 
 
 List of Pseudo Ordinal Cultures
-------------------------
+-------------------------------
 
 .. list-table::
    :widths: 50 50
@@ -92,10 +98,28 @@ List of Pseudo Ordinal Cultures
      - Implementation
 
    * - ``pseudo_uniformity``
-     - :py:func:`~mapof.elections.cultures.compass.pseudo_identity`
+     - :py:func:`~mapof.elections.cultures.pseudo_cultures.pseudo_identity`
    * - ``pseudo_uniformity``
-     - :py:func:`~mapof.elections.cultures.compass.pseudo_uniformity`
+     - :py:func:`~mapof.elections.cultures.pseudo_cultures.pseudo_uniformity`
    * - ``pseudo_antagonism``
-     - :py:func:`~mapof.elections.cultures.compass.pseudo_antagonism`
+     - :py:func:`~mapof.elections.cultures.pseudo_cultures.pseudo_antagonism`
    * - ``pseudo_stratification``
-     - :py:func:`~mapof.elections.cultures.compass.pseudo_stratification`
+     - :py:func:`~mapof.elections.cultures.pseudo_cultures.pseudo_stratification`
+   * - ``pseudo_unid``
+     - :py:func:`~mapof.elections.cultures.pseudo_cultures.pseudo_unid`
+   * - ``pseudo_anid``
+     - :py:func:`~mapof.elections.cultures.pseudo_cultures.pseudo_anid`
+   * - ``pseudo_stid``
+     - :py:func:`~mapof.elections.cultures.pseudo_cultures.pseudo_unid`
+   * - ``pseudo_unid``
+     - :py:func:`~mapof.elections.cultures.pseudo_cultures.pseudo_anun`
+   * - ``pseudo_stun``
+     - :py:func:`~mapof.elections.cultures.pseudo_cultures.pseudo_stun`
+   * - ``pseudo_stan``
+     - :py:func:`~mapof.elections.cultures.pseudo_cultures.pseudo_unid`
+   * - ``pseudo_sp_conitzer``
+     - :py:func:`~mapof.elections.cultures.sp_matrices.get_conitzer_matrix`
+   * - ``pseudo_sp_walsh``
+     - :py:func:`~mapof.elections.cultures.sp_matrices.get_walsh_matrix`
+   * - ``pseudo_single-crossing``
+     - :py:func:`~mapof.elections.cultures.sc_matrices.get_single_crossing_matrix`

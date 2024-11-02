@@ -156,13 +156,16 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="reference/cultures/index.html">Cultures</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="reference/cultures/list_of_cultures.html">List of Cultures</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/cultures/main.html">Main</a></li>
-<li class="toctree-l3"><a class="reference internal" href="reference/cultures/euclidean.html">Euclidean</a></li>
-<li class="toctree-l3"><a class="reference internal" href="reference/cultures/guardians.html">Guardians</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/cultures/compass.html">Compass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/cultures/prefsampling_mask.html">Prefsampling Mask</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/cultures/pseudo_cultures.html">Pseudo Cultures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/cultures/params.html">Params</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="reference/distances/index.html">Distances</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="reference/distances/list_of_distances.html">List of Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/distances/main.html">Main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/distances/register.html">Register</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/distances/main_approval_distances.html">Approval Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/distances/main_ordinal_distances.html">Ordinal Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/distances/committee_distances.html">Committee Distances</a></li>
@@ -172,15 +175,26 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="reference/features/index.html">Features</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="reference/features/list_of_features.html">List of Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/features/main.html">Main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/features/register.html">Register</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/features/scores.html">Scores</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/features/diversity.html">Diversity</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/features/dap_approximate.html">Diversity Approximate</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/features/simple_ordinal.html">Simple Ordinal</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/features/simple_approval.html">Simple Approval</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/features/abc_features.html">ABC Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/features/banzhaf_cc.html">Banzhaf CC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/features/ranging_cc.html">Ranging CC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/features/approx.html">Approx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/features/cohesive.html">Cohesive</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/features/entropy.html">Entropy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/features/justified_representation.html">Justified Representation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/features/partylist.html">Partylist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/features/proportionality_degree.html">Proportionality Degree</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="reference/objects/index.html">Objects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="reference/objects/Election.html">Election</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/objects/ElectionExperiment.html">ElectionExperiment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/objects/ApprovalElection.html">ApprovalElection</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/objects/ApprovalElectionExperiment.html">ApprovalElectionExperiment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/objects/OrdinalElection.html">OrdinalElection</a></li>
@@ -404,11 +418,16 @@ document.write(`
 <h2>General Tasks<a class="headerlink" href="#general-tasks" title="Link to this heading">#</a></h2>
 <section id="generate-ordinal-election-from-statistical-culture">
 <span id="generate-ordinal-election"></span><h3>Generate Ordinal Election from Statistical Culture<a class="headerlink" href="#generate-ordinal-election-from-statistical-culture" title="Link to this heading">#</a></h3>
-<div style="background-color: #cce0ff; padding: 5px; border-radius: 5px;">
-    <strong>Objective</strong>
-    <em>Generate impartial culture election with 5 candidates and 50 voters.</em>
-</div><p>In this section, you will learn how to generate ordinal elections from different statistical cultures. We will start by defining what we mean by an election.</p>
-<p>Formally, an ordinal election is a pair <span class="math">E=(C,V)</span> that consists of a set of candidates <span class="math">C</span> and a collection of voters <span class="math">V</span>, where each voter has a strict preference order (vote), that is, each voter ranks all the candidates in <span class="math">C</span> from the most to the least desirable one. We use terms voter and vote interchangeably. In practice, an <code class="docutils literal notranslate"><span class="pre">OrdinalElection</span></code> is an abstract object that, among other fields, contains:</p>
+<div class="admonition-objective admonition">
+<p class="admonition-title">Objective</p>
+<p>Generate impartial culture election with 5 candidates and 50 voters.</p>
+</div>
+<p>In this section, you will learn how to generate ordinal elections from different statistical cultures. We will start by defining what we mean by an election.</p>
+<p>Formally, an ordinal election is a pair <span class="math">E=(C,V)</span> that consists of a set of candidates <span class="math">C</span>
+and a collection of voters <span class="math">V</span>, where each voter has a strict preference order (vote),
+that is, each voter ranks all the candidates in <span class="math">C</span> from the most to the least desirable one.
+We use terms voter and vote interchangeably.
+In practice, we represent an ordinal election by <code class="docutils literal notranslate"><span class="pre">OrdinalElection</span></code> object, which among other fields, contains:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">election</span><span class="o">.</span><span class="n">num_candidates</span>     <span class="c1"># number of candidates</span>
 <span class="n">election</span><span class="o">.</span><span class="n">num_voters</span>         <span class="c1"># number of voters</span>
 <span class="n">election</span><span class="o">.</span><span class="n">votes</span>              <span class="c1"># preference orders</span>
@@ -422,11 +441,9 @@ document.write(`
 3 ≻ 1 ≻ 2 ≻ 0
 </pre></div>
 </div>
-<div style="background-color: #ccffcc; padding: 5px; border-radius: 5px;">
-<strong>Solution</strong>
-To generate an election we use the ``generate_ordinal_election()`` function:
-</div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">election</span> <span class="o">=</span> <span class="n">mapof</span><span class="o">.</span><span class="n">generate_ordinal_election</span><span class="p">(</span>
-                                    <span class="n">culture_id</span><span class="o">=</span><span class="s1">&#39;ic&#39;</span><span class="p">,</span>
+<p>To generate an election we use the <code class="docutils literal notranslate"><span class="pre">generate_ordinal_election()</span></code> function:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">election</span> <span class="o">=</span> <span class="n">mapof</span><span class="o">.</span><span class="n">generate_ordinal_election</span><span class="p">(</span>
+                                    <span class="n">culture_id</span><span class="o">=</span><span class="s1">&#39;impartial&#39;</span><span class="p">,</span>
                                     <span class="n">num_candidates</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
                                     <span class="n">num_voters</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
 </pre></div>
@@ -434,11 +451,12 @@ To generate an election we use the ``generate_ordinal_election()`` function:
 </section>
 <section id="generate-approval-election-from-statistical-culture">
 <span id="generate-approval-election"></span><h3>Generate Approval Election from Statistical Culture<a class="headerlink" href="#generate-approval-election-from-statistical-culture" title="Link to this heading">#</a></h3>
-<div style="background-color: #cce0ff; padding: 5px; border-radius: 5px;">
-    <strong>Objective</strong>
-    <em>Generate impartial culture election with 20 candidates and 100 voters</em>
-</div><p>In this section, you will learn how to generate approval elections from different statistical cultures. We will start by defining what we mean by an election.</p>
-<p>Formally, an approval election is a pair <span class="math">E=(C,V)</span> that consists of a set of candidates <span class="math">C</span> and a collection of voters <span class="math">V</span>, where each voter approves a certain subset of candidates. In practice, an <code class="docutils literal notranslate"><span class="pre">ApprovalElection</span></code> is an abstract object that, among others, contains the following fields:</p>
+<div class="admonition-objective admonition">
+<p class="admonition-title">Objective</p>
+<p>Generate impartial culture election with 20 candidates and 100 voters.</p>
+</div>
+<p>In this section, you will learn how to generate approval elections from different statistical cultures. We will start by defining what we mean by an election.</p>
+<p>Formally, an approval election is a pair <span class="math">E=(C,V)</span> that consists of a set of candidates <span class="math">C</span> and a collection of voters <span class="math">V</span>, where each voter approves a certain subset of candidates. In practice, an <code class="docutils literal notranslate"><span class="pre">ApprovalElection</span></code> is an object that, among others, contains the following fields:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">election</span><span class="o">.</span><span class="n">num_candidates</span>     <span class="c1"># number of candidates</span>
 <span class="n">election</span><span class="o">.</span><span class="n">num_voters</span>         <span class="c1"># number of voters</span>
 <span class="n">election</span><span class="o">.</span><span class="n">votes</span>              <span class="c1"># list of sets</span>
@@ -450,11 +468,9 @@ To generate an election we use the ``generate_ordinal_election()`` function:
 <p class="centered">
 <strong><span class="math">{0, 1}</span>,
 <span class="math">{1, 2, 3}</span>,
-<span class="math">{2}</span>.</strong></p><div style="background-color: #ccffcc; padding: 5px; border-radius: 5px;">
-<strong>Solution</strong>
-To generate an election, we use the ``generate_approval_election()`` function:
-</div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">election</span> <span class="o">=</span> <span class="n">mapof</span><span class="o">.</span><span class="n">generate_approval_election</span><span class="p">(</span>
-                                   <span class="n">culture_id</span><span class="o">=</span><span class="s1">&#39;ic&#39;</span><span class="p">,</span>
+<span class="math">{2}</span>.</strong></p><p>To generate an election, we use the <code class="docutils literal notranslate"><span class="pre">generate_approval_election()</span></code> function:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">election</span> <span class="o">=</span> <span class="n">mapof</span><span class="o">.</span><span class="n">generate_approval_election</span><span class="p">(</span>
+                                   <span class="n">culture_id</span><span class="o">=</span><span class="s1">&#39;impartial&#39;</span><span class="p">,</span>
                                    <span class="n">num_candidates</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
                                    <span class="n">num_voters</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
 </pre></div>
@@ -478,10 +494,11 @@ To generate an election, we use the ``generate_approval_election()`` function:
 </section>
 <section id="compute-borda-score">
 <h3>Compute Borda Score<a class="headerlink" href="#compute-borda-score" title="Link to this heading">#</a></h3>
-<div style="background-color: #cce0ff; padding: 5px; border-radius: 5px;">
-    <strong>Objective</strong>
-    <em>Compute Borda scores for a given ordinal election.</em>
-</div><p>First, we need to create a <code class="docutils literal notranslate"><span class="pre">scores</span></code> list and fill it with zeros.</p>
+<div class="admonition-objective admonition">
+<p class="admonition-title">Objective</p>
+<p>Compute Borda scores for a given ordinal election.</p>
+</div>
+<p>First, we need to create a <code class="docutils literal notranslate"><span class="pre">scores</span></code> list and fill it with zeros.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">scores</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">election</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">)]</span>
 </pre></div>
 </div>
@@ -491,10 +508,8 @@ To generate an election, we use the ``generate_approval_election()`` function:
         <span class="n">scores</span><span class="p">[</span><span class="n">vote</span><span class="p">[</span><span class="n">c</span><span class="p">]]</span> <span class="o">+=</span> <span class="n">election</span><span class="o">.</span><span class="n">num_candidates</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">c</span>
 </pre></div>
 </div>
-<div style="background-color: #ccffcc; padding: 5px; border-radius: 5px;">
-<strong>Solution</strong>
-The complete function looks as follows:
-</div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">compute_borda_scores</span><span class="p">(</span><span class="n">election</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<p>The complete function looks as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">compute_borda_scores</span><span class="p">(</span><span class="n">election</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Returns list with all Borda scores &quot;&quot;&quot;</span>
     <span class="n">scores</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">election</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">)]</span>
     <span class="k">for</span> <span class="n">vote</span> <span class="ow">in</span> <span class="n">election</span><span class="o">.</span><span class="n">votes</span><span class="p">:</span>
@@ -506,10 +521,11 @@ The complete function looks as follows:
 </section>
 <section id="compute-distance-between-two-elections">
 <h3>Compute Distance between Two Elections<a class="headerlink" href="#compute-distance-between-two-elections" title="Link to this heading">#</a></h3>
-<div style="background-color: #cce0ff; padding: 5px; border-radius: 5px;">
-<strong>Objective</strong>
-<em>Compute the EMD-Positionwise distance between two ordinal elections.</em>
-</div><p>To compute a distance, use the <code class="docutils literal notranslate"><span class="pre">compute_distance</span></code> function, which takes two elections and a <code class="docutils literal notranslate"><span class="pre">distance_id</span></code> as input.</p>
+<div class="admonition-objective admonition">
+<p class="admonition-title">Objective</p>
+<p>Compute the EMD-Positionwise distance between two ordinal elections.</p>
+</div>
+<p>To compute a distance, use the <code class="docutils literal notranslate"><span class="pre">compute_distance</span></code> function, which takes two elections and a <code class="docutils literal notranslate"><span class="pre">distance_id</span></code> as input.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span><span class="p">,</span> <span class="n">mapping</span> <span class="o">=</span> <span class="n">mapof</span><span class="o">.</span><span class="n">compute_distance</span><span class="p">(</span>
                                     <span class="n">election_1</span><span class="p">,</span>
                                     <span class="n">election_2</span><span class="p">,</span>
@@ -517,15 +533,13 @@ The complete function looks as follows:
 </pre></div>
 </div>
 <p>This function returns a tuple containing the distance and the mapping that witnesses this distance. If a given distance does not use a mapping, it returns <code class="docutils literal notranslate"><span class="pre">None</span></code> instead.</p>
-<div style="background-color: #ccffcc; padding: 5px; border-radius: 5px;">
-<strong>Solution</strong>
-We start by generating two elections, and then we compute the distance:
-</div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">election_1</span> <span class="o">=</span> <span class="n">mapof</span><span class="o">.</span><span class="n">generate_ordinal_election</span><span class="p">(</span>
-                                        <span class="n">culture_id</span><span class="o">=</span><span class="s1">&#39;ic&#39;</span><span class="p">,</span>
+<p>We start by generating two elections, and then we compute the distance:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">election_1</span> <span class="o">=</span> <span class="n">mapof</span><span class="o">.</span><span class="n">generate_ordinal_election</span><span class="p">(</span>
+                                        <span class="n">culture_id</span><span class="o">=</span><span class="s1">&#39;impartial&#39;</span><span class="p">,</span>
                                         <span class="n">num_voters</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
                                         <span class="n">num_candidates</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">election_2</span> <span class="o">=</span> <span class="n">mapof</span><span class="o">.</span><span class="n">generate_ordinal_election</span><span class="p">(</span>
-                                        <span class="n">culture_id</span><span class="o">=</span><span class="s1">&#39;ic&#39;</span><span class="p">,</span>
+                                        <span class="n">culture_id</span><span class="o">=</span><span class="s1">&#39;impartial&#39;</span><span class="p">,</span>
                                         <span class="n">num_voters</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
                                         <span class="n">num_candidates</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">distance</span><span class="p">,</span> <span class="n">mapping</span> <span class="o">=</span> <span class="n">mapof</span><span class="o">.</span><span class="n">compute_distance</span><span class="p">(</span>
@@ -542,10 +556,11 @@ A list of all implemented distances is available in <a class="reference internal
 <span id="id1"></span><h2>Experiments<a class="headerlink" href="#experiments" title="Link to this heading">#</a></h2>
 <section id="generate-election-as-part-of-experiment">
 <h3>Generate Election as Part of Experiment<a class="headerlink" href="#generate-election-as-part-of-experiment" title="Link to this heading">#</a></h3>
-<div style="background-color: #cce0ff; padding: 5px; border-radius: 5px;">
-<strong>Objective</strong>
-<em>Generate impartial culture election with 5 candidates and 50 voters</em>
-</div><p>In this section, we introduce an abstract object called <code class="docutils literal notranslate"><span class="pre">Experiment</span></code>, which helps us keep things clear. Finally, we generate elections using the <code class="docutils literal notranslate"><span class="pre">Experiment</span></code> object.</p>
+<div class="admonition-objective admonition">
+<p class="admonition-title">Objective</p>
+<p>Generate (within experiment) impartial culture election with 5 candidates and 50 voters</p>
+</div>
+<p>In this section, we introduce an abstract object called <code class="docutils literal notranslate"><span class="pre">Experiment</span></code>, which helps us keep things clear. Finally, we generate elections using the <code class="docutils literal notranslate"><span class="pre">Experiment</span></code> object.</p>
 <p>An <code class="docutils literal notranslate"><span class="pre">Experiment</span></code> is an abstract object, which, for now, can be seen as a black box in which all the computation takes place. At first, it might be confusing, but in the long run, it simplifies things. Before carrying out any other operations we need to create an empty <code class="docutils literal notranslate"><span class="pre">Experiment</span></code>. For this, we use the function <code class="docutils literal notranslate"><span class="pre">prepare_online_ordinal_experiment()</span></code>, which returns an empty <code class="docutils literal notranslate"><span class="pre">Experiment</span></code>. So, in order to prepare an empty <code class="docutils literal notranslate"><span class="pre">Experiment</span></code>, type:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span> <span class="o">=</span> <span class="n">mapof</span><span class="o">.</span><span class="n">prepare_online_ordinal_experiment</span><span class="p">()</span>
 </pre></div>
@@ -565,15 +580,15 @@ A list of all implemented distances is available in <a class="reference internal
 </pre></div>
 </div>
 <p>Now, we will focus on the <code class="docutils literal notranslate"><span class="pre">add_election()</span></code> method. In order to generate an election, it suffices to run the <code class="docutils literal notranslate"><span class="pre">add_election()</span></code> method, and specify the <code class="docutils literal notranslate"><span class="pre">culture_id</span></code>. For example, if we want to generate an election from impartial culture, we type:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span><span class="o">.</span><span class="n">add_election</span><span class="p">(</span><span class="n">culture_id</span><span class="o">=</span><span class="s1">&#39;ic&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span><span class="o">.</span><span class="n">add_election</span><span class="p">(</span><span class="n">culture_id</span><span class="o">=</span><span class="s1">&#39;impartial&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>All elections added to the experiment are stored in an <code class="docutils literal notranslate"><span class="pre">experiment.elections</span></code> dictionary, where the key is the <code class="docutils literal notranslate"><span class="pre">election_id</span></code>, and the value is the <code class="docutils literal notranslate"><span class="pre">Election</span></code> object. If you want to specify your own <code class="docutils literal notranslate"><span class="pre">election_id</span></code>, you can do so using the <code class="docutils literal notranslate"><span class="pre">election_id</span></code> argument, for example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span><span class="o">.</span><span class="n">add_election</span><span class="p">(</span><span class="n">culture_id</span><span class="o">=</span><span class="s1">&#39;ic&#39;</span><span class="p">,</span> <span class="n">election_id</span><span class="o">=</span><span class="s1">&#39;IC&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span><span class="o">.</span><span class="n">add_election</span><span class="p">(</span><span class="n">culture_id</span><span class="o">=</span><span class="s1">&#39;impartial&#39;</span><span class="p">,</span> <span class="n">election_id</span><span class="o">=</span><span class="s1">&#39;IC&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>By default, the generated election will have 10 candidates and 100 voters. However, if you want to generate an election with a different number of candidates and voters, use the <code class="docutils literal notranslate"><span class="pre">num_candidates</span></code> and <code class="docutils literal notranslate"><span class="pre">num_voters</span></code> arguments:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span><span class="o">.</span><span class="n">add_election</span><span class="p">(</span><span class="n">culture_id</span><span class="o">=</span><span class="s1">&#39;ic&#39;</span><span class="p">,</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span><span class="o">.</span><span class="n">add_election</span><span class="p">(</span><span class="n">culture_id</span><span class="o">=</span><span class="s1">&#39;impartial&#39;</span><span class="p">,</span>
                         <span class="n">num_candidates</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
                         <span class="n">num_voters</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
 </pre></div>
@@ -583,10 +598,9 @@ A list of all implemented distances is available in <a class="reference internal
 <span class="n">experiment</span><span class="o">.</span><span class="n">set_default_num_voters</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
 </pre></div>
 </div>
-<div style="background-color: #ccffcc; padding: 5px; border-radius: 5px;">
-<strong>Solution</strong> Our aim was to generate an impartial culture election (with 5 candidates and 50 voters) within the experiment. Below we present the code with the solution.
-</div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span> <span class="o">=</span> <span class="n">mapof</span><span class="o">.</span><span class="n">prepare_online_ordinal_experiment</span><span class="p">()</span>
-<span class="n">experiment</span><span class="o">.</span><span class="n">add_election</span><span class="p">(</span><span class="n">culture_id</span><span class="o">=</span><span class="s1">&#39;ic&#39;</span><span class="p">,</span>
+<p>Our aim was to generate an impartial culture election (with 5 candidates and 50 voters) within the experiment. Below we present the code with the solution.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span> <span class="o">=</span> <span class="n">mapof</span><span class="o">.</span><span class="n">prepare_online_ordinal_experiment</span><span class="p">()</span>
+<span class="n">experiment</span><span class="o">.</span><span class="n">add_election</span><span class="p">(</span><span class="n">culture_id</span><span class="o">=</span><span class="s1">&#39;impartial&#39;</span><span class="p">,</span>
                         <span class="n">num_candidates</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
                         <span class="n">num_voters</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
 </pre></div>
@@ -594,29 +608,38 @@ A list of all implemented distances is available in <a class="reference internal
 </section>
 <section id="generate-family-of-elections">
 <h3>Generate Family of Elections<a class="headerlink" href="#generate-family-of-elections" title="Link to this heading">#</a></h3>
-<div style="background-color: #cce0ff; padding: 5px; border-radius: 5px;">
-<strong>Objective</strong> <em>Generate 20 elections from Normalized Mallows culture with norm-ϕ = 0.5</em>
-</div><p>If you would like to add many elections from the same culture, instead of adding them one by one, you can add them as one family of elections.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span><span class="o">.</span><span class="n">add_family</span><span class="p">(</span><span class="n">culture_id</span><span class="o">=</span><span class="s1">&#39;ic&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<div class="admonition-objective admonition">
+<p class="admonition-title">Objective</p>
+<p>Generate 20 elections from Normalized Mallows culture with norm-ϕ = 0.5</p>
+</div>
+<p>If you would like to add many elections from the same culture, instead of adding them one by one, you can add them as one family of elections.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span><span class="o">.</span><span class="n">add_family</span><span class="p">(</span><span class="n">culture_id</span><span class="o">=</span><span class="s1">&#39;impartial&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The main difference between <code class="docutils literal notranslate"><span class="pre">add_election</span></code> and <code class="docutils literal notranslate"><span class="pre">add_family</span></code> is the fact that the latter function has an additional argument called size, which specifies how many elections from a given distribution will be created.</p>
 <p>Moreover, note that instead of impartial culture, we want to generate Normalized Mallows elections, which are parameterized by norm-ϕ. To generate a single Normalized Mallows election with norm-ϕ = 0.5, we should type:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span><span class="o">.</span><span class="n">add_election</span><span class="p">(</span><span class="n">culture_id</span><span class="o">=</span><span class="s1">&#39;norm-mallows&#39;</span><span class="p">,</span> <span class="n">normphi</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span><span class="o">.</span><span class="n">add_election</span><span class="p">(</span><span class="n">culture_id</span><span class="o">=</span><span class="s1">&#39;norm-mallows&#39;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;normphi&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">})</span>
 </pre></div>
 </div>
-<div style="background-color: #ccffcc; padding: 5px; border-radius: 5px;">
-<strong>Solution</strong> Joining the upper two things together we obtain the solution.
-</div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span> <span class="o">=</span> <span class="n">mapof</span><span class="o">.</span><span class="n">prepare_online_ordinal_experiment</span><span class="p">()</span>
-<span class="n">experiment</span><span class="o">.</span><span class="n">add_family</span><span class="p">(</span><span class="n">culture_id</span><span class="o">=</span><span class="s1">&#39;norm-mallows&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">normphi</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<p>Joining the upper two things together we obtain the solution.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span> <span class="o">=</span> <span class="n">mapof</span><span class="o">.</span><span class="n">prepare_online_ordinal_experiment</span><span class="p">()</span>
+<span class="n">experiment</span><span class="o">.</span><span class="n">add_family</span><span class="p">(</span><span class="n">culture_id</span><span class="o">=</span><span class="s1">&#39;norm-mallows&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;normphi&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">})</span>
 </pre></div>
 </div>
+<p>You can also specify the name of you family using the ‘family_id’ argument.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span><span class="o">.</span><span class="n">add_family</span><span class="p">(</span><span class="n">culture_id</span><span class="o">=</span><span class="s1">&#39;norm-mallows&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;normphi&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">},</span>
+                      <span class="n">family_id</span><span class="o">=</span><span class="s1">&#39;Norm-Mallows&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Then, the elections will be stored in the <code class="docutils literal notranslate"><span class="pre">experiment.elections</span></code> dictionary under the keys <code class="docutils literal notranslate"><span class="pre">Norm-Mallows_0</span></code>, <code class="docutils literal notranslate"><span class="pre">Norm-Mallows_2</span></code>, … ,``Norm-Mallows_9``.</p>
 </section>
 <section id="create-map-of-ordinal-elections">
 <h3>Create Map of Ordinal Elections<a class="headerlink" href="#create-map-of-ordinal-elections" title="Link to this heading">#</a></h3>
-<div style="background-color: #cce0ff; padding: 5px; border-radius: 5px;">
-<strong>Objective</strong> <em>Create a map of elections (from impartial and Norm-Mallows cultures)</em>
-</div><p>Creating a map of elections is an ultimate tool of this package. We divide the procedure into four major steps, which we describe in detail one by one, with the exception of the first step which was described before. The steps are the following:</p>
+<div class="admonition-objective admonition">
+<p class="admonition-title">Objective</p>
+<p>Create a map of elections (from impartial and Norm-Mallows cultures).</p>
+</div>
+<p>Creating a map of elections is an ultimate tool of this package. We divide the procedure into four major steps, which we describe in detail one by one, with the exception of the first step which was described before. The steps are the following:</p>
 <ol class="arabic simple">
 <li><p>Generate elections</p></li>
 <li><p>Compute distances</p></li>
@@ -676,24 +699,22 @@ A list of all implemented distances is available in <a class="reference internal
 <p><span class="caption-text">Example 2.</span><a class="headerlink" href="#id3" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
-<div style="background-color: #ccffcc; padding: 5px; border-radius: 5px;">
-<strong>Initial Solution</strong> After combining four steps described above we obtain the following code:
-</div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span> <span class="o">=</span> <span class="n">mapof</span><span class="o">.</span><span class="n">prepare_online_ordinal_experiment</span><span class="p">()</span>
+<p>After combining four steps described above we obtain the following code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span> <span class="o">=</span> <span class="n">mapof</span><span class="o">.</span><span class="n">prepare_online_ordinal_experiment</span><span class="p">()</span>
 <span class="n">experiment</span><span class="o">.</span><span class="n">add_family</span><span class="p">(</span><span class="n">culture_id</span><span class="o">=</span><span class="s1">&#39;ic&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">experiment</span><span class="o">.</span><span class="n">add_family</span><span class="p">(</span><span class="n">culture_id</span><span class="o">=</span><span class="s1">&#39;norm-mallows&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">normphi</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">experiment</span><span class="o">.</span><span class="n">add_family</span><span class="p">(</span><span class="n">culture_id</span><span class="o">=</span><span class="s1">&#39;norm-mallows&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;normphi&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">})</span>
 <span class="n">experiment</span><span class="o">.</span><span class="n">compute_distances</span><span class="p">(</span><span class="n">distance_id</span><span class="o">=</span><span class="s1">&#39;emd-positionwise&#39;</span><span class="p">)</span>
 <span class="n">experiment</span><span class="o">.</span><span class="n">embed_2d</span><span class="p">(</span><span class="n">embedding_id</span><span class="o">=</span><span class="s1">&#39;fr&#39;</span><span class="p">)</span>
 <span class="n">experiment</span><span class="o">.</span><span class="n">print_map_2d</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>As a result of the code above, you will see two separate black clouds of points (see <a class="reference internal" href="#fig-ex-1"><span class="std std-ref">Example 1.</span></a>). In order to make the map more pleasing, we can specify the colors/markers/label of each election or family of elections separately. We do it via <code class="docutils literal notranslate"><span class="pre">color</span></code>, <code class="docutils literal notranslate"><span class="pre">marker</span></code>, <code class="docutils literal notranslate"><span class="pre">label</span></code> arguments.</p>
-<div style="background-color: #ccffcc; padding: 5px; border-radius: 5px;">
-<strong>Improved Solution</strong>
-</div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span> <span class="o">=</span> <span class="n">mapof</span><span class="o">.</span><span class="n">prepare_online_ordinal_experiment</span><span class="p">()</span>
-<span class="n">experiment</span><span class="o">.</span><span class="n">add_family</span><span class="p">(</span><span class="n">culture_id</span><span class="o">=</span><span class="s1">&#39;ic&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+<p>Improved Solution:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span> <span class="o">=</span> <span class="n">mapof</span><span class="o">.</span><span class="n">prepare_online_ordinal_experiment</span><span class="p">()</span>
+<span class="n">experiment</span><span class="o">.</span><span class="n">add_family</span><span class="p">(</span><span class="n">culture_id</span><span class="o">=</span><span class="s1">&#39;impartial&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
                                <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;IC&#39;</span><span class="p">)</span>
 <span class="n">experiment</span><span class="o">.</span><span class="n">add_family</span><span class="p">(</span><span class="n">culture_id</span><span class="o">=</span><span class="s1">&#39;norm-mallows&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-                               <span class="n">normphi</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+                               <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;normphi&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">},</span>
                                <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span>
                                <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Norm-Mallows&#39;</span><span class="p">)</span>
 <span class="n">experiment</span><span class="o">.</span><span class="n">compute_distances</span><span class="p">(</span><span class="n">distance_id</span><span class="o">=</span><span class="s1">&#39;emd-positionwise&#39;</span><span class="p">)</span>
@@ -709,6 +730,8 @@ A list of all implemented distances is available in <a class="reference internal
 </figcaption>
 </figure>
 <p>The picture created by the improved version is presented in <a class="reference internal" href="#fig-ex-2"><span class="std std-ref">Example 2.</span></a>. Moreover, for illustrative purposes, in <a class="reference internal" href="#fig-original"><span class="std std-ref">Example 3</span></a> we present the map for the 10x100 dataset of Szufa et al. [2020]. Note that the labels and arrows are created in PowerPoint and are not part of the mapof software.</p>
+<p class="rubric">Compass</p>
+<p>To be updated.</p>
 </section>
 <section id="create-map-of-approval-elections">
 <h3>Create Map of Approval Elections<a class="headerlink" href="#create-map-of-approval-elections" title="Link to this heading">#</a></h3>
@@ -761,7 +784,6 @@ A list of all implemented distances is available in <a class="reference internal
 ├── distances/
 ├── elections/
 ├── features/
-├── matrices/
 └── map.csv
 </pre></div>
 </div>
@@ -778,15 +800,16 @@ A list of all implemented distances is available in <a class="reference internal
 <li><p><strong>size</strong>: Number of elections to be generated from a given culture</p></li>
 <li><p><strong>num_candidates</strong>: Number of candidates</p></li>
 <li><p><strong>num_voters</strong>: Number of voters/votes</p></li>
-<li><p><strong>culture_id</strong>: Code of the culture; all cultures are described in detail in the next section</p></li>
+<li><p><strong>culture_id</strong>: Code of the culture</p></li>
 <li><p><strong>params</strong>: Dictionary with parameters of a given culture</p></li>
+<li><p><strong>family_id</strong>: Family ID</p></li>
+<li><p><strong>label</strong>: Label that will be printed in the legend</p></li>
 <li><p><strong>color</strong>: Color of the point(s) on the map</p></li>
 <li><p><strong>alpha</strong>: Transparency of the point(s)</p></li>
 <li><p><strong>marker</strong>: Marker of the point(s)</p></li>
 <li><p><strong>ms</strong>: Marker size</p></li>
-<li><p><strong>label</strong>: Label that will be printed in the legend</p></li>
-<li><p><strong>family_id</strong>: Family ID</p></li>
 <li><p><strong>path</strong>: Dictionary with parameters for generating a path of elections</p></li>
+<li><p><strong>show</strong>: If False, the culture will not be displayed on the map</p></li>
 </ul>
 <p class="rubric">Imports</p>
 <p>If some parts of your experiment are already precomputed, you can import them while preparing the experiment. Ensure they are in the proper files. If they were precomputed using mapof, no additional steps are required.</p>
@@ -798,6 +821,24 @@ A list of all implemented distances is available in <a class="reference internal
 </pre></div>
 </div>
 <p>Regarding features, if they are precomputed, the program will import them while printing the map.</p>
+<p>Note that, if you will add new elections or families from the code, the map.csv file will be updated automatically.</p>
+<p>For example if you will run the following code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span> <span class="o">=</span> <span class="n">mapof</span><span class="o">.</span><span class="n">prepare_offline_ordinal_experiment</span><span class="p">(</span><span class="n">experiment_id</span><span class="o">=</span><span class="s1">&#39;name_of_the_experiment&#39;</span><span class="p">)</span>
+<span class="n">experiment</span><span class="o">.</span><span class="n">add_family</span><span class="p">(</span><span class="n">culture_id</span><span class="o">=</span><span class="s1">&#39;impartial&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+                                  <span class="n">num_candidates</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">num_voters</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
+                               <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;IC&#39;</span><span class="p">)</span>
+<span class="n">experiment</span><span class="o">.</span><span class="n">add_family</span><span class="p">(</span><span class="n">culture_id</span><span class="o">=</span><span class="s1">&#39;urn&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+                               <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;alpha&#39;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">},</span>
+                                  <span class="n">num_candidates</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">num_voters</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
+                               <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Urn&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The map.csv file will look like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">size</span><span class="p">;</span><span class="n">num_candidates</span><span class="p">;</span><span class="n">num_voters</span><span class="p">;</span><span class="n">culture_id</span><span class="p">;</span><span class="n">params</span><span class="p">;</span><span class="n">family_id</span><span class="p">;</span><span class="n">label</span><span class="p">;</span><span class="n">color</span><span class="p">;</span><span class="n">alpha</span><span class="p">;</span><span class="n">marker</span><span class="p">;</span><span class="n">ms</span><span class="p">;</span><span class="n">path</span><span class="p">;</span><span class="n">show</span>
+<span class="mi">10</span><span class="p">;</span><span class="mi">20</span><span class="p">;</span><span class="mi">200</span><span class="p">;</span><span class="n">impartial</span><span class="p">;{};</span><span class="n">impartial_10_100</span><span class="p">;</span><span class="n">IC</span><span class="p">;</span><span class="n">green</span><span class="p">;</span><span class="mf">1.0</span><span class="p">;</span><span class="n">x</span><span class="p">;</span><span class="mi">20</span><span class="p">;{};</span><span class="kc">True</span>
+<span class="mi">10</span><span class="p">;</span><span class="mi">20</span><span class="p">;</span><span class="mi">200</span><span class="p">;</span><span class="n">urn</span><span class="p">;{};</span><span class="n">urn_10_100</span><span class="p">;</span><span class="n">Urn</span><span class="p">;</span><span class="n">blue</span><span class="p">;</span><span class="mf">0.1</span><span class="p">;</span><span class="n">o</span><span class="p">;</span><span class="mi">20</span><span class="p">;{};</span><span class="kc">True</span>
+</pre></div>
+</div>
 </section>
 <section id="other">
 <h3>Other<a class="headerlink" href="#other" title="Link to this heading">#</a></h3>

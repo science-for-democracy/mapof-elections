@@ -50,24 +50,24 @@ def update_params_ordinal_alpha(printing_params):
 
 def update_params_ordinal(params, printing_params, variable, culture_id, num_candidates):
     if variable is not None:
-        printing_params['alpha'] = params[variable]
+        # printing_params['alpha'] = params[variable]
         printing_params['variable'] = variable
     else:
         if culture_id.lower() == 'mallows':
             update_params_ordinal_mallows(params)
-            printing_params['alpha'] = params['phi']
+            # printing_params['alpha'] = params['phi']
         elif 'norm_mallows' in culture_id.lower() or 'norm-mallows' in culture_id.lower() \
                 or 'mallows_urn' in culture_id.lower():
             update_params_ordinal_norm_mallows(params, num_candidates)
-            printing_params['alpha'] = params['normphi']
+            # printing_params['alpha'] = params['normphi']
         elif 'urn' in culture_id.lower():
             update_params_ordinal_urn_model(params)
-            printing_params['alpha'] = params['alpha']
+            # printing_params['alpha'] = params['alpha']
         elif culture_id.lower() == 'mallows_matrix_path':
             update_params_ordinal_mallows_matrix_path(params, num_candidates)
         elif culture_id.lower() == 'mallows_triangle':
             update_params_ordinal_mallows_triangle(params, num_candidates)
-        update_params_ordinal_alpha(printing_params)
+        # update_params_ordinal_alpha(printing_params)
     return params, printing_params
 
 

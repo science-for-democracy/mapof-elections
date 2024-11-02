@@ -50,7 +50,7 @@ List of Ordinal Features
 
 
 List of Approval Features
-------------------------
+-------------------------
 
 .. list-table::
    :widths: 50 50

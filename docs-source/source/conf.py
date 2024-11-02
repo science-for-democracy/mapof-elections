@@ -40,6 +40,8 @@ napoleon_custom_sections = ["Validation"]
 templates_path = ["_templates"]
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
+
+
 source_suffix = ".rst"
 master_doc = "index"
 
@@ -57,14 +59,17 @@ doctest_path = [".."]
 
 html_theme = 'sphinx_book_theme'
 # html_static_path = ['_static']
+# html_css_files = [
+#     'custom.css',
+# ]
 
-#
 html_title = "Map of Elections"
 html_theme_options = {
     "repository_url": "https://github.com/science-for-democracy/mapof-elections",
     "use_repository_button": True,
     "navigation_with_keys": True,
 }
+
 
 intersphinx_mapping = {
     'prefsampling': ('https://comsoc-community.github.io/prefsampling/', None),

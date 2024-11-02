@@ -33,8 +33,8 @@ simple_ordinal_cultures_to_test = {
     'an',
     'antagonism',
     'urn',
-    'walsh',
-    'conitzer',
+    'single-peaked_walsh',
+    'single-peaked_conitzer',
     'spoc'
     'single-crossing',
     'mallows',

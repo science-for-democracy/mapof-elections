@@ -69,11 +69,6 @@ class TestCultures:
                                                         p=0.4,
                                                         alpha=0.1,
                                                         parties=2)
-        elif culture_id in ['ic']:
-            election = mapel.generate_approval_election(culture_id=culture_id,
-                                                    num_voters=num_voters,
-                                                    num_candidates=num_candidates,
-                                                        p=0.4)
         else:
             election = mapel.generate_approval_election(culture_id=culture_id,
                                                     num_voters=num_voters,

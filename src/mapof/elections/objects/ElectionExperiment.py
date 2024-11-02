@@ -172,15 +172,15 @@ class ElectionExperiment(Experiment):
         self.default_committee_size = committee_size
 
     def add_election_from_matrix(self,
-                                 matrix,
+                                 frequency_matrix,
                                  **kwargs):
 
-        if len(matrix) != len(matrix[0]):
+        if len(frequency_matrix) != len(frequency_matrix[0]):
             raise ValueError("Matrix is not square")
 
         self.add_election(
-            num_candidates=len(matrix),
-            matrix=matrix,
+            num_candidates=len(frequency_matrix),
+            frequency_matrix=frequency_matrix,
             culture_id='frequency_matrix',
             **kwargs
         )
@@ -201,7 +201,8 @@ class ElectionExperiment(Experiment):
                      instance_id: str = None,
                      frequency_matrix=None,
                      is_temporary: bool = False,
-                     **kwargs):
+                     params: dict = None,
+        ):
         """
         Adds election to the experiment.
 
@@ -237,8 +238,8 @@ class ElectionExperiment(Experiment):
                 Frequency matrix.
             is_temporary : bool
                 If true the election is temporary.
-            **kwargs : dict
-                Additional parameters.
+            params : dict
+                Model parameters.
 
         Returns
         -------
@@ -256,7 +257,6 @@ class ElectionExperiment(Experiment):
             num_voters = self.default_num_voters
 
         return self.add_family(culture_id=culture_id,
-                               params=kwargs,
                                size=size,
                                label=label,
                                color=color,
@@ -271,7 +271,7 @@ class ElectionExperiment(Experiment):
                                frequency_matrix=frequency_matrix,
                                is_temporary=is_temporary,
                                single=True,
-                               **kwargs)
+                               params=params)
 
     def add_family(self,
                    culture_id: str = "none",
@@ -287,11 +287,11 @@ class ElectionExperiment(Experiment):
                    num_voters: int = None,
                    frequency_matrix=None,
                    is_temporary: bool = False,
-                   params: dict = None,
                    family_id: str = None,
                    single: bool = False,
                    path: dict = None,
-                   **kwargs) -> list:
+                   params: dict = None,
+        ) -> list:
         """
         Adds family of elections to the experiment.
 
@@ -304,7 +304,7 @@ class ElectionExperiment(Experiment):
             color
                 Color.
             alpha : float
-                Alpha.
+                Alpha (i.e., transparency).
             show : bool
                 If true the family is shown.
             marker : str
@@ -323,16 +323,14 @@ class ElectionExperiment(Experiment):
                 Frequency matrix.
             is_temporary : bool
                 If true the election is temporary.
-            params : dict
-                Additional parameters.
             family_id : str
                 Family id.
             single : bool
                 If true only one election is added.
             path : dict
                 Path.
-            **kwargs : dict
-                Additional parameters.
+            params : dict
+                Model parameters.
 
         Returns
         -------
@@ -371,7 +369,7 @@ class ElectionExperiment(Experiment):
 
         self.families[family_id] = ElectionFamily(culture_id=culture_id,
                                                   family_id=family_id,
-                                                  params=kwargs,
+                                                  params=params,
                                                   label=label,
                                                   color=color,
                                                   alpha=alpha,
@@ -387,7 +385,7 @@ class ElectionExperiment(Experiment):
                                                   instance_type=self.instance_type,
                                                   frequency_matrix=frequency_matrix,
                                                   is_temporary=is_temporary,
-                                                  **kwargs)
+                                                )
 
         self.num_families = len(self.families)
         self.num_elections = sum([self.families[family_id].size for family_id in self.families])

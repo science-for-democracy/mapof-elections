@@ -19,15 +19,26 @@ def truncated_urn_mask(num_voters=None,
                                            **kwargs)
 
 
-def identity_mask(num_voters=None,
-                  num_candidates=None,
-                  p=None,
-                  **kwargs):
+def identity_approval_mask(num_voters=None,
+                           num_candidates=None,
+                           p=0.5,
+                           **kwargs):
     """ Mask for the ID culture. """
     return pref_approval.identity(num_voters=num_voters,
                                   num_candidates=num_candidates,
                                   rel_num_approvals=p,
                                   **kwargs)
+
+
+def impartial_approval_mask(num_voters=None,
+                            num_candidates=None,
+                            p=0.5,
+                            **kwargs):
+    """ Mask for the ID culture. """
+    return pref_approval.impartial(num_voters=num_voters,
+                                   num_candidates=num_candidates,
+                                   p=p,
+                                   **kwargs)
 
 
 def group_separable_mask(num_voters=None,

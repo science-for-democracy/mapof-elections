@@ -155,8 +155,7 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/cultures/index.html">Cultures</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/list_of_cultures.html">List of Cultures</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/main.html">Main</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/compass_approx.html">Compass Approximation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/compass_true.html">Compass True</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/compass.html">Compass</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/prefsampling_mask.html">Prefsampling Mask</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/pseudo_cultures.html">Pseudo Cultures</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/params.html">Params</a></li>
@@ -516,15 +515,15 @@ document.write(`
 
 
     <span class="k">def</span> <span class="nf">add_election_from_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-                                 <span class="n">matrix</span><span class="p">,</span>
+                                 <span class="n">frequency_matrix</span><span class="p">,</span>
                                  <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">frequency_matrix</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">frequency_matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Matrix is not square&quot;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">add_election</span><span class="p">(</span>
-            <span class="n">num_candidates</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">matrix</span><span class="p">),</span>
-            <span class="n">matrix</span><span class="o">=</span><span class="n">matrix</span><span class="p">,</span>
+            <span class="n">num_candidates</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">frequency_matrix</span><span class="p">),</span>
+            <span class="n">frequency_matrix</span><span class="o">=</span><span class="n">frequency_matrix</span><span class="p">,</span>
             <span class="n">culture_id</span><span class="o">=</span><span class="s1">&#39;frequency_matrix&#39;</span><span class="p">,</span>
             <span class="o">**</span><span class="n">kwargs</span>
         <span class="p">)</span>
@@ -547,7 +546,8 @@ document.write(`
                      <span class="n">instance_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                      <span class="n">frequency_matrix</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                      <span class="n">is_temporary</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-                     <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+                     <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Adds election to the experiment.</span>
 
@@ -583,8 +583,8 @@ document.write(`
 <span class="sd">                Frequency matrix.</span>
 <span class="sd">            is_temporary : bool</span>
 <span class="sd">                If true the election is temporary.</span>
-<span class="sd">            **kwargs : dict</span>
-<span class="sd">                Additional parameters.</span>
+<span class="sd">            params : dict</span>
+<span class="sd">                Model parameters.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -602,7 +602,6 @@ document.write(`
             <span class="n">num_voters</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_num_voters</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_family</span><span class="p">(</span><span class="n">culture_id</span><span class="o">=</span><span class="n">culture_id</span><span class="p">,</span>
-                               <span class="n">params</span><span class="o">=</span><span class="n">kwargs</span><span class="p">,</span>
                                <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">,</span>
                                <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span>
                                <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span>
@@ -617,7 +616,7 @@ document.write(`
                                <span class="n">frequency_matrix</span><span class="o">=</span><span class="n">frequency_matrix</span><span class="p">,</span>
                                <span class="n">is_temporary</span><span class="o">=</span><span class="n">is_temporary</span><span class="p">,</span>
                                <span class="n">single</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                               <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+                               <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ElectionExperiment.add_family">
@@ -636,11 +635,11 @@ document.write(`
                    <span class="n">num_voters</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                    <span class="n">frequency_matrix</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                    <span class="n">is_temporary</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-                   <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                    <span class="n">family_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                    <span class="n">single</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
                    <span class="n">path</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                   <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+                   <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Adds family of elections to the experiment.</span>
 
@@ -653,7 +652,7 @@ document.write(`
 <span class="sd">            color</span>
 <span class="sd">                Color.</span>
 <span class="sd">            alpha : float</span>
-<span class="sd">                Alpha.</span>
+<span class="sd">                Alpha (i.e., transparency).</span>
 <span class="sd">            show : bool</span>
 <span class="sd">                If true the family is shown.</span>
 <span class="sd">            marker : str</span>
@@ -672,16 +671,14 @@ document.write(`
 <span class="sd">                Frequency matrix.</span>
 <span class="sd">            is_temporary : bool</span>
 <span class="sd">                If true the election is temporary.</span>
-<span class="sd">            params : dict</span>
-<span class="sd">                Additional parameters.</span>
 <span class="sd">            family_id : str</span>
 <span class="sd">                Family id.</span>
 <span class="sd">            single : bool</span>
 <span class="sd">                If true only one election is added.</span>
 <span class="sd">            path : dict</span>
 <span class="sd">                Path.</span>
-<span class="sd">            **kwargs : dict</span>
-<span class="sd">                Additional parameters.</span>
+<span class="sd">            params : dict</span>
+<span class="sd">                Model parameters.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -720,7 +717,7 @@ document.write(`
 
         <span class="bp">self</span><span class="o">.</span><span class="n">families</span><span class="p">[</span><span class="n">family_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">ElectionFamily</span><span class="p">(</span><span class="n">culture_id</span><span class="o">=</span><span class="n">culture_id</span><span class="p">,</span>
                                                   <span class="n">family_id</span><span class="o">=</span><span class="n">family_id</span><span class="p">,</span>
-                                                  <span class="n">params</span><span class="o">=</span><span class="n">kwargs</span><span class="p">,</span>
+                                                  <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
                                                   <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span>
                                                   <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span>
                                                   <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span>
@@ -736,7 +733,7 @@ document.write(`
                                                   <span class="n">instance_type</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">instance_type</span><span class="p">,</span>
                                                   <span class="n">frequency_matrix</span><span class="o">=</span><span class="n">frequency_matrix</span><span class="p">,</span>
                                                   <span class="n">is_temporary</span><span class="o">=</span><span class="n">is_temporary</span><span class="p">,</span>
-                                                  <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+                                                <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">num_families</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">families</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">num_elections</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">families</span><span class="p">[</span><span class="n">family_id</span><span class="p">]</span><span class="o">.</span><span class="n">size</span> <span class="k">for</span> <span class="n">family_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">families</span><span class="p">])</span>

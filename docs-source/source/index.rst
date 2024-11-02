@@ -14,5 +14,6 @@ Mapof-elections is a Python package that serves for simplifying simulations and 
     installation
     quickstart
     reference/index
+    resources
     citation
 

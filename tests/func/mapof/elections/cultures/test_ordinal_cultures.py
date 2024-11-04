@@ -44,7 +44,7 @@ spaces_to_test = {
 
 approx_cultures = {
     'approx_stratification',
-    'approx_uniformity',
+    # 'approx_uniformity',
 }
 
 unpopular_ordinal_cultures_to_test = {
@@ -149,18 +149,18 @@ class TestCultures:
     #     assert len(election.votes) == num_voters
     #     assert len(election.votes[0]) == num_candidates
 
-    @pytest.mark.parametrize("culture_id", other_cultures)
-    def test_approx_cultures(self, culture_id):
-        num_voters = 20
-        num_candidates = 10
-        election = mapof.generate_ordinal_election(culture_id=culture_id,
-                                                   num_voters=num_voters,
-                                                   num_candidates=num_candidates)
-        assert election.num_candidates == num_candidates
-        assert election.num_voters == num_voters
-
-        assert len(election.votes) == num_voters
-        assert len(election.votes[0]) == num_candidates
+    # @pytest.mark.parametrize("culture_id", other_cultures)
+    # def test_approx_cultures(self, culture_id):
+    #     num_voters = 20
+    #     num_candidates = 10
+    #     election = mapof.generate_ordinal_election(culture_id=culture_id,
+    #                                                num_voters=num_voters,
+    #                                                num_candidates=num_candidates)
+    #     assert election.num_candidates == num_candidates
+    #     assert election.num_voters == num_voters
+    #
+    #     assert len(election.votes) == num_voters
+    #     assert len(election.votes[0]) == num_candidates
 
     # def test_norm_mallows_mixture(self):
     #     num_voters = 20

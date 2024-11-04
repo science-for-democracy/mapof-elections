@@ -2,6 +2,8 @@ import numpy as np
 
 from prefsampling.ordinal import impartial as generate_ordinal_ic_votes
 from prefsampling.ordinal import urn as generate_urn_votes
+from mapof.core.features.mallows import phi_from_normphi
+from mapof.elections.cultures.mallows import generate_mallows_votes
 
 
 def get_alliances(num_candidates, num_alliances):
@@ -26,7 +28,7 @@ def generate_ordinal_alliance_ic_votes(num_voters: int = None,
 def generate_ordinal_alliance_urn_votes(num_voters: int = None,
                                         num_candidates: int = None,
                                         params: dict = None):
-    votes = generate_urn_votes(num_voters, num_candidates, params)
+    votes = generate_urn_votes(num_voters, num_candidates, params['alpha'])
 
     alliances = get_alliances(num_candidates, params['num_alliances'])
 
@@ -36,7 +38,6 @@ def generate_ordinal_alliance_urn_votes(num_voters: int = None,
 def generate_ordinal_alliance_norm_mallows_votes(num_voters: int = None,
                                                  num_candidates: int = None,
                                                  params: dict = None):
-
     params['phi'] = phi_from_normphi(num_candidates, params['normphi'])
     votes = generate_mallows_votes(num_voters, num_candidates, **params)
 
@@ -90,9 +91,11 @@ def assign_to_closest_center(candidates, centers):
     return assignment
 
 
-def generate_ordinal_alliance_allied_euclidean_votes(num_voters: int = None,
-                                       num_candidates: int = None,
-                                       params: dict = None):
+def generate_ordinal_alliance_allied_euclidean_votes(
+        num_voters: int = None,
+        num_candidates: int = None,
+        params: dict = None
+):
     dim = params['dim']
     num_alliances = params['num_alliances']
 

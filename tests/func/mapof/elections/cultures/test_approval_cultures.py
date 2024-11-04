@@ -33,42 +33,40 @@ class TestCultures:
             election = mapel.generate_approval_election(culture_id=culture_id,
                                                         num_voters=num_voters,
                                                         num_candidates=num_candidates,
-                                                        phi=0.4,
-                                                        p=0.4)
+                                                        params={'phi': 0.4, 'p': 0.4})
         elif culture_id in ['noise']:
             election = mapel.generate_approval_election(culture_id=culture_id,
                                                         num_voters=num_voters,
                                                         num_candidates=num_candidates,
-                                                        phi=0.4)
+                                                        params={'phi': 0.4})
         elif culture_id in ['moving_resampling']:
             election = mapel.generate_approval_election(culture_id=culture_id,
                                                         num_voters=num_voters,
                                                         num_candidates=num_candidates,
-                                                        phi=0.4,
-                                                        p=0.4,
-                                                        num_legs=3)
+                                                        params={'phi': 0.4,
+                                                                'p': 0.4,
+                                                                'num_legs':3})
         elif culture_id in ['disjoint_resampling']:
             election = mapel.generate_approval_election(culture_id=culture_id,
                                                         num_voters=num_voters,
                                                         num_candidates=num_candidates,
-                                                        phi=0.4,
-                                                        p=0.2,
-                                                        num_central_votes=3)
+                                                        params={'phi': 0.4,
+                                                        'p': 0.2,
+                                                        'num_central_votes': 3})
 
         elif culture_id in ['truncated_urn']:
             election = mapel.generate_approval_election(culture_id=culture_id,
                                                     num_voters=num_voters,
                                                     num_candidates=num_candidates,
-                                                        p=0.4,
-                                                        alpha=0.1)
+                                                        params={'p': 0.4, 'alpha': 0.1})
 
         elif culture_id in ['urn_partylist']:
             election = mapel.generate_approval_election(culture_id=culture_id,
                                                     num_voters=num_voters,
                                                     num_candidates=num_candidates,
-                                                        p=0.4,
-                                                        alpha=0.1,
-                                                        parties=2)
+                                                        params={'p': 0.4,
+                                                        'alpha': 0.1,
+                                                        'parties': 2})
         else:
             election = mapel.generate_approval_election(culture_id=culture_id,
                                                     num_voters=num_voters,

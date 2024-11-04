@@ -49,11 +49,13 @@ class Election(Instance):
                  is_shifted=False,
                  is_imported=False,
                  is_exported=True,
+                 params=None,
                  **kwargs):
 
         super().__init__(experiment_id=experiment_id,
                          instance_id=election_id,
                          culture_id=culture_id,
+                         params=params,
                          **kwargs)
 
         self.ballot_type = ballot_type

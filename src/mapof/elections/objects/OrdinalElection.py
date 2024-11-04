@@ -45,6 +45,7 @@ class OrdinalElection(Election):
                  variable=None,
                  fast_import=False,
                  frequency_matrix=None,
+                 params=None,
                  **kwargs):
 
         super().__init__(experiment_id=experiment_id,
@@ -56,6 +57,7 @@ class OrdinalElection(Election):
                          num_candidates=num_candidates,
                          fast_import=fast_import,
                          ballot_type='ordinal',
+                         params=params,
                          **kwargs)
 
         self.variable = variable
@@ -72,9 +74,6 @@ class OrdinalElection(Election):
 
         if self.is_imported and self.experiment_id is not None:
             self.import_ordinal_election()
-
-        if self.params is None:
-            self.params = {}
 
         self.try_updating_params()
 

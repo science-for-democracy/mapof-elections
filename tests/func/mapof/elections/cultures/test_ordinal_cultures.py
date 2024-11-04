@@ -3,17 +3,6 @@ import numpy as np
 
 import mapof.elections as mapof
 
-#     'unst_topsize': compass_approx.generate_unst_topsize_votes,  # unsupported culture
-#     'idst_blocks': compass_approx.generate_idst_blocks_votes,
-#     'norm-mallows_mixture': mallows.generate_norm_mallows_mixture_votes,  # unsupported culture
-#     'mallows_triangle': mallows.generate_mallows_votes,  # unsupported culture
-#     'walsh_party': unused.generate_sp_party,  # unsupported culture
-#     'conitzer_party': unused.generate_sp_party,  # unsupported culture
-#     'mallows_party': mallows.generate_mallows_party,  # unsupported culture
-#     'ic_party': unused.generate_ic_party,  # unsupported culture
-#     'un_from_list': compass_approx.generate_un_from_list,  # unsupported culture
-#     'urn_model': pref_ordinal.urn,  # deprecated name
-
 
 new_to_test = {
     'didi',
@@ -67,6 +56,12 @@ unpopular_ordinal_cultures_to_test = {
     'unst_part',
 }
 
+other_cultures = {
+    'idst_blocks',
+    'unst_topsize',
+    'un_from_list',
+}
+
 
 class TestCultures:
 
@@ -77,7 +72,7 @@ class TestCultures:
 
         election = mapof.generate_ordinal_election(culture_id=culture_id,
                                                    num_voters=num_voters,
-                                                   num_candidates=num_candidates)
+                                                   num_candidates=num_candidates,)
 
         assert election.num_candidates == num_candidates
         assert election.num_voters == num_voters
@@ -120,7 +115,7 @@ class TestCultures:
         election = mapof.generate_ordinal_election(culture_id='euclidean',
                                                    num_voters=num_voters,
                                                    num_candidates=num_candidates,
-                                                   space=space)
+                                                   params={'space': space})
         assert election.num_candidates == num_candidates
         assert election.num_voters == num_voters
 
@@ -148,6 +143,33 @@ class TestCultures:
     #                                                num_voters=num_voters,
     #                                                num_candidates=num_candidates,
     #                                                tree_sampler=tree_sampler)
+    #     assert election.num_candidates == num_candidates
+    #     assert election.num_voters == num_voters
+    #
+    #     assert len(election.votes) == num_voters
+    #     assert len(election.votes[0]) == num_candidates
+
+    @pytest.mark.parametrize("culture_id", other_cultures)
+    def test_approx_cultures(self, culture_id):
+        num_voters = 20
+        num_candidates = 10
+        election = mapof.generate_ordinal_election(culture_id=culture_id,
+                                                   num_voters=num_voters,
+                                                   num_candidates=num_candidates)
+        assert election.num_candidates == num_candidates
+        assert election.num_voters == num_voters
+
+        assert len(election.votes) == num_voters
+        assert len(election.votes[0]) == num_candidates
+
+    # def test_norm_mallows_mixture(self):
+    #     num_voters = 20
+    #     num_candidates = 10
+    #     params = {'normphi_1': 0.2, 'normphi_2': 0.5}
+    #     election = mapof.generate_ordinal_election(culture_id='norm-mallows_mixture',
+    #                                                num_voters=num_voters,
+    #                                                num_candidates=num_candidates,
+    #                                                params=params)
     #     assert election.num_candidates == num_candidates
     #     assert election.num_voters == num_voters
     #

@@ -1,12 +1,10 @@
 import itertools as it
+import logging
 import math
 
-import mapof.core.features.mallows as core_mallows
 import numpy as np
 
-import mapof.elections.cultures.mallows as mallows
 import mapof.elections.cultures.sampling.samplemat as smpl
-import logging
 
 
 def _distribute_in_matrix(n, m):
@@ -62,7 +60,7 @@ def draw_election(matrix):
 #         matrix[j].append(last_col[j])
 #     return perms
 
-
+#
 def generate_un_from_list(num_voters: int = None, num_candidates: int = None):
     id_perm = list(range(num_candidates))
     m_fac = math.factorial(num_candidates)
@@ -409,18 +407,18 @@ def generate_unst_topsize_votes(num_voters=None, num_candidates=None, top_share=
     return draw_election(matrix)
 
 
-def generate_idst_blocks_votes(num_voters=None, num_candidates=None, no_blocks=None, **kwargs):
+def generate_idst_blocks_votes(num_voters=None, num_candidates=None, num_blocks=None, **kwargs):
     """ Generate kind of real elections between (ID) and (UN) """
-    if no_blocks is None:
+    if num_blocks is None:
         print("IDST_blocks generation : params None : random param generated")
-        no_blocks = np.random.choice(range(num_candidates + 1))
+        num_blocks = np.random.choice(range(num_candidates + 1))
     else:
-        no_blocks = no_blocks
-    no_blocks = int(round(no_blocks))
-    k = num_candidates // no_blocks
-    r = num_candidates - k * no_blocks
-    blocks = [k for _ in range(no_blocks)]
-    with_one_more = list(np.random.choice(range(no_blocks), r, replace=False))
+        num_blocks = num_blocks
+    num_blocks = int(round(num_blocks))
+    k = num_candidates // num_blocks
+    r = num_candidates - k * num_blocks
+    blocks = [k for _ in range(num_blocks)]
+    with_one_more = list(np.random.choice(range(num_blocks), r, replace=False))
     for i in with_one_more:
         blocks[i] = blocks[i] + 1
     matrix = _distribute_in_block_matrix(num_voters, blocks)

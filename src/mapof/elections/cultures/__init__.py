@@ -10,8 +10,7 @@ import mapof.elections.cultures.mallows as mallows
 import mapof.elections.cultures.matrices.single_crossing_matrices as sc_matrices
 import mapof.elections.cultures.matrices.single_peaked_matrices as sp_matrices
 import mapof.elections.cultures.pseudo_cultures as pseudo
-import mapof.elections.cultures.nonstandard.unused as unused
-from mapof.elections.cultures.nonstandard.alliances import (
+from mapof.elections.cultures.alliances import (
     generate_ordinal_alliance_ic_votes,
     generate_ordinal_alliance_urn_votes,
     generate_ordinal_alliance_euclidean_votes,
@@ -66,24 +65,19 @@ registered_ordinal_cultures = {
     'group-separable': mask.group_separable_mask,
     'mallows': pref_ordinal.mallows,
     'norm-mallows': mask.norm_mallows_mask,
-    # 'norm-mallows': mallows.generate_mallows_votes,
 
 
-    'idan_part': compass.generate_idan_part_votes,  # unsupported culture
-    'idun_part': compass.generate_idun_part_votes,  # unsupported culture
-    'idst_part': compass.generate_idst_part_votes,  # unsupported culture
-    'anun_part': compass.generate_anun_part_votes,  # unsupported culture
-    'anst_part': compass.generate_anst_part_votes,  # unsupported culture
-    'unst_part': compass.generate_unst_part_votes,  # unsupported culture
-    'unst_topsize': compass.generate_unst_topsize_votes,  # unsupported culture
+    'idan_part': compass.generate_idan_part_votes,
+    'idun_part': compass.generate_idun_part_votes,
+    'idst_part': compass.generate_idst_part_votes,
+    'anun_part': compass.generate_anun_part_votes,
+    'anst_part': compass.generate_anst_part_votes,
+    'unst_part': compass.generate_unst_part_votes,
+
     'idst_blocks': compass.generate_idst_blocks_votes,  # unsupported culture
-    'norm-mallows_mixture': mallows.generate_norm_mallows_mixture_votes,  # unsupported culture
-    'mallows_triangle': mallows.generate_mallows_votes,  # unsupported culture
-    'walsh_party': unused.generate_sp_party,  # unsupported culture
-    'conitzer_party': unused.generate_sp_party,  # unsupported culture
-    'mallows_party': mallows.generate_mallows_party,  # unsupported culture
-    'ic_party': unused.generate_ic_party,  # unsupported culture
+    'unst_topsize': compass.generate_unst_topsize_votes,  # unsupported culture
     'un_from_list': compass.generate_un_from_list,  # unsupported culture
+    'norm-mallows_mixture': mallows.generate_norm_mallows_mixture_votes,  # unsupported culture
 }
 
 

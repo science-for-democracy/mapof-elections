@@ -9,17 +9,18 @@ def generate_mallows_votes(*args, **kwargs):
     return ml.generate_mallows_votes(*args, **kwargs)
 
 
-def generate_norm_mallows_mixture_votes(num_voters, num_candidates, params):
-    phi_1 = ml.phi_from_normphi(num_candidates, float(params['normphi_1']))
+def generate_norm_mallows_mixture_votes(num_voters, num_candidates,
+                                        normphi_1=None, normphi_2=None, weight=0.5):
+    phi_1 = ml.phi_from_normphi(num_candidates, float(normphi_1))
     params_1 = {'weight': 0, 'phi': phi_1}
     votes_1 = generate_mallows_votes(num_voters, num_candidates, params_1)
 
-    phi_2 = ml.phi_from_normphi(num_candidates, float(params['normphi_2']))
+    phi_2 = ml.phi_from_normphi(num_candidates, float(normphi_2))
     params_2 = {'weight': 1, 'phi': phi_2}
     votes_2 = generate_mallows_votes(num_voters, num_candidates, params_2)
 
     votes = []
-    size_1 = int((1 - float(params['weight'])) * num_voters)
+    size_1 = int((1 - float(weight)) * num_voters)
     for i in range(size_1):
         votes.append(votes_1[i])
     for i in range(size_1, num_voters):

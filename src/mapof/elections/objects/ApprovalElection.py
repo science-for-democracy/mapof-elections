@@ -23,6 +23,7 @@ class ApprovalElection(Election, ABC):
                  culture_id=None,
                  num_candidates=None,
                  variable=None,
+                 params=None,
                  **kwargs):
 
         super().__init__(experiment_id=experiment_id,
@@ -30,6 +31,7 @@ class ApprovalElection(Election, ABC):
                          culture_id=culture_id,
                          num_candidates=num_candidates,
                          ballot_type='approval',
+                         params=params,
                          **kwargs)
 
         self.variable = variable
@@ -40,9 +42,6 @@ class ApprovalElection(Election, ABC):
 
         if self.is_imported and self.experiment_id is not None:
             self.import_approval_election()
-
-        if self.params is None:
-            self.params = {}
 
         self.try_updating_params()
 

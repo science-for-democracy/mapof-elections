@@ -48,7 +48,7 @@ class TestCultures:
         election = mapof.generate_ordinal_election(culture_id=culture_id,
                                                    num_voters=num_voters,
                                                    num_candidates=num_candidates,
-                                                   alpha=0.5)
+                                                   params={'alpha': 0.5})
 
         assert election.num_candidates == num_candidates
         assert election.num_voters == num_voters
@@ -73,7 +73,7 @@ class TestCultures:
             election = mapof.generate_ordinal_election(culture_id='pseudo_stratification',
                                                        num_voters=num_voters,
                                                        num_candidates=num_candidates,
-                                                       weight=weight)
+                                                       params={'weight': weight})
 
             assert election.num_candidates == num_candidates
             assert election.num_voters == num_voters
@@ -99,7 +99,7 @@ class TestCultures:
         election = mapof.generate_ordinal_election(culture_id=culture_id,
                                                    num_voters=num_voters,
                                                    num_candidates=num_candidates,
-                                                   alpha=0.5)
+                                                   params={'alpha': 0.5})
         frequency_matrix = election.get_frequency_matrix()
 
         assert frequency_matrix.shape == (num_candidates, num_candidates)
@@ -124,7 +124,7 @@ class TestCultures:
             election = mapof.generate_ordinal_election(culture_id='pseudo_stratification',
                                                        num_voters=num_voters,
                                                        num_candidates=num_candidates,
-                                                       weight=weight)
+                                                       params={'weight': weight})
         frequency_matrix = election.get_frequency_matrix()
 
         assert frequency_matrix.shape == (num_candidates, num_candidates)

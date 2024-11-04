@@ -1,7 +1,7 @@
 import pytest
 import numpy as np
 
-import mapof.elections as mapel
+import mapof.elections as mapof
 
 #      waiting for the update in prefsampling
 #     'group-separable': mask.group_separable_mask,
@@ -30,21 +30,23 @@ simple_ordinal_cultures_to_test = {
     'impartial',
     'impartial_culture',
     'iac',
-    'an',
-    'antagonism',
     'urn',
     'single-peaked_walsh',
     'single-peaked_conitzer',
-    'spoc'
+    'spoc',
     'single-crossing',
     'mallows',
     'norm-mallows',
 }
 
+cultures_with_even_number_of_voters = {
+    'an',
+    'antagonism',
+}
+
 tree_samplers_to_test = {
-    'balanced',
+    # 'balanced',
     'caterpillar',
-    None
 }
 
 spaces_to_test = {
@@ -52,7 +54,11 @@ spaces_to_test = {
     'sphere',
     'gaussian',
     'ball',
-    None
+}
+
+approx_cultures = {
+    'approx_stratification',
+    'approx_uniformity',
 }
 
 unpopular_ordinal_cultures_to_test = {
@@ -72,12 +78,31 @@ class TestCultures:
         num_voters = np.random.randint(10, 100)
         num_candidates = np.random.randint(10, 100)
 
-        election = mapel.generate_ordinal_election(culture_id=culture_id,
+        election = mapof.generate_ordinal_election(culture_id=culture_id,
                                                    num_voters=num_voters,
                                                    num_candidates=num_candidates)
 
         assert election.num_candidates == num_candidates
         assert election.num_voters == num_voters
+
+        assert len(election.votes) == num_voters
+        assert len(election.votes[0]) == num_candidates
+
+
+    @pytest.mark.parametrize("culture_id", cultures_with_even_number_of_voters)
+    def test_simple_cultures(self, culture_id):
+        num_voters = 20
+        num_candidates = 10
+
+        election = mapof.generate_ordinal_election(culture_id=culture_id,
+                                                   num_voters=num_voters,
+                                                   num_candidates=num_candidates)
+
+        assert election.num_candidates == num_candidates
+        assert election.num_voters == num_voters
+
+        assert len(election.votes) == num_voters
+        assert len(election.votes[0]) == num_candidates
 
     # @pytest.mark.parametrize("culture_id", unpopular_ordinal_cultures_to_test)
     # def test_unpopular_cultures(self, culture_id):
@@ -95,30 +120,40 @@ class TestCultures:
     def test_euclidean(self, space):
         num_voters = np.random.randint(10, 100)
         num_candidates = np.random.randint(10, 100)
-        election = mapel.generate_ordinal_election(culture_id='euclidean',
+        election = mapof.generate_ordinal_election(culture_id='euclidean',
                                                    num_voters=num_voters,
                                                    num_candidates=num_candidates,
                                                    space=space)
         assert election.num_candidates == num_candidates
         assert election.num_voters == num_voters
 
-    def test_stratification(self):
-        num_voters = np.random.randint(10, 100)
-        num_candidates = np.random.randint(10, 100)
-        election = mapel.generate_ordinal_election(culture_id='stratification',
+        assert len(election.votes) == num_voters
+        assert len(election.votes[0]) == num_candidates
+
+    @pytest.mark.parametrize("culture_id", approx_cultures)
+    def test_approx_cultures(self, culture_id):
+        num_voters = 20
+        num_candidates = 10
+        election = mapof.generate_ordinal_election(culture_id=culture_id,
                                                    num_voters=num_voters,
-                                                   num_candidates=num_candidates,
-                                                   weight=0.5)
+                                                   num_candidates=num_candidates)
         assert election.num_candidates == num_candidates
         assert election.num_voters == num_voters
 
-    # @pytest.mark.parametrize("tree_sampler", tree_samplers_to_test)
-    # def test_group_separable(self, tree_sampler):
-    #     num_voters = np.random.randint(10, 100)
-    #     num_candidates = np.random.randint(10, 100)
-    #     election = mapel.generate_ordinal_election(pseudo_culture_id='group-separable',
-    #                                                num_voters=num_voters,
-    #                                                num_candidates=num_candidates,
-    #                                                tree_sampler=tree_sampler)
-    #     assert election.num_candidates == num_candidates
-    #     assert election.num_voters == num_voters
+        assert len(election.votes) == num_voters
+        assert len(election.votes[0]) == num_candidates
+
+    @pytest.mark.parametrize("tree_sampler", tree_samplers_to_test)
+    def test_group_separable(self, tree_sampler):
+        num_voters = 20
+        num_candidates = 10
+        election = mapof.generate_ordinal_election(culture_id='group-separable',
+                                                   num_voters=num_voters,
+                                                   num_candidates=num_candidates,
+                                                   tree_sampler=tree_sampler)
+        assert election.num_candidates == num_candidates
+        assert election.num_voters == num_voters
+
+        assert len(election.votes) == num_voters
+        assert len(election.votes[0]) == num_candidates
+

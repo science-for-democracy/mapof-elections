@@ -49,7 +49,6 @@ def group_separable_mask(num_voters=None,
     """ Mask for the group-separable culture. """
 
     if type(tree_sampler) is str:
-        logging.warning("group separable BALANCED & CATERPILLAR trees are temporarily unavailable")
         if tree_sampler.lower() == 'balanced':
             tree_sampler = pref_ordinal.TreeSampler.BALANCED
         elif tree_sampler.lower() == 'caterpillar':

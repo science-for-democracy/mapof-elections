@@ -57,12 +57,12 @@ registered_ordinal_cultures = {
     'single-peaked_conitzer': pref_ordinal.single_peaked_conitzer,
     'single-peaked_walsh': pref_ordinal.single_peaked_walsh,
     'spoc': pref_ordinal.single_peaked_circle,
-    'approx_uniformity': compass.generate_approx_uniformity_votes,
+
     'un_from_matrix': compass.generate_approx_uniformity_votes,  # deprecated name
+    'approx_uniformity': compass.generate_approx_uniformity_votes,
     'approx_stratification': compass.generate_approx_stratification_votes,
 
     'euclidean': mask.euclidean_ordinal_mask,
-
     'group-separable': mask.group_separable_mask,
     'mallows': pref_ordinal.mallows,
     'norm-mallows': mask.norm_mallows_mask,

@@ -88,8 +88,6 @@ LIST_OF_PREFLIB_MODELS = {
 
 
 def is_pseudo_culture(culture_id: str) -> bool:
-    if culture_id is None or \
-            culture_id in ORDINAL_PSEUDO_MODELS or \
-            'pseudo' in culture_id:
+    if culture_id is not None and (culture_id in ORDINAL_PSEUDO_MODELS or 'pseudo' in culture_id):
         return True
     return False

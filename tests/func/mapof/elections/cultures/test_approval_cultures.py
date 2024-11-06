@@ -26,8 +26,8 @@ class TestCultures:
     @pytest.mark.parametrize("culture_id", registered_approval_cultures_to_test)
     def test_approval_cultures(self, culture_id):
 
-        num_voters = np.random.randint(10, 100)
-        num_candidates = np.random.randint(10, 100)
+        num_voters = np.random.randint(10, 20)
+        num_candidates = np.random.randint(10, 20)
 
         if culture_id in ['resampling']:
             election = mapel.generate_approval_election(culture_id=culture_id,

@@ -130,6 +130,7 @@ def generate_approval_election(**kwargs):
 
 def generate_election_from_votes(votes=None):
     election = OrdinalElection()
+    print(election.is_imported, election.experiment_id)
     election.num_candidates = len(votes[0])
     election.num_voters = len(votes)
     election.votes = votes

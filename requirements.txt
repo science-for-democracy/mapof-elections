@@ -1,6 +1,9 @@
 mapof==0.1.2
+prefsampling~=0.1.23
 tqdm==4.66.5
-prefsampling==0.1.22
 abcvoting~=2.11.0
-gurobipy
+matplotlib~=3.7.2
+numpy~=1.26.4
+gurobipy~=11.0.3
+networkx~=3.1
 pulp~=2.9.0

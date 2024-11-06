@@ -42,8 +42,8 @@ jobs:
     # cannot use it).
     # Hence, it is very convenient to thave this action in a separate job
     # and publish the outcome as artifacts.
-    name: Build wheels on ${{ frequency_matrix.os }}
-    runs-on: ${{ frequency_matrix.os }}
+    name: Build wheels on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
@@ -63,7 +63,7 @@ jobs:
       - name: Artifactize compiled-python wheels
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.MAPEL_EL_ARTS }}-${{ frequency_matrix.os }}
+          name: ${{ env.MAPEL_EL_ARTS }}-${{ matrix.os }}
           path: ${{ env.WHL_HOUSE }}
 
   test-pypi-update:

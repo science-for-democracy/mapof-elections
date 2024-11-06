@@ -37,6 +37,11 @@ permanent
 which unlock approval based committee rules (which require solving I(L)P
 programs) and sampling matrices using a permanent-based approach.
 
+
+# Documentation
+
+The complete documentation is available [here](https://science-for-democracy.github.io/mapof-elections/).
+
 # Acknowledgments
 
 This project is part of the [PRAGMA project](https://home.agh.edu.pl/~pragma/)

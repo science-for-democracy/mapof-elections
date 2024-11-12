@@ -135,6 +135,21 @@ class TestCultures:
         assert len(election.votes) == num_voters
         assert len(election.votes[0]) == num_candidates
 
+    def test_single_crossing(self):
+        culture_id = 'single-crossing'
+        num_voters = 10
+        num_candidates = 10
+        election = mapof.generate_ordinal_election(culture_id=culture_id,
+                                                   num_voters=num_voters,
+                                                   num_candidates=num_candidates)
+
+        print(election.votes)
+        assert election.num_candidates == num_candidates
+        assert election.num_voters == num_voters
+
+        assert len(election.votes) == num_voters
+        assert len(election.votes[0]) == num_candidates
+
     # @pytest.mark.parametrize("tree_sampler", tree_samplers_to_test)
     # def test_group_separable(self, tree_sampler):
     #     num_voters = 20

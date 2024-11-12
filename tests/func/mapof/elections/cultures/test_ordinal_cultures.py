@@ -91,17 +91,17 @@ class TestCultures:
         assert len(election.votes) == num_voters
         assert len(election.votes[0]) == num_candidates
 
-    # @pytest.mark.parametrize("culture_id", unpopular_ordinal_cultures_to_test)
-    # def test_unpopular_cultures(self, culture_id):
-    #     num_voters = 10
-    #     num_candidates = 6
-    #
-    #     election = mapel.generate_ordinal_election(culture_id=culture_id,
-    #                                                num_voters=num_voters,
-    #                                                num_candidates=num_candidates)
-    #
-    #     assert election.num_candidates == num_candidates
-    #     assert election.num_voters == num_voters
+    @pytest.mark.parametrize("culture_id", unpopular_ordinal_cultures_to_test)
+    def test_unpopular_cultures(self, culture_id):
+        num_voters = 10
+        num_candidates = 6
+    
+        election = mapof.generate_ordinal_election(culture_id=culture_id,
+                                                   num_voters=num_voters,
+                                                   num_candidates=num_candidates)
+    
+        assert election.num_candidates == num_candidates
+        assert election.num_voters == num_voters
 
     @pytest.mark.parametrize("space", spaces_to_test)
     def test_euclidean(self, space):

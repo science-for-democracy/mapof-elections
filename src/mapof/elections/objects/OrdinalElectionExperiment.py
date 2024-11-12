@@ -1,5 +1,5 @@
-import os
 from abc import ABC
+from pathlib import Path
 
 import mapof.elections.cultures as cultures
 import mapof.elections.distances as distances
@@ -47,12 +47,11 @@ class OrdinalElectionExperiment(ElectionExperiment, ABC):
         """
 
         dirs = ["experiments"]
-        for dir in dirs:
-            if not os.path.isdir(dir):
-                os.mkdir(os.path.join(os.getcwd(), dir))
+        for ddir in dirs:
+            (Path.cwd() / ddir).mkdir(exist_ok=True)
 
-        if not os.path.isdir(os.path.join(os.getcwd(), "experiments", self.experiment_id)):
-            os.mkdir(os.path.join(os.getcwd(), "experiments", self.experiment_id))
+        (Path.cwd() / "experiments" / self.experiment_id).mkdir(exist_ok=True)
+
 
         list_of_folders = ['distances',
                            'features',
@@ -60,14 +59,11 @@ class OrdinalElectionExperiment(ElectionExperiment, ABC):
                            'elections']
 
         for folder_name in list_of_folders:
-            if not os.path.isdir(os.path.join(os.getcwd(), "experiments",
-                                              self.experiment_id, folder_name)):
-                os.mkdir(os.path.join(os.getcwd(), "experiments",
-                                      self.experiment_id, folder_name))
+            to_check = Path.cwd() / "experiments" / self.experiment_id / folder_name
+            to_check.mkdir(exist_ok=True)
 
-        path = os.path.join(os.getcwd(), "experiments", self.experiment_id, "map.csv")
-        if not os.path.exists(path):
-
+        path = Path.cwd() / "experiments" / self.experiment_id / "map.csv"
+        if not path.exists():
             with open(path, 'w') as file_csv:
                 file_csv.write(
                     "size;num_candidates;num_voters;culture_id;params;family_id;"

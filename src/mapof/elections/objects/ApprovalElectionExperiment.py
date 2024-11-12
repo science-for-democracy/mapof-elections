@@ -1,6 +1,6 @@
 import csv
-import os
 from abc import ABC
+from pathlib import Path
 
 import numpy as np
 from mapof.core.matchings import solve_matching_vectors
@@ -51,8 +51,8 @@ class ApprovalElectionExperiment(ElectionExperiment, ABC):
 
         self.import_committees(list_of_rules=list_of_rules)
 
-        path = os.path.join(os.getcwd(), "experiments", f'{self.experiment_id}', '..',
-                            'rules_output', 'distances', f'{distance_id}.csv')
+        path = Path.cwd() / "experiments"/ f'{self.experiment_id}' / '..' / \
+                            'rules_output' / 'distances' / f'{distance_id}.csv'
 
         with open(path, 'w', newline='') as csv_file:
             writer = csv.writer(csv_file, delimiter=';')
@@ -201,12 +201,10 @@ class ApprovalElectionExperiment(ElectionExperiment, ABC):
         """
 
         dirs = ["experiments"]
-        for dir in dirs:
-            if not os.path.isdir(dir):
-                os.mkdir(os.path.join(os.getcwd(), dir))
+        for ddir in dirs:
+            (Path.cwd() / ddir).mkdir(exist_ok=True)
 
-        if not os.path.isdir(os.path.join(os.getcwd(), "experiments", self.experiment_id)):
-            os.mkdir(os.path.join(os.getcwd(), "experiments", self.experiment_id))
+        (Path.cwd() / "experiments" / self.experiment_id).mkdir(exist_ok=True)
 
         list_of_folders = ['distances',
                            'features',
@@ -215,13 +213,11 @@ class ApprovalElectionExperiment(ElectionExperiment, ABC):
                            ]
 
         for folder_name in list_of_folders:
-            if not os.path.isdir(os.path.join(os.getcwd(), "experiments",
-                                              self.experiment_id, folder_name)):
-                os.mkdir(os.path.join(os.getcwd(), "experiments",
-                                      self.experiment_id, folder_name))
+            to_check = Path.cwd() / "experiments" / self.experiment_id / folder_name
+            to_check.mkdir(exist_ok=True)
 
-        path = os.path.join(os.getcwd(), "experiments", self.experiment_id, "map.csv")
-        if not os.path.exists(path):
+        path = Path.cwd() / "experiments" / self.experiment_id / "map.csv"
+        if not path.exists():
             with open(path, 'w') as file_csv:
                 file_csv.write(
                     "size;num_candidates;num_voters;culture_id;params;family_id;"

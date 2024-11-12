@@ -133,7 +133,7 @@ class ElectionFamily(Family):
                                            num_candidates=self.num_candidates,
                                            is_imported=False,
                                            frequency_matrix=self.frequency_matrix,
-                                           **params
+                                           params=params,
                                            )
 
                 election.prepare_instance(is_exported=is_exported, is_aggregated=is_aggregated)

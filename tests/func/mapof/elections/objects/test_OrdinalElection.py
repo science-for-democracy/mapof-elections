@@ -1,14 +1,27 @@
+import pytest
 import numpy as np
 
 import mapof.elections as mapof
 
 
+@pytest.fixture
+def election_id():
+    return "test_election_ord"
+
+
+@pytest.fixture
+def num_voters():
+  return np.random.randint(10, 50)
+
+
+@pytest.fixture
+def num_candidates():
+  return np.random.randint(10, 20)
+
+
 class TestOrdinalElection:
 
-    def test_vote_microscope(self):
-
-        num_voters = np.random.randint(10, 50)
-        num_candidates = np.random.randint(10, 20)
+    def test_vote_microscope(self, num_voters, num_candidates):
         culture_id = 'ic'
 
         election = mapof.generate_ordinal_election(culture_id=culture_id,
@@ -23,10 +36,7 @@ class TestOrdinalElection:
             election.embed(object_type='vote')
             election.print_map(show=False)
 
-    def test_candidate_microscope(self):
-
-        num_voters = np.random.randint(10, 50)
-        num_candidates = np.random.randint(10, 20)
+    def test_candidate_microscope(self, num_voters, num_candidates):
         culture_id = 'ic'
 
         election = mapof.generate_ordinal_election(culture_id=culture_id,
@@ -63,43 +73,60 @@ class TestOrdinalElection:
 
         assert not election.is_condorcet()
 
-    def test_export_election_without_experiment(self):
-
-        num_voters = np.random.randint(10, 50)
-        num_candidates = np.random.randint(10, 20)
+    def test_export_election_without_experiment(self, num_voters,
+                                                num_candidates, tmp_path,
+                                                election_id):
         culture_id = 'ic'
 
         election = mapof.generate_ordinal_election(culture_id=culture_id,
-                                                   election_id='test_election',
+                                                   election_id=election_id,
                                                    num_voters=num_voters,
                                                    num_candidates=num_candidates)
-        path_to_folder = ''
-        election.export_to_file(path_to_folder)
+        election.export_to_file(tmp_path)
+        exported_file = tmp_path / f"{election_id}.{election.format}"
+        assert exported_file.exists(), "Election without experiment exported"
+        " incorrectly"
 
-    def test_export_aggregated_election_without_experiment(self):
+    def test_export_aggregated_election_without_experiment(self, num_voters,
+                                                           num_candidates,
+                                                           tmp_path, election_id):
+        culture_id = 'mallows'
 
-        num_voters = np.random.randint(10, 50)
-        num_candidates = np.random.randint(10, 20)
+        election = mapof.generate_ordinal_election(culture_id=culture_id,
+                                                   election_id=election_id,
+                                                   num_voters=num_voters,
+                                                   num_candidates=num_candidates,
+                                                   params = {"phi": 0})
+        election.export_to_file(tmp_path, is_aggregated=True)
+        exported_file = tmp_path / f"{election_id}.{election.format}"
+        assert exported_file.exists(), "Aggregated election without experiment exported"
+        " incorrectly"
+        with open(exported_file, 'r') as file_:
+            for i, line in enumerate(file_, start=1):
+                if i == 7:
+                    str_num = line.split(":")[0]
+                    assert int(str_num) > 1, "Aggregation did not work"
+
+    def test_export_pseudo_ordinal_election(self, num_voters, num_candidates,
+                                            tmp_path, election_id):
         culture_id = 'ic'
 
         election = mapof.generate_ordinal_election(culture_id=culture_id,
-                                                   election_id='test_election',
+                                                   election_id=election_id,
                                                    num_voters=num_voters,
                                                    num_candidates=num_candidates)
-        path_to_folder = ''
-        election.export_to_file(path_to_folder, is_aggregated=True)
-
-    def test_export_pseudo_ordinal_election(self):
-
-        num_voters = np.random.randint(10, 50)
-        num_candidates = np.random.randint(10, 20)
-        culture_id = 'ic'
-
-        election = mapof.generate_ordinal_election(culture_id=culture_id,
-                                                   election_id='psuedo_uniformity',
-                                                   num_voters=num_voters,
-                                                   num_candidates=num_candidates)
-        path_to_folder = ''
-        election.export_to_file(path_to_folder)
-
+        election.export_to_file(tmp_path)
+        exported_file = tmp_path / f"{election_id}.{election.format}"
+        assert exported_file.exists(), "Pseudo election without experiment exported"
+        " incorrectly"
+        counter = 0
+        with open(exported_file, 'r') as file_:
+            for i, line in enumerate(file_, start=1):
+                if i == 1:
+                    filename = line.strip().split(":")[1]
+                    assert filename == f" {election_id}.{election.format}", "Pseudo "
+                    "export did not work well"
+                if i > 6:
+                  counter += 1
+        assert counter == num_voters, "Pseudo export generated too few voters"
 

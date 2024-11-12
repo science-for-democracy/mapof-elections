@@ -1,60 +1,71 @@
+import pytest
 
 import mapof.elections as mapof
+
+@pytest.fixture
+def offline_experiment(mocker, tmp_path):
+    mocker.patch("os.getcwd", return_value=str(tmp_path))
+    mocker.patch("pathlib.Path.cwd", return_value=tmp_path)
+    return mapof.prepare_offline_ordinal_experiment(experiment_id="test_id_soc")
+
+
+@pytest.fixture
+def prepared_elections(offline_experiment):
+    offline_experiment.prepare_elections()
+    return offline_experiment
+
+
+@pytest.fixture
+def list_of_rules():
+  return ['av', 'sav']
+
+
+@pytest.fixture
+def feature_params():
+  return {'committee_size' : 2}
 
 
 class TestOfflineOrdinalExperiment:
 
-    def setup_method(self):
-        self.experiment = mapof.prepare_offline_ordinal_experiment(experiment_id="test_id_soc")
+    def test_compute_distances(self, prepared_elections):
+        prepared_elections.compute_distances(distance_id="emd-positionwise")
 
-    def test_prepare_elections(self):
-        self.experiment.prepare_elections()
-
-    def test_compute_distances(self):
-        self.experiment.prepare_elections()
-        self.experiment.compute_distances(distance_id="emd-positionwise")
-
-    # def test_embed_2d(self):
-    #     self.experiment.prepare_elections()
-    #     self.experiment.compute_distances(distance_id="emd-positionwise")
-    #     self.experiment.embed_2d(embedding_id="mds")
+    # def test_embed_2d(self, prepared_elections):
+    #     prepared_elections.compute_distances(distance_id="emd-positionwise")
+    #     prepared_elections.embed_2d(embedding_id="mds")
     #
-    # def test_print_map_2d(self):
-    #     self.experiment.prepare_elections()
-    #     self.experiment.compute_distances(distance_id="emd-positionwise")
-    #     self.experiment.embed_2d(embedding_id="mds")
-    #     self.experiment.print_map_2d(show=False)
+    # def test_print_map_2d(self, prepared_elections):
+    #     prepared_elections.compute_distances(distance_id="emd-positionwise")
+    #     prepared_elections.embed_2d(embedding_id="mds")
+    #     prepared_elections.print_map_2d(show=False)
 
-    def test_add_election(self):
-        self.experiment.prepare_elections()
-
-        self.experiment.add_election(
+    def test_add_election(self, prepared_elections):
+        prepared_elections.add_election(
             election_id='test_election_id',
             culture_id="ic",
             num_candidates=10,
             num_voters=100
             )
+        assert len(prepared_elections.families) == 1
 
-    def test_add_family(self):
-        self.experiment.prepare_elections()
-
-        self.experiment.add_family(
+    def test_add_family(self, prepared_elections):
+        prepared_elections.add_family(
             family_id='test_family_id',
             culture_id="ic",
             num_candidates=10,
             num_voters=100,
             size=3,
             )
+        assert len(prepared_elections.families) == 1
 
-    def test_pseud_election(self):
-        self.experiment.prepare_elections()
-
-        self.experiment.add_election(
+    def test_pseud_election(self, prepared_elections):
+        prepared_elections.add_election(
             election_id='test_election_id_pseudo',
             culture_id="pseudo_uniformity",
             num_candidates=10,
             num_voters=100
             )
+        assert len(prepared_elections.families) == 1
 
     def test_election_import(self):
         self.experiment = mapof.prepare_offline_ordinal_experiment(experiment_id="test_id_soc")

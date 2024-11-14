@@ -2,10 +2,15 @@ import pytest
 
 import mapof.elections as mapof
 
-@pytest.fixture
-def offline_experiment(mocker, tmp_path):
+
+@pytest.fixture(autouse=True)
+def mock_path(mocker, tmp_path):
     mocker.patch("os.getcwd", return_value=str(tmp_path))
     mocker.patch("pathlib.Path.cwd", return_value=tmp_path)
+
+
+@pytest.fixture
+def offline_experiment():
     return mapof.prepare_offline_approval_experiment(experiment_id="test_id_app")
 
 
@@ -17,12 +22,11 @@ def prepared_elections(offline_experiment):
 
 @pytest.fixture
 def list_of_rules():
-  return ['av', 'sav']
-
+    return ['av', 'sav']
 
 @pytest.fixture
 def feature_params():
-  return {'committee_size' : 2}
+    return {'committee_size' : 2}
 
 
 class TestOfflineApprovalExperiment:

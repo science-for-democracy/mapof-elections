@@ -201,10 +201,12 @@ LIST_OF_ORDINAL_ALLIANCE_MODELS = {
 }
 
 
-def generate_ordinal_alliance_votes(culture_id: str = None,
-                                    num_candidates: int = None,
-                                    num_voters: int = None,
-                                    params: dict = None):
+def generate_ordinal_alliance_votes(
+        culture_id: str = None,
+        num_candidates: int = None,
+        num_voters: int = None,
+        params: dict = None
+):
     if culture_id in LIST_OF_ORDINAL_ALLIANCE_MODELS:
         votes, alliances = LIST_OF_ORDINAL_ALLIANCE_MODELS.get(culture_id)(
             num_voters=num_voters,
@@ -218,7 +220,7 @@ def generate_ordinal_alliance_votes(culture_id: str = None,
     return np.array(votes), alliances
 
 
-def add_approval_culture(name, function):
+def add_approval_culture(name, function) -> None:
     """
     Adds a new approval culture to the list of available approval cultures.
 
@@ -228,11 +230,15 @@ def add_approval_culture(name, function):
             Name of the culture, which will be used as culture id.
         function : str
             Function that generates the votes.
+
+    Returns
+    -------
+        None
     """
     registered_approval_cultures[name] = function
 
 
-def add_ordinal_culture(name, function):
+def add_ordinal_culture(name, function) -> None:
     """
     Adds a new ordinal culture to the list of available ordinal cultures.
 
@@ -242,11 +248,15 @@ def add_ordinal_culture(name, function):
             Name of the culture, which will be used as culture id.
         function : str
             Function that generates the votes.
+
+    Returns
+    -------
+        None
     """
     registered_ordinal_cultures[name] = function
 
 
-def add_pseudo_ordinal_culture(name, function):
+def add_pseudo_ordinal_culture(name, function) -> None:
     """
     Adds a new ordinal culture to the list of available ordinal cultures.
 
@@ -256,6 +266,10 @@ def add_pseudo_ordinal_culture(name, function):
             Name of the culture, which will be used as culture id.
         function : str
             Function that generates the frequency matrix.
+
+    Returns
+    -------
+        None
     """
     registered_pseudo_ordinal_cultures[name] = function
 

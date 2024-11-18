@@ -56,7 +56,7 @@ class OrdinalElection(Election):
                          num_voters=num_voters,
                          num_candidates=num_candidates,
                          fast_import=fast_import,
-                         ballot_type='ordinal',
+                         instance_type='ordinal',
                          params=params,
                          **kwargs)
 
@@ -311,7 +311,6 @@ class OrdinalElection(Election):
 
     def prepare_instance(self, is_exported=None, is_aggregated=True):
         """ Prepares instance """
-
         if 'num_alliances' in self.params:
             self.votes, self.alliances = generate_ordinal_alliance_votes(
                 culture_id=self.culture_id,
@@ -431,14 +430,6 @@ class OrdinalElection(Election):
         if object_type is None:
             object_type = self.object_type
 
-        if object_type == 'vote':
-            length = self.num_voters
-        elif object_type == 'candidate':
-            length = self.num_candidates
-        else:
-            logging.warning(f'Incorrect object type: {object_type}')
-            length = 0
-
         plt.figure(figsize=(6.4, 6.4))
 
         X = []
@@ -457,7 +448,7 @@ class OrdinalElection(Election):
 
         if object_type == 'vote':
             if double_gradient:
-                for i in range(length):
+                for i in range(len(X)):
                     x = float(self.points['voters'][i][0])
                     y = float(self.points['voters'][i][1])
                     plt.scatter(X[i], Y[i], color=[0, y, x], s=s, alpha=alpha)
@@ -480,7 +471,7 @@ class OrdinalElection(Election):
 
         try:
             plt.title(self.texify_label(self.label), size=title_size)  # tmp
-        except:
+        except Exception:
             pass
 
         plt.axis('off')

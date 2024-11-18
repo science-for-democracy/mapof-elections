@@ -165,7 +165,7 @@ def highest_cc_score(election, committee_size=1):
         return {'value': None, 'dissat': None}
     winners, total_time = win.compute_standard_voting_rule(election=election,
                                                   committee_size=committee_size,
-                                                  ballot="ordinal",
+                                                  instance_type="ordinal",
                                                   type='borda_owa', name='cc')
     return {'value': get_cc_score(election, winners), 'dissat': get_cc_dissat(election, winners)}
 
@@ -188,7 +188,7 @@ def highest_hb_score(election, committee_size=1):
         return {'value': None, 'dissat': None}
     winners, total_time = win.compute_standard_voting_rule(election=election,
                                                   committee_size=committee_size,
-                                                  ballot="ordinal",
+                                                  instance_type="ordinal",
                                                   type='borda_owa', name='hb')
     return {'value': get_hb_score(election, winners), 'dissat': get_hb_dissat(election, winners)}
 
@@ -211,7 +211,7 @@ def highest_pav_score(election, committee_size=1):
         return {'value': None, 'dissat': None}
     winners, total_time = win.compute_standard_voting_rule(election=election,
                                                   committee_size=committee_size,
-                                                  ballot="ordinal",
+                                                  instance_type="ordinal",
                                                   type='bloc_owa', name='hb')
     return {'value': get_pav_score(election, winners), 'dissat': get_pav_dissat(election, winners)}
 

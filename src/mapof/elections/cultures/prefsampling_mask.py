@@ -85,6 +85,7 @@ def euclidean_ordinal_mask(num_voters=None,
             logging.warning("Invalid space type. Using default uniform cube.")
             point_sampler = EuclideanSpace.UNIFORM_CUBE
     else:
+        logging.warning("Invalid space type. Using default uniform cube.")
         point_sampler = EuclideanSpace.UNIFORM_CUBE
 
     return pref_ordinal.euclidean(
@@ -119,6 +120,7 @@ def euclidean_approval_mask(num_voters=None,
             logging.warning("Invalid space type. Using default uniform cube.")
             point_sampler = EuclideanSpace.UNIFORM_CUBE
     else:
+        logging.warning("Invalid space type. Using default uniform cube.")
         point_sampler = EuclideanSpace.UNIFORM_CUBE
 
     return pref_approval.euclidean_vcr(

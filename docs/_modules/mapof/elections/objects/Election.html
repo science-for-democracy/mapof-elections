@@ -388,7 +388,7 @@ document.write(`
                          <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">ballot_type</span> <span class="o">=</span> <span class="n">ballot_type</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">format</span> <span class="o">=</span> <span class="n">get_format_from_ballot_type</span><span class="p">(</span><span class="n">ballot_type</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">format</span> <span class="o">=</span> <span class="n">get_format_from_instance_type</span><span class="p">(</span><span class="n">ballot_type</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">election_id</span> <span class="o">=</span> <span class="n">election_id</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">label</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">num_voters</span> <span class="o">=</span> <span class="n">num_voters</span>
@@ -697,7 +697,7 @@ document.write(`
 
 
 
-<span class="k">def</span> <span class="nf">get_format_from_ballot_type</span><span class="p">(</span><span class="n">ballot_type</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">get_format_from_instance_type</span><span class="p">(</span><span class="n">ballot_type</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">ballot_type</span> <span class="o">==</span> <span class="s1">&#39;approval&#39;</span><span class="p">:</span>
         <span class="k">return</span> <span class="s1">&#39;app&#39;</span>
     <span class="k">elif</span> <span class="n">ballot_type</span> <span class="o">==</span> <span class="s1">&#39;ordinal&#39;</span><span class="p">:</span>

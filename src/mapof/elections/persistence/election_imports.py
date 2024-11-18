@@ -172,7 +172,7 @@ def import_real_new_soc_election(
             elif from_file_data_type == 'toi':
                 _process_toi_line(line, votes)
             else:
-                print("Unknown data format.")
+                raise ValueError("Unknown data format.")
             break
         elif re.search(regex_file_name, line):
             from_file_file_name = line.split(':')[1][1:-file_ending]
@@ -208,7 +208,7 @@ def import_real_new_soc_election(
         for line in file:
             _process_toi_line(line, votes)
     else:
-        print("Unknown data format.")
+        raise ValueError("Unknown data format.")
 
     file.close()
 
@@ -351,7 +351,7 @@ def import_pseudo_new_soc_election(
             if str(from_file_data_type) == 'soc':
                 _process_fake_soc_line(line, matrix)
             else:
-                print("Unknown data format.")
+                raise ValueError("Unknown data format.")
             break
         elif re.search(regex_file_name, line):
             from_file_file_name = line.split(':')[1][1:-file_ending]
@@ -378,7 +378,7 @@ def import_pseudo_new_soc_election(
         for line in file:
             _process_fake_soc_line(line, matrix)
     else:
-        print("Unknown data format.")
+        raise ValueError("Unknown data format.")
 
     file.close()
 
@@ -387,6 +387,8 @@ def import_pseudo_new_soc_election(
 
 def import_pseudo_old_soc_election(experiment_id: str, election_id: str):
     """ Import is_pseudo ordinal election form .soc file """
+
+    print(f"Importing files in old format")
 
     file_name = f'{election_id}.soc'
     path = os.path.join(os.getcwd(), "experiments", experiment_id, "elections", file_name)
@@ -438,7 +440,7 @@ def import_real_new_app_election(
             if from_file_data_type == 'app':
                 _process_app_line(line, votes)
             else:
-                print("Unknown data format.")
+                raise ValueError("Unknown data format.")
             break
         elif re.search(regex_file_name, line):
             from_file_file_name = line.split(':')[1][1:-file_ending]
@@ -468,7 +470,7 @@ def import_real_new_app_election(
         for line in file:
             _process_app_line(line, votes)
     else:
-        print("Unknown data format.")
+        raise ValueError("Unknown data format.")
 
     file.close()
 
@@ -595,7 +597,7 @@ def check_if_pseudo(experiment_id, election_id):
             if from_file_data_type == 'soc':
                 _process_fake_soc_line(line, matrix)
             else:
-                print("Unknown data format.")
+                raise ValueError("Unknown data format.")
             break
         elif re.search(regex_file_name, line):
             from_file_file_name = line.split(':')[1][1:-file_ending]

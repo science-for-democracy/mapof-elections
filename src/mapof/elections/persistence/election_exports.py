@@ -47,7 +47,7 @@ def export_votes_to_file(
             counted_votes = [[count, list(row)] for row, count in c.items()]
             counted_votes = sorted(counted_votes, reverse=True)
 
-            if election.ballot_type == 'approval':
+            if election.instance_type == 'approval':
                 for i in range(len(counted_votes)):
                     file_.write(str(counted_votes[i][0]) + ': {')
                     for j in range(len(counted_votes[i][1])):
@@ -56,7 +56,7 @@ def export_votes_to_file(
                             file_.write(", ")
                     file_.write("}\n")
 
-            elif election.ballot_type == 'ordinal':
+            elif election.instance_type == 'ordinal':
                 for i in range(len(counted_votes)):
                     file_.write(str(counted_votes[i][0]) + ': ')
                     for j in range(len(counted_votes[i][1])):
@@ -66,7 +66,7 @@ def export_votes_to_file(
                     file_.write("\n")
         else:
 
-            if election.ballot_type == 'approval':
+            if election.instance_type == 'approval':
                 for i in range(len(votes)):
                     file_.write('1: {')
                     for j in range(len(votes[i])):
@@ -75,7 +75,7 @@ def export_votes_to_file(
                             file_.write(", ")
                     file_.write("}\n")
 
-            elif election.ballot_type == 'ordinal':
+            elif election.instance_type == 'ordinal':
                 for i in range(len(votes)):
                     file_.write('1: ')
                     for j in range(len(votes[i])):
@@ -203,7 +203,7 @@ def export_pseudo_ordinal_election(election, path):
 #     else:
 #         export_votes_to_file(election,
 #                              path_to_file,
-#                              ballot_type='ordinal',
+#                              instance_type='ordinal',
 #                              votes=election.votes,
 #                              is_aggregated=is_aggregated)
 #
@@ -240,7 +240,7 @@ def export_pseudo_ordinal_election(election, path):
 #                              election.num_voters,
 #                              election.params,
 #                              path_to_file,
-#                              ballot_type='ordinal',
+#                              instance_type='ordinal',
 #                              votes=election.votes,
 #                              is_aggregated=is_aggregated)
 

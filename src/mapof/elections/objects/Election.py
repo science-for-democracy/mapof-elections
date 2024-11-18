@@ -41,7 +41,7 @@ class Election(Instance):
                  election_id=None,
                  culture_id=None,
                  votes=None,
-                 ballot_type: str = None,
+                 instance_type: str = None,
                  num_voters: int = None,
                  num_candidates: int = None,
                  label=None,
@@ -58,8 +58,8 @@ class Election(Instance):
                          params=params,
                          **kwargs)
 
-        self.ballot_type = ballot_type
-        self.format = get_format_from_ballot_type(ballot_type)
+        self.instance_type = instance_type
+        self.format = get_format_from_instance_type(instance_type)
         self.election_id = election_id
         self.label = label
         self.num_voters = num_voters
@@ -208,14 +208,6 @@ class Election(Instance):
         else:
             logging.warning('No such algorithm!')
 
-        if object_type == 'vote':
-            length = self.num_options
-        elif object_type == 'candidate':
-            pass
-        else:
-            logging.warning('No such type of object!')
-            length = None
-
         if not self.all_dist_zeros(object_type):
             dist = np.zeros(
                 [len(self.coordinates[object_type]), len(self.coordinates[object_type])])
@@ -252,7 +244,7 @@ class Election(Instance):
             try:
                 left_ctr = 0
                 right_ctr = 0
-                for v in range(length):
+                for v in range(len(self.coordinates[object_type])):
                     d_left = l2(self.coordinates[object_type][left],
                                 self.coordinates[object_type][v])
                     d_right = l2(self.coordinates[object_type][right],
@@ -351,9 +343,8 @@ def _remove_candidate_from_election(election, party_id, party_size) -> Election:
     return election
 
 
-
-def get_format_from_ballot_type(ballot_type):
-    if ballot_type == 'approval':
+def get_format_from_instance_type(instance_type):
+    if instance_type == 'approval':
         return 'app'
-    elif ballot_type == 'ordinal':
+    elif instance_type == 'ordinal':
         return 'soc'

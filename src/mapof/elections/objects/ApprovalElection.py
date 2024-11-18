@@ -30,7 +30,7 @@ class ApprovalElection(Election, ABC):
                          election_id=election_id,
                          culture_id=culture_id,
                          num_candidates=num_candidates,
-                         ballot_type='approval',
+                         instance_type='approval',
                          params=params,
                          **kwargs)
 
@@ -275,14 +275,6 @@ class ApprovalElection(Election, ABC):
         if object_type is None:
             object_type = self.object_type
 
-        if object_type == 'vote':
-            length = self.num_voters
-        elif object_type == 'candidate':
-            length = self.num_candidates
-        else:
-            logging.warning(f'Incorrect object type: {object_type}')
-            length = 0
-
         if object_type is None:
             object_type = self.object_type
 
@@ -303,7 +295,7 @@ class ApprovalElection(Election, ABC):
                         marker='X')
 
         if double_gradient:
-            for i in range(length):
+            for i in range(len(X)):
                 x = float(self.points['voters'][i][0])
                 y = float(self.points['voters'][i][1])
                 plt.scatter(X[i], Y[i], color=[0, y, x], s=s, alpha=alpha)

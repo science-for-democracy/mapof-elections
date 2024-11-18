@@ -26,7 +26,7 @@ def voting_rule(election, method=None, committee_size=None) -> set:
     return winners
 
 
-def compute_standard_voting_rule(election=None, committee_size=1, ballot="ordinal", type=None, name=None):
+def compute_standard_voting_rule(election=None, committee_size=1, instance_type="ordinal", type=None, name=None):
     votes, num_voters, num_candidates = election.votes, election.num_voters, election.num_candidates
     params = {"orders": committee_size,
               "pure": True,
@@ -36,7 +36,7 @@ def compute_standard_voting_rule(election=None, committee_size=1, ballot="ordina
     rule = {'type_id': type,
             'name': name,
             'length': num_candidates}
-    winners, total_time = get_winners(params, votes, rule, ballot)
+    winners, total_time = get_winners(params, votes, rule, instance_type)
     return winners, total_time
 
 
@@ -166,10 +166,10 @@ def get_borda_points(votes, num_voters, num_candidates):
     return points
 
 
-def get_winners(params, votes, rule, ballot='ordinal'):
-    if ballot == "ordinal":
+def get_winners(params, votes, rule, instance_type='ordinal'):
+    if instance_type == "ordinal":
         return get_ordinal_winners(params, votes, rule)
-    elif ballot == "approval":
+    elif instance_type == "approval":
         return get_approval_winners(params, votes, rule)
 
 

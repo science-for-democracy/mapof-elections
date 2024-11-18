@@ -9,8 +9,13 @@ def generate_mallows_votes(*args, **kwargs):
     return ml.generate_mallows_votes(*args, **kwargs)
 
 
-def generate_norm_mallows_mixture_votes(num_voters, num_candidates,
-                                        normphi_1=None, normphi_2=None, weight=0.5):
+def generate_norm_mallows_mixture_votes(
+        num_voters: int,
+        num_candidates: int,
+        normphi_1: float = None,
+        normphi_2: float = None,
+        weight: float = 0.5
+):
     phi_1 = ml.phi_from_normphi(num_candidates, float(normphi_1))
     params_1 = {'weight': 0, 'phi': phi_1}
     votes_1 = generate_mallows_votes(num_voters, num_candidates, params_1)
@@ -48,7 +53,7 @@ def _evaluatePolynomial(coeff, x):
     return res
 
 
-def calculateZ(m, phi):
+def _calculateZ(m, phi):
     coeff = _calculateZpoly(m)
     return _evaluatePolynomial(coeff, phi)
 
@@ -60,7 +65,7 @@ def mallowsMatrix(num_candidates, lphi, pos, normalize=True):
         phi = ml.phi_from_normphi(num_candidates, lphi)
     else:
         phi = lphi
-    Z = calculateZ(num_candidates, phi)
+    Z = _calculateZ(num_candidates, phi)
     for i in range(num_candidates):
         for j in range(num_candidates):
             freqs = [pos[k][i][j] for k in
@@ -100,14 +105,19 @@ def get_mallows_matrix_help(num_candidates, params, normalize=True):
     return res
 
 
-def get_mallows_matrix(num_candidates, params):
+def get_mallows_matrix(
+        num_candidates: int,
+        params: dict
+):
     return get_mallows_matrix_help(num_candidates, params).transpose()
 
 
-def generate_mallows_party(num_voters=None,
-                           num_candidates=None,
-                           election_model=None,
-                           params=None):
+def generate_mallows_party(
+        num_voters=None,
+        num_candidates=None,
+        election_model=None,
+        params=None
+):
     num_parties = params['num_parties']
     num_winners = params['committee_size']
     party_size = num_winners
@@ -133,12 +143,15 @@ def generate_mallows_party(num_voters=None,
     return new_votes
 
 
-def generate_approval_truncated_mallows_votes(num_voters=None,
-                                              num_candidates=None,
-                                              max_range=1,
-                                              normphi=None,
-                                              weight=None,
-                                              **_kwargs):
+def generate_approval_truncated_mallows_votes(
+        num_voters=None,
+        num_candidates=None,
+        max_range=1,
+        normphi=None,
+        weight=None,
+        **_kwargs
+):
+
     phi = ml.phi_from_normphi(num_candidates, normphi=normphi)
 
     ordinal_votes = generate_mallows_votes(num_voters, num_candidates, phi=phi, weight=weight)
@@ -149,4 +162,3 @@ def generate_approval_truncated_mallows_votes(num_voters=None,
         votes.append(set(ordinal_votes[v][0:k]))
 
     return votes
-

@@ -5,7 +5,7 @@ from mapof.core.objects.Family import Family
 from mapof.elections.objects.OrdinalElection import OrdinalElection
 from mapof.elections.objects.ApprovalElection import ApprovalElection
 from mapof.core.utils import get_instance_id
-from mapof.elections.cultures.params import get_params_for_paths, get_params_for_crate
+from mapof.elections.cultures.params import get_params_for_paths
 
 
 class ElectionFamily(Family):
@@ -169,9 +169,6 @@ class ElectionFamily(Family):
                 if self.culture_id in {'all_votes'}:
                     params['iter_id'] = j
 
-                if self.culture_id in {'crate'}:
-                    new_params = get_params_for_crate(j)
-                    params = {**params, **new_params}
 
                 election_id = get_instance_id(self.single, self.family_id, j)
 

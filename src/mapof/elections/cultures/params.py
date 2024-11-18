@@ -4,7 +4,7 @@ import mapof.core.features.mallows as mallows
 from mapof.elections.other.glossary import APPROVAL_MODELS
 
 
-def update_params_ordinal_mallows(params):
+def update_params_ordinal_mallows(params: dict):
     """ Updates parameters for ordinal Mallows model. """
     if 'phi' in params and type(params['phi']) is list:
         params['phi'] = np.random.uniform(low=params['phi'][0], high=params['phi'][1])
@@ -12,7 +12,7 @@ def update_params_ordinal_mallows(params):
         params['phi'] = np.random.random()
 
 
-def update_params_ordinal_norm_mallows(params, num_candidates):
+def update_params_ordinal_norm_mallows(params: dict, num_candidates: int):
     """ Updates parameters for ordinal Norm-Mallows model. """
     if 'normphi' not in params:
         params['normphi'] = np.random.random()
@@ -21,18 +21,18 @@ def update_params_ordinal_norm_mallows(params, num_candidates):
         params['weight'] = 0.
 
 
-def update_params_ordinal_urn_model(params):
+def update_params_ordinal_urn_model(params: dict):
     """ Updates parameters for ordinal Urn model. """
     if 'alpha' not in params:
         params['alpha'] = gamma.rvs(0.8)
 
 
-def update_params_ordinal_mallows_matrix_path(params, num_candidates):
+def update_params_ordinal_mallows_matrix_path(params: dict, num_candidates: int):
     params['normphi'] = params['alpha']
     params['phi'] = mallows.phi_from_normphi(num_candidates, normphi=params['normphi'])
 
 
-def update_params_ordinal_mallows_triangle(params, num_candidates):
+def update_params_ordinal_mallows_triangle(params: dict, num_candidates: int):
     params['normphi'] = 1 - np.sqrt(np.random.uniform())
     params['phi'] = mallows.phi_from_normphi(num_candidates, normphi=params['normphi'])
     params['weight'] = np.random.uniform(0, 0.5)
@@ -40,7 +40,7 @@ def update_params_ordinal_mallows_triangle(params, num_candidates):
     params['tint'] = params['weight']  # for tint on plots
 
 
-def update_params_ordinal_alpha(printing_params):
+def update_params_ordinal_alpha(printing_params: dict):
     if 'alpha' not in printing_params:
         printing_params['alpha'] = None
     elif type(printing_params['alpha']) is list:
@@ -48,7 +48,13 @@ def update_params_ordinal_alpha(printing_params):
                                                      high=printing_params['alpha'][1])
 
 
-def update_params_ordinal(params, printing_params, variable, culture_id, num_candidates):
+def update_params_ordinal(
+        params: dict,
+        printing_params: dict,
+        variable,
+        culture_id: str,
+        num_candidates: int
+):
     if variable is not None:
         # printing_params['alpha'] = params[variable]
         printing_params['variable'] = variable
@@ -71,14 +77,14 @@ def update_params_ordinal(params, printing_params, variable, culture_id, num_can
     return params, printing_params
 
 
-def update_params_approval_rel_size_central_vote(params, culture_id):
+def update_params_approval_rel_size_central_vote(params: dict, culture_id: str):
     if 'p' in params and culture_id in \
             ['resampling', 'disjoint_resampling', 'moving_resampling', 'noise']:
         params['rel_size_central_vote'] = params['p']
         params.pop('p')
 
 
-def update_params_approval_alpha(printing_params):
+def update_params_approval_alpha(printing_params: dict):
     if 'alpha' not in printing_params:
         printing_params['alpha'] = 1
     elif type(printing_params['alpha']) is list:
@@ -86,14 +92,14 @@ def update_params_approval_alpha(printing_params):
                                                      high=printing_params['alpha'][1])
 
 
-def update_params_approval_p(params):
+def update_params_approval_p(params: dict):
     if 'p' not in params:
         params['p'] = np.random.rand()
     elif type(params['p']) is list:
         params['p'] = np.random.uniform(low=params['p'][0], high=params['p'][1])
 
 
-def update_params_approval_resampling(params, printing_params):
+def update_params_approval_resampling(params: dict, printing_params: dict):
     if 'phi' in params and type(params['phi']) is list:
         params['phi'] = np.random.uniform(low=params['phi'][0], high=params['phi'][1])
     elif 'phi' not in params:
@@ -106,7 +112,7 @@ def update_params_approval_resampling(params, printing_params):
         params['p'] = np.random.random()
 
 
-def update_params_approval_disjoint(params, printing_params):
+def update_params_approval_disjoint(params: dict, printing_params: dict):
     if 'phi' in params and type(params['phi']) is list:
         params['phi'] = np.random.uniform(low=params['phi'][0], high=params['phi'][1])
     elif 'phi' not in params:
@@ -119,7 +125,12 @@ def update_params_approval_disjoint(params, printing_params):
         params['p'] = np.random.random() / params['g']
 
 
-def update_params_approval(params, printing_params, variable, culture_id, num_candidates):
+def update_params_approval(
+        params: dict,
+        printing_params: dict,
+        variable,
+        culture_id: str,
+):
     printing_params['alpha'] = 0
     if variable is not None:
         if culture_id in APPROVAL_MODELS:
@@ -146,25 +157,8 @@ def update_params_approval(params, printing_params, variable, culture_id, num_ca
     return params, printing_params
 
 
-def get_params_for_crate(j):
-    base = []
-    my_size = 10
-    # with_edge
-    for p in range(my_size):
-        for q in range(my_size):
-            for r in range(my_size):
-                a = p / (my_size - 1)
-                b = q / (my_size - 1)
-                c = r / (my_size - 1)
-                d = 1 - a - b - c
-                tmp = [a, b, c, d]
-                if d >= 0 and sum(tmp) == 1:
-                    base.append(tmp)
-    params = {'alpha': base[j]}
-    return params
-
-
 def get_params_for_paths(family, j, extremes=False):
+
     path = family.path
 
     variable = path['variable']

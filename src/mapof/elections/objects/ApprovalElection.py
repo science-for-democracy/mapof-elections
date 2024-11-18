@@ -79,7 +79,6 @@ class ApprovalElection(Election, ABC):
                 self.printing_params,
                 self.variable,
                 self.culture_id,
-                self.num_candidates
             )
 
     def votes_to_approvalwise_vector(self) -> None:

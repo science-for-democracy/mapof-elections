@@ -327,7 +327,7 @@ def generate_idst_blocks_votes(
         num_blocks: int = None,
         **_kwargs
 ):
-    """ Generates kind of real elections between (ID) and (UN) """
+    """ Generates kind of real elections between (ID) and (ST) """
     if num_blocks is None:
         print("IDST_blocks generation : params None : random param generated")
         num_blocks = np.random.choice(range(num_candidates + 1))
@@ -356,7 +356,10 @@ def generate_approx_stratification_votes(
             for _ in range(num_voters)]
 
 
-def generate_antagonism_votes(num_voters=None, num_candidates=None) -> list:
+def generate_antagonism_votes(
+        num_voters: int = None,
+        num_candidates: int = None
+) -> list:
     """
     Generates antagonism election.
 

@@ -208,6 +208,7 @@
 </details></li>
 </ul>
 </details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../resources.html">Resources</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../citation.html">Citation Policy</a></li>
 </ul>
 
@@ -339,8 +340,7 @@ document.write(`
 <span class="kn">import</span> <span class="nn">mapof.elections.cultures.matrices.single_crossing_matrices</span> <span class="k">as</span> <span class="nn">sc_matrices</span>
 <span class="kn">import</span> <span class="nn">mapof.elections.cultures.matrices.single_peaked_matrices</span> <span class="k">as</span> <span class="nn">sp_matrices</span>
 <span class="kn">import</span> <span class="nn">mapof.elections.cultures.pseudo_cultures</span> <span class="k">as</span> <span class="nn">pseudo</span>
-<span class="kn">import</span> <span class="nn">mapof.elections.cultures.nonstandard.unused</span> <span class="k">as</span> <span class="nn">unused</span>
-<span class="kn">from</span> <span class="nn">mapof.elections.cultures.nonstandard.alliances</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">mapof.elections.cultures.alliances</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">generate_ordinal_alliance_ic_votes</span><span class="p">,</span>
     <span class="n">generate_ordinal_alliance_urn_votes</span><span class="p">,</span>
     <span class="n">generate_ordinal_alliance_euclidean_votes</span><span class="p">,</span>
@@ -386,33 +386,28 @@ document.write(`
     <span class="s1">&#39;single-peaked_conitzer&#39;</span><span class="p">:</span> <span class="n">pref_ordinal</span><span class="o">.</span><span class="n">single_peaked_conitzer</span><span class="p">,</span>
     <span class="s1">&#39;single-peaked_walsh&#39;</span><span class="p">:</span> <span class="n">pref_ordinal</span><span class="o">.</span><span class="n">single_peaked_walsh</span><span class="p">,</span>
     <span class="s1">&#39;spoc&#39;</span><span class="p">:</span> <span class="n">pref_ordinal</span><span class="o">.</span><span class="n">single_peaked_circle</span><span class="p">,</span>
-    <span class="s1">&#39;approx_uniformity&#39;</span><span class="p">:</span> <span class="n">compass</span><span class="o">.</span><span class="n">generate_approx_uniformity_votes</span><span class="p">,</span>
+
     <span class="s1">&#39;un_from_matrix&#39;</span><span class="p">:</span> <span class="n">compass</span><span class="o">.</span><span class="n">generate_approx_uniformity_votes</span><span class="p">,</span>  <span class="c1"># deprecated name</span>
+    <span class="s1">&#39;approx_uniformity&#39;</span><span class="p">:</span> <span class="n">compass</span><span class="o">.</span><span class="n">generate_approx_uniformity_votes</span><span class="p">,</span>
     <span class="s1">&#39;approx_stratification&#39;</span><span class="p">:</span> <span class="n">compass</span><span class="o">.</span><span class="n">generate_approx_stratification_votes</span><span class="p">,</span>
 
     <span class="s1">&#39;euclidean&#39;</span><span class="p">:</span> <span class="n">mask</span><span class="o">.</span><span class="n">euclidean_ordinal_mask</span><span class="p">,</span>
-
     <span class="s1">&#39;group-separable&#39;</span><span class="p">:</span> <span class="n">mask</span><span class="o">.</span><span class="n">group_separable_mask</span><span class="p">,</span>
     <span class="s1">&#39;mallows&#39;</span><span class="p">:</span> <span class="n">pref_ordinal</span><span class="o">.</span><span class="n">mallows</span><span class="p">,</span>
     <span class="s1">&#39;norm-mallows&#39;</span><span class="p">:</span> <span class="n">mask</span><span class="o">.</span><span class="n">norm_mallows_mask</span><span class="p">,</span>
-    <span class="c1"># &#39;norm-mallows&#39;: mallows.generate_mallows_votes,</span>
 
 
-    <span class="s1">&#39;idan_part&#39;</span><span class="p">:</span> <span class="n">compass</span><span class="o">.</span><span class="n">generate_idan_part_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
-    <span class="s1">&#39;idun_part&#39;</span><span class="p">:</span> <span class="n">compass</span><span class="o">.</span><span class="n">generate_idun_part_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
-    <span class="s1">&#39;idst_part&#39;</span><span class="p">:</span> <span class="n">compass</span><span class="o">.</span><span class="n">generate_idst_part_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
-    <span class="s1">&#39;anun_part&#39;</span><span class="p">:</span> <span class="n">compass</span><span class="o">.</span><span class="n">generate_anun_part_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
-    <span class="s1">&#39;anst_part&#39;</span><span class="p">:</span> <span class="n">compass</span><span class="o">.</span><span class="n">generate_anst_part_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
-    <span class="s1">&#39;unst_part&#39;</span><span class="p">:</span> <span class="n">compass</span><span class="o">.</span><span class="n">generate_unst_part_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
-    <span class="s1">&#39;unst_topsize&#39;</span><span class="p">:</span> <span class="n">compass</span><span class="o">.</span><span class="n">generate_unst_topsize_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
+    <span class="s1">&#39;idan_part&#39;</span><span class="p">:</span> <span class="n">compass</span><span class="o">.</span><span class="n">generate_idan_part_votes</span><span class="p">,</span>
+    <span class="s1">&#39;idun_part&#39;</span><span class="p">:</span> <span class="n">compass</span><span class="o">.</span><span class="n">generate_idun_part_votes</span><span class="p">,</span>
+    <span class="s1">&#39;idst_part&#39;</span><span class="p">:</span> <span class="n">compass</span><span class="o">.</span><span class="n">generate_idst_part_votes</span><span class="p">,</span>
+    <span class="s1">&#39;anun_part&#39;</span><span class="p">:</span> <span class="n">compass</span><span class="o">.</span><span class="n">generate_anun_part_votes</span><span class="p">,</span>
+    <span class="s1">&#39;anst_part&#39;</span><span class="p">:</span> <span class="n">compass</span><span class="o">.</span><span class="n">generate_anst_part_votes</span><span class="p">,</span>
+    <span class="s1">&#39;unst_part&#39;</span><span class="p">:</span> <span class="n">compass</span><span class="o">.</span><span class="n">generate_unst_part_votes</span><span class="p">,</span>
+
     <span class="s1">&#39;idst_blocks&#39;</span><span class="p">:</span> <span class="n">compass</span><span class="o">.</span><span class="n">generate_idst_blocks_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
-    <span class="s1">&#39;norm-mallows_mixture&#39;</span><span class="p">:</span> <span class="n">mallows</span><span class="o">.</span><span class="n">generate_norm_mallows_mixture_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
-    <span class="s1">&#39;mallows_triangle&#39;</span><span class="p">:</span> <span class="n">mallows</span><span class="o">.</span><span class="n">generate_mallows_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
-    <span class="s1">&#39;walsh_party&#39;</span><span class="p">:</span> <span class="n">unused</span><span class="o">.</span><span class="n">generate_sp_party</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
-    <span class="s1">&#39;conitzer_party&#39;</span><span class="p">:</span> <span class="n">unused</span><span class="o">.</span><span class="n">generate_sp_party</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
-    <span class="s1">&#39;mallows_party&#39;</span><span class="p">:</span> <span class="n">mallows</span><span class="o">.</span><span class="n">generate_mallows_party</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
-    <span class="s1">&#39;ic_party&#39;</span><span class="p">:</span> <span class="n">unused</span><span class="o">.</span><span class="n">generate_ic_party</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
+    <span class="s1">&#39;unst_topsize&#39;</span><span class="p">:</span> <span class="n">compass</span><span class="o">.</span><span class="n">generate_unst_topsize_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
     <span class="s1">&#39;un_from_list&#39;</span><span class="p">:</span> <span class="n">compass</span><span class="o">.</span><span class="n">generate_un_from_list</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
+    <span class="s1">&#39;norm-mallows_mixture&#39;</span><span class="p">:</span> <span class="n">mallows</span><span class="o">.</span><span class="n">generate_norm_mallows_mixture_votes</span><span class="p">,</span>  <span class="c1"># unsupported culture</span>
 <span class="p">}</span>
 
 

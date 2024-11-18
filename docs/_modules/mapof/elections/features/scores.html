@@ -155,8 +155,7 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/cultures/index.html">Cultures</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/list_of_cultures.html">List of Cultures</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/main.html">Main</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/compass_approx.html">Compass Approximation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/compass_true.html">Compass True</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/compass.html">Compass</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/prefsampling_mask.html">Prefsampling Mask</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/pseudo_cultures.html">Pseudo Cultures</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/params.html">Params</a></li>
@@ -209,6 +208,7 @@
 </details></li>
 </ul>
 </details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../resources.html">Resources</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../citation.html">Citation Policy</a></li>
 </ul>
 
@@ -509,7 +509,7 @@ document.write(`
         <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;dissat&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
     <span class="n">winners</span><span class="p">,</span> <span class="n">total_time</span> <span class="o">=</span> <span class="n">win</span><span class="o">.</span><span class="n">compute_standard_voting_rule</span><span class="p">(</span><span class="n">election</span><span class="o">=</span><span class="n">election</span><span class="p">,</span>
                                                   <span class="n">committee_size</span><span class="o">=</span><span class="n">committee_size</span><span class="p">,</span>
-                                                  <span class="n">ballot</span><span class="o">=</span><span class="s2">&quot;ordinal&quot;</span><span class="p">,</span>
+                                                  <span class="n">instance_type</span><span class="o">=</span><span class="s2">&quot;ordinal&quot;</span><span class="p">,</span>
                                                   <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;borda_owa&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;cc&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="n">get_cc_score</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">winners</span><span class="p">),</span> <span class="s1">&#39;dissat&#39;</span><span class="p">:</span> <span class="n">get_cc_dissat</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">winners</span><span class="p">)}</span></div>
 
@@ -535,7 +535,7 @@ document.write(`
         <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;dissat&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
     <span class="n">winners</span><span class="p">,</span> <span class="n">total_time</span> <span class="o">=</span> <span class="n">win</span><span class="o">.</span><span class="n">compute_standard_voting_rule</span><span class="p">(</span><span class="n">election</span><span class="o">=</span><span class="n">election</span><span class="p">,</span>
                                                   <span class="n">committee_size</span><span class="o">=</span><span class="n">committee_size</span><span class="p">,</span>
-                                                  <span class="n">ballot</span><span class="o">=</span><span class="s2">&quot;ordinal&quot;</span><span class="p">,</span>
+                                                  <span class="n">instance_type</span><span class="o">=</span><span class="s2">&quot;ordinal&quot;</span><span class="p">,</span>
                                                   <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;borda_owa&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;hb&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="n">get_hb_score</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">winners</span><span class="p">),</span> <span class="s1">&#39;dissat&#39;</span><span class="p">:</span> <span class="n">get_hb_dissat</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">winners</span><span class="p">)}</span></div>
 
@@ -561,7 +561,7 @@ document.write(`
         <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;dissat&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
     <span class="n">winners</span><span class="p">,</span> <span class="n">total_time</span> <span class="o">=</span> <span class="n">win</span><span class="o">.</span><span class="n">compute_standard_voting_rule</span><span class="p">(</span><span class="n">election</span><span class="o">=</span><span class="n">election</span><span class="p">,</span>
                                                   <span class="n">committee_size</span><span class="o">=</span><span class="n">committee_size</span><span class="p">,</span>
-                                                  <span class="n">ballot</span><span class="o">=</span><span class="s2">&quot;ordinal&quot;</span><span class="p">,</span>
+                                                  <span class="n">instance_type</span><span class="o">=</span><span class="s2">&quot;ordinal&quot;</span><span class="p">,</span>
                                                   <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;bloc_owa&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;hb&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="n">get_pav_score</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">winners</span><span class="p">),</span> <span class="s1">&#39;dissat&#39;</span><span class="p">:</span> <span class="n">get_pav_dissat</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">winners</span><span class="p">)}</span></div>
 

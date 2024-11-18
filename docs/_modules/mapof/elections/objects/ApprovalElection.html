@@ -208,6 +208,7 @@
 </details></li>
 </ul>
 </details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../resources.html">Resources</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../citation.html">Citation Policy</a></li>
 </ul>
 
@@ -354,13 +355,15 @@ document.write(`
                  <span class="n">culture_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">num_candidates</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">variable</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">experiment_id</span><span class="o">=</span><span class="n">experiment_id</span><span class="p">,</span>
                          <span class="n">election_id</span><span class="o">=</span><span class="n">election_id</span><span class="p">,</span>
                          <span class="n">culture_id</span><span class="o">=</span><span class="n">culture_id</span><span class="p">,</span>
                          <span class="n">num_candidates</span><span class="o">=</span><span class="n">num_candidates</span><span class="p">,</span>
-                         <span class="n">ballot_type</span><span class="o">=</span><span class="s1">&#39;approval&#39;</span><span class="p">,</span>
+                         <span class="n">instance_type</span><span class="o">=</span><span class="s1">&#39;approval&#39;</span><span class="p">,</span>
+                         <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
                          <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">variable</span> <span class="o">=</span> <span class="n">variable</span>
@@ -371,9 +374,6 @@ document.write(`
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_imported</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">experiment_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">import_approval_election</span><span class="p">()</span>
-
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">try_updating_params</span><span class="p">()</span>
 
@@ -627,14 +627,6 @@ document.write(`
         <span class="k">if</span> <span class="n">object_type</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">object_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">object_type</span>
 
-        <span class="k">if</span> <span class="n">object_type</span> <span class="o">==</span> <span class="s1">&#39;vote&#39;</span><span class="p">:</span>
-            <span class="n">length</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_voters</span>
-        <span class="k">elif</span> <span class="n">object_type</span> <span class="o">==</span> <span class="s1">&#39;candidate&#39;</span><span class="p">:</span>
-            <span class="n">length</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_candidates</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Incorrect object type: </span><span class="si">{</span><span class="n">object_type</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-            <span class="n">length</span> <span class="o">=</span> <span class="mi">0</span>
-
         <span class="k">if</span> <span class="n">object_type</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">object_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">object_type</span>
 
@@ -655,7 +647,7 @@ document.write(`
                         <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">double_gradient</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">length</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)):</span>
                 <span class="n">x</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">points</span><span class="p">[</span><span class="s1">&#39;voters&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
                 <span class="n">y</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">points</span><span class="p">[</span><span class="s1">&#39;voters&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
                 <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">Y</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="n">s</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">)</span>

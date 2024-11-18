@@ -238,7 +238,7 @@ class OrdinalElection(Election):
         return matrix
 
     def _votes_to_bordawise_vector(self) -> np.ndarray:
-        """ convert VOTES to Borda vector """
+        """ Convert ordinal votes to Borda vector. """
         borda_vector = np.zeros([self.num_candidates])
         if self.is_pseudo:
             if self.culture_id in {

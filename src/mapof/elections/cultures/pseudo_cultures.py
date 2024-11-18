@@ -25,31 +25,37 @@ def pseudo_antagonism(num_candidates, params=None):
 
 def pseudo_unid(num_candidates, params=None):
     """ Returns pseudo culture matrix with unid path. """
-    return get_pseudo_convex('pseudo_unid', num_candidates, params, get_frequency_matrix_for_guardian)
+    return get_pseudo_convex('pseudo_unid', num_candidates, params,
+                             get_frequency_matrix_for_guardian)
 
 
 def pseudo_anid(num_candidates, params=None):
     """ Returns pseudo culture matrix with anid path. """
-    return get_pseudo_convex('pseudo_unid', num_candidates, params, get_frequency_matrix_for_guardian)
+    return get_pseudo_convex('pseudo_unid', num_candidates, params,
+                             get_frequency_matrix_for_guardian)
 
 
 def pseudo_stid(num_candidates, params=None):
     """ Returns pseudo culture matrix with stid path. """
-    return get_pseudo_convex('pseudo_unid', num_candidates, params, get_frequency_matrix_for_guardian)
+    return get_pseudo_convex('pseudo_unid', num_candidates, params,
+                             get_frequency_matrix_for_guardian)
 
 
 def pseudo_anun(num_candidates, params=None):
     """ Returns pseudo culture matrix with anun path. """
-    return get_pseudo_convex('pseudo_unid', num_candidates, params, get_frequency_matrix_for_guardian)
+    return get_pseudo_convex('pseudo_unid', num_candidates, params,
+                             get_frequency_matrix_for_guardian)
 
 
 def pseudo_stun(num_candidates, params=None):
     """ Returns pseudo culture matrix with stun path. """
-    return get_pseudo_convex('pseudo_unid', num_candidates, params, get_frequency_matrix_for_guardian)
+    return get_pseudo_convex('pseudo_unid', num_candidates, params,
+                             get_frequency_matrix_for_guardian)
 
 
 def pseudo_stan(num_candidates, params=None):
-    return get_pseudo_convex('pseudo_unid', num_candidates, params, get_frequency_matrix_for_guardian)
+    return get_pseudo_convex('pseudo_unid', num_candidates, params,
+                             get_frequency_matrix_for_guardian)
 
 
 def get_pseudo_multiplication(num_candidates, params, model):
@@ -66,7 +72,12 @@ def get_pseudo_multiplication(num_candidates, params, model):
     return None
 
 
-def get_frequency_matrix_for_guardian(culture_id, num_candidates, params=None):
+def get_frequency_matrix_for_guardian(
+        culture_id: str,
+        num_candidates: int,
+        params: dict = None
+) -> np.ndarray:
+
     if params is None:
         params = {}
 
@@ -100,7 +111,12 @@ def get_frequency_matrix_for_guardian(culture_id, num_candidates, params=None):
     return vectors
 
 
-def get_pseudo_convex(culture_id, num_candidates, params, function_name):
+def get_pseudo_convex(
+        culture_id: str,
+        num_candidates: int,
+        params: dict,
+        function_name
+):
     if culture_id == 'pseudo_unid':
         base_1 = function_name('pseudo_uniformity', num_candidates)
         base_2 = function_name('pseudo_identity', num_candidates)
@@ -125,7 +141,12 @@ def get_pseudo_convex(culture_id, num_candidates, params, function_name):
     return convex_combination(base_1, base_2, length=num_candidates, params=params)
 
 
-def convex_combination(base_1, base_2, length=0, params=None):
+def convex_combination(
+        base_1,
+        base_2,
+        length=0,
+        params=None
+):
     alpha = params.get('alpha', 1)
     if base_1.ndim == 1:
         output = np.zeros([length])
@@ -141,7 +162,12 @@ def convex_combination(base_1, base_2, length=0, params=None):
     return output
 
 
-def get_pseudo_matrix_single(culture_id, num_candidates, params=None):
+def get_pseudo_matrix_single(
+        culture_id: str,
+        num_candidates: int,
+        params: dict = None
+):
+
     if params == None:
         params = {}
     weight = params.get('weight', 0.5)
@@ -175,7 +201,12 @@ def get_pseudo_matrix_single(culture_id, num_candidates, params=None):
     return matrix
 
 
-def get_pseudo_borda_vector(culture_id, num_candidates, num_voters):
+def get_pseudo_borda_vector(
+        culture_id: str,
+        num_candidates: int,
+        num_voters: int
+):
+
     borda_vector = np.zeros([num_candidates])
 
     m = num_candidates

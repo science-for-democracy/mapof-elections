@@ -6,7 +6,11 @@ import numpy as np
 from mapof.elections.distances import ilp_other as lp
 
 
-def voting_rule(election, method=None, committee_size=None) -> set:
+def voting_rule(
+        election,
+        method=None,
+        committee_size: int = None
+) -> set:
 
     election.borda_points = get_borda_points(
         election.votes, election.num_voters, election.num_candidates)
@@ -26,7 +30,13 @@ def voting_rule(election, method=None, committee_size=None) -> set:
     return winners
 
 
-def compute_standard_voting_rule(election=None, committee_size=1, instance_type="ordinal", type=None, name=None):
+def compute_standard_voting_rule(
+        election=None,
+        committee_size: int = 1,
+        instance_type="ordinal",
+        type=None,
+        name=None
+):
     votes, num_voters, num_candidates = election.votes, election.num_voters, election.num_candidates
     params = {"orders": committee_size,
               "pure": True,
@@ -40,7 +50,10 @@ def compute_standard_voting_rule(election=None, committee_size=1, instance_type=
     return winners, total_time
 
 
-def randomize(vector, committee_size):
+def randomize(
+        vector,
+        committee_size
+):
     scores = [x for x, _ in vector]
     ranking = [x for _, x in vector]
     last_value = scores[committee_size-1]
@@ -59,7 +72,10 @@ def randomize(vector, committee_size):
     return ranking
 
 
-def compute_sntv_voting_rule(election=None, committee_size=1):
+def compute_sntv_voting_rule(
+        election=None,
+        committee_size: int = 1
+):
     """ Compute SNTV winners for a given election """
     scores = [0 for _ in range(election.num_candidates)]
     for vote in election.votes:
@@ -70,7 +86,10 @@ def compute_sntv_voting_rule(election=None, committee_size=1):
     return ranking[0:committee_size]
 
 
-def compute_borda_voting_rule(election=None, committee_size=1):
+def compute_borda_voting_rule(
+        election=None,
+        committee_size: int = 1
+):
     """ Compute Borda winners for a given election """
 
     scores = [0 for _ in range(election.num_candidates)]
@@ -83,7 +102,10 @@ def compute_borda_voting_rule(election=None, committee_size=1):
     return ranking[0:committee_size]
 
 
-def compute_stv_voting_rule(election=None, committee_size=1):
+def compute_stv_voting_rule(
+        election=None,
+        committee_size: int = 1
+):
     """ Compute STV winners for a given election """
 
     winners = []
@@ -198,18 +220,15 @@ def get_ordinal_winners(params, votes, rule):
         for i in range(params['elections']):
             winners, total_time = get_winners_borda_owa(params, votes, owa)
             all_winners += winners
-        # print(obj_vaue)
         return all_winners, total_time
 
     elif rule['type_id'] == 'bloc_owa':
         owa = get_rule(rule['name'], rule['length'])
-        # t_bloc = rule['special']
         t_bloc = params["orders"]
         all_winners = []
         for i in range(params['elections']):
             winners, total_time = get_winners_bloc_owa(params, votes, owa, t_bloc)
             all_winners += winners
-        # print(winners)
         return all_winners, total_time
 
     elif rule['type_id'] == 'election':
@@ -259,7 +278,7 @@ def get_rule(name, length):
     return rule
 
 
-def get_winners_app_cc(params, votes, candidates):
+def get_winners_app_cc(params: dict, votes, candidates):
 
     points = [0 for _ in range(params["candidates"])]
 
@@ -274,7 +293,7 @@ def get_winners_app_cc(params, votes, candidates):
     return winners
 
 
-def get_winners_scoring(params, votes, candidates, scoring):
+def get_winners_scoring(params: dict, votes, candidates, scoring):
 
     points = [0 for _ in range(params["candidates"])]
 
@@ -307,9 +326,9 @@ def get_winners_scoring(params, votes, candidates, scoring):
     return winners
 
 
-def get_winners_borda_owa(params, votes, owa):
+def get_winners_borda_owa(params: dict, votes, owa):
     return lp.solve_lp_borda_owa(params, votes, owa)
 
 
-def get_winners_bloc_owa(params, votes, owa, t_bloc):
+def get_winners_bloc_owa(params: dict, votes, owa, t_bloc):
     return lp.solve_lp_bloc_owa(params, votes, owa, t_bloc)

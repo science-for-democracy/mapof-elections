@@ -1,7 +1,8 @@
+import mapof.core.features.mallows as mallows
 import numpy as np
 from scipy.stats import gamma
-import mapof.core.features.mallows as mallows
-from mapof.elections.other.glossary import APPROVAL_MODELS
+
+# from mapof.elections.cultures.register import registered_approval_cultures
 
 
 def update_params_ordinal_mallows(params: dict):
@@ -55,25 +56,18 @@ def update_params_ordinal(
         culture_id: str,
         num_candidates: int
 ):
-    if variable is not None:
-        # printing_params['alpha'] = params[variable]
-        printing_params['variable'] = variable
-    else:
-        if culture_id.lower() == 'mallows':
-            update_params_ordinal_mallows(params)
-            # printing_params['alpha'] = params['phi']
-        elif 'norm_mallows' in culture_id.lower() or 'norm-mallows' in culture_id.lower() \
-                or 'mallows_urn' in culture_id.lower():
-            update_params_ordinal_norm_mallows(params, num_candidates)
-            # printing_params['alpha'] = params['normphi']
-        elif 'urn' in culture_id.lower():
-            update_params_ordinal_urn_model(params)
-            # printing_params['alpha'] = params['alpha']
-        elif culture_id.lower() == 'mallows_matrix_path':
-            update_params_ordinal_mallows_matrix_path(params, num_candidates)
-        elif culture_id.lower() == 'mallows_triangle':
-            update_params_ordinal_mallows_triangle(params, num_candidates)
-        # update_params_ordinal_alpha(printing_params)
+    if culture_id.lower() == 'mallows':
+        update_params_ordinal_mallows(params)
+    elif 'norm_mallows' in culture_id.lower() or 'norm-mallows' in culture_id.lower() \
+            or 'mallows_urn' in culture_id.lower():
+        update_params_ordinal_norm_mallows(params, num_candidates)
+    elif 'urn' in culture_id.lower():
+        update_params_ordinal_urn_model(params)
+    elif culture_id.lower() == 'mallows_matrix_path':
+        update_params_ordinal_mallows_matrix_path(params, num_candidates)
+    elif culture_id.lower() == 'mallows_triangle':
+        update_params_ordinal_mallows_triangle(params, num_candidates)
+
     return params, printing_params
 
 
@@ -133,8 +127,8 @@ def update_params_approval(
 ):
     printing_params['alpha'] = 0
     if variable is not None:
-        if culture_id in APPROVAL_MODELS:
-            update_params_approval_p(params)
+        # if culture_id in registered_approval_cultures:
+        #     update_params_approval_p(params)
         printing_params['alpha'] = params[variable]
         printing_params['variable'] = variable
         del params['variable']
@@ -143,8 +137,8 @@ def update_params_approval(
             update_params_approval_resampling(params, printing_params)
         elif culture_id.lower() == 'disjoint':
             update_params_approval_disjoint(params, printing_params)
-        elif culture_id in APPROVAL_MODELS:
-            update_params_approval_p(params)
+        # elif culture_id in registered_approval_cultures:
+        #     update_params_approval_p(params)
         update_params_approval_alpha(printing_params)
         update_params_approval_rel_size_central_vote(params, culture_id.lower())
 
@@ -157,9 +151,7 @@ def update_params_approval(
     return params, printing_params
 
 
-def get_params_for_paths(family, j, extremes=False):
-
-    path = family.path
+def get_params_for_paths(path, size, j, extremes=False):
 
     variable = path['variable']
 
@@ -168,9 +160,9 @@ def get_params_for_paths(family, j, extremes=False):
 
     params = {'variable': variable}
     if extremes:
-        params[variable] = j / (family.size - 1)
+        params[variable] = j / (size - 1)
     elif not extremes:
-        params[variable] = (j + 1) / (family.size + 1)
+        params[variable] = (j + 1) / (size + 1)
 
     if 'scale' in path:
         params[variable] *= path['scale']

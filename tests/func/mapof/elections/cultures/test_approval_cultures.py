@@ -38,7 +38,8 @@ class TestCultures:
             election = mapel.generate_approval_election(culture_id=culture_id,
                                                         num_voters=num_voters,
                                                         num_candidates=num_candidates,
-                                                        params={'phi': 0.4})
+                                                        params={'phi': 0.4,
+                                                                'rel_size_central_vote': 0.5})
         elif culture_id in ['moving_resampling']:
             election = mapel.generate_approval_election(culture_id=culture_id,
                                                         num_voters=num_voters,

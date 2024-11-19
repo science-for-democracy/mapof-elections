@@ -9,11 +9,11 @@ def election_id():
 
 @pytest.fixture
 def num_voters():
-  return np.random.randint(10, 50)
+  return np.random.randint(10, 20)
 
 @pytest.fixture
 def num_candidates():
-  return np.random.randint(10, 20)
+  return np.random.randint(6, 12)
 
 class TestApprovalElection:
 

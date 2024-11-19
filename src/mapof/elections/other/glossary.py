@@ -1,31 +1,3 @@
-APPROVAL_MODELS = {
-    'impartial_culture',
-    'ic',
-    'resampling',
-    'id',
-    'empty',
-    'full',
-    'truncated_urn',
-    'urn',
-    'euclidean',
-    'noise',
-    'zeros',
-    'ones',
-    'id_0.5',
-    'ic_0.5',
-    'half_1',
-    'half_2',
-    'disjoint_resampling',
-    'simplex_resampling',
-    'vcr',
-    'truncated_mallows',
-    'moving_resampling',
-    'jaccard',
-    'skeleton',
-    'anti_pjr',
-    'partylist'
-}
-
 ORDINAL_PSEUDO_MODELS = {
     'pseudo_uniformity',
     'pseudo_stratification',

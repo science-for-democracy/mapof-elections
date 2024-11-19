@@ -3,57 +3,57 @@ import logging
 from mapof.elections.cultures.params import *
 
 
-def pseudo_uniformity(num_candidates, params=None):
+def pseudo_uniformity(num_candidates: int, params: dict = None):
     """ Returns pseudo culture matrix with uniformity. """
     return get_pseudo_matrix_single('pseudo_uniformity', num_candidates, params)
 
 
-def pseudo_identity(num_candidates, params=None):
+def pseudo_identity(num_candidates: int, params: dict = None):
     """ Returns pseudo culture matrix with identity. """
     return get_pseudo_matrix_single('pseudo_identity', num_candidates, params)
 
 
-def pseudo_stratification(num_candidates, params=None):
+def pseudo_stratification(num_candidates: int, params: dict = None):
     """ Returns pseudo culture matrix with stratification. """
     return get_pseudo_matrix_single('pseudo_stratification', num_candidates, params)
 
 
-def pseudo_antagonism(num_candidates, params=None):
+def pseudo_antagonism(num_candidates: int, params: dict = None):
     """ Returns pseudo culture matrix with antagonism. """
     return get_pseudo_matrix_single('pseudo_antagonism', num_candidates, params)
 
 
-def pseudo_unid(num_candidates, params=None):
+def pseudo_unid(num_candidates: int, params: dict = None):
     """ Returns pseudo culture matrix with unid path. """
     return get_pseudo_convex('pseudo_unid', num_candidates, params,
                              get_frequency_matrix_for_guardian)
 
 
-def pseudo_anid(num_candidates, params=None):
+def pseudo_anid(num_candidates: int, params: dict = None):
     """ Returns pseudo culture matrix with anid path. """
     return get_pseudo_convex('pseudo_unid', num_candidates, params,
                              get_frequency_matrix_for_guardian)
 
 
-def pseudo_stid(num_candidates, params=None):
+def pseudo_stid(num_candidates: int, params: dict = None):
     """ Returns pseudo culture matrix with stid path. """
     return get_pseudo_convex('pseudo_unid', num_candidates, params,
                              get_frequency_matrix_for_guardian)
 
 
-def pseudo_anun(num_candidates, params=None):
+def pseudo_anun(num_candidates: int, params: dict = None):
     """ Returns pseudo culture matrix with anun path. """
     return get_pseudo_convex('pseudo_unid', num_candidates, params,
                              get_frequency_matrix_for_guardian)
 
 
-def pseudo_stun(num_candidates, params=None):
+def pseudo_stun(num_candidates: int, params: dict = None):
     """ Returns pseudo culture matrix with stun path. """
     return get_pseudo_convex('pseudo_unid', num_candidates, params,
                              get_frequency_matrix_for_guardian)
 
 
-def pseudo_stan(num_candidates, params=None):
+def pseudo_stan(num_candidates: int, params: dict = None):
     return get_pseudo_convex('pseudo_unid', num_candidates, params,
                              get_frequency_matrix_for_guardian)
 

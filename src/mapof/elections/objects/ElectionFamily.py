@@ -163,7 +163,7 @@ class ElectionFamily(Family):
                 variable = None
                 path = self.path
                 if path is not None and 'variable' in path:
-                    new_params, variable = get_params_for_paths(self, j)
+                    new_params, variable = get_params_for_paths(self.path, self.size, j)
                     params = {**params, **new_params}
 
                 if self.culture_id in {'all_votes'}:

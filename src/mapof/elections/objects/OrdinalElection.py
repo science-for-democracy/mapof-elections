@@ -12,11 +12,13 @@ import mapof.elections.persistence.election_exports as exports
 import mapof.elections.persistence.election_imports as imports
 from mapof.elections.cultures import generate_ordinal_votes, \
     from_approval, generate_ordinal_alliance_votes
+from mapof.elections.cultures.mallows import get_mallows_matrix
 from mapof.elections.cultures.matrices.group_separable_matrices import get_gs_caterpillar_matrix
 from mapof.elections.cultures.matrices.single_crossing_matrices import get_single_crossing_matrix
-from mapof.elections.cultures.matrices.single_peaked_matrices import get_conitzer_matrix, \
-    get_walsh_matrix
-from mapof.elections.cultures.mallows import get_mallows_matrix
+from mapof.elections.cultures.matrices.single_peaked_matrices import (
+    get_conitzer_matrix,
+    get_walsh_matrix,
+)
 from mapof.elections.cultures.pseudo_cultures import (
     get_frequency_matrix_for_guardian,
     get_pseudo_matrix_single,
@@ -284,7 +286,7 @@ class OrdinalElection(Election):
         return matrix
 
     def votes_to_agg_voterlikeness_vector(self):
-        """ convert VOTES to Borda vector """
+        """ Converts ordinal votes to Borda vector. """
 
         vector = np.zeros([self.num_voters])
 
@@ -480,9 +482,9 @@ class OrdinalElection(Election):
 
             if saveas == 'default':
 
-                dir = os.path.join(os.getcwd(), "images", self.experiment_id)
-                if not os.path.isdir(dir):
-                    os.mkdir(os.path.join(os.getcwd(), dir))
+                path_to_folder = os.path.join(os.getcwd(), "images", self.experiment_id)
+                if not os.path.isdir(path_to_folder):
+                    os.mkdir(os.path.join(os.getcwd(), path_to_folder))
 
                 saveas = f'{self.label}_{object_type}'
 
@@ -498,6 +500,6 @@ class OrdinalElection(Election):
 
 
 def convert_votes_to_potes(votes) -> np.array:
-    """ Convert votes to positional votes (called potes) """
+    """ Converts votes to positional votes (called potes) """
     return np.array([[list(vote).index(i) for i, _ in enumerate(vote)]
                      for vote in votes])

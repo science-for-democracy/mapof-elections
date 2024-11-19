@@ -17,8 +17,8 @@ from mapof.core.utils import get_instance_id
 from tqdm import tqdm
 
 import mapof.elections.other.approval_rules as rules
-from mapof.elections.cultures import (
-    registered_ordinal_cultures,
+from mapof.elections.cultures.register import (
+    registered_ordinal_election_cultures,
     registered_pseudo_ordinal_cultures
 )
 from mapof.elections.distances import get_distance
@@ -564,13 +564,13 @@ class ElectionExperiment(Experiment):
 
         return self.families[family_id]
 
-    def prepare_elections(self, store_points=False, is_aggregated=True) -> None:
+    def prepare_elections(self, export_points=False, is_aggregated=True) -> None:
         """
         Prepares elections for a given experiment.
 
         Parameters
         ----------
-        store_points : bool
+        export_points : bool
             Whether to store points in the instance.
         is_aggregated : bool
             Whether to aggregate the instances.
@@ -579,7 +579,7 @@ class ElectionExperiment(Experiment):
         -------
             None
         """
-        self.store_points = store_points
+        self.export_points = export_points
         self.is_aggregated = is_aggregated
 
         if self.instances is None:
@@ -589,13 +589,13 @@ class ElectionExperiment(Experiment):
 
             if self.instance_type == 'ordinal' and \
                     self.families[family_id].culture_id not in registered_pseudo_ordinal_cultures and \
-                    self.families[family_id].culture_id not in registered_ordinal_cultures:
+                    self.families[family_id].culture_id not in registered_ordinal_election_cultures:
                 continue
 
             new_instances = self.families[family_id].prepare_family(
                 is_exported=self.is_exported,
                 experiment_id=self.experiment_id,
-                store_points=store_points,
+                export_points=export_points,
                 is_aggregated=is_aggregated,
                 instance_type=self.instance_type,
             )

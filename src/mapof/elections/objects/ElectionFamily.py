@@ -2,10 +2,11 @@ import copy
 import logging
 
 from mapof.core.objects.Family import Family
-from mapof.elections.objects.OrdinalElection import OrdinalElection
-from mapof.elections.objects.ApprovalElection import ApprovalElection
 from mapof.core.utils import get_instance_id
+
 from mapof.elections.cultures.params import get_params_for_paths
+from mapof.elections.objects.ApprovalElection import ApprovalElection
+from mapof.elections.objects.OrdinalElection import OrdinalElection
 
 
 class ElectionFamily(Family):
@@ -78,7 +79,7 @@ class ElectionFamily(Family):
     def prepare_family(self,
                        experiment_id=None,
                        is_exported=True,
-                       store_points=False,
+                       export_points=False,
                        is_aggregated=True,
                        instance_type=None) -> list | None:
         """
@@ -91,7 +92,7 @@ class ElectionFamily(Family):
                 Experiment ID.
             is_exported : bool
                 Whether to export the family.
-            store_points : bool
+            export_points : bool
                 Whether to store the points.
             is_aggregated : bool
                     Whether the family is aggregated.
@@ -115,10 +116,9 @@ class ElectionFamily(Family):
 
                 params = copy.deepcopy(self.params)
 
-                variable = None
                 path = self.path
                 if path is not None and 'variable' in path:
-                    new_params, variable = get_params_for_paths(self, j)
+                    new_params, variable = get_params_for_paths(self.path, self.size, j)
                     if params is None:
                         params = {}
                     params = {**params, **new_params}
@@ -138,11 +138,11 @@ class ElectionFamily(Family):
 
                 election.prepare_instance(is_exported=is_exported, is_aggregated=is_aggregated)
 
-                if store_points:
+                if export_points:
                     try:
                         election.points['voters'] = election.import_ideal_points('voters')
                         election.points['candidates'] = election.import_ideal_points('candidates')
-                    except:
+                    except Exception:
                         pass
 
                 election.compute_potes()
@@ -168,7 +168,6 @@ class ElectionFamily(Family):
 
                 if self.culture_id in {'all_votes'}:
                     params['iter_id'] = j
-
 
                 election_id = get_instance_id(self.single, self.family_id, j)
 
@@ -201,9 +200,3 @@ class ElectionFamily(Family):
     def add_election(self, election):
         self.size += 1
         self.election_ids.append(election.instance_id)
-
-
-
-# # # # # # # # # # # # # # # #
-# LAST CLEANUP ON: 12.10.2021 #
-# # # # # # # # # # # # # # # #

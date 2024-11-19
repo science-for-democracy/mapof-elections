@@ -9,7 +9,7 @@ from mapof.elections.features.register import register_ordinal_election_feature
 def kemeny_ranking(election):
     m = election.num_candidates
     wmg = election.votes_to_pairwise_matrix()
-    best_d = np.infty
+    best_d = np.inf
     for test_ranking in itertools.permutations(list(range(m))):
         dist = 0
         for i in range(m):

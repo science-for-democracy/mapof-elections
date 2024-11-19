@@ -45,9 +45,9 @@ def add_approval_distance(name: str, function: callable) -> None:
 
     Parameters
     ----------
-        name
+        name : str
             Name of the distance.
-        function
+        function : callable
             function that computes the distance.
 
     Returns
@@ -63,9 +63,9 @@ def add_ordinal_distance(name: str, function: callable) -> None:
 
     Parameters
     ----------
-        name
+        name : str
             Name of the distance.
-        function
+        function : callable
             function that computes the distance.
 
     Returns
@@ -89,7 +89,7 @@ def get_distance(
             First election.
         election_2
             Second election.
-        distance_id
+        distance_id : str
             Name of the distance.
     """
 
@@ -116,7 +116,7 @@ def get_approval_distance(
             First election.
         election_2
             Second election.
-        distance_id
+        distance_id : str
             Name of the distance.
     """
 
@@ -151,7 +151,7 @@ def get_ordinal_distance(
             First election.
         election_2
             Second election.
-        distance_id
+        distance_id : str
             Name of the distance.
     """
 

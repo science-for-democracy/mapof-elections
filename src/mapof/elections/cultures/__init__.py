@@ -1,12 +1,7 @@
 import logging
+
 import numpy as np
 
-import mapof.elections.cultures.prefsampling_mask as mask
-import mapof.elections.cultures.compass as compass
-import mapof.elections.cultures.mallows as mallows
-import mapof.elections.cultures.matrices.single_crossing_matrices as sc_matrices
-import mapof.elections.cultures.matrices.single_peaked_matrices as sp_matrices
-import mapof.elections.cultures.pseudo_cultures as pseudo
 from mapof.elections.cultures.alliances import (
     generate_ordinal_alliance_ic_votes,
     generate_ordinal_alliance_urn_votes,
@@ -14,13 +9,12 @@ from mapof.elections.cultures.alliances import (
     generate_ordinal_alliance_allied_euclidean_votes,
     generate_ordinal_alliance_norm_mallows_votes,
 )
-from mapof.elections.other.glossary import is_pseudo_culture
-
 from mapof.elections.cultures.register import (
-    registered_approval_cultures,
-    registered_ordinal_cultures,
+    registered_approval_election_cultures,
+    registered_ordinal_election_cultures,
     registered_pseudo_ordinal_cultures
 )
+from mapof.elections.other.glossary import is_pseudo_culture
 
 
 def generate_approval_votes(
@@ -43,8 +37,8 @@ def generate_approval_votes(
         params : dict
             Culture parameters.
     """
-    if culture_id in registered_approval_cultures:
-        return registered_approval_cultures.get(culture_id)(num_voters, num_candidates, **params)
+    if culture_id in registered_approval_election_cultures:
+        return registered_approval_election_cultures.get(culture_id)(num_voters, num_candidates, **params)
 
     else:
         logging.warning(f'No such culture id: {culture_id}')
@@ -73,8 +67,8 @@ def generate_ordinal_votes(
             Culture parameters.
     """
 
-    if culture_id in registered_ordinal_cultures:
-        votes = registered_ordinal_cultures.get(culture_id)(num_voters=num_voters,
+    if culture_id in registered_ordinal_election_cultures:
+        votes = registered_ordinal_election_cultures.get(culture_id)(num_voters=num_voters,
                                                             num_candidates=num_candidates,
                                                             **params)
 
@@ -160,7 +154,7 @@ def add_approval_culture(name, function) -> None:
     -------
         None
     """
-    registered_approval_cultures[name] = function
+    registered_approval_election_cultures[name] = function
 
 
 def add_ordinal_culture(name, function) -> None:
@@ -169,16 +163,16 @@ def add_ordinal_culture(name, function) -> None:
 
     Parameters
     ----------
-        name:
+        name : str
             Name of the culture, which will be used as culture id.
-        function : str
+        function : callable
             Function that generates the votes.
 
     Returns
     -------
         None
     """
-    registered_ordinal_cultures[name] = function
+    registered_ordinal_election_cultures[name] = function
 
 
 def add_pseudo_ordinal_culture(name, function) -> None:
@@ -187,9 +181,9 @@ def add_pseudo_ordinal_culture(name, function) -> None:
 
     Parameters
     ----------
-        name:
+        name : str
             Name of the culture, which will be used as culture id.
-        function : str
+        function : callable
             Function that generates the frequency matrix.
 
     Returns

@@ -1,4 +1,3 @@
-import logging
 import os
 from abc import ABC
 from collections import Counter

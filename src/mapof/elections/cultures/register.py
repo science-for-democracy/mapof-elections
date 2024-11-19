@@ -1,6 +1,3 @@
-import logging
-import numpy as np
-
 import prefsampling.approval as pref_approval
 import prefsampling.ordinal as pref_ordinal
 
@@ -10,16 +7,9 @@ import mapof.elections.cultures.mallows as mallows
 import mapof.elections.cultures.matrices.single_crossing_matrices as sc_matrices
 import mapof.elections.cultures.matrices.single_peaked_matrices as sp_matrices
 import mapof.elections.cultures.pseudo_cultures as pseudo
-from mapof.elections.cultures.alliances import (
-    generate_ordinal_alliance_ic_votes,
-    generate_ordinal_alliance_urn_votes,
-    generate_ordinal_alliance_euclidean_votes,
-    generate_ordinal_alliance_allied_euclidean_votes,
-    generate_ordinal_alliance_norm_mallows_votes,
-)
-from mapof.elections.other.glossary import is_pseudo_culture
 
-registered_approval_cultures = {
+
+registered_approval_election_cultures = {
     'identity': mask.identity_approval_mask,
     'id': mask.identity_approval_mask,  # deprecated name
     'ic': mask.impartial_approval_mask,  # deprecated name
@@ -40,7 +30,7 @@ registered_approval_cultures = {
     # 'truncated_mallows': mallows.generate_approval_truncated_mallows_votes,  # unsupported culture
 }
 
-registered_ordinal_cultures = {
+registered_ordinal_election_cultures = {
     'identity': pref_ordinal.identity,
     'id': pref_ordinal.identity,  # deprecated name
     'ic': pref_ordinal.impartial,  # deprecated name
@@ -97,19 +87,20 @@ registered_pseudo_ordinal_cultures = {
     'pseudo_single-crossing': sc_matrices.get_single_crossing_matrix,
 }
 
-# def register_ordinal_election_distance(feature_id: str):
-#
-#     def decorator(func):
-#         registered_ordinal_election_distances[feature_id] = func
-#         return func
-#
-#     return decorator
-#
-#
-# def register_approval_election_distance(feature_id: str):
-#
-#     def decorator(func):
-#         registered_approval_election_distances[feature_id] = func
-#         return func
-#
-#     return decorator
+
+def register_ordinal_election_culture(feature_id: str):
+
+    def decorator(func):
+        registered_ordinal_election_cultures[feature_id] = func
+        return func
+
+    return decorator
+
+
+def register_approval_election_culture(feature_id: str):
+
+    def decorator(func):
+        registered_approval_election_cultures[feature_id] = func
+        return func
+
+    return decorator

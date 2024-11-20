@@ -22,7 +22,7 @@ class TestCultures:
         election = mapof.generate_ordinal_election(culture_id=culture_id,
                                                    num_voters=num_voters,
                                                    num_candidates=num_candidates,
-                                                   num_alliances=2)
+                                                   params={'num_alliances': 2})
 
         assert election.num_candidates == num_candidates
         assert election.num_voters == num_voters

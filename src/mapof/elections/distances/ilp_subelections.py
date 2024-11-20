@@ -1,13 +1,30 @@
 import logging
 
 import gurobipy as gp
-import numpy as np
-from gurobipy import Model, GRB
+from gurobipy import GRB
+
+from mapof.elections.distances.register import register_ordinal_election_distance
 
 
 # THIS FUNCTION HAS NOT BEEN TESTED SINCE CONVERSION TO GUROBI
-def solve_ilp_voter_subelection(election_1, election_2, metric_name='0') -> int:
+@register_ordinal_election_distance("maximum_common_voter_subelection")
+def maximum_common_voter_subelection(election_1, election_2, metric_name='0') -> int:
+    """
+    This function solves the maximum common voter subelection problem between two elections.
 
+    Parameters
+    ----------
+        election_1 : Election
+            The first election.
+        election_2 : Election
+            The second election.
+        metric_name : str
+
+    Returns
+    -------
+        int
+            The maximum number of common voters between the two elections.
+    """
     # Initialize model
     model = gp.Model()
 
@@ -73,104 +90,6 @@ def solve_ilp_voter_subelection(election_1, election_2, metric_name='0') -> int:
             model.addConstr(M_constr >= 0.0, name='C5_' + str(v1) + '_' + str(v2))
 
     # Optimize the model
-    model.optimize()
-
-    # Return the objective value
-    if model.status == GRB.OPTIMAL:
-        return model.objVal
-    else:
-        logging.warning("No optimal solution found")
-
-
-# THIS FUNCTION HAS NOT BEEN TESTED SINCE CONVERSION TO GUROBI
-def solve_ilp_candidate_subelection(election_1, election_2) -> int:
-    """ LP solver for candidate subelection problem using Gurobi """
-
-    # PRECOMPUTING
-    P = np.zeros([election_1.num_voters, election_2.num_voters, election_1.num_candidates,
-                  election_2.num_candidates,
-                  election_1.num_candidates, election_2.num_candidates])
-
-    potes_1 = election_1.get_potes()
-    potes_2 = election_2.get_potes()
-
-    for v in range(election_1.num_voters):
-        for u in range(election_2.num_voters):
-            for c1 in range(election_1.num_candidates):
-                for d1 in range(election_2.num_candidates):
-                    for c2 in range(election_1.num_candidates):
-                        for d2 in range(election_2.num_candidates):
-                            if (potes_1[v][c1] > potes_1[v][c2] and
-                                potes_2[u][d1] > potes_2[u][d2]) or \
-                                    (potes_1[v][c1] < potes_1[v][c2] and
-                                     potes_2[u][d1] < potes_2[u][d2]):
-                                P[v][u][c1][d1][c2][d2] = 1
-
-    # Initialize Gurobi model
-    model = Model("Candidate_Subelection")
-
-    # Define variables
-    M = {}
-    for c in range(election_1.num_candidates):
-        for d in range(election_2.num_candidates):
-            M[c, d] = model.addVar(vtype=GRB.BINARY, name=f"M_{c}_{d}")
-
-    N = {}
-    for v in range(election_1.num_voters):
-        for u in range(election_2.num_voters):
-            N[v, u] = model.addVar(vtype=GRB.BINARY, name=f"N_{v}_{u}")
-
-    P_vars = {}
-    for v in range(election_1.num_voters):
-        for u in range(election_2.num_voters):
-            for c1 in range(election_1.num_candidates):
-                for d1 in range(election_2.num_candidates):
-                    for c2 in range(election_1.num_candidates):
-                        for d2 in range(election_2.num_candidates):
-                            if c1 != c2 and d1 != d2:
-                                P_vars[v, u, c1, d1, c2, d2] = model.addVar(vtype=GRB.BINARY,
-                                                                            name=f"P_{v}_{u}_{c1}_{d1}_{c2}_{d2}")
-
-    # Set objective
-    model.setObjective(sum(M[c, d] for c in range(election_1.num_candidates)
-                           for d in range(election_2.num_candidates)), GRB.MAXIMIZE)
-
-    # Constraints for voters
-    for v in range(election_1.num_voters):
-        model.addConstr(sum(N[v, u] for u in range(election_2.num_voters)) == 1, name=f"c_v_{v}")
-
-    for u in range(election_2.num_voters):
-        model.addConstr(sum(N[v, u] for v in range(election_1.num_voters)) == 1, name=f"c_u_{u}")
-
-    # Constraints for candidates
-    for c in range(election_1.num_candidates):
-        model.addConstr(sum(M[c, d] for d in range(election_2.num_candidates)) <= 1, name=f"c_c_{c}")
-
-    for d in range(election_2.num_candidates):
-        model.addConstr(sum(M[c, d] for c in range(election_1.num_candidates)) <= 1, name=f"c_d_{d}")
-
-    # Constraints for P variables
-    for v in range(election_1.num_voters):
-        for u in range(election_2.num_voters):
-            for c1 in range(election_1.num_candidates):
-                for d1 in range(election_2.num_candidates):
-                    for c2 in range(election_1.num_candidates):
-                        if c1 == c2:
-                            continue
-                        for d2 in range(election_2.num_candidates):
-                            if d1 == d2:
-                                continue
-                            model.addConstr(
-                                P_vars[v, u, c1, d1, c2, d2] - 0.34 * N[v, u] - 0.34 * M[c1, d1] - 0.34 * M[c2, d2] <= 0,
-                                name=f"p_constr_1_{v}_{u}_{c1}_{d1}_{c2}_{d2}")
-                            model.addConstr(
-                                P_vars[v, u, c1, d1, c2, d2] - 0.34 * N[v, u] - 0.34 * M[c1, d1] - 0.34 * M[c2, d2] > -1,
-                                name=f"p_constr_2_{v}_{u}_{c1}_{d1}_{c2}_{d2}")
-                            model.addConstr(
-                                P_vars[v, u, c1, d1, c2, d2] <= P[v, u][c1][d1][c2][d2],
-                                name=f"p_constr_3_{v}_{u}_{c1}_{d1}_{c2}_{d2}")
-
-    # Optimize model
     model.optimize()
 
     # Return the objective value

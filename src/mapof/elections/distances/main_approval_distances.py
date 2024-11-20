@@ -6,7 +6,7 @@ from mapof.elections.distances.register import register_approval_election_distan
 
 
 @register_approval_election_distance("approvalwise")
-def compute_approvalwise_distance(
+def approvalwise_distance(
         election_1: ApprovalElection,
         election_2: ApprovalElection,
         inner_distance: callable
@@ -18,7 +18,7 @@ def compute_approvalwise_distance(
 
 
 @register_approval_election_distance("hamming")
-def compute_hamming_distance(election_1: ApprovalElection, election_2: ApprovalElection) -> float:
+def hamming_distance(election_1: ApprovalElection, election_2: ApprovalElection) -> float:
     """ Return: Hamming distance """
     logging.warning("Hamming distance is not implemented yet.")
     return -1

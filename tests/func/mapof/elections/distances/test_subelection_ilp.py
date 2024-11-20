@@ -1,8 +1,5 @@
 import mapof.elections as mapof
-from mapof.elections.distances.ilp_subelections import (
-    solve_ilp_voter_subelection,
-    solve_ilp_candidate_subelection,
-)
+from mapof.elections.distances.ilp_subelections import maximum_common_voter_subelection
 
 
 class TestOrdinalDistances:
@@ -21,7 +18,4 @@ class TestOrdinalDistances:
         )
 
     def test_solve_ilp_voter_subelection(self):
-        solve_ilp_voter_subelection(self.election_1, self.election_2)
-
-    # def test_solve_ilp_candidate_subelection(self):
-    #     solve_ilp_candidate_subelection(self.election_1, self.election_2)
+        maximum_common_voter_subelection(self.election_1, self.election_2)

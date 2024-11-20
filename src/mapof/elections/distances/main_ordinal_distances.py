@@ -7,7 +7,7 @@ from mapof.elections.objects.OrdinalElection import OrdinalElection
 import mapof.core.utils as utils
 from mapof.core.distances import swap_distance
 import mapof.elections.distances.ilp_isomorphic as ilp_iso
-import mapof.elections.distances.ilp_subelections as ilp_sub
+from mapof.elections.distances.ilp_subelections import maximum_common_voter_subelection
 
 from mapof.elections.distances.register import register_ordinal_election_distance
 
@@ -19,9 +19,12 @@ except:
 
 
 @register_ordinal_election_distance("pos_swap")
-def compute_pos_swap_distance(election_1: OrdinalElection, election_2: OrdinalElection,
-                              inner_distance: callable) -> (float, list):
-    """ Compute Positionwise distance between ordinal elections """
+def pos_swap_distance(
+        election_1: OrdinalElection,
+        election_2: OrdinalElection,
+        inner_distance: callable
+) -> (float, list):
+    """ Compute Positionwise-Swap distance between ordinal elections """
     logging.warning("Positionwise-Swap distance wasn't properly tested.")
     cost_table = get_matching_cost_positionwise(election_1, election_2, inner_distance)
     obj_val, matching = solve_matching_vectors(cost_table)
@@ -30,7 +33,7 @@ def compute_pos_swap_distance(election_1: OrdinalElection, election_2: OrdinalEl
 
 
 @register_ordinal_election_distance("positionwise")
-def compute_positionwise_distance(
+def positionwise_distance(
         election_1,
         election_2,
         inner_distance: callable
@@ -57,7 +60,7 @@ def compute_positionwise_distance(
 
 
 @register_ordinal_election_distance("agg_voterlikeness")
-def compute_agg_voterlikeness_distance(election_1: OrdinalElection, election_2: OrdinalElection,
+def agg_voterlikeness_distance(election_1: OrdinalElection, election_2: OrdinalElection,
                                        inner_distance: callable) -> (float, list):
     """ Compute Aggregated-Voterlikeness distance between ordinal elections """
     logging.warning("Aggregated-Voterlikeness distance wasn't properly tested.")
@@ -67,7 +70,7 @@ def compute_agg_voterlikeness_distance(election_1: OrdinalElection, election_2: 
 
 
 @register_ordinal_election_distance("bordawise")
-def compute_bordawise_distance(
+def bordawise_distance(
         election_1: OrdinalElection,
         election_2: OrdinalElection,
         inner_distance: callable
@@ -95,7 +98,7 @@ def compute_bordawise_distance(
 
 
 @register_ordinal_election_distance("pairwise")
-def compute_pairwise_distance(
+def pairwise_distance(
         election_1: OrdinalElection,
         election_2: OrdinalElection,
         inner_distance: callable
@@ -124,7 +127,7 @@ def compute_pairwise_distance(
 
 
 @register_ordinal_election_distance("voterlikeness")
-def compute_voterlikeness_distance(
+def voterlikeness_distance(
         election_1: OrdinalElection,
         election_2: OrdinalElection,
         inner_distance: callable
@@ -153,7 +156,7 @@ def compute_voterlikeness_distance(
 
 
 @register_ordinal_election_distance("swap_bf")
-def compute_swap_distance_bf(election_1: OrdinalElection,
+def swap_distance_bf(election_1: OrdinalElection,
                              election_2: OrdinalElection) -> (int, list):
     """ Compute swap distance between elections via brute force, in Python.
     This is mostly as a fallback to the C++ implementation, which might
@@ -167,12 +170,12 @@ def compute_swap_distance_bf(election_1: OrdinalElection,
 
 
 @register_ordinal_election_distance("swap")
-def compute_swap_distance(election_1: OrdinalElection,
+def swap_distance(election_1: OrdinalElection,
                           election_2: OrdinalElection) -> (int, list):
     """ Compute swap distance between elections (using the C++ extension) """
     if not utils.is_module_loaded("mapof.elections.distances.cppdistances"):
         logging.warning("Using Python implementation instead of the C++ one")
-        return compute_swap_distance_bf(election_1, election_2), None
+        return swap_distance_bf(election_1, election_2), None
 
     if election_1.num_candidates < election_2.num_candidates:
         swapd = cppd.tswapd(election_1.votes.tolist(),
@@ -188,7 +191,7 @@ def compute_swap_distance(election_1: OrdinalElection,
 
 
 @register_ordinal_election_distance("truncated_swap")
-def compute_truncated_swap_distance(election_1: OrdinalElection,
+def truncated_swap_distance(election_1: OrdinalElection,
                                     election_2: OrdinalElection) -> (int, list):
     """ Compute truncated swap distance between elections """
     obj_values = []
@@ -199,18 +202,18 @@ def compute_truncated_swap_distance(election_1: OrdinalElection,
 
 
 @register_ordinal_election_distance("spearman")
-def compute_spearman_distance(election_1: OrdinalElection,
+def spearman_distance(election_1: OrdinalElection,
                               election_2: OrdinalElection) -> (int, list):
     """ Compute Spearman distance between elections (using the C++ extension) """
     if not utils.is_module_loaded("mapof.elections.distances.cppdistances"):
-        return compute_spearman_distance_ilp_py(election_1, election_2), None
+        return spearman_distance_ilp_py(election_1, election_2), None
     speard = cppd.speard(election_1.votes.tolist(),
                          election_2.votes.tolist())
     return speard, None
 
 
 @register_ordinal_election_distance("spearman_aa")
-def compute_spearman_distance_fastmap(
+def spearman_distance_fastmap(
         election_1: OrdinalElection,
         election_2: OrdinalElection,
         method: str = "aa"
@@ -268,7 +271,7 @@ def compute_spearman_distance_fastmap(
 
 
 @register_ordinal_election_distance("ilp_spearman")
-def compute_spearman_distance_ilp_py(election_1: OrdinalElection,
+def spearman_distance_ilp_py(election_1: OrdinalElection,
                                      election_2: OrdinalElection) -> (int, list):
     """ Computes Spearman distance between elections """
     logging.warning("ilp_spearman wasn't properly tested.")
@@ -283,24 +286,10 @@ def compute_spearman_distance_ilp_py(election_1: OrdinalElection,
 
 
 @register_ordinal_election_distance("discrete")
-def compute_discrete_distance(election_1: OrdinalElection,
+def discrete_distance(election_1: OrdinalElection,
                               election_2: OrdinalElection) -> (int, list):
     """ Computes Discrete distance between elections """
-    return election_1.num_voters - compute_voter_subelection(election_1, election_2), None
-
-
-# SUBELECTIONS #
-@register_ordinal_election_distance("voter_subelection")
-def compute_voter_subelection(election_1: OrdinalElection, election_2: OrdinalElection) -> int:
-    """ Compute Voter-Subelection """
-    logging.warning("Voter-Subelection wasn't properly tested.")
-    return ilp_sub.solve_ilp_voter_subelection(election_1, election_2)
-
-@register_ordinal_election_distance("candidate_subelection")
-def compute_candidate_subelection(election_1: OrdinalElection, election_2: OrdinalElection) -> int:
-    """ Compute Candidate-Subelection """
-    logging.warning("Candidate-Subelection wasn't properly tested.")
-    return ilp_sub.solve_ilp_candidate_subelection(election_1, election_2)
+    return election_1.num_voters - maximum_common_voter_subelection(election_1, election_2), None
 
 
 # HELPER FUNCTIONS #
@@ -368,7 +357,9 @@ def get_matching_cost_truncated_swap_bf(election_1: OrdinalElection,
 
 
 @register_ordinal_election_distance("blank")
-def compute_blank_distance(election_1: OrdinalElection,
-                           election_2: OrdinalElection) -> (int, list):
+def blank_distance(
+        election_1: OrdinalElection,
+        election_2: OrdinalElection
+) -> (int, list):
     """ Computes blank distance for testing purposes. """
     return 1, None

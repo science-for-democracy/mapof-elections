@@ -126,10 +126,8 @@ class OrdinalElection(Election):
 
     def try_updating_params(self):
         if self.culture_id is not None:
-            self.params, self.printing_params = update_params_ordinal(
+            self.params = update_params_ordinal(
                 self.params,
-                self.printing_params,
-                self.variable,
                 self.culture_id,
                 self.num_candidates
             )

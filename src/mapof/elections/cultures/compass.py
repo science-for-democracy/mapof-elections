@@ -5,6 +5,7 @@ import math
 import numpy as np
 
 import mapof.elections.cultures.sampling.samplemat as smpl
+from mapof.elections.cultures.register import register_ordinal_election_culture
 
 
 def _distribute_in_matrix(n, m):
@@ -40,6 +41,7 @@ def _draw_election(matrix):
     return smpl.sample_election_using_permanent(matrix)
 
 
+@register_ordinal_election_culture('un_from_list')
 def generate_un_from_list(num_voters: int = None, num_candidates: int = None):
     id_perm = list(range(num_candidates))
     m_fac = math.factorial(num_candidates)
@@ -52,6 +54,7 @@ def generate_un_from_list(num_voters: int = None, num_candidates: int = None):
     return res
 
 
+@register_ordinal_election_culture('approx_uniformity')
 def generate_approx_uniformity_votes(num_voters: int = None, num_candidates: int = None) -> list:
     """
 
@@ -73,6 +76,7 @@ def generate_approx_uniformity_votes(num_voters: int = None, num_candidates: int
     return _draw_election(matrix)
 
 
+@register_ordinal_election_culture('idan_part')
 def generate_idan_part_votes(
         num_voters: int = None,
         num_candidates: int = None,
@@ -111,6 +115,7 @@ def generate_idan_part_votes(
     return votes
 
 
+@register_ordinal_election_culture('idun_part')
 def generate_idun_part_votes(
         num_voters: int = None,
         num_candidates: int = None,
@@ -146,6 +151,7 @@ def generate_idun_part_votes(
     return votes
 
 
+@register_ordinal_election_culture('idst_part')
 def generate_idst_part_votes(
         num_voters: int = None,
         num_candidates: int = None,
@@ -184,6 +190,7 @@ def generate_idst_part_votes(
     return votes_id + votes_st
 
 
+@register_ordinal_election_culture('anun_part')
 def generate_anun_part_votes(
         num_voters: int = None,
         num_candidates: int = None,
@@ -223,6 +230,7 @@ def generate_anun_part_votes(
     return votes
 
 
+@register_ordinal_election_culture('anst_part')
 def generate_anst_part_votes(
         num_voters: int = None,
         num_candidates: int = None,
@@ -264,6 +272,7 @@ def generate_anst_part_votes(
     return votes
 
 
+@register_ordinal_election_culture('unst_part')
 def generate_unst_part_votes(
         num_voters: int = None,
         num_candidates: int = None,
@@ -302,6 +311,7 @@ def generate_unst_part_votes(
     return votes
 
 
+@register_ordinal_election_culture('unst_topsize')
 def generate_unst_topsize_votes(
         num_voters: int = None,
         num_candidates: int = None,
@@ -321,6 +331,7 @@ def generate_unst_topsize_votes(
     return _draw_election(matrix)
 
 
+@register_ordinal_election_culture('idst_blocks')
 def generate_idst_blocks_votes(
         num_voters: int = None,
         num_candidates: int = None,
@@ -344,18 +355,27 @@ def generate_idst_blocks_votes(
     return _draw_election(matrix)
 
 
+@register_ordinal_election_culture('approx_stratification')
 def generate_approx_stratification_votes(
         num_voters: int = None,
         num_candidates: int = None,
         weight: float = 0.5
 ):
     """ Generates real election that approximates stratification (ST) """
+
     first_group_size = int(num_candidates * weight)
-    return [list(np.random.permutation(first_group_size)) +
-            list(np.random.permutation([j for j in range(first_group_size, num_candidates)]))
-            for _ in range(num_voters)]
+
+    votes_1 = generate_approx_uniformity_votes(num_voters, first_group_size)
+    votes_2 = generate_approx_uniformity_votes(num_voters, num_candidates - first_group_size)
+
+    for i in range(len(votes_2)):
+        for j in range(len(votes_2[i])):
+            votes_2[i][j] += first_group_size
+
+    return [votes_1[i] + votes_2[i] for i in range(num_voters)]
 
 
+@register_ordinal_election_culture('antagonism', 'an')
 def generate_antagonism_votes(
         num_voters: int = None,
         num_candidates: int = None

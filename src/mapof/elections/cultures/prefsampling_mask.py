@@ -4,7 +4,11 @@ import logging
 
 from prefsampling.core.euclidean import EuclideanSpace
 
+from mapof.elections.cultures.register import register_ordinal_election_culture
+from mapof.elections.cultures.register import register_approval_election_culture
 
+
+@register_approval_election_culture('truncated_urn')
 def truncated_urn_mask(num_voters=None,
                        num_candidates=None,
                        p=None,
@@ -19,6 +23,7 @@ def truncated_urn_mask(num_voters=None,
                                            **kwargs)
 
 
+@register_approval_election_culture('identity')
 def identity_approval_mask(num_voters=None,
                            num_candidates=None,
                            p=0.5,
@@ -30,6 +35,7 @@ def identity_approval_mask(num_voters=None,
                                   **kwargs)
 
 
+@register_approval_election_culture('approval')
 def impartial_approval_mask(num_voters=None,
                             num_candidates=None,
                             p=0.5,
@@ -41,6 +47,7 @@ def impartial_approval_mask(num_voters=None,
                                    **kwargs)
 
 
+@register_ordinal_election_culture('group-separable')
 def group_separable_mask(num_voters=None,
                          num_candidates=None,
                          tree_sampler=None,
@@ -63,6 +70,7 @@ def group_separable_mask(num_voters=None,
                                         seed=seed)
 
 
+@register_ordinal_election_culture('euclidean')
 def euclidean_ordinal_mask(num_voters=None,
                            num_candidates=None,
                            space=None,
@@ -97,6 +105,7 @@ def euclidean_ordinal_mask(num_voters=None,
         **kwargs)
 
 
+@register_approval_election_culture('euclidean')
 def euclidean_approval_mask(num_voters=None,
                             num_candidates=None,
                             space=None,
@@ -134,6 +143,7 @@ def euclidean_approval_mask(num_voters=None,
         **kwargs)
 
 
+@register_ordinal_election_culture('norm-mallows')
 def norm_mallows_mask(num_voters=None,
                       num_candidates=None,
                       normphi=None,

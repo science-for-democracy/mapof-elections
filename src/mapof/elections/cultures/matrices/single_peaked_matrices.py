@@ -3,6 +3,7 @@ from random import *
 import numpy as np
 from mapof.core.features.mallows import phi_from_normphi, mallows_votes
 from scipy.special import binom
+from mapof.elections.cultures.register import register_psuedo_ordinal_culture
 
 
 ### MATRICES ###
@@ -88,6 +89,7 @@ PRECISION = 1000
 DIGITS = 4
 
 
+@register_psuedo_ordinal_culture('pseudo_single-peaked_conitzer')
 def get_conitzer_matrix(num_candidates=None, **_kwargs):
     """
     Gets a Conitzer matrix for a given number of candidates.
@@ -117,6 +119,7 @@ def get_conitzer_matrix(num_candidates=None, **_kwargs):
 #     return P
 
 
+@register_psuedo_ordinal_culture('pseudo_single-peaked_walsh')
 def get_walsh_matrix(num_candidates=None, **_kwargs):
     """
     Gets a Walsh matrix for a given number of candidates

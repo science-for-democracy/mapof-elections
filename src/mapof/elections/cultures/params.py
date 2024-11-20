@@ -51,8 +51,6 @@ def update_params_ordinal_alpha(printing_params: dict):
 
 def update_params_ordinal(
         params: dict,
-        printing_params: dict,
-        variable,
         culture_id: str,
         num_candidates: int
 ):
@@ -68,7 +66,7 @@ def update_params_ordinal(
     elif culture_id.lower() == 'mallows_triangle':
         update_params_ordinal_mallows_triangle(params, num_candidates)
 
-    return params, printing_params
+    return params
 
 
 def update_params_approval_rel_size_central_vote(params: dict, culture_id: str):

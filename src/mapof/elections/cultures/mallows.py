@@ -4,11 +4,14 @@ import pickle
 import mapof.core.features.mallows as ml
 import numpy as np
 
+from mapof.elections.cultures.register import register_ordinal_election_culture
+
 
 def generate_mallows_votes(*args, **kwargs):
     return ml.generate_mallows_votes(*args, **kwargs)
 
 
+@register_ordinal_election_culture('norm-mallows_mixture')
 def generate_norm_mallows_mixture_votes(
         num_voters: int,
         num_candidates: int,

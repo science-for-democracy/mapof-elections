@@ -117,18 +117,18 @@ class TestCultures:
         assert len(election.votes) == num_voters
         assert len(election.votes[0]) == num_candidates
 
-    # @pytest.mark.parametrize("culture_id", approx_cultures)
-    # def test_approx_cultures(self, culture_id):
-    #     num_voters = 20
-    #     num_candidates = 10
-    #     election = mapof.generate_ordinal_election(culture_id=culture_id,
-    #                                                num_voters=num_voters,
-    #                                                num_candidates=num_candidates)
-    #     assert election.num_candidates == num_candidates
-    #     assert election.num_voters == num_voters
-    #
-    #     assert len(election.votes) == num_voters
-    #     assert len(election.votes[0]) == num_candidates
+    @pytest.mark.parametrize("culture_id", approx_cultures)
+    def test_approx_cultures(self, culture_id):
+        num_voters = 16
+        num_candidates = 8
+        election = mapof.generate_ordinal_election(culture_id=culture_id,
+                                                   num_voters=num_voters,
+                                                   num_candidates=num_candidates)
+        assert election.num_candidates == num_candidates
+        assert election.num_voters == num_voters
+
+        assert len(election.votes) == num_voters
+        assert len(election.votes[0]) == num_candidates
 
     def test_single_crossing(self):
         culture_id = 'single_crossing'
@@ -138,6 +138,19 @@ class TestCultures:
                                                    num_voters=num_voters,
                                                    num_candidates=num_candidates)
 
+        assert election.num_candidates == num_candidates
+        assert election.num_voters == num_voters
+
+        assert len(election.votes) == num_voters
+        assert len(election.votes[0]) == num_candidates
+
+    @pytest.mark.parametrize("culture_id", other_cultures)
+    def test_other_cultures(self, culture_id):
+        num_voters = 16
+        num_candidates = 8
+        election = mapof.generate_ordinal_election(culture_id=culture_id,
+                                                   num_voters=num_voters,
+                                                   num_candidates=num_candidates)
         assert election.num_candidates == num_candidates
         assert election.num_voters == num_voters
 
@@ -158,17 +171,5 @@ class TestCultures:
     #     assert len(election.votes) == num_voters
     #     assert len(election.votes[0]) == num_candidates
 
-    # @pytest.mark.parametrize("culture_id", other_cultures)
-    # def test_approx_cultures(self, culture_id):
-    #     num_voters = 20
-    #     num_candidates = 10
-    #     election = mapof.generate_ordinal_election(culture_id=culture_id,
-    #                                                num_voters=num_voters,
-    #                                                num_candidates=num_candidates)
-    #     assert election.num_candidates == num_candidates
-    #     assert election.num_voters == num_voters
-    #
-    #     assert len(election.votes) == num_voters
-    #     assert len(election.votes[0]) == num_candidates
 
 

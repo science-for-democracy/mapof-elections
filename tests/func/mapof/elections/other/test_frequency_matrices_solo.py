@@ -26,6 +26,7 @@ cultures_to_test = {
     'pseudo_single_crossing',
 }
 
+
 class TestFrequencyMatrices:
 
     @pytest.mark.parametrize("culture_id", guardians_to_test)

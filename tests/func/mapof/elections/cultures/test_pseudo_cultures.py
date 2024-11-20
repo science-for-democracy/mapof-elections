@@ -79,8 +79,8 @@ class TestPseudoElection:
             assert election.num_voters == num_voters
 
     def test_pseudo_norm_mallows_culture(self):
-        num_voters = np.random.randint(10, 40)
-        num_candidates = np.random.randint(10, 20)
+        num_voters = 12
+        num_candidates = 6
 
         election = mapof.generate_ordinal_election(culture_id='pseudo_norm_mallows',
                                                        num_voters=num_voters,
@@ -145,8 +145,8 @@ class TestFrequencyMatrixOfPseudoElection:
         assert frequency_matrix.shape == (num_candidates, num_candidates)
 
     # def test_pseudo_norm_mallows_frequency_matrix(self):
-    #     num_voters = np.random.randint(10, 30)
-    #     num_candidates = np.random.randint(10, 20)
+    #     num_voters = 12
+    #     num_candidates = 6
     #
     #     election = mapof.generate_ordinal_election(culture_id='pseudo_norm_mallows',
     #                                                num_voters=num_voters,

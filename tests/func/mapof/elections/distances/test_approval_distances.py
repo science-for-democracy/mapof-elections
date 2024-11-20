@@ -17,11 +17,11 @@ class TestOrdinalDistances:
         num_voters = np.random.randint(10, 20)
         num_candidates = np.random.randint(5, 10)
 
-        ele_1 = mapel.generate_approval_election(culture_id='ic', p=0.5,
+        ele_1 = mapel.generate_approval_election(culture_id='impartial', p=0.5,
                                                  num_voters=num_voters,
                                                  num_candidates=num_candidates)
 
-        ele_2 = mapel.generate_approval_election(culture_id='ic', p=0.5,
+        ele_2 = mapel.generate_approval_election(culture_id='impartial', p=0.5,
                                                  num_voters=num_voters,
                                                  num_candidates=num_candidates)
 

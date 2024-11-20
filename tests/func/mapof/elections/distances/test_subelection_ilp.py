@@ -6,13 +6,13 @@ class TestOrdinalDistances:
 
     def setup_method(self):
         self.election_1 = mapof.generate_ordinal_election(
-            culture_id='ic',
+            culture_id='impartial',
             num_voters=6,
             num_candidates=4
         )
 
         self.election_2 = mapof.generate_ordinal_election(
-            culture_id='ic',
+            culture_id='impartial',
             num_voters=6,
             num_candidates=4
         )

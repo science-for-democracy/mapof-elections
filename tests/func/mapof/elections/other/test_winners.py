@@ -14,7 +14,7 @@ class TestWinners:
 
     def setup_method(self):
         self.election = mapof.generate_ordinal_election(
-            culture_id='ic',
+            culture_id='impartial',
             num_voters=10,
             num_candidates=5
         )

@@ -76,7 +76,7 @@ class TestFeaturesSanity:
         num_voters = np.random.randint(10, 20)
         num_candidates = np.random.randint(5, 10)
 
-        election = mapof.generate_ordinal_election(culture_id='ic',
+        election = mapof.generate_ordinal_election(culture_id='impartial',
                                                    num_voters=num_voters,
                                                    num_candidates=num_candidates)
         election.compute_feature(feature_id)

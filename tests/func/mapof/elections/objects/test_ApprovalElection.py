@@ -52,7 +52,7 @@ class TestApprovalElection:
             election.print_map(show=False)
 
     def test_export_election_without_experiment(self, tmp_path, election_id, num_voters, num_candidates):
-        culture_id = 'ic'
+        culture_id = 'impartial'
 
         election = mapof.generate_approval_election(culture_id=culture_id,
                                                    election_id=election_id,

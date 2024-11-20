@@ -109,7 +109,7 @@ class TestOrdinalElection:
 
     def test_export_pseudo_ordinal_election(self, num_voters, num_candidates,
                                             tmp_path, election_id):
-        culture_id = 'ic'
+        culture_id = 'impartial'
 
         election = mapof.generate_ordinal_election(culture_id=culture_id,
                                                    election_id=election_id,

@@ -30,11 +30,11 @@ class TestOrdinalDistances:
         num_voters = np.random.randint(4, 6)
         num_candidates = np.random.randint(3, 5)
 
-        ele_1 = mapof.generate_ordinal_election(culture_id='ic',
+        ele_1 = mapof.generate_ordinal_election(culture_id='impartial',
                                                 num_voters=num_voters,
                                                 num_candidates=num_candidates)
 
-        ele_2 = mapof.generate_ordinal_election(culture_id='ic',
+        ele_2 = mapof.generate_ordinal_election(culture_id='impartial',
                                                 num_voters=num_voters,
                                                 num_candidates=num_candidates)
 

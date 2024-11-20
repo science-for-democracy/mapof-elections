@@ -2,25 +2,19 @@ import logging
 
 import numpy as np
 
+import mapof.elections.cultures.alliances
+import mapof.elections.cultures.compass
+import mapof.elections.cultures.mallows
+import mapof.elections.cultures.matrices.group_separable_matrices
+import mapof.elections.cultures.matrices.single_crossing_matrices
+import mapof.elections.cultures.matrices.single_peaked_matrices
 import mapof.elections.cultures.prefsampling_mask
 import mapof.elections.cultures.pseudo_cultures
-import mapof.elections.cultures.compass
-
-import mapof.elections.cultures.matrices.single_peaked_matrices
-import mapof.elections.cultures.matrices.single_crossing_matrices
-import mapof.elections.cultures.matrices.group_separable_matrices
-
-from mapof.elections.cultures.alliances import (
-    generate_ordinal_alliance_ic_votes,
-    generate_ordinal_alliance_urn_votes,
-    generate_ordinal_alliance_euclidean_votes,
-    generate_ordinal_alliance_allied_euclidean_votes,
-    generate_ordinal_alliance_norm_mallows_votes,
-)
 from mapof.elections.cultures.register import (
     registered_approval_election_cultures,
     registered_ordinal_election_cultures,
-    registered_pseudo_ordinal_cultures
+    registered_pseudo_ordinal_cultures,
+    registered_alliance_ordinal_cultures,
 )
 from mapof.elections.other.glossary import is_pseudo_culture
 
@@ -119,30 +113,21 @@ def from_approval(num_candidates: int = None,
     return approval_votes_to_vectors(votes, num_candidates=num_candidates, num_voters=num_voters)
 
 
-LIST_OF_ORDINAL_ALLIANCE_MODELS = {
-    'ic': generate_ordinal_alliance_ic_votes,
-    'urn': generate_ordinal_alliance_urn_votes,
-    'euc': generate_ordinal_alliance_euclidean_votes,
-    'allied_euc': generate_ordinal_alliance_allied_euclidean_votes,
-    'norm_mallows': generate_ordinal_alliance_norm_mallows_votes,
-}
-
-
 def generate_ordinal_alliance_votes(
         culture_id: str = None,
         num_candidates: int = None,
         num_voters: int = None,
         params: dict = None
 ):
-    if culture_id in LIST_OF_ORDINAL_ALLIANCE_MODELS:
-        votes, alliances = LIST_OF_ORDINAL_ALLIANCE_MODELS.get(culture_id)(
+    if culture_id in registered_alliance_ordinal_cultures:
+        votes, alliances = registered_alliance_ordinal_cultures.get(culture_id)(
             num_voters=num_voters,
             num_candidates=num_candidates,
             params=params)
     else:
         votes = []
         alliances = []
-        logging.warning(f'No such culture id: {culture_id}')
+        logging.warning(f'No such alliance culture id: {culture_id}')
 
     return np.array(votes), alliances
 

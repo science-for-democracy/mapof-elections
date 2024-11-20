@@ -40,6 +40,10 @@ registered_ordinal_election_cultures = {
 registered_pseudo_ordinal_cultures = {
 }
 
+# Some cultures are added via decorators
+registered_alliance_ordinal_cultures = {
+}
+
 
 def register_approval_election_culture(feature_id: str):
 
@@ -59,10 +63,19 @@ def register_ordinal_election_culture(feature_id: str):
     return decorator
 
 
-def register_psuedo_ordinal_culture(feature_id: str):
+def register_pseudo_ordinal_culture(feature_id: str):
 
     def decorator(func):
         registered_pseudo_ordinal_cultures[feature_id] = func
+        return func
+
+    return decorator
+
+
+def register_alliance_ordinal_culture(feature_id: str):
+
+    def decorator(func):
+        registered_alliance_ordinal_cultures[feature_id] = func
         return func
 
     return decorator

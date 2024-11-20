@@ -26,7 +26,7 @@ cultures_to_test = {
 }
 
 
-class TestCultures:
+class TestPseudoElection:
 
     @pytest.mark.parametrize("culture_id", guardians_to_test)
     def test_pseudo_guardians(self, culture_id):
@@ -77,6 +77,21 @@ class TestCultures:
 
             assert election.num_candidates == num_candidates
             assert election.num_voters == num_voters
+
+    def test_pseudo_norm_mallows_culture(self):
+        num_voters = np.random.randint(10, 40)
+        num_candidates = np.random.randint(10, 20)
+
+        election = mapof.generate_ordinal_election(culture_id='pseudo_norm_mallows',
+                                                       num_voters=num_voters,
+                                                       num_candidates=num_candidates,
+                                                       params={'normphi': 0.5})
+
+        assert election.num_candidates == num_candidates
+        assert election.num_voters == num_voters
+
+
+class TestFrequencyMatrixOfPseudoElection:
 
     @pytest.mark.parametrize("culture_id", guardians_to_test)
     def test_pseudo_guardians_frequency_matrix(self, culture_id):
@@ -129,3 +144,14 @@ class TestCultures:
 
         assert frequency_matrix.shape == (num_candidates, num_candidates)
 
+    # def test_pseudo_norm_mallows_frequency_matrix(self):
+    #     num_voters = np.random.randint(10, 40)
+    #     num_candidates = np.random.randint(10, 20)
+    #
+    #     election = mapof.generate_ordinal_election(culture_id='pseudo_norm_mallows',
+    #                                                num_voters=num_voters,
+    #                                                num_candidates=num_candidates,
+    #                                                params={'normphi': 0.5})
+    #     frequency_matrix = election.get_frequency_matrix()
+    #
+    #     assert frequency_matrix.shape == (num_candidates, num_candidates)

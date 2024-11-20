@@ -138,7 +138,6 @@ class TestCultures:
                                                    num_voters=num_voters,
                                                    num_candidates=num_candidates)
 
-        print(election.votes)
         assert election.num_candidates == num_candidates
         assert election.num_voters == num_voters
 
@@ -172,17 +171,4 @@ class TestCultures:
     #     assert len(election.votes) == num_voters
     #     assert len(election.votes[0]) == num_candidates
 
-    # def test_norm_mallows_mixture(self):
-    #     num_voters = 20
-    #     num_candidates = 10
-    #     params = {'normphi_1': 0.2, 'normphi_2': 0.5}
-    #     election = mapof.generate_ordinal_election(culture_id='norm-mallows_mixture',
-    #                                                num_voters=num_voters,
-    #                                                num_candidates=num_candidates,
-    #                                                params=params)
-    #     assert election.num_candidates == num_candidates
-    #     assert election.num_voters == num_voters
-    #
-    #     assert len(election.votes) == num_voters
-    #     assert len(election.votes[0]) == num_candidates
 

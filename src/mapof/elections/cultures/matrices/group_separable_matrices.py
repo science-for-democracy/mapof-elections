@@ -1,11 +1,7 @@
-#!/usr/bin/env python
-
 import queue
-from itertools import chain
+from queue import Queue
 
 import numpy as np
-
-from queue import Queue
 
 
 # def get_all_leaves_names(node):

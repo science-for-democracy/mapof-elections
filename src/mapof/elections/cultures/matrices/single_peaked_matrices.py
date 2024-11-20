@@ -1,7 +1,7 @@
 import numpy as np
 from scipy.special import binom
 
-from mapof.elections.cultures.register import register_psuedo_ordinal_culture
+from mapof.elections.cultures.register import register_pseudo_ordinal_culture
 
 
 # WALSH
@@ -49,7 +49,7 @@ PRECISION = 1000
 DIGITS = 4
 
 
-@register_psuedo_ordinal_culture('pseudo_single_peaked_conitzer')
+@register_pseudo_ordinal_culture('pseudo_single_peaked_conitzer')
 def get_conitzer_matrix(num_candidates=None, **_kwargs):
     """
     Gets a Conitzer matrix for a given number of candidates.
@@ -62,7 +62,7 @@ def get_conitzer_matrix(num_candidates=None, **_kwargs):
     return P
 
 
-@register_psuedo_ordinal_culture('pseudo_single_peaked_walsh')
+@register_pseudo_ordinal_culture('pseudo_single_peaked_walsh')
 def get_walsh_matrix(num_candidates=None, **_kwargs):
     """
     Gets a Walsh matrix for a given number of candidates

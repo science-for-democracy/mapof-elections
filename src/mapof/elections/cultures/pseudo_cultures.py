@@ -10,7 +10,7 @@ def pseudo_uniformity(num_candidates: int, params: dict = None):
     return get_pseudo_matrix_single('pseudo_uniformity', num_candidates, params)
 
 
-@register_psuedo_ordinal_culture('register_identity')
+@register_psuedo_ordinal_culture('pseudo_identity')
 def pseudo_identity(num_candidates: int, params: dict = None):
     """ Returns pseudo culture matrix with identity. """
     return get_pseudo_matrix_single('pseudo_identity', num_candidates, params)
@@ -20,7 +20,6 @@ def pseudo_identity(num_candidates: int, params: dict = None):
 def pseudo_stratification(num_candidates: int, params: dict = None):
     """ Returns pseudo culture matrix with stratification. """
     return get_pseudo_matrix_single('pseudo_stratification', num_candidates, params)
-
 
 
 @register_psuedo_ordinal_culture('pseudo_antagonism')

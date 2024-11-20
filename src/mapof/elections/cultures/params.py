@@ -65,7 +65,6 @@ def update_params_ordinal(
         update_params_ordinal_mallows_matrix_path(params, num_candidates)
     elif culture_id.lower() == 'mallows_triangle':
         update_params_ordinal_mallows_triangle(params, num_candidates)
-
     return params
 
 

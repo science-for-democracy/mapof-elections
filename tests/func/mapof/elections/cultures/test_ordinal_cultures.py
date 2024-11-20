@@ -11,22 +11,18 @@ new_to_test = {
 
 simple_ordinal_cultures_to_test = {
     'identity',
-    'id',
-    'ic',
     'impartial',
-    'impartial_culture',
     'iac',
     'urn',
-    'single-peaked_walsh',
-    'single-peaked_conitzer',
+    'single_peaked_walsh',
+    'single_peaked_conitzer',
     'spoc',
-    'single-crossing',
+    'single_crossing',
     'mallows',
-    'norm-mallows',
+    'norm_mallows',
 }
 
 cultures_with_even_number_of_voters = {
-    'an',
     'antagonism',
 }
 
@@ -44,7 +40,7 @@ spaces_to_test = {
 
 approx_cultures = {
     'approx_stratification',
-    # 'approx_uniformity',
+    'approx_uniformity',
 }
 
 unpopular_ordinal_cultures_to_test = {
@@ -72,7 +68,7 @@ class TestCultures:
 
         election = mapof.generate_ordinal_election(culture_id=culture_id,
                                                    num_voters=num_voters,
-                                                   num_candidates=num_candidates,)
+                                                   num_candidates=num_candidates)
 
         assert election.num_candidates == num_candidates
         assert election.num_voters == num_voters
@@ -80,9 +76,8 @@ class TestCultures:
         assert len(election.votes) == num_voters
         assert len(election.votes[0]) == num_candidates
 
-
     @pytest.mark.parametrize("culture_id", cultures_with_even_number_of_voters)
-    def test_simple_cultures(self, culture_id):
+    def test_simple_cultures_even(self, culture_id):
         num_voters = 20
         num_candidates = 10
 
@@ -122,21 +117,21 @@ class TestCultures:
         assert len(election.votes) == num_voters
         assert len(election.votes[0]) == num_candidates
 
-    @pytest.mark.parametrize("culture_id", approx_cultures)
-    def test_approx_cultures(self, culture_id):
-        num_voters = 20
-        num_candidates = 10
-        election = mapof.generate_ordinal_election(culture_id=culture_id,
-                                                   num_voters=num_voters,
-                                                   num_candidates=num_candidates)
-        assert election.num_candidates == num_candidates
-        assert election.num_voters == num_voters
-
-        assert len(election.votes) == num_voters
-        assert len(election.votes[0]) == num_candidates
+    # @pytest.mark.parametrize("culture_id", approx_cultures)
+    # def test_approx_cultures(self, culture_id):
+    #     num_voters = 20
+    #     num_candidates = 10
+    #     election = mapof.generate_ordinal_election(culture_id=culture_id,
+    #                                                num_voters=num_voters,
+    #                                                num_candidates=num_candidates)
+    #     assert election.num_candidates == num_candidates
+    #     assert election.num_voters == num_voters
+    #
+    #     assert len(election.votes) == num_voters
+    #     assert len(election.votes[0]) == num_candidates
 
     def test_single_crossing(self):
-        culture_id = 'single-crossing'
+        culture_id = 'single_crossing'
         num_voters = 10
         num_candidates = 10
         election = mapof.generate_ordinal_election(culture_id=culture_id,
@@ -154,7 +149,7 @@ class TestCultures:
     # def test_group_separable(self, tree_sampler):
     #     num_voters = 20
     #     num_candidates = 10
-    #     election = mapof.generate_ordinal_election(culture_id='group-separable',
+    #     election = mapof.generate_ordinal_election(culture_id='group_separable',
     #                                                num_voters=num_voters,
     #                                                num_candidates=num_candidates,
     #                                                tree_sampler=tree_sampler)

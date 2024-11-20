@@ -11,18 +11,18 @@ def election_id():
 
 @pytest.fixture
 def num_voters():
-  return np.random.randint(10, 20)
+    return np.random.randint(10, 20)
 
 
 @pytest.fixture
 def num_candidates():
-  return np.random.randint(6, 12)
+    return np.random.randint(6, 12)
 
 
 class TestOrdinalElection:
 
     def test_vote_microscope(self, num_voters, num_candidates):
-        culture_id = 'ic'
+        culture_id = 'impartial'
 
         election = mapof.generate_ordinal_election(culture_id=culture_id,
                                                    num_voters=num_voters,
@@ -37,7 +37,7 @@ class TestOrdinalElection:
             election.print_map(show=False)
 
     def test_candidate_microscope(self, num_voters, num_candidates):
-        culture_id = 'ic'
+        culture_id = 'impartial'
 
         election = mapof.generate_ordinal_election(culture_id=culture_id,
                                                    num_voters=num_voters,
@@ -53,7 +53,7 @@ class TestOrdinalElection:
 
     def test_generate_ordinal_election_from_votes(self):
 
-        votes = [[0,1,2,3], [1,2,0,3], [3,2,0,1]]
+        votes = [[0, 1, 2, 3], [1, 2, 0, 3], [3, 2, 0, 1]]
         election = mapof.generate_ordinal_election_from_votes(votes)
 
         assert election.num_voters == len(votes)
@@ -61,14 +61,14 @@ class TestOrdinalElection:
 
     def test_is_condorcet_true(self):
 
-        votes = [[0,1,2], [0,1,2], [2,1,0]]
+        votes = [[0, 1, 2], [0, 1, 2], [2, 1, 0]]
         election = mapof.generate_ordinal_election_from_votes(votes)
 
         assert election.is_condorcet()
 
     def test_is_condorcet_false(self):
 
-        votes = [[0,1,2], [1,2,0], [2,0,1]]
+        votes = [[0, 1, 2], [1, 2, 0], [2, 0, 1]]
         election = mapof.generate_ordinal_election_from_votes(votes)
 
         assert not election.is_condorcet()
@@ -76,7 +76,7 @@ class TestOrdinalElection:
     def test_export_election_without_experiment(self, num_voters,
                                                 num_candidates, tmp_path,
                                                 election_id):
-        culture_id = 'ic'
+        culture_id = 'impartial'
 
         election = mapof.generate_ordinal_election(culture_id=culture_id,
                                                    election_id=election_id,
@@ -96,7 +96,7 @@ class TestOrdinalElection:
                                                    election_id=election_id,
                                                    num_voters=num_voters,
                                                    num_candidates=num_candidates,
-                                                   params = {"phi": 0})
+                                                   params={"phi": 0})
         election.export_to_file(tmp_path, is_aggregated=True)
         exported_file = tmp_path / f"{election_id}.{election.format}"
         assert exported_file.exists(), "Aggregated election without experiment exported"
@@ -127,6 +127,5 @@ class TestOrdinalElection:
                     assert filename == f" {election_id}.{election.format}", "Pseudo "
                     "export did not work well"
                 if i > 6:
-                  counter += 1
+                    counter += 1
         assert counter == num_voters, "Pseudo export generated too few voters"
-

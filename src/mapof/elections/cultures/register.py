@@ -1,9 +1,6 @@
 import prefsampling.approval as pref_approval
 import prefsampling.ordinal as pref_ordinal
 
-import mapof.elections.cultures.prefsampling_mask as mask
-import mapof.elections.cultures.compass as compass
-
 # Some cultures are added via decorators
 registered_approval_election_cultures = {
     'resampling': pref_approval.resampling,
@@ -16,9 +13,6 @@ registered_approval_election_cultures = {
 
     'approval_full': pref_approval.full,  # deprecated name
     'approval_empty': pref_approval.empty,  # deprecated name
-    'id': mask.identity_approval_mask,  # deprecated name
-    'ic': mask.impartial_approval_mask,  # deprecated name
-    'impartial_culture': mask.impartial_approval_mask,  # deprecated name
 
     # 'truncated_mallows': mallows.generate_approval_truncated_mallows_votes,  # unsupported culture
 }
@@ -30,17 +24,16 @@ registered_ordinal_election_cultures = {
     'impartial_culture': pref_ordinal.impartial,
     'iac': pref_ordinal.impartial_anonymous,
     'didi': pref_ordinal.didi,
-    'plackett-luce': pref_ordinal.plackett_luce,
+    'plackett_luce': pref_ordinal.plackett_luce,
     'urn': pref_ordinal.urn,
-    'single-crossing': pref_ordinal.single_crossing,
-    'single-peaked_conitzer': pref_ordinal.single_peaked_conitzer,
-    'single-peaked_walsh': pref_ordinal.single_peaked_walsh,
+    'single_crossing': pref_ordinal.single_crossing,
+    'single_peaked_conitzer': pref_ordinal.single_peaked_conitzer,
+    'single_peaked_walsh': pref_ordinal.single_peaked_walsh,
     'spoc': pref_ordinal.single_peaked_circle,
     'mallows': pref_ordinal.mallows,
 
     'id': pref_ordinal.identity,  # deprecated name
     'ic': pref_ordinal.impartial,  # deprecated name
-    'an': compass.generate_antagonism_votes,  # deprecated name
 }
 
 # Some cultures are added via decorators

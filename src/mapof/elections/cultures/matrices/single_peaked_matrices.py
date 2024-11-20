@@ -1,12 +1,8 @@
-from random import *
-
 import numpy as np
-from mapof.core.features.mallows import phi_from_normphi, mallows_votes
 from scipy.special import binom
+
 from mapof.elections.cultures.register import register_psuedo_ordinal_culture
 
-
-### MATRICES ###
 
 # WALSH
 
@@ -19,40 +15,6 @@ def probW(m, i, t):
     # probability that c_i is ranked process_id among m candidates
     return 0.5 * f(i - 1, m - t - (i - 1)) + 0.5 * f(i - t, m - i)
 
-
-# RANDOM CONITZER
-# def random_conitzer(C):
-#     # generate a random vote from the Conitzer pseudo_culture_id for axis
-#     # C[0], ..., C[m-1]
-#     m = len(C)
-#     center = np.random.randint(0, m)
-#     left = center
-#     right = center
-#     vote = [C[center]]
-#     for i in range(m - 1):
-#         L = False
-#         R = False
-#
-#         if left > 0 and right < m - 1:
-#             if random() < 0.5:
-#                 L = True
-#             else:
-#                 R = True
-#         elif left > 0:
-#             L = True
-#         else:
-#             R = True
-#
-#         if L:
-#             left -= 1
-#             vote.append(C[left])
-#         else:
-#             right += 1
-#             vote.append(C[right])
-#
-#     return vote
-
-
 # CONITZER
 
 def g(m, i, j):
@@ -63,8 +25,6 @@ def g(m, i, j):
     if i == 1 and j == m: return 1.0
     return 1.0 / m
 
-
-#  return 0.5*g(m,i+1,j) + 0.5*g(m,i,j-1)
 
 
 def probC(m, i, t):
@@ -89,7 +49,7 @@ PRECISION = 1000
 DIGITS = 4
 
 
-@register_psuedo_ordinal_culture('pseudo_single-peaked_conitzer')
+@register_psuedo_ordinal_culture('pseudo_single_peaked_conitzer')
 def get_conitzer_matrix(num_candidates=None, **_kwargs):
     """
     Gets a Conitzer matrix for a given number of candidates.
@@ -102,24 +62,7 @@ def get_conitzer_matrix(num_candidates=None, **_kwargs):
     return P
 
 
-# def simconitzer(m):
-#     P = [[0] * m for _ in range(m)]
-#     T = 100000
-#
-#     C = list(range(m))
-#     for t in range(T):
-#         if t % 10000 == 0: print(t)
-#         v = random_conitzer(C)
-#         for i in range(m):
-#             P[v[i]][i] += 1
-#
-#     for j in range(m):
-#         for i in range(m):
-#             P[i][j] = str(int(PRECISION * (P[i][j] / T))).rjust(DIGITS)
-#     return P
-
-
-@register_psuedo_ordinal_culture('pseudo_single-peaked_walsh')
+@register_psuedo_ordinal_culture('pseudo_single_peaked_walsh')
 def get_walsh_matrix(num_candidates=None, **_kwargs):
     """
     Gets a Walsh matrix for a given number of candidates

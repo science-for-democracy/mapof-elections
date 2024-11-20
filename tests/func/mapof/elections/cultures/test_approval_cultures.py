@@ -5,9 +5,7 @@ import pytest
 import mapof.elections as mapel
 
 registered_approval_cultures_to_test = {
-    'ic',
     'impartial',
-    'id',
     'identity',
     'resampling',
     'disjoint_resampling',
@@ -46,32 +44,34 @@ class TestCultures:
                                                         num_candidates=num_candidates,
                                                         params={'phi': 0.4,
                                                                 'p': 0.4,
-                                                                'num_legs':3})
+                                                                'num_legs': 3})
         elif culture_id in ['disjoint_resampling']:
             election = mapel.generate_approval_election(culture_id=culture_id,
                                                         num_voters=num_voters,
                                                         num_candidates=num_candidates,
                                                         params={'phi': 0.4,
-                                                        'p': 0.2,
-                                                        'num_central_votes': 3})
+                                                                'p': 0.2,
+                                                                'num_central_votes': 3})
 
         elif culture_id in ['truncated_urn']:
             election = mapel.generate_approval_election(culture_id=culture_id,
-                                                    num_voters=num_voters,
-                                                    num_candidates=num_candidates,
+                                                        num_voters=num_voters,
+                                                        num_candidates=num_candidates,
                                                         params={'p': 0.4, 'alpha': 0.1})
 
         elif culture_id in ['urn_partylist']:
             election = mapel.generate_approval_election(culture_id=culture_id,
-                                                    num_voters=num_voters,
-                                                    num_candidates=num_candidates,
+                                                        num_voters=num_voters,
+                                                        num_candidates=num_candidates,
                                                         params={'p': 0.4,
-                                                        'alpha': 0.1,
-                                                        'parties': 2})
+                                                                'alpha': 0.1,
+                                                                'parties': 2})
         else:
             election = mapel.generate_approval_election(culture_id=culture_id,
-                                                    num_voters=num_voters,
-                                                    num_candidates=num_candidates)
+                                                        num_voters=num_voters,
+                                                        num_candidates=num_candidates)
 
         assert election.num_candidates == num_candidates
         assert election.num_voters == num_voters
+
+        assert len(election.votes) == num_voters

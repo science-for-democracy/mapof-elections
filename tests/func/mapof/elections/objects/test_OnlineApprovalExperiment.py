@@ -12,7 +12,7 @@ def two_fam_experiment(experiment):
     def add_families():
         """Helper method to add default families to the experiment."""
         experiment.add_family(
-            culture_id='ic',
+            culture_id='impartial',
             num_candidates=10,
             num_voters=50,
             size=10,
@@ -42,13 +42,13 @@ class TestOnlineApprovalExperiment:
 
     def test_adding_elections(self, experiment):
         experiment.add_election(
-            culture_id='ic',
+            culture_id='impartial',
             num_candidates=10,
             num_voters=50,
             params={'p': 0.5}
         )
         experiment.add_election(
-            culture_id='id',
+            culture_id='identity',
             num_candidates=10,
             num_voters=50,
             params={'p': 0.5}

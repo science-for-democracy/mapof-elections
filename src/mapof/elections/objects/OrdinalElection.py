@@ -160,15 +160,15 @@ class OrdinalElection(Election):
 
         if self.is_pseudo and self.frequency_matrix is not None:
             frequency_matrix = self.frequency_matrix
-        if self.culture_id == 'pseudo_sp_conitzer':
+        if self.culture_id == 'pseudo_single_peaked_conitzer':
             frequency_matrix = get_conitzer_matrix(self.num_candidates)
-        elif self.culture_id == 'pseudo_sp_walsh':
+        elif self.culture_id == 'pseudo_single_peaked_walsh':
             frequency_matrix = get_walsh_matrix(self.num_candidates)
-        elif self.culture_id == 'pseudo_single-crossing':
+        elif self.culture_id == 'pseudo_single_crossing':
             frequency_matrix = get_single_crossing_matrix(self.num_candidates)
         elif self.culture_id == 'gs_caterpillar_matrix':
             frequency_matrix = get_gs_caterpillar_matrix(self.num_candidates)
-        elif self.culture_id in {'norm-mallows_matrix', 'mallows_matrix_path'}:
+        elif self.culture_id in {'norm_mallows_matrix', 'mallows_matrix_path'}:
             frequency_matrix = get_mallows_matrix(self.num_candidates, self.params)
         elif self.culture_id in {
             'pseudo_identity',

@@ -35,7 +35,7 @@ def identity_approval_mask(num_voters=None,
                                   **kwargs)
 
 
-@register_approval_election_culture('approval')
+@register_approval_election_culture('impartial')
 def impartial_approval_mask(num_voters=None,
                             num_candidates=None,
                             p=0.5,
@@ -47,7 +47,7 @@ def impartial_approval_mask(num_voters=None,
                                    **kwargs)
 
 
-@register_ordinal_election_culture('group-separable')
+@register_ordinal_election_culture('group_separable')
 def group_separable_mask(num_voters=None,
                          num_candidates=None,
                          tree_sampler=None,
@@ -143,7 +143,7 @@ def euclidean_approval_mask(num_voters=None,
         **kwargs)
 
 
-@register_ordinal_election_culture('norm-mallows')
+@register_ordinal_election_culture('norm_mallows')
 def norm_mallows_mask(num_voters=None,
                       num_candidates=None,
                       normphi=None,
@@ -151,6 +151,7 @@ def norm_mallows_mask(num_voters=None,
                       weight=None,
                       **kwargs):
     """ Mask for the norm mallows culture. """
+
     return pref_ordinal.norm_mallows(num_voters=num_voters,
                                      num_candidates=num_candidates,
                                      norm_phi=normphi,

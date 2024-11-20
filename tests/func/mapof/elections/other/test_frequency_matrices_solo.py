@@ -21,9 +21,9 @@ paths_to_test = {
 }
 
 cultures_to_test = {
-    'pseudo_sp_conitzer',
-    'pseudo_sp_walsh',
-    'pseudo_single-crossing',
+    'pseudo_single_peaked_conitzer',
+    'pseudo_single_peaked_walsh',
+    'pseudo_single_crossing',
 }
 
 class TestMatrices:
@@ -47,6 +47,6 @@ class TestMatrices:
 
 
     # def test_generate_mallows_positionwise_matrix(self):
-    #     frequency_matrix = generate_positionwise_matrix('norm-mallows_matrix', num_candidates=5,
+    #     frequency_matrix = generate_positionwise_matrix('norm_mallows_matrix', num_candidates=5,
     #                                           params={'normphi': 0.5})
     #     assert frequency_matrix.shape == (5, 5)

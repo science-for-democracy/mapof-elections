@@ -42,7 +42,7 @@ class TestOfflineOrdinalExperiment:
     def test_add_election(self, prepared_elections):
         prepared_elections.add_election(
             election_id='test_election_id',
-            culture_id="ic",
+            culture_id="impartial",
             num_candidates=10,
             num_voters=100
             )
@@ -51,7 +51,7 @@ class TestOfflineOrdinalExperiment:
     def test_add_family(self, prepared_elections):
         prepared_elections.add_family(
             family_id='test_family_id',
-            culture_id="ic",
+            culture_id="impartial",
             num_candidates=10,
             num_voters=100,
             size=3,

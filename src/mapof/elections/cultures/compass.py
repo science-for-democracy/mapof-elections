@@ -375,7 +375,7 @@ def generate_approx_stratification_votes(
     return [votes_1[i] + votes_2[i] for i in range(num_voters)]
 
 
-@register_ordinal_election_culture('antagonism', 'an')
+@register_ordinal_election_culture('antagonism')
 def generate_antagonism_votes(
         num_voters: int = None,
         num_candidates: int = None

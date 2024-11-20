@@ -11,7 +11,7 @@ def generate_mallows_votes(*args, **kwargs):
     return ml.generate_mallows_votes(*args, **kwargs)
 
 
-@register_ordinal_election_culture('norm-mallows_mixture')
+@register_ordinal_election_culture('norm_mallows_mixture')
 def generate_norm_mallows_mixture_votes(
         num_voters: int,
         num_candidates: int,

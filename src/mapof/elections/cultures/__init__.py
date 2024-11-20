@@ -2,6 +2,14 @@ import logging
 
 import numpy as np
 
+import mapof.elections.cultures.prefsampling_mask
+import mapof.elections.cultures.pseudo_cultures
+import mapof.elections.cultures.compass
+
+import mapof.elections.cultures.matrices.single_peaked_matrices
+import mapof.elections.cultures.matrices.single_crossing_matrices
+import mapof.elections.cultures.matrices.group_separable_matrices
+
 from mapof.elections.cultures.alliances import (
     generate_ordinal_alliance_ic_votes,
     generate_ordinal_alliance_urn_votes,
@@ -116,7 +124,7 @@ LIST_OF_ORDINAL_ALLIANCE_MODELS = {
     'urn': generate_ordinal_alliance_urn_votes,
     'euc': generate_ordinal_alliance_euclidean_votes,
     'allied_euc': generate_ordinal_alliance_allied_euclidean_votes,
-    'norm-mallows': generate_ordinal_alliance_norm_mallows_votes,
+    'norm_mallows': generate_ordinal_alliance_norm_mallows_votes,
 }
 
 

@@ -20,9 +20,9 @@ guardians_to_test = {
 }
 
 cultures_to_test = {
-    'pseudo_single-peaked_conitzer',
-    'pseudo_single-peaked_walsh',
-    'pseudo_single-crossing',
+    'pseudo_single_peaked_conitzer',
+    'pseudo_single_peaked_walsh',
+    'pseudo_single_crossing',
 }
 
 

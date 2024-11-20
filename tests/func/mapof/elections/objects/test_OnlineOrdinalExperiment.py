@@ -11,7 +11,7 @@ def two_fam_experiment(experiment):
     def add_families():
         """Helper method to add default families to the experiment."""
         experiment.add_family(
-            culture_id='ic',
+            culture_id='impartial',
             num_candidates=5,
             num_voters=10,
             size=10,
@@ -21,7 +21,7 @@ def two_fam_experiment(experiment):
         )
 
         experiment.add_family(
-            culture_id='norm-mallows',
+            culture_id='norm_mallows',
             num_candidates=5,
             num_voters=10,
             size=10,
@@ -40,7 +40,7 @@ class TestOnlineOrdinalExperiment:
 
     def test_adding_elections(self, experiment):
         experiment.add_election(
-            culture_id='ic',
+            culture_id='impartial',
             num_candidates=5,
             num_voters=50
         )

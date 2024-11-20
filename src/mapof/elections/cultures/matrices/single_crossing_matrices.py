@@ -3,7 +3,7 @@ import numpy as np
 from mapof.elections.cultures.register import register_psuedo_ordinal_culture
 
 
-@register_psuedo_ordinal_culture('pseudo_single-crossing')
+@register_psuedo_ordinal_culture('pseudo_single_crossing')
 def get_single_crossing_matrix(num_candidates: int, **kwargs) -> np.ndarray:
     """
     Gets a single crossing matrix for a given number of candidates.

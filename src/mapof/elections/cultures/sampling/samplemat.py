@@ -1,10 +1,6 @@
 import logging
 import numpy as np
-try:
-  from permanent import permanent
-except:
-  logging.warning("The 'permanent' module is not installed. Sampling matrices "
-  "unavailable.")
+from permanentbis import permanent
 import random
 import math
 
@@ -37,7 +33,7 @@ def _draw_vote(matrix):
   while len(vote_matchings) < len(matrix):
     taken_edge = None
     bin_matrix_view = binary_matrix[:-1,:-1]
-    ground_perm = permanent.permanent(bin_matrix_view.astype('complex'))
+    ground_perm = permanent(bin_matrix_view.astype('complex'))
     cands, poss = bin_matrix_view.nonzero()
     taken_edge = None
     while not taken_edge:
@@ -50,7 +46,7 @@ def _draw_vote(matrix):
       pos_to_remain = [i for i in  bin_matr_indices if i!= random_edge[1]]
       without_taken_edge = bin_matrix_view[np.ix_(cands_to_remain,
       pos_to_remain)]
-      took_edge_perm = permanent.permanent(without_taken_edge.astype('complex'))
+      took_edge_perm = permanent(without_taken_edge.astype('complex'))
       ratio = float(took_edge_perm.real)/float(ground_perm.real) 
       if math.isclose(ratio, 1.0):
         taken_edge = random_edge  
@@ -81,9 +77,6 @@ def sample_election_using_permanent(matrix):
       Returns:
         The list of lists representing the votes realizing the given frequency_matrix
   """
-  if not utils.is_module_loaded("permanent"):
-    raise RuntimeError("Module 'permanent' was not loaded. Sampling elections "
-    "from frequency_matrix impossible.")
   matrix = _input_standarization(matrix)
   votes_count = np.sum(matrix[0])
   curr_matrix = matrix.copy()

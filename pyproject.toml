@@ -21,13 +21,10 @@ classifiers=[
 requires-python = ">=3.10"
 license = {file = "LICENSE.txt"}
 readme = "README.md"
-dynamic = ["dependencies", "optional-dependencies", "version"]
+dynamic = ["dependencies", "version"]
 
 [tool.setuptools.dynamic]
 dependencies = {file = ["requirements.txt"]}
-
-[tool.setuptools.dynamic.optional-dependencies]
-extras = {file = ["optional_requirements.txt"]}
 
 [tool.setuptools_scm]
 

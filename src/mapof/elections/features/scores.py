@@ -148,7 +148,7 @@ def lowest_dodgson_score(election):
 
 
 @register_ordinal_election_feature('highest_cc_score')
-def highest_cc_score(election, committee_size=1):
+def highest_cc_score(election, committee_size: int = 1):
     """
     Computes the highest CC score of a given election.
 
@@ -163,15 +163,14 @@ def highest_cc_score(election, committee_size=1):
     """
     if election.is_pseudo:
         return {'value': None, 'dissat': None}
-    winners, total_time = win.compute_standard_voting_rule(election=election,
-                                                  committee_size=committee_size,
-                                                  instance_type="ordinal",
-                                                  type='borda_owa', name='cc')
+    winners = win.compute_standard_voting_rule(election=election,
+                                               committee_size=committee_size,
+                                               type='borda_owa', name='cc')
     return {'value': get_cc_score(election, winners), 'dissat': get_cc_dissat(election, winners)}
 
 
 @register_ordinal_election_feature('highest_hb_score')
-def highest_hb_score(election, committee_size=1):
+def highest_hb_score(election, committee_size: int = 1):
     """
     Computes the highest HB score of a given election.
 
@@ -186,15 +185,14 @@ def highest_hb_score(election, committee_size=1):
     """
     if election.is_pseudo:
         return {'value': None, 'dissat': None}
-    winners, total_time = win.compute_standard_voting_rule(election=election,
-                                                  committee_size=committee_size,
-                                                  instance_type="ordinal",
-                                                  type='borda_owa', name='hb')
+    winners = win.compute_standard_voting_rule(election=election,
+                                               committee_size=committee_size,
+                                               type='borda_owa', name='hb')
     return {'value': get_hb_score(election, winners), 'dissat': get_hb_dissat(election, winners)}
 
 
 @register_ordinal_election_feature('highest_pav_score')
-def highest_pav_score(election, committee_size=1):
+def highest_pav_score(election, committee_size: int = 1):
     """
     Computes the highest PAV score of a given election.
 
@@ -209,10 +207,10 @@ def highest_pav_score(election, committee_size=1):
     """
     if election.is_pseudo:
         return {'value': None, 'dissat': None}
-    winners, total_time = win.compute_standard_voting_rule(election=election,
-                                                  committee_size=committee_size,
-                                                  instance_type="ordinal",
-                                                  type='bloc_owa', name='hb')
+    winners = win.compute_standard_voting_rule(election=election,
+                                               committee_size=committee_size,
+                                               type='bloc_owa',
+                                               name='hb')
     return {'value': get_pav_score(election, winners), 'dissat': get_pav_dissat(election, winners)}
 
 
@@ -223,7 +221,8 @@ def borda_spread(election) -> int:
     frequency_matrix = election.get_frequency_matrix()
     borda = [sum([frequency_matrix[i][pos] * (c - pos - 1) for pos in range(c)])
              for i in range(c)]
-    return (max(borda)-min(borda)) * election.num_voters
+    return (max(borda) - min(borda)) * election.num_voters
+
 
 # HELPER FUNCTIONS
 def _potes_to_unique_potes(potes):
@@ -317,7 +316,6 @@ def get_dissat(election, winners, rule) -> float:
 
 
 def get_cc_dissat(election, winners) -> float:
-
     num_voters = election.num_voters
     num_candidates = election.num_candidates
 
@@ -333,7 +331,6 @@ def get_cc_dissat(election, winners) -> float:
 
 
 def get_hb_dissat(election, winners) -> float:
-
     num_voters = election.num_voters
     num_candidates = election.num_candidates
 
@@ -350,7 +347,6 @@ def get_hb_dissat(election, winners) -> float:
 
 
 def get_pav_dissat(election, winners) -> float:
-
     num_voters = election.num_voters
     num_candidates = election.num_candidates
 
@@ -368,4 +364,3 @@ def get_pav_dissat(election, winners) -> float:
                 ctr += 1
 
     return dissat
-

@@ -3,10 +3,12 @@
 import mapof.elections as mapof
 
 from mapof.elections.other.ordinal_rules import (
+    compute_standard_voting_rule,
     compute_sntv_voting_rule,
     compute_borda_voting_rule,
     compute_stv_voting_rule,
     get_borda_points
+
 )
 
 
@@ -39,5 +41,29 @@ class TestWinners:
         )
         assert len(points) == self.election.num_candidates
 
+    def test_scoring_rule(self):
+        winners = compute_standard_voting_rule(
+            self.election,
+            committee_size=3,
+            type="scoring",
+            name="borda"
+        )
+        assert len(winners) == 3
 
+    def test_borda_owa(self):
+        winners = compute_standard_voting_rule(
+            self.election,
+            committee_size=3,
+            type="borda_owa",
+            name="borda"
+        )
+        assert len(winners) == 3
 
+    def test_bloc_owa(self):
+        winners = compute_standard_voting_rule(
+            self.election,
+            committee_size=3,
+            type="bloc_owa",
+            name="borda"
+        )
+        assert len(winners) == 3

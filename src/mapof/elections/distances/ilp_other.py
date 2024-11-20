@@ -146,11 +146,11 @@ def solve_lp_file_dodgson_score(N=None, e=None, D=None) -> float:
 
 
 # THIS FUNCTION HAS NOT BEEN TESTED SINCE CONVERSION TO GUROBI
-def solve_lp_borda_owa(params, votes, owa):
+def solve_lp_borda_owa(election, committee_size, owa):
 
-    num_voters = params['voters']
-    num_candidates = params['candidates']
-    num_orders = params['orders']
+    num_voters = election.num_voters
+    num_candidates = election.num_candidates
+    num_orders = committee_size
 
     # Create a new model
     model = Model("borda_owa")
@@ -180,7 +180,8 @@ def solve_lp_borda_owa(params, votes, owa):
     # Second group of constraints
     for i in range(num_voters):
         for j in range(num_candidates):
-            model.addConstr(sum(x[i, k, j] for k in range(num_orders)) <= sum(y[int(votes[i][k])] for k in range(0, j + 1)),
+            model.addConstr(sum(x[i, k, j] for k in range(num_orders))
+                            <= sum(y[int(election.votes[i][k])] for k in range(0, j + 1)),
                             name=f"c2_{i}_{j}")
 
     # Solve the model
@@ -202,7 +203,7 @@ def solve_lp_borda_owa(params, votes, owa):
 
 
 # THIS FUNCTION HAS NOT BEEN TESTED SINCE CONVERSION TO GUROBI
-def solve_lp_bloc_owa(params, votes, owa, t_bloc):
+def solve_lp_bloc_owa(election, committee_size, owa):
     """This function generates a Gurobi model and solves it."""
 
     # Create a new model
@@ -212,28 +213,29 @@ def solve_lp_bloc_owa(params, votes, owa, t_bloc):
     # Objective function variables and coefficients
     x = {}
     pos = 0
-    for i in range(params['voters']):
-        for j in range(params['orders']):
-            for k in range(params['candidates']):
+    for i in range(election.num_voters):
+        for j in range(committee_size):
+            for k in range(election.num_candidates):
                 x[i, j, k] = model.addVar(vtype=GRB.BINARY, name=f"x_{pos}")
-                if k == t_bloc - 1:
+                if k == committee_size - 1:
                     model.setObjective(model.getObjective() + owa[j] * x[i, j, k], GRB.MAXIMIZE)
                 pos += 1
 
     # Add variables for candidates
     y = {}
-    for i in range(params['candidates']):
+    for i in range(election.num_candidates):
         y[i] = model.addVar(vtype=GRB.BINARY, name=f"y_{i}")
 
     model.update()
 
     # First group of constraints
-    model.addConstr(sum(y[i] for i in range(params['candidates'])) == params['orders'], name="c0")
+    model.addConstr(sum(y[i] for i in range(election.num_candidates)) == committee_size, name="c0")
 
     # Second group of constraints
-    for i in range(params['voters']):
-        for j in range(params['candidates']):
-            expr = sum(x[i, k, j] for k in range(params['orders'])) - sum(y[int(votes[i][k])] for k in range(0, j + 1))
+    for i in range(election.num_voters):
+        for j in range(election.num_candidates):
+            expr = sum(x[i, k, j] for k in range(committee_size)) \
+                   - sum(y[int(election.votes[i][k])] for k in range(0, j + 1))
             model.addConstr(expr <= 0, name=f"c_{i}_{j}")
 
     # Solve the model
@@ -247,52 +249,8 @@ def solve_lp_bloc_owa(params, votes, owa, t_bloc):
         return None, stop-start
 
     # Extract winners
-    result = [y[i].X for i in range(params['candidates'])]
-    winners = [i for i in range(params['candidates']) if math.isclose(result[i], 1.0)]
-    winners = sorted(winners[:params['orders']])
+    result = [y[i].X for i in range(election.num_candidates)]
+    winners = [i for i in range(election.num_candidates) if math.isclose(result[i], 1.0)]
+    winners = sorted(winners[:committee_size])
 
     return winners, stop-start
-
-
-# OTHER
-def spearman_cost(single_votes_1, single_votes_2, params, perm):
-    pote_1 = [0] * params['candidates']
-    pote_2 = [0] * params['candidates']
-
-    for i in range(params['candidates']):
-        id_1 = int(perm[0][single_votes_1[i]])
-        pote_1[id_1] = i
-        id_2 = int(perm[1][single_votes_2[i]])
-        pote_2[id_2] = i
-
-    total_diff = 0.
-    for i in range(params['candidates']):
-        local_diff = float(abs(pote_1[i] - pote_2[i]))
-        total_diff += local_diff
-
-    return total_diff
-
-
-# OTHER
-def spearman_cost_per_cand(single_votes_1, single_votes_2, params, perm):
-    pote_1 = [0] * params['candidates']
-    pote_2 = [0] * params['candidates']
-
-    for i in range(params['candidates']):
-        id_1 = int(perm[0][single_votes_1[i]])
-        pote_1[id_1] = i
-        id_2 = int(perm[1][single_votes_2[i]])
-        pote_2[id_2] = i
-
-    cand_diff = [0] * params['candidates']
-    for i in range(params['candidates']):
-        cand_diff[i] = float(abs(pote_1[i] - pote_2[i]))
-
-    return cand_diff
-
-
-# OTHER
-def remove_lp_file(path):
-    """ Safely remove lp file """
-    with suppress(OSError):
-        os.remove(path)

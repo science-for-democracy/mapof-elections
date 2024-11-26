@@ -63,8 +63,7 @@ class TestCultures:
             election = mapel.generate_approval_election(culture_id=culture_id,
                                                         num_voters=num_voters,
                                                         num_candidates=num_candidates,
-                                                        params={'p': 0.4,
-                                                                'alpha': 0.1,
+                                                        params={'alpha': 0.1,
                                                                 'parties': 2})
         else:
             election = mapel.generate_approval_election(culture_id=culture_id,

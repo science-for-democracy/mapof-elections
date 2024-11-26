@@ -75,27 +75,26 @@ def update_params_approval_rel_size_central_vote(params: dict, culture_id: str):
         params.pop('p')
 
 
-def update_params_approval_alpha(printing_params: dict):
-    if 'alpha' not in printing_params:
-        printing_params['alpha'] = 1
-    elif type(printing_params['alpha']) is list:
-        printing_params['alpha'] = np.random.uniform(low=printing_params['alpha'][0],
-                                                     high=printing_params['alpha'][1])
+# def update_params_approval_alpha(printing_params: dict):
+#     if 'alpha' not in printing_params:
+#         printing_params['alpha'] = 1
+#     elif type(printing_params['alpha']) is list:
+#         printing_params['alpha'] = np.random.uniform(low=printing_params['alpha'][0],
+#                                                      high=printing_params['alpha'][1])
 
 
-def update_params_approval_p(params: dict):
-    if 'p' not in params:
-        params['p'] = np.random.rand()
-    elif type(params['p']) is list:
-        params['p'] = np.random.uniform(low=params['p'][0], high=params['p'][1])
+# def update_params_approval_p(params: dict):
+#     if 'p' not in params:
+#         params['p'] = np.random.rand()
+#     elif type(params['p']) is list:
+#         params['p'] = np.random.uniform(low=params['p'][0], high=params['p'][1])
 
 
-def update_params_approval_resampling(params: dict, printing_params: dict):
+def update_params_approval_resampling(params: dict):
     if 'phi' in params and type(params['phi']) is list:
         params['phi'] = np.random.uniform(low=params['phi'][0], high=params['phi'][1])
     elif 'phi' not in params:
         params['phi'] = np.random.random()
-    printing_params['alpha'] = params['phi']
 
     if 'p' in params and type(params['p']) is list:
         params['p'] = np.random.uniform(low=params['p'][0], high=params['p'][1])
@@ -103,12 +102,11 @@ def update_params_approval_resampling(params: dict, printing_params: dict):
         params['p'] = np.random.random()
 
 
-def update_params_approval_disjoint(params: dict, printing_params: dict):
+def update_params_approval_disjoint(params: dict):
     if 'phi' in params and type(params['phi']) is list:
         params['phi'] = np.random.uniform(low=params['phi'][0], high=params['phi'][1])
     elif 'phi' not in params:
         params['phi'] = np.random.random()
-    printing_params['alpha'] = params['phi']
 
     if 'p' in params and type(params['p']) is list:
         params['p'] = np.random.uniform(low=params['p'][0], high=params['p'][1])
@@ -118,34 +116,19 @@ def update_params_approval_disjoint(params: dict, printing_params: dict):
 
 def update_params_approval(
         params: dict,
-        printing_params: dict,
         variable,
         culture_id: str,
 ):
-    printing_params['alpha'] = 0
     if variable is not None:
-        # if culture_id in registered_approval_cultures:
-        #     update_params_approval_p(params)
-        printing_params['alpha'] = params[variable]
-        printing_params['variable'] = variable
         del params['variable']
     else:
         if culture_id.lower() == 'resampling':
-            update_params_approval_resampling(params, printing_params)
+            update_params_approval_resampling(params)
         elif culture_id.lower() == 'disjoint':
-            update_params_approval_disjoint(params, printing_params)
-        # elif culture_id in registered_approval_cultures:
-        #     update_params_approval_p(params)
-        update_params_approval_alpha(printing_params)
+            update_params_approval_disjoint(params)
         update_params_approval_rel_size_central_vote(params, culture_id.lower())
 
-    if 'p' in params and culture_id in ['empty',
-                                        'full',
-                                        'euclidean',
-                                        'urn_partylist']:
-        del params['p']
-
-    return params, printing_params
+    return params
 
 
 def get_params_for_paths(path, size, j, extremes=False):

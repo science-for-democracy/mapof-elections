@@ -73,9 +73,8 @@ class ApprovalElection(Election, ABC):
 
     def try_updating_params(self):
         if self.culture_id is not None:
-            self.params, self.printing_params = update_params_approval(
+            self.params = update_params_approval(
                 self.params,
-                self.printing_params,
                 self.variable,
                 self.culture_id,
             )

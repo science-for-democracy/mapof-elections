@@ -342,9 +342,8 @@ def generate_idst_blocks_votes(
     if num_blocks is None:
         print("IDST_blocks generation : params None : random param generated")
         num_blocks = np.random.choice(range(num_candidates + 1))
-    else:
-        num_blocks = num_blocks
-    num_blocks = int(round(num_blocks))
+
+    num_blocks = max(int(round(num_blocks)), 1)
     k = num_candidates // num_blocks
     r = num_candidates - k * num_blocks
     blocks = [k for _ in range(num_blocks)]

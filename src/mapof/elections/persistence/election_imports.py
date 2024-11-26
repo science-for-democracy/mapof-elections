@@ -542,9 +542,9 @@ def import_real_old_app_election(
     #                 votes[it].add(int(line[el + 1]))
     #             it += 1
     #
-    # if culture_id in NICE_NAME.values():
-    #     rev_dict = dict(zip(NICE_NAME.values(), NICE_NAME.keys()))
-    #     culture_id = rev_dict[culture_id]
+    # # if culture_id in NICE_NAME.values():
+    # #     rev_dict = dict(zip(NICE_NAME.values(), NICE_NAME.keys()))
+    # #     culture_id = rev_dict[culture_id]
     #
     # if is_shifted:
     #     votes = [{c - 1 for c in vote} for vote in votes]
@@ -569,9 +569,9 @@ def import_real_old_app_election(
 
 def import_real_app_election(**kwargs):
     try:
-        return import_real_old_app_election(**kwargs)
-    except:
         return import_real_new_app_election(**kwargs)
+    except:
+        return import_real_old_app_election(**kwargs)
 
 
 def check_if_pseudo(experiment_id, election_id):

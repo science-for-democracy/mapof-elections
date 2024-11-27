@@ -1,11 +1,12 @@
-import prefsampling.approval as pref_approval
-import prefsampling.ordinal as pref_ordinal
 import logging
 
+import prefsampling.approval as pref_approval
+import prefsampling.ordinal as pref_ordinal
 from prefsampling.core.euclidean import EuclideanSpace
+from scipy.stats import gamma
 
-from mapof.elections.cultures.register import register_ordinal_election_culture
 from mapof.elections.cultures.register import register_approval_election_culture
+from mapof.elections.cultures.register import register_ordinal_election_culture
 
 
 @register_approval_election_culture('truncated_urn')

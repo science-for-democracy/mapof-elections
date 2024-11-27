@@ -25,7 +25,7 @@ def update_params_ordinal_norm_mallows(params: dict, num_candidates: int):
 def update_params_ordinal_urn_model(params: dict):
     """ Updates parameters for ordinal Urn model. """
     if 'alpha' not in params:
-        params['alpha'] = gamma.rvs(0.8)
+        params['alpha'] = float(gamma.rvs(0.8))
 
 
 def update_params_ordinal_mallows_matrix_path(params: dict, num_candidates: int):

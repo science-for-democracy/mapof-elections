@@ -2,6 +2,7 @@ import csv
 import os
 from collections import Counter
 
+import numpy as np
 from mapof.core.utils import make_folder_if_do_not_exist
 
 

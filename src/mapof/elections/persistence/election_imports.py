@@ -241,6 +241,7 @@ def import_real_old_soc_election(
         is_shifted=False
 ):
     """ Import real ordinal election form .soc file """
+    print(election_id)
     logging.warning("Old soc format is no longer supported!")
 
     # file_name = f'{election_id}.soc'

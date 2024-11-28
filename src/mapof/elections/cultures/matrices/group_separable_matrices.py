@@ -3,10 +3,11 @@ from queue import Queue
 
 import numpy as np
 
+from mapof.elections.cultures.register import register_pseudo_ordinal_culture
 
 # def get_all_leaves_names(node):
 #     if node.leaf:
-#         return [node.election_id]
+#         return [node.node_id]
 #     output = []
 #     for i in range(len(node.children)):
 #         output.append(get_all_leaves_names(node.children[i]))
@@ -36,7 +37,7 @@ def _get_all_nodes(root):
 
 # def get_bracket_notation(node):
 #     if node.leaf:
-#         return str(node.election_id)
+#         return str(node.node_id)
 #     output = ''
 #     for i in range(len(node.children)):
 #         output += str(get_bracket_notation(node.children[i]))
@@ -56,9 +57,9 @@ class Node:
 
     total_num_leaf_descendants = 0
 
-    def __init__(self, election_id):
+    def __init__(self, node_id):
 
-        self.election_id = election_id
+        self.node_id = node_id
         self.parent = None
         self.children = []
         self.leaf = True
@@ -75,7 +76,7 @@ class Node:
         self.vector = []
 
     def __str__(self):
-        return self.election_id
+        return self.node_id
 
     def add_child(self, child):
         child.parent = self
@@ -273,11 +274,12 @@ def _balanced(num_leaves):
     return root
 
 
-def get_gs_caterpillar_matrix(num_candidates):
+@register_pseudo_ordinal_culture('pseudo_group_separable_caterpillar')
+def get_gs_caterpillar_matrix(num_candidates: int , **_kwargs):
     return get_gs_caterpillar_vectors(num_candidates).transpose()
 
 
-def get_gs_caterpillar_vectors(num_candidates):
+def get_gs_caterpillar_vectors(num_candidates: int, **_kwargs):
     return get_frequency_matrix_from_tree(_caterpillar(num_candidates))
 
 
@@ -317,26 +319,27 @@ def get_frequency_matrix_from_tree(root) -> np.ndarray:
 
     f = {}
     all_nodes = _get_all_nodes(root)
+
     for node in all_nodes:
-        f[str(node.election_id)] = [0 for _ in range(m)]
+        f[str(node.node_id)] = [0 for _ in range(m)]
     set_left_and_right(root)
 
-    f[root.election_id][0] = 1
+    f[root.node_id][0] = 1
 
     for node in all_nodes:
-        if node.election_id != root.election_id:
+        if node.node_id != root.node_id:
             for t in range(m):
                 value_1 = 0
                 if t-node.left >= 0:
-                    value_1 = 0.5*f[node.parent.election_id][t - node.left]
+                    value_1 = 0.5*f[str(node.parent.node_id)][t - node.left]
                 value_2 = 0
                 if t-node.right >= 0:
-                    value_2 = 0.5*f[node.parent.election_id][t - node.right]
-                f[str(node.election_id)][t] = value_1 + value_2
+                    value_2 = 0.5*f[str(node.parent.node_id)][t - node.right]
+                f[str(node.node_id)][t] = value_1 + value_2
 
-    vectors = []
-    for i in range(m):
-        name = 'x' + str(i)
+    vectors = [f['root']]
+    for i in range(1, m):
+        name = str(i)
         vectors.append(f[name])
     return np.array(vectors)
 

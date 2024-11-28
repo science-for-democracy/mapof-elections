@@ -23,6 +23,7 @@ cultures_to_test = {
     'pseudo_single_peaked_conitzer',
     'pseudo_single_peaked_walsh',
     'pseudo_single_crossing',
+    'pseudo_group_separable_caterpillar'
 }
 
 

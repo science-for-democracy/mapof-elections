@@ -11,7 +11,7 @@ from matplotlib import pyplot as plt
 import mapof.elections.persistence.election_exports as exports
 import mapof.elections.persistence.election_imports as imports
 from mapof.elections.cultures import generate_ordinal_votes, \
-    from_approval, generate_ordinal_alliance_votes
+    from_approval, generate_ordinal_alliance_votes, registered_pseudo_ordinal_cultures
 from mapof.elections.cultures.mallows import get_mallows_matrix
 from mapof.elections.cultures.matrices.group_separable_matrices import get_gs_caterpillar_matrix
 from mapof.elections.cultures.matrices.single_crossing_matrices import get_single_crossing_matrix
@@ -153,48 +153,24 @@ class OrdinalElection(Election):
         return self.compute_potes()
 
     def _votes_to_frequency_matrix(self):
-        """ Converts votes to positionwise frequency_matrix. """
+        """ Converts votes to a frequency matrix. """
         frequency_matrix = np.zeros([self.num_candidates, self.num_candidates])
 
         if self.is_pseudo and self.frequency_matrix is not None:
             frequency_matrix = self.frequency_matrix
-        if self.culture_id == 'pseudo_single_peaked_conitzer':
-            frequency_matrix = get_conitzer_matrix(self.num_candidates)
-        elif self.culture_id == 'pseudo_single_peaked_walsh':
-            frequency_matrix = get_walsh_matrix(self.num_candidates)
-        elif self.culture_id == 'pseudo_single_crossing':
-            frequency_matrix = get_single_crossing_matrix(self.num_candidates)
-        elif self.culture_id == 'gs_caterpillar_matrix':
-            frequency_matrix = get_gs_caterpillar_matrix(self.num_candidates)
-        elif self.culture_id in {'norm_mallows_matrix', 'mallows_matrix_path'}:
-            frequency_matrix = get_mallows_matrix(self.num_candidates, self.params)
-        elif self.culture_id in {
-            'pseudo_identity',
-            'pseudo_uniformity',
-            'pseudo_antagonism',
-            'pseudo_stratification'
-        }:
-            frequency_matrix = get_frequency_matrix_for_guardian(
-                self.culture_id,
-                self.num_candidates,
-                self.params,
-            )
-        elif self.culture_id in {'walsh_path', 'conitzer_path'}:
-            frequency_matrix = get_pseudo_multiplication(
-                self.num_candidates,
-                self.params,
-                self.culture_id)
-        elif self.culture_id in PATHS:
+
+        if self.culture_id in PATHS:
             frequency_matrix = get_pseudo_convex(
                 self.culture_id,
                 self.num_candidates,
                 self.params,
-                get_frequency_matrix_for_guardian)
-        elif self.culture_id in ['from_approval']:
-            frequency_matrix = from_approval(
-                num_candidates=self.num_candidates,
-                num_voters=self.num_voters,
-                params=self.params)
+                get_frequency_matrix_for_guardian
+            )
+        elif self.culture_id in registered_pseudo_ordinal_cultures:
+            frequency_matrix = registered_pseudo_ordinal_cultures[self.culture_id](
+                self.num_candidates,
+                params=self.params,
+            )
         else:
             for i in range(self.num_voters):
                 pos = 0

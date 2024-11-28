@@ -132,8 +132,8 @@ class ElectionFamily(Family):
                                            label=self.label,
                                            num_candidates=self.num_candidates,
                                            is_imported=False,
-                                           frequency_matrix=self.frequency_matrix,
                                            params=params,
+                                           frequency_matrix=self.frequency_matrix,
                                            )
 
                 election.prepare_instance(is_exported=is_exported, is_aggregated=is_aggregated)
@@ -160,11 +160,11 @@ class ElectionFamily(Family):
 
                 params = copy.deepcopy(self.params)
 
-                variable = None
                 path = self.path
                 if path is not None and 'variable' in path:
                     new_params, variable = get_params_for_paths(self.path, self.size, j)
                     params = {**params, **new_params}
+                    params['variable'] = variable
 
                 if self.culture_id in {'all_votes'}:
                     params['iter_id'] = j
@@ -177,9 +177,8 @@ class ElectionFamily(Family):
                                             num_voters=self.num_voters,
                                             label=self.label,
                                             num_candidates=self.num_candidates,
-                                            variable=variable,
                                             is_imported=False,
-                                            **params
+                                            params=params,
                                             )
                 election.prepare_instance(is_exported=is_exported, is_aggregated=is_aggregated)
 

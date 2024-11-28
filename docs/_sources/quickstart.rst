@@ -301,7 +301,7 @@ Moreover, note that instead of impartial culture, we want to generate Normalized
 
 .. code-block:: python
 
-    experiment.add_election(culture_id='norm-mallows', params={'normphi': 0.5})
+    experiment.add_election(culture_id='norm_mallows', params={'normphi': 0.5})
 
 
 Joining the upper two things together we obtain the solution.
@@ -309,13 +309,13 @@ Joining the upper two things together we obtain the solution.
 .. code-block:: python
 
     experiment = mapof.prepare_online_ordinal_experiment()
-    experiment.add_family(culture_id='norm-mallows', size=10, params={'normphi': 0.5})
+    experiment.add_family(culture_id='norm_mallows', size=10, params={'normphi': 0.5})
 
 You can also specify the name of you family using the 'family_id' argument.
 
 .. code-block:: python
 
-    experiment.add_family(culture_id='norm-mallows', size=10, params={'normphi': 0.5},
+    experiment.add_family(culture_id='norm_mallows', size=10, params={'normphi': 0.5},
                           family_id='Norm-Mallows')
 
 Then, the elections will be stored in the ``experiment.elections`` dictionary under the keys ``Norm-Mallows_0``, ``Norm-Mallows_2``, ... ,``Norm-Mallows_9``.
@@ -414,8 +414,8 @@ After combining four steps described above we obtain the following code:
 .. code-block:: python
 
     experiment = mapof.prepare_online_ordinal_experiment()
-    experiment.add_family(culture_id='ic', size=10)
-    experiment.add_family(culture_id='norm-mallows', size=10, params={'normphi': 0.5})
+    experiment.add_family(culture_id='impartial', size=10)
+    experiment.add_family(culture_id='norm_mallows', size=10, params={'normphi': 0.5})
     experiment.compute_distances(distance_id='emd-positionwise')
     experiment.embed_2d(embedding_id='fr')
     experiment.print_map_2d()
@@ -429,7 +429,7 @@ Improved Solution:
     experiment = mapof.prepare_online_ordinal_experiment()
     experiment.add_family(culture_id='impartial', size=10,
                                    color='green', marker='x', label='IC')
-    experiment.add_family(culture_id='norm-mallows', size=10,
+    experiment.add_family(culture_id='norm_mallows', size=10,
                                    params={'normphi': 0.5},
                                    color='blue', marker='o',
                                    label='Norm-Mallows')
@@ -647,10 +647,10 @@ There are four possible microscopes that one can create: Ordinal-Voters, Ordinal
 
 .. code-block:: python
 
-    election = mapof.generate_ordinal_election(culture_id='norm-mallows',
+    election = mapof.generate_ordinal_election(culture_id='norm_mallows',
                                                num_candidates=10,
                                                num_voters=100,
-                                               normphi=0.4)
+                                               params={'normphi': 0.4})
 
     election.compute_distances(distance_id='swap', object_type='vote')
     election.embed(object_type='vote')

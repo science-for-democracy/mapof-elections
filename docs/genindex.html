@@ -169,6 +169,7 @@
 <li class="toctree-l3"><a class="reference internal" href="reference/distances/main_ordinal_distances.html">Ordinal Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/distances/committee_distances.html">Committee Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/distances/feature_distance.html">Feature Distance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/distances/ilp_subelections.html">Subelection Distance</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="reference/features/index.html">Features</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -388,6 +389,8 @@ document.write(`
 </li>
       <li><a href="reference/cultures/main.html#mapof.elections.cultures.add_pseudo_ordinal_culture">add_pseudo_ordinal_culture() (in module mapof.elections.cultures)</a>
 </li>
+      <li><a href="reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.agg_voterlikeness_distance">agg_voterlikeness_distance() (in module mapof.elections.distances.main_ordinal_distances)</a>
+</li>
       <li><a href="reference/features/dap_approximate.html#mapof.elections.features.dap_approximate.agreement_index">agreement_index() (in module mapof.elections.features.dap_approximate)</a>
 
       <ul>
@@ -398,13 +401,21 @@ document.write(`
 </li>
       <li><a href="reference/objects/ApprovalElectionExperiment.html#mapof.elections.objects.ApprovalElectionExperiment.ApprovalElectionExperiment">ApprovalElectionExperiment (class in mapof.elections.objects.ApprovalElectionExperiment)</a>
 </li>
+      <li><a href="reference/distances/main_approval_distances.html#mapof.elections.distances.main_approval_distances.approvalwise_distance">approvalwise_distance() (in module mapof.elections.distances.main_approval_distances)</a>
+</li>
   </ul></td>
 </tr></table>
 
 <h2 id="B">B</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.blank_distance">blank_distance() (in module mapof.elections.distances.main_ordinal_distances)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/features/scores.html#mapof.elections.features.scores.borda_spread">borda_spread() (in module mapof.elections.features.scores)</a>
+</li>
+      <li><a href="reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.bordawise_distance">bordawise_distance() (in module mapof.elections.distances.main_ordinal_distances)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -414,18 +425,6 @@ document.write(`
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/features/proportionality_degree.html#mapof.elections.features.proportionality_degree.calculate_committees">calculate_committees() (in module mapof.elections.features.proportionality_degree)</a>
 </li>
-      <li><a href="reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.compute_agg_voterlikeness_distance">compute_agg_voterlikeness_distance() (in module mapof.elections.distances.main_ordinal_distances)</a>
-</li>
-      <li><a href="reference/distances/main_approval_distances.html#mapof.elections.distances.main_approval_distances.compute_approvalwise_distance">compute_approvalwise_distance() (in module mapof.elections.distances.main_approval_distances)</a>
-</li>
-      <li><a href="reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.compute_blank_distance">compute_blank_distance() (in module mapof.elections.distances.main_ordinal_distances)</a>
-</li>
-      <li><a href="reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.compute_bordawise_distance">compute_bordawise_distance() (in module mapof.elections.distances.main_ordinal_distances)</a>
-</li>
-      <li><a href="reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.compute_candidate_subelection">compute_candidate_subelection() (in module mapof.elections.distances.main_ordinal_distances)</a>
-</li>
-      <li><a href="reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.compute_discrete_distance">compute_discrete_distance() (in module mapof.elections.distances.main_ordinal_distances)</a>
-</li>
       <li><a href="reference/objects/ApprovalElection.html#mapof.elections.objects.ApprovalElection.ApprovalElection.compute_distances">compute_distances() (ApprovalElection method)</a>
 
       <ul>
@@ -434,37 +433,13 @@ document.write(`
       </ul></li>
       <li><a href="reference/objects/ElectionExperiment.html#mapof.elections.objects.ElectionExperiment.ElectionExperiment.compute_feature">compute_feature() (ElectionExperiment method)</a>
 </li>
-      <li><a href="reference/distances/main_approval_distances.html#mapof.elections.distances.main_approval_distances.compute_hamming_distance">compute_hamming_distance() (in module mapof.elections.distances.main_approval_distances)</a>
-</li>
-      <li><a href="reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.compute_pairwise_distance">compute_pairwise_distance() (in module mapof.elections.distances.main_ordinal_distances)</a>
-</li>
-      <li><a href="reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.compute_pos_swap_distance">compute_pos_swap_distance() (in module mapof.elections.distances.main_ordinal_distances)</a>
-</li>
-      <li><a href="reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.compute_positionwise_distance">compute_positionwise_distance() (in module mapof.elections.distances.main_ordinal_distances)</a>
+      <li><a href="reference/objects/Election.html#mapof.elections.objects.Election.Election.compute_potes">compute_potes() (Election method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="reference/objects/Election.html#mapof.elections.objects.Election.Election.compute_potes">compute_potes() (Election method)</a>
-</li>
       <li><a href="reference/objects/ApprovalElection.html#mapof.elections.objects.ApprovalElection.ApprovalElection.compute_reverse_approvals">compute_reverse_approvals() (ApprovalElection method)</a>
 </li>
       <li><a href="reference/objects/ElectionExperiment.html#mapof.elections.objects.ElectionExperiment.ElectionExperiment.compute_rules">compute_rules() (ElectionExperiment method)</a>
-</li>
-      <li><a href="reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.compute_spearman_distance">compute_spearman_distance() (in module mapof.elections.distances.main_ordinal_distances)</a>
-</li>
-      <li><a href="reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.compute_spearman_distance_fastmap">compute_spearman_distance_fastmap() (in module mapof.elections.distances.main_ordinal_distances)</a>
-</li>
-      <li><a href="reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.compute_spearman_distance_ilp_py">compute_spearman_distance_ilp_py() (in module mapof.elections.distances.main_ordinal_distances)</a>
-</li>
-      <li><a href="reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.compute_swap_distance">compute_swap_distance() (in module mapof.elections.distances.main_ordinal_distances)</a>
-</li>
-      <li><a href="reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.compute_swap_distance_bf">compute_swap_distance_bf() (in module mapof.elections.distances.main_ordinal_distances)</a>
-</li>
-      <li><a href="reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.compute_truncated_swap_distance">compute_truncated_swap_distance() (in module mapof.elections.distances.main_ordinal_distances)</a>
-</li>
-      <li><a href="reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.compute_voter_subelection">compute_voter_subelection() (in module mapof.elections.distances.main_ordinal_distances)</a>
-</li>
-      <li><a href="reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.compute_voterlikeness_distance">compute_voterlikeness_distance() (in module mapof.elections.distances.main_ordinal_distances)</a>
 </li>
       <li><a href="reference/objects/ElectionExperiment.html#mapof.elections.objects.ElectionExperiment.ElectionExperiment.compute_voting_rule">compute_voting_rule() (ElectionExperiment method)</a>
 </li>
@@ -479,6 +454,10 @@ document.write(`
 
 <h2 id="D">D</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.discrete_distance">discrete_distance() (in module mapof.elections.distances.main_ordinal_distances)</a>
+</li>
+  </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/features/dap_approximate.html#mapof.elections.features.dap_approximate.diversity_index">diversity_index() (in module mapof.elections.features.dap_approximate)</a>
 
@@ -604,14 +583,16 @@ document.write(`
 <h2 id="H">H</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/distances/main_approval_distances.html#mapof.elections.distances.main_approval_distances.hamming_distance">hamming_distance() (in module mapof.elections.distances.main_approval_distances)</a>
+</li>
       <li><a href="reference/features/scores.html#mapof.elections.features.scores.highest_borda_score">highest_borda_score() (in module mapof.elections.features.scores)</a>
 </li>
       <li><a href="reference/features/scores.html#mapof.elections.features.scores.highest_cc_score">highest_cc_score() (in module mapof.elections.features.scores)</a>
 </li>
-      <li><a href="reference/features/scores.html#mapof.elections.features.scores.highest_copeland_score">highest_copeland_score() (in module mapof.elections.features.scores)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/features/scores.html#mapof.elections.features.scores.highest_copeland_score">highest_copeland_score() (in module mapof.elections.features.scores)</a>
+</li>
       <li><a href="reference/features/scores.html#mapof.elections.features.scores.highest_hb_score">highest_hb_score() (in module mapof.elections.features.scores)</a>
 </li>
       <li><a href="reference/features/scores.html#mapof.elections.features.scores.highest_pav_score">highest_pav_score() (in module mapof.elections.features.scores)</a>
@@ -742,6 +723,13 @@ document.write(`
 
       <ul>
         <li><a href="reference/distances/feature_distance.html#module-mapof.elections.distances.feature_distance">module</a>
+</li>
+      </ul></li>
+      <li>
+    mapof.elections.distances.ilp_subelections
+
+      <ul>
+        <li><a href="reference/distances/ilp_subelections.html#module-mapof.elections.distances.ilp_subelections">module</a>
 </li>
       </ul></li>
       <li>
@@ -944,6 +932,8 @@ document.write(`
       </ul></li>
       <li><a href="reference/features/simple_approval.html#mapof.elections.features.simple_approval.max_approval_score">max_approval_score() (in module mapof.elections.features.simple_approval)</a>
 </li>
+      <li><a href="reference/distances/ilp_subelections.html#mapof.elections.distances.ilp_subelections.maximum_common_voter_subelection">maximum_common_voter_subelection() (in module mapof.elections.distances.ilp_subelections)</a>
+</li>
       <li>
     module
 
@@ -963,6 +953,8 @@ document.write(`
         <li><a href="reference/distances/committee_distances.html#module-mapof.elections.distances.committee_distances">mapof.elections.distances.committee_distances</a>
 </li>
         <li><a href="reference/distances/feature_distance.html#module-mapof.elections.distances.feature_distance">mapof.elections.distances.feature_distance</a>
+</li>
+        <li><a href="reference/distances/ilp_subelections.html#module-mapof.elections.distances.ilp_subelections">mapof.elections.distances.ilp_subelections</a>
 </li>
         <li><a href="reference/distances/main_approval_distances.html#module-mapof.elections.distances.main_approval_distances">mapof.elections.distances.main_approval_distances</a>
 </li>
@@ -1047,12 +1039,18 @@ document.write(`
 <h2 id="P">P</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.pairwise_distance">pairwise_distance() (in module mapof.elections.distances.main_ordinal_distances)</a>
+</li>
       <li><a href="reference/features/dap_approximate.html#mapof.elections.features.dap_approximate.polarization_index">polarization_index() (in module mapof.elections.features.dap_approximate)</a>
 
       <ul>
         <li><a href="reference/features/diversity.html#mapof.elections.features.diversity.polarization_index">(in module mapof.elections.features.diversity)</a>
 </li>
       </ul></li>
+      <li><a href="reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.pos_swap_distance">pos_swap_distance() (in module mapof.elections.distances.main_ordinal_distances)</a>
+</li>
+      <li><a href="reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.positionwise_distance">positionwise_distance() (in module mapof.elections.distances.main_ordinal_distances)</a>
+</li>
       <li><a href="reference/features/cohesive.html#mapof.elections.features.cohesive.powerset">powerset() (in module mapof.elections.features.cohesive)</a>
 </li>
       <li><a href="reference/objects/ElectionExperiment.html#mapof.elections.objects.ElectionExperiment.ElectionExperiment.prepare_elections">prepare_elections() (ElectionExperiment method)</a>
@@ -1065,10 +1063,10 @@ document.write(`
         <li><a href="reference/objects/OrdinalElection.html#mapof.elections.objects.OrdinalElection.OrdinalElection.prepare_instance">(OrdinalElection method)</a>
 </li>
       </ul></li>
-      <li><a href="reference/objects/ApprovalElection.html#mapof.elections.objects.ApprovalElection.ApprovalElection.print_map">print_map() (ApprovalElection method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/objects/ApprovalElection.html#mapof.elections.objects.ApprovalElection.ApprovalElection.print_map">print_map() (ApprovalElection method)</a>
+</li>
       <li><a href="reference/cultures/pseudo_cultures.html#mapof.elections.cultures.pseudo_cultures.pseudo_anid">pseudo_anid() (in module mapof.elections.cultures.pseudo_cultures)</a>
 </li>
       <li><a href="reference/cultures/pseudo_cultures.html#mapof.elections.cultures.pseudo_cultures.pseudo_antagonism">pseudo_antagonism() (in module mapof.elections.cultures.pseudo_cultures)</a>
@@ -1115,9 +1113,17 @@ document.write(`
 </li>
       <li><a href="reference/objects/ElectionExperiment.html#mapof.elections.objects.ElectionExperiment.ElectionExperiment.set_default_num_candidates">set_default_num_candidates() (ElectionExperiment method)</a>
 </li>
+      <li><a href="reference/objects/ElectionExperiment.html#mapof.elections.objects.ElectionExperiment.ElectionExperiment.set_default_num_voters">set_default_num_voters() (ElectionExperiment method)</a>
+</li>
+      <li><a href="reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.spearman_distance">spearman_distance() (in module mapof.elections.distances.main_ordinal_distances)</a>
+</li>
+      <li><a href="reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.spearman_distance_fastmap">spearman_distance_fastmap() (in module mapof.elections.distances.main_ordinal_distances)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="reference/objects/ElectionExperiment.html#mapof.elections.objects.ElectionExperiment.ElectionExperiment.set_default_num_voters">set_default_num_voters() (ElectionExperiment method)</a>
+      <li><a href="reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.spearman_distance_ilp_py">spearman_distance_ilp_py() (in module mapof.elections.distances.main_ordinal_distances)</a>
+</li>
+      <li><a href="reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.swap_distance">swap_distance() (in module mapof.elections.distances.main_ordinal_distances)</a>
 </li>
       <li><a href="reference/features/dap_approximate.html#mapof.elections.features.dap_approximate.swap_distance_between_potes">swap_distance_between_potes() (in module mapof.elections.features.dap_approximate)</a>
 
@@ -1125,11 +1131,17 @@ document.write(`
         <li><a href="reference/features/diversity.html#mapof.elections.features.diversity.swap_distance_between_potes">(in module mapof.elections.features.diversity)</a>
 </li>
       </ul></li>
+      <li><a href="reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.swap_distance_bf">swap_distance_bf() (in module mapof.elections.distances.main_ordinal_distances)</a>
+</li>
   </ul></td>
 </tr></table>
 
 <h2 id="T">T</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.truncated_swap_distance">truncated_swap_distance() (in module mapof.elections.distances.main_ordinal_distances)</a>
+</li>
+  </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/cultures/prefsampling_mask.html#mapof.elections.cultures.prefsampling_mask.truncated_urn_mask">truncated_urn_mask() (in module mapof.elections.cultures.prefsampling_mask)</a>
 </li>
@@ -1153,12 +1165,14 @@ document.write(`
 <h2 id="V">V</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="reference/objects/OrdinalElection.html#mapof.elections.objects.OrdinalElection.OrdinalElection.votes_to_agg_voterlikeness_vector">votes_to_agg_voterlikeness_vector() (OrdinalElection method)</a>
+      <li><a href="reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.voterlikeness_distance">voterlikeness_distance() (in module mapof.elections.distances.main_ordinal_distances)</a>
 </li>
-      <li><a href="reference/objects/ApprovalElection.html#mapof.elections.objects.ApprovalElection.ApprovalElection.votes_to_approvalwise_vector">votes_to_approvalwise_vector() (ApprovalElection method)</a>
+      <li><a href="reference/objects/OrdinalElection.html#mapof.elections.objects.OrdinalElection.OrdinalElection.votes_to_agg_voterlikeness_vector">votes_to_agg_voterlikeness_vector() (OrdinalElection method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/objects/ApprovalElection.html#mapof.elections.objects.ApprovalElection.ApprovalElection.votes_to_approvalwise_vector">votes_to_approvalwise_vector() (ApprovalElection method)</a>
+</li>
       <li><a href="reference/objects/OrdinalElection.html#mapof.elections.objects.OrdinalElection.OrdinalElection.votes_to_pairwise_matrix">votes_to_pairwise_matrix() (OrdinalElection method)</a>
 </li>
       <li><a href="reference/objects/OrdinalElection.html#mapof.elections.objects.OrdinalElection.OrdinalElection.votes_to_voterlikeness_matrix">votes_to_voterlikeness_matrix() (OrdinalElection method)</a>

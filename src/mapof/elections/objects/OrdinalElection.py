@@ -44,7 +44,6 @@ class OrdinalElection(Election):
                  label=None,
                  num_voters: int = None,
                  num_candidates: int = None,
-                 variable=None,
                  fast_import=False,
                  frequency_matrix=None,
                  params=None,
@@ -62,7 +61,6 @@ class OrdinalElection(Election):
                          params=params,
                          **kwargs)
 
-        self.variable = variable
         self.frequency_matrix = []
         self.bordawise_vector = []
         self.potes = None
@@ -122,7 +120,7 @@ class OrdinalElection(Election):
                 self._votes_to_frequency_matrix()
 
         except Exception:
-            pass
+            logging.warning(f'Could not import instance {self.election_id}.')
 
     def try_updating_params(self):
         if self.culture_id is not None:

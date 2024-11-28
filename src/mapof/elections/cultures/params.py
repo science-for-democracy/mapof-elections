@@ -54,6 +54,10 @@ def update_params_ordinal(
         culture_id: str,
         num_candidates: int
 ):
+
+    if 'variable' in params:
+        del params['variable']
+
     if culture_id.lower() == 'mallows':
         update_params_ordinal_mallows(params)
     elif 'norm_mallows' in culture_id.lower() or 'norm-mallows' in culture_id.lower() \
@@ -65,6 +69,7 @@ def update_params_ordinal(
         update_params_ordinal_mallows_matrix_path(params, num_candidates)
     elif culture_id.lower() == 'mallows_triangle':
         update_params_ordinal_mallows_triangle(params, num_candidates)
+
     return params
 
 
@@ -111,22 +116,21 @@ def update_params_approval_disjoint(params: dict):
     if 'p' in params and type(params['p']) is list:
         params['p'] = np.random.uniform(low=params['p'][0], high=params['p'][1])
     elif 'p' not in params:
-        params['p'] = np.random.random() / params['g']
+        params['p'] = np.random.random() / params['num_central_votes']
 
 
 def update_params_approval(
         params: dict,
-        variable,
         culture_id: str,
 ):
-    if variable is not None:
+    if 'variable' in params:
         del params['variable']
-    else:
-        if culture_id.lower() == 'resampling':
-            update_params_approval_resampling(params)
-        elif culture_id.lower() == 'disjoint':
-            update_params_approval_disjoint(params)
-        update_params_approval_rel_size_central_vote(params, culture_id.lower())
+
+    if culture_id.lower() == 'resampling':
+        update_params_approval_resampling(params)
+    elif culture_id.lower() == 'disjoint_resampling':
+        update_params_approval_disjoint(params)
+    update_params_approval_rel_size_central_vote(params, culture_id.lower())
 
     return params
 

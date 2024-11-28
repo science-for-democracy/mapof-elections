@@ -1,3 +1,4 @@
+import logging
 import os
 from abc import ABC
 from collections import Counter
@@ -21,7 +22,6 @@ class ApprovalElection(Election, ABC):
                  election_id=None,
                  culture_id=None,
                  num_candidates=None,
-                 variable=None,
                  params=None,
                  **kwargs):
 
@@ -32,8 +32,6 @@ class ApprovalElection(Election, ABC):
                          instance_type='approval',
                          params=params,
                          **kwargs)
-
-        self.variable = variable
 
         self.approvalwise_vector = []
         self.reverse_approvals = []
@@ -69,13 +67,12 @@ class ApprovalElection(Election, ABC):
                 is_shifted=self.is_shifted
             )
         except Exception:
-            pass
+            logging.warning(f'Could not import instance {self.election_id}.')
 
     def try_updating_params(self):
         if self.culture_id is not None:
             self.params = update_params_approval(
                 self.params,
-                self.variable,
                 self.culture_id,
             )
 

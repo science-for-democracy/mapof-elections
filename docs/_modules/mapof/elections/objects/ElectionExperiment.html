@@ -169,6 +169,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/main_ordinal_distances.html">Ordinal Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/committee_distances.html">Committee Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/feature_distance.html">Feature Distance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/ilp_subelections.html">Subelection Distance</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/features/index.html">Features</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -208,6 +209,7 @@
 </details></li>
 </ul>
 </details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../resources.html">Resources</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../citation.html">Citation Policy</a></li>
 </ul>
 
@@ -346,9 +348,10 @@ document.write(`
 <span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
 
 <span class="kn">import</span> <span class="nn">mapof.elections.other.approval_rules</span> <span class="k">as</span> <span class="nn">rules</span>
-<span class="kn">from</span> <span class="nn">mapof.elections.cultures</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">registered_ordinal_cultures</span><span class="p">,</span>
-    <span class="n">registered_pseudo_ordinal_cultures</span>
+<span class="kn">from</span> <span class="nn">mapof.elections.cultures.register</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">registered_ordinal_election_cultures</span><span class="p">,</span>
+    <span class="n">registered_pseudo_ordinal_cultures</span><span class="p">,</span>
+    <span class="n">registered_approval_election_cultures</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">mapof.elections.distances</span> <span class="kn">import</span> <span class="n">get_distance</span>
 <span class="kn">from</span> <span class="nn">mapof.elections.features.register</span> <span class="kn">import</span> <span class="p">(</span>
@@ -921,13 +924,13 @@ document.write(`
 
 <div class="viewcode-block" id="ElectionExperiment.prepare_elections">
 <a class="viewcode-back" href="../../../../reference/objects/ElectionExperiment.html#mapof.elections.objects.ElectionExperiment.ElectionExperiment.prepare_elections">[docs]</a>
-    <span class="k">def</span> <span class="nf">prepare_elections</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">store_points</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">is_aggregated</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">prepare_elections</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">export_points</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">is_aggregated</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Prepares elections for a given experiment.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        store_points : bool</span>
+<span class="sd">        export_points : bool</span>
 <span class="sd">            Whether to store points in the instance.</span>
 <span class="sd">        is_aggregated : bool</span>
 <span class="sd">            Whether to aggregate the instances.</span>
@@ -936,23 +939,31 @@ document.write(`
 <span class="sd">        -------</span>
 <span class="sd">            None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">store_points</span> <span class="o">=</span> <span class="n">store_points</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">export_points</span> <span class="o">=</span> <span class="n">export_points</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">is_aggregated</span> <span class="o">=</span> <span class="n">is_aggregated</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">instances</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">instances</span> <span class="o">=</span> <span class="p">{}</span>
 
-        <span class="k">for</span> <span class="n">family_id</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">families</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Preparing instances&quot;</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">family_id</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">families</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Preparing families&quot;</span><span class="p">):</span>
 
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance_type</span> <span class="o">==</span> <span class="s1">&#39;ordinal&#39;</span> <span class="ow">and</span> \
                     <span class="bp">self</span><span class="o">.</span><span class="n">families</span><span class="p">[</span><span class="n">family_id</span><span class="p">]</span><span class="o">.</span><span class="n">culture_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">registered_pseudo_ordinal_cultures</span> <span class="ow">and</span> \
-                    <span class="bp">self</span><span class="o">.</span><span class="n">families</span><span class="p">[</span><span class="n">family_id</span><span class="p">]</span><span class="o">.</span><span class="n">culture_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">registered_ordinal_cultures</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">families</span><span class="p">[</span><span class="n">family_id</span><span class="p">]</span><span class="o">.</span><span class="n">culture_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">registered_ordinal_election_cultures</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Culture </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">families</span><span class="p">[</span><span class="n">family_id</span><span class="p">]</span><span class="o">.</span><span class="n">culture_id</span><span class="si">}</span><span class="s1"> is skipped, &#39;</span>
+                                <span class="sa">f</span><span class="s1">&#39;since no such ORDINAL culture was found.&#39;</span><span class="p">)</span>
+                <span class="k">continue</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance_type</span> <span class="o">==</span> <span class="s1">&#39;approval&#39;</span> <span class="ow">and</span> \
+                    <span class="bp">self</span><span class="o">.</span><span class="n">families</span><span class="p">[</span><span class="n">family_id</span><span class="p">]</span><span class="o">.</span><span class="n">culture_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">registered_approval_election_cultures</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Culture </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">families</span><span class="p">[</span><span class="n">family_id</span><span class="p">]</span><span class="o">.</span><span class="n">culture_id</span><span class="si">}</span><span class="s1"> is skipped, &#39;</span>
+                                <span class="sa">f</span><span class="s1">&#39;since no such APPROVAL culture was found.&#39;</span><span class="p">)</span>
                 <span class="k">continue</span>
 
             <span class="n">new_instances</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">families</span><span class="p">[</span><span class="n">family_id</span><span class="p">]</span><span class="o">.</span><span class="n">prepare_family</span><span class="p">(</span>
                 <span class="n">is_exported</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">is_exported</span><span class="p">,</span>
                 <span class="n">experiment_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">experiment_id</span><span class="p">,</span>
-                <span class="n">store_points</span><span class="o">=</span><span class="n">store_points</span><span class="p">,</span>
+                <span class="n">export_points</span><span class="o">=</span><span class="n">export_points</span><span class="p">,</span>
                 <span class="n">is_aggregated</span><span class="o">=</span><span class="n">is_aggregated</span><span class="p">,</span>
                 <span class="n">instance_type</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">instance_type</span><span class="p">,</span>
             <span class="p">)</span>

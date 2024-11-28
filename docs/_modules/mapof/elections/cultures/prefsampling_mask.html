@@ -169,6 +169,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/main_ordinal_distances.html">Ordinal Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/committee_distances.html">Committee Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/feature_distance.html">Feature Distance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/ilp_subelections.html">Subelection Distance</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/features/index.html">Features</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -328,15 +329,20 @@ document.write(`
                 <article class="bd-article">
                   
   <h1>Source code for mapof.elections.cultures.prefsampling_mask</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">prefsampling.approval</span> <span class="k">as</span> <span class="nn">pref_approval</span>
-<span class="kn">import</span> <span class="nn">prefsampling.ordinal</span> <span class="k">as</span> <span class="nn">pref_ordinal</span>
-<span class="kn">import</span> <span class="nn">logging</span>
+<span></span><span class="kn">import</span> <span class="nn">logging</span>
 
+<span class="kn">import</span> <span class="nn">prefsampling.approval</span> <span class="k">as</span> <span class="nn">pref_approval</span>
+<span class="kn">import</span> <span class="nn">prefsampling.ordinal</span> <span class="k">as</span> <span class="nn">pref_ordinal</span>
 <span class="kn">from</span> <span class="nn">prefsampling.core.euclidean</span> <span class="kn">import</span> <span class="n">EuclideanSpace</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">gamma</span>
+
+<span class="kn">from</span> <span class="nn">mapof.elections.cultures.register</span> <span class="kn">import</span> <span class="n">register_approval_election_culture</span>
+<span class="kn">from</span> <span class="nn">mapof.elections.cultures.register</span> <span class="kn">import</span> <span class="n">register_ordinal_election_culture</span>
 
 
 <div class="viewcode-block" id="truncated_urn_mask">
 <a class="viewcode-back" href="../../../../reference/cultures/prefsampling_mask.html#mapof.elections.cultures.prefsampling_mask.truncated_urn_mask">[docs]</a>
+<span class="nd">@register_approval_election_culture</span><span class="p">(</span><span class="s1">&#39;truncated_urn&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">truncated_urn_mask</span><span class="p">(</span><span class="n">num_voters</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                        <span class="n">num_candidates</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                        <span class="n">p</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -354,6 +360,7 @@ document.write(`
 
 <div class="viewcode-block" id="identity_approval_mask">
 <a class="viewcode-back" href="../../../../reference/cultures/prefsampling_mask.html#mapof.elections.cultures.prefsampling_mask.identity_approval_mask">[docs]</a>
+<span class="nd">@register_approval_election_culture</span><span class="p">(</span><span class="s1">&#39;identity&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">identity_approval_mask</span><span class="p">(</span><span class="n">num_voters</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                            <span class="n">num_candidates</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                            <span class="n">p</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
@@ -368,6 +375,7 @@ document.write(`
 
 <div class="viewcode-block" id="impartial_approval_mask">
 <a class="viewcode-back" href="../../../../reference/cultures/prefsampling_mask.html#mapof.elections.cultures.prefsampling_mask.impartial_approval_mask">[docs]</a>
+<span class="nd">@register_approval_election_culture</span><span class="p">(</span><span class="s1">&#39;impartial&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">impartial_approval_mask</span><span class="p">(</span><span class="n">num_voters</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                             <span class="n">num_candidates</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                             <span class="n">p</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
@@ -382,6 +390,7 @@ document.write(`
 
 <div class="viewcode-block" id="group_separable_mask">
 <a class="viewcode-back" href="../../../../reference/cultures/prefsampling_mask.html#mapof.elections.cultures.prefsampling_mask.group_separable_mask">[docs]</a>
+<span class="nd">@register_ordinal_election_culture</span><span class="p">(</span><span class="s1">&#39;group_separable&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">group_separable_mask</span><span class="p">(</span><span class="n">num_voters</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                          <span class="n">num_candidates</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                          <span class="n">tree_sampler</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -407,6 +416,7 @@ document.write(`
 
 <div class="viewcode-block" id="euclidean_ordinal_mask">
 <a class="viewcode-back" href="../../../../reference/cultures/prefsampling_mask.html#mapof.elections.cultures.prefsampling_mask.euclidean_ordinal_mask">[docs]</a>
+<span class="nd">@register_ordinal_election_culture</span><span class="p">(</span><span class="s1">&#39;euclidean&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">euclidean_ordinal_mask</span><span class="p">(</span><span class="n">num_voters</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                            <span class="n">num_candidates</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                            <span class="n">space</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -444,15 +454,15 @@ document.write(`
 
 <div class="viewcode-block" id="euclidean_approval_mask">
 <a class="viewcode-back" href="../../../../reference/cultures/prefsampling_mask.html#mapof.elections.cultures.prefsampling_mask.euclidean_approval_mask">[docs]</a>
+<span class="nd">@register_approval_election_culture</span><span class="p">(</span><span class="s1">&#39;euclidean&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">euclidean_approval_mask</span><span class="p">(</span><span class="n">num_voters</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                             <span class="n">num_candidates</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                             <span class="n">space</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                            <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-                            <span class="n">radius</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+                            <span class="n">num_dimensions</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                            <span class="n">candidates_radius</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                            <span class="n">voters_radius</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
                             <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Euclidean Approval Masked&quot;&quot;&quot;</span>
-
-    <span class="n">num_dimensions</span> <span class="o">=</span> <span class="n">dim</span>
 
     <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">space</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">space</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;uniform&#39;</span><span class="p">:</span>
@@ -473,8 +483,8 @@ document.write(`
     <span class="k">return</span> <span class="n">pref_approval</span><span class="o">.</span><span class="n">euclidean_vcr</span><span class="p">(</span>
         <span class="n">num_voters</span><span class="o">=</span><span class="n">num_voters</span><span class="p">,</span>
         <span class="n">num_candidates</span><span class="o">=</span><span class="n">num_candidates</span><span class="p">,</span>
-        <span class="n">voters_radius</span><span class="o">=</span><span class="n">radius</span><span class="p">,</span>
-        <span class="n">candidates_radius</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">voters_radius</span><span class="o">=</span><span class="n">voters_radius</span><span class="p">,</span>
+        <span class="n">candidates_radius</span><span class="o">=</span><span class="n">candidates_radius</span><span class="p">,</span>
         <span class="n">num_dimensions</span><span class="o">=</span><span class="n">num_dimensions</span><span class="p">,</span>
         <span class="n">voters_positions</span><span class="o">=</span><span class="n">point_sampler</span><span class="p">,</span>
         <span class="n">candidates_positions</span><span class="o">=</span><span class="n">point_sampler</span><span class="p">,</span>
@@ -484,6 +494,7 @@ document.write(`
 
 <div class="viewcode-block" id="norm_mallows_mask">
 <a class="viewcode-back" href="../../../../reference/cultures/prefsampling_mask.html#mapof.elections.cultures.prefsampling_mask.norm_mallows_mask">[docs]</a>
+<span class="nd">@register_ordinal_election_culture</span><span class="p">(</span><span class="s1">&#39;norm_mallows&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">norm_mallows_mask</span><span class="p">(</span><span class="n">num_voters</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                       <span class="n">num_candidates</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                       <span class="n">normphi</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -491,6 +502,7 @@ document.write(`
                       <span class="n">weight</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                       <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Mask for the norm mallows culture. &quot;&quot;&quot;</span>
+
     <span class="k">return</span> <span class="n">pref_ordinal</span><span class="o">.</span><span class="n">norm_mallows</span><span class="p">(</span><span class="n">num_voters</span><span class="o">=</span><span class="n">num_voters</span><span class="p">,</span>
                                      <span class="n">num_candidates</span><span class="o">=</span><span class="n">num_candidates</span><span class="p">,</span>
                                      <span class="n">norm_phi</span><span class="o">=</span><span class="n">normphi</span><span class="p">,</span>

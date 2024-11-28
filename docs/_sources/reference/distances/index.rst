@@ -12,5 +12,6 @@ Distances
     main_ordinal_distances
     committee_distances
     feature_distance
+    ilp_subelections
 
 

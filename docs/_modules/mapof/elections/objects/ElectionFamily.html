@@ -169,6 +169,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/main_ordinal_distances.html">Ordinal Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/committee_distances.html">Committee Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/feature_distance.html">Feature Distance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/ilp_subelections.html">Subelection Distance</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/features/index.html">Features</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -332,10 +333,11 @@ document.write(`
 <span class="kn">import</span> <span class="nn">logging</span>
 
 <span class="kn">from</span> <span class="nn">mapof.core.objects.Family</span> <span class="kn">import</span> <span class="n">Family</span>
-<span class="kn">from</span> <span class="nn">mapof.elections.objects.OrdinalElection</span> <span class="kn">import</span> <span class="n">OrdinalElection</span>
-<span class="kn">from</span> <span class="nn">mapof.elections.objects.ApprovalElection</span> <span class="kn">import</span> <span class="n">ApprovalElection</span>
 <span class="kn">from</span> <span class="nn">mapof.core.utils</span> <span class="kn">import</span> <span class="n">get_instance_id</span>
-<span class="kn">from</span> <span class="nn">mapof.elections.cultures.params</span> <span class="kn">import</span> <span class="n">get_params_for_paths</span><span class="p">,</span> <span class="n">get_params_for_crate</span>
+
+<span class="kn">from</span> <span class="nn">mapof.elections.cultures.params</span> <span class="kn">import</span> <span class="n">get_params_for_paths</span>
+<span class="kn">from</span> <span class="nn">mapof.elections.objects.ApprovalElection</span> <span class="kn">import</span> <span class="n">ApprovalElection</span>
+<span class="kn">from</span> <span class="nn">mapof.elections.objects.OrdinalElection</span> <span class="kn">import</span> <span class="n">OrdinalElection</span>
 
 
 <div class="viewcode-block" id="ElectionFamily">
@@ -412,7 +414,7 @@ document.write(`
     <span class="k">def</span> <span class="nf">prepare_family</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                        <span class="n">experiment_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                        <span class="n">is_exported</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                       <span class="n">store_points</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                       <span class="n">export_points</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                        <span class="n">is_aggregated</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                        <span class="n">instance_type</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -425,7 +427,7 @@ document.write(`
 <span class="sd">                Experiment ID.</span>
 <span class="sd">            is_exported : bool</span>
 <span class="sd">                Whether to export the family.</span>
-<span class="sd">            store_points : bool</span>
+<span class="sd">            export_points : bool</span>
 <span class="sd">                Whether to store the points.</span>
 <span class="sd">            is_aggregated : bool</span>
 <span class="sd">                    Whether the family is aggregated.</span>
@@ -449,10 +451,9 @@ document.write(`
 
                 <span class="n">params</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">)</span>
 
-                <span class="n">variable</span> <span class="o">=</span> <span class="kc">None</span>
                 <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span>
                 <span class="k">if</span> <span class="n">path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="s1">&#39;variable&#39;</span> <span class="ow">in</span> <span class="n">path</span><span class="p">:</span>
-                    <span class="n">new_params</span><span class="p">,</span> <span class="n">variable</span> <span class="o">=</span> <span class="n">get_params_for_paths</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+                    <span class="n">new_params</span><span class="p">,</span> <span class="n">variable</span> <span class="o">=</span> <span class="n">get_params_for_paths</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
                     <span class="k">if</span> <span class="n">params</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                         <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
                     <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">params</span><span class="p">,</span> <span class="o">**</span><span class="n">new_params</span><span class="p">}</span>
@@ -466,17 +467,17 @@ document.write(`
                                            <span class="n">label</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="p">,</span>
                                            <span class="n">num_candidates</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">,</span>
                                            <span class="n">is_imported</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                                           <span class="n">frequency_matrix</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">frequency_matrix</span><span class="p">,</span>
                                            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+                                           <span class="n">frequency_matrix</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">frequency_matrix</span><span class="p">,</span>
                                            <span class="p">)</span>
 
                 <span class="n">election</span><span class="o">.</span><span class="n">prepare_instance</span><span class="p">(</span><span class="n">is_exported</span><span class="o">=</span><span class="n">is_exported</span><span class="p">,</span> <span class="n">is_aggregated</span><span class="o">=</span><span class="n">is_aggregated</span><span class="p">)</span>
 
-                <span class="k">if</span> <span class="n">store_points</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">export_points</span><span class="p">:</span>
                     <span class="k">try</span><span class="p">:</span>
                         <span class="n">election</span><span class="o">.</span><span class="n">points</span><span class="p">[</span><span class="s1">&#39;voters&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">election</span><span class="o">.</span><span class="n">import_ideal_points</span><span class="p">(</span><span class="s1">&#39;voters&#39;</span><span class="p">)</span>
                         <span class="n">election</span><span class="o">.</span><span class="n">points</span><span class="p">[</span><span class="s1">&#39;candidates&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">election</span><span class="o">.</span><span class="n">import_ideal_points</span><span class="p">(</span><span class="s1">&#39;candidates&#39;</span><span class="p">)</span>
-                    <span class="k">except</span><span class="p">:</span>
+                    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
                         <span class="k">pass</span>
 
                 <span class="n">election</span><span class="o">.</span><span class="n">compute_potes</span><span class="p">()</span>
@@ -494,18 +495,14 @@ document.write(`
 
                 <span class="n">params</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">)</span>
 
-                <span class="n">variable</span> <span class="o">=</span> <span class="kc">None</span>
                 <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span>
                 <span class="k">if</span> <span class="n">path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="s1">&#39;variable&#39;</span> <span class="ow">in</span> <span class="n">path</span><span class="p">:</span>
-                    <span class="n">new_params</span><span class="p">,</span> <span class="n">variable</span> <span class="o">=</span> <span class="n">get_params_for_paths</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+                    <span class="n">new_params</span><span class="p">,</span> <span class="n">variable</span> <span class="o">=</span> <span class="n">get_params_for_paths</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
                     <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">params</span><span class="p">,</span> <span class="o">**</span><span class="n">new_params</span><span class="p">}</span>
+                    <span class="n">params</span><span class="p">[</span><span class="s1">&#39;variable&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">variable</span>
 
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">culture_id</span> <span class="ow">in</span> <span class="p">{</span><span class="s1">&#39;all_votes&#39;</span><span class="p">}:</span>
                     <span class="n">params</span><span class="p">[</span><span class="s1">&#39;iter_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">j</span>
-
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">culture_id</span> <span class="ow">in</span> <span class="p">{</span><span class="s1">&#39;crate&#39;</span><span class="p">}:</span>
-                    <span class="n">new_params</span> <span class="o">=</span> <span class="n">get_params_for_crate</span><span class="p">(</span><span class="n">j</span><span class="p">)</span>
-                    <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">params</span><span class="p">,</span> <span class="o">**</span><span class="n">new_params</span><span class="p">}</span>
 
                 <span class="n">election_id</span> <span class="o">=</span> <span class="n">get_instance_id</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">single</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">family_id</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
 
@@ -515,9 +512,8 @@ document.write(`
                                             <span class="n">num_voters</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">num_voters</span><span class="p">,</span>
                                             <span class="n">label</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="p">,</span>
                                             <span class="n">num_candidates</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">,</span>
-                                            <span class="n">variable</span><span class="o">=</span><span class="n">variable</span><span class="p">,</span>
                                             <span class="n">is_imported</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                                            <span class="o">**</span><span class="n">params</span>
+                                            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
                                             <span class="p">)</span>
                 <span class="n">election</span><span class="o">.</span><span class="n">prepare_instance</span><span class="p">(</span><span class="n">is_exported</span><span class="o">=</span><span class="n">is_exported</span><span class="p">,</span> <span class="n">is_aggregated</span><span class="o">=</span><span class="n">is_aggregated</span><span class="p">)</span>
 
@@ -540,12 +536,6 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">election_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">election</span><span class="o">.</span><span class="n">instance_id</span><span class="p">)</span></div>
 
-
-
-
-<span class="c1"># # # # # # # # # # # # # # # #</span>
-<span class="c1"># LAST CLEANUP ON: 12.10.2021 #</span>
-<span class="c1"># # # # # # # # # # # # # # # #</span>
 </pre></div>
 
                 </article>

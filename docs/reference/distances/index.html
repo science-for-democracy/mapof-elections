@@ -170,6 +170,7 @@
 <li class="toctree-l3"><a class="reference internal" href="main_ordinal_distances.html">Ordinal Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="committee_distances.html">Committee Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="feature_distance.html">Feature Distance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ilp_subelections.html">Subelection Distance</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../features/index.html">Features</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -393,37 +394,39 @@ document.write(`
 </li>
 <li class="toctree-l1"><a class="reference internal" href="register.html">Register</a></li>
 <li class="toctree-l1"><a class="reference internal" href="main_approval_distances.html">Approval Distances</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="main_approval_distances.html#mapof.elections.distances.main_approval_distances.compute_approvalwise_distance"><code class="docutils literal notranslate"><span class="pre">compute_approvalwise_distance()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="main_approval_distances.html#mapof.elections.distances.main_approval_distances.compute_hamming_distance"><code class="docutils literal notranslate"><span class="pre">compute_hamming_distance()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="main_approval_distances.html#mapof.elections.distances.main_approval_distances.approvalwise_distance"><code class="docutils literal notranslate"><span class="pre">approvalwise_distance()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="main_approval_distances.html#mapof.elections.distances.main_approval_distances.hamming_distance"><code class="docutils literal notranslate"><span class="pre">hamming_distance()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="main_ordinal_distances.html">Ordinal Distances</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.compute_agg_voterlikeness_distance"><code class="docutils literal notranslate"><span class="pre">compute_agg_voterlikeness_distance()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.compute_blank_distance"><code class="docutils literal notranslate"><span class="pre">compute_blank_distance()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.compute_bordawise_distance"><code class="docutils literal notranslate"><span class="pre">compute_bordawise_distance()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.compute_candidate_subelection"><code class="docutils literal notranslate"><span class="pre">compute_candidate_subelection()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.compute_discrete_distance"><code class="docutils literal notranslate"><span class="pre">compute_discrete_distance()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.compute_pairwise_distance"><code class="docutils literal notranslate"><span class="pre">compute_pairwise_distance()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.compute_pos_swap_distance"><code class="docutils literal notranslate"><span class="pre">compute_pos_swap_distance()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.compute_positionwise_distance"><code class="docutils literal notranslate"><span class="pre">compute_positionwise_distance()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.compute_spearman_distance"><code class="docutils literal notranslate"><span class="pre">compute_spearman_distance()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.compute_spearman_distance_fastmap"><code class="docutils literal notranslate"><span class="pre">compute_spearman_distance_fastmap()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.compute_spearman_distance_ilp_py"><code class="docutils literal notranslate"><span class="pre">compute_spearman_distance_ilp_py()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.compute_swap_distance"><code class="docutils literal notranslate"><span class="pre">compute_swap_distance()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.compute_swap_distance_bf"><code class="docutils literal notranslate"><span class="pre">compute_swap_distance_bf()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.compute_truncated_swap_distance"><code class="docutils literal notranslate"><span class="pre">compute_truncated_swap_distance()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.compute_voter_subelection"><code class="docutils literal notranslate"><span class="pre">compute_voter_subelection()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.compute_voterlikeness_distance"><code class="docutils literal notranslate"><span class="pre">compute_voterlikeness_distance()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.agg_voterlikeness_distance"><code class="docutils literal notranslate"><span class="pre">agg_voterlikeness_distance()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.blank_distance"><code class="docutils literal notranslate"><span class="pre">blank_distance()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.bordawise_distance"><code class="docutils literal notranslate"><span class="pre">bordawise_distance()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.discrete_distance"><code class="docutils literal notranslate"><span class="pre">discrete_distance()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.get_matching_cost_pos_swap"><code class="docutils literal notranslate"><span class="pre">get_matching_cost_pos_swap()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.get_matching_cost_positionwise"><code class="docutils literal notranslate"><span class="pre">get_matching_cost_positionwise()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.get_matching_cost_swap_bf"><code class="docutils literal notranslate"><span class="pre">get_matching_cost_swap_bf()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.get_matching_cost_truncated_swap_bf"><code class="docutils literal notranslate"><span class="pre">get_matching_cost_truncated_swap_bf()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.pairwise_distance"><code class="docutils literal notranslate"><span class="pre">pairwise_distance()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.pos_swap_distance"><code class="docutils literal notranslate"><span class="pre">pos_swap_distance()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.positionwise_distance"><code class="docutils literal notranslate"><span class="pre">positionwise_distance()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.spearman_distance"><code class="docutils literal notranslate"><span class="pre">spearman_distance()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.spearman_distance_fastmap"><code class="docutils literal notranslate"><span class="pre">spearman_distance_fastmap()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.spearman_distance_ilp_py"><code class="docutils literal notranslate"><span class="pre">spearman_distance_ilp_py()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.swap_distance"><code class="docutils literal notranslate"><span class="pre">swap_distance()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.swap_distance_bf"><code class="docutils literal notranslate"><span class="pre">swap_distance_bf()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.truncated_swap_distance"><code class="docutils literal notranslate"><span class="pre">truncated_swap_distance()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.voterlikeness_distance"><code class="docutils literal notranslate"><span class="pre">voterlikeness_distance()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="committee_distances.html">Committee Distances</a></li>
 <li class="toctree-l1"><a class="reference internal" href="feature_distance.html">Feature Distance</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="feature_distance.html#mapof.elections.distances.feature_distance.features_vector_l1"><code class="docutils literal notranslate"><span class="pre">features_vector_l1()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="feature_distance.html#mapof.elections.distances.feature_distance.features_vector_l2"><code class="docutils literal notranslate"><span class="pre">features_vector_l2()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ilp_subelections.html">Subelection Distance</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ilp_subelections.html#mapof.elections.distances.ilp_subelections.maximum_common_voter_subelection"><code class="docutils literal notranslate"><span class="pre">maximum_common_voter_subelection()</span></code></a></li>
 </ul>
 </li>
 </ul>

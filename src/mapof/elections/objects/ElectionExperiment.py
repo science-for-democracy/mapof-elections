@@ -19,7 +19,8 @@ from tqdm import tqdm
 import mapof.elections.other.approval_rules as rules
 from mapof.elections.cultures.register import (
     registered_ordinal_election_cultures,
-    registered_pseudo_ordinal_cultures
+    registered_pseudo_ordinal_cultures,
+    registered_approval_election_cultures
 )
 from mapof.elections.distances import get_distance
 from mapof.elections.features.register import (
@@ -585,11 +586,19 @@ class ElectionExperiment(Experiment):
         if self.instances is None:
             self.instances = {}
 
-        for family_id in tqdm(self.families, desc="Preparing instances"):
+        for family_id in tqdm(self.families, desc="Preparing families"):
 
             if self.instance_type == 'ordinal' and \
                     self.families[family_id].culture_id not in registered_pseudo_ordinal_cultures and \
                     self.families[family_id].culture_id not in registered_ordinal_election_cultures:
+                logging.warning(f'Culture {self.families[family_id].culture_id} is skipped, '
+                                f'since no such ORDINAL culture was found.')
+                continue
+
+            if self.instance_type == 'approval' and \
+                    self.families[family_id].culture_id not in registered_approval_election_cultures:
+                logging.warning(f'Culture {self.families[family_id].culture_id} is skipped, '
+                                f'since no such APPROVAL culture was found.')
                 continue
 
             new_instances = self.families[family_id].prepare_family(

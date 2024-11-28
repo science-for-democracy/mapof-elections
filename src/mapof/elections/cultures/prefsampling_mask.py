@@ -110,12 +110,11 @@ def euclidean_ordinal_mask(num_voters=None,
 def euclidean_approval_mask(num_voters=None,
                             num_candidates=None,
                             space=None,
-                            dim=2,
-                            radius=0.2,
+                            num_dimensions=2,
+                            candidates_radius=0,
+                            voters_radius=0,
                             **kwargs):
     """ Euclidean Approval Masked"""
-
-    num_dimensions = dim
 
     if type(space) is str:
         if space.lower() == 'uniform':
@@ -136,8 +135,8 @@ def euclidean_approval_mask(num_voters=None,
     return pref_approval.euclidean_vcr(
         num_voters=num_voters,
         num_candidates=num_candidates,
-        voters_radius=radius,
-        candidates_radius=0,
+        voters_radius=voters_radius,
+        candidates_radius=candidates_radius,
         num_dimensions=num_dimensions,
         voters_positions=point_sampler,
         candidates_positions=point_sampler,

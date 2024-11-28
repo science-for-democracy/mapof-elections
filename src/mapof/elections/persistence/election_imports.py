@@ -312,18 +312,6 @@ def import_real_old_soc_election(
     #        distinct_votes
 
 
-def import_real_soc_election(**kwargs):
-    try:
-        return import_real_new_soc_election(**kwargs)
-    except:
-        return import_real_old_soc_election(**kwargs)
-
-
-def import_pseudo_soc_election(*args):
-    try:
-        return import_pseudo_new_soc_election(*args)
-    except:
-        return import_pseudo_old_soc_election(*args)
 
 
 def import_pseudo_new_soc_election(
@@ -503,6 +491,7 @@ def import_real_old_app_election(
         is_shifted: bool = False
 ):
     """ Import real approval election from .app file """
+    print(election_id)
     logging.warning("Old app format is no longer supported!")
 
     # file_name = f'{election_id}.app'
@@ -568,11 +557,6 @@ def import_real_old_app_election(
     #        distinct_votes
 
 
-def import_real_app_election(**kwargs):
-    try:
-        return import_real_new_app_election(**kwargs)
-    except:
-        return import_real_old_app_election(**kwargs)
 
 
 def check_if_pseudo(experiment_id, election_id):
@@ -624,13 +608,21 @@ def check_if_pseudo(experiment_id, election_id):
     return is_pseudo_culture(str(culture_id))
 
 
-# def _old_name_extractor(first_line: str) -> str:
-#     if len(first_line) == 4:
-#         culture_id = f'{first_line[1]} {first_line[2]} {first_line[3]}'
-#     elif len(first_line) == 3:
-#         culture_id = f'{first_line[1]} {first_line[2]}'
-#     elif len(first_line) == 2:
-#         culture_id = first_line[1]
-#     else:
-#         culture_id = 'noname'
-#     return culture_id
+def import_real_soc_election(**kwargs):
+    try:
+        return import_real_new_soc_election(**kwargs)
+    except:
+        return import_real_old_soc_election(**kwargs)
+
+
+def import_pseudo_soc_election(*args):
+    try:
+        return import_pseudo_new_soc_election(*args)
+    except:
+        return import_pseudo_old_soc_election(*args)
+
+def import_real_app_election(**kwargs):
+    try:
+        return import_real_new_app_election(**kwargs)
+    except:
+        return import_real_old_app_election(**kwargs)

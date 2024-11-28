@@ -22,6 +22,7 @@ class ApprovalElection(Election, ABC):
                  election_id=None,
                  culture_id=None,
                  num_candidates=None,
+                 fast_import=False,
                  params=None,
                  **kwargs):
 
@@ -30,6 +31,7 @@ class ApprovalElection(Election, ABC):
                          culture_id=culture_id,
                          num_candidates=num_candidates,
                          instance_type='approval',
+                         fast_import=fast_import,
                          params=params,
                          **kwargs)
 
@@ -37,7 +39,7 @@ class ApprovalElection(Election, ABC):
         self.reverse_approvals = []
         self.candidatelikeness_original_vectors = []
 
-        if self.is_imported and self.experiment_id is not None:
+        if self.is_imported and self.experiment_id is not None and not fast_import:
             self.import_approval_election()
 
         self.try_updating_params()

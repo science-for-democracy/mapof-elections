@@ -72,7 +72,7 @@ class OrdinalElection(Election):
         if frequency_matrix is not None:
             self.frequency_matrix = frequency_matrix
 
-        if self.is_imported and self.experiment_id is not None:
+        if self.is_imported and self.experiment_id is not None and not fast_import:
             self.import_ordinal_election()
 
         self.try_updating_params()

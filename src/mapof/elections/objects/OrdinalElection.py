@@ -21,7 +21,7 @@ from mapof.elections.cultures.matrices.single_peaked_matrices import (
 )
 from mapof.elections.cultures.pseudo_cultures import (
     get_frequency_matrix_for_guardian,
-    get_pseudo_matrix_single,
+    get_pairwise_matrix_for_guardian,
     update_params_ordinal,
     get_pseudo_convex,
     get_pseudo_borda_vector,
@@ -188,16 +188,21 @@ class OrdinalElection(Election):
         return frequency_matrix
 
     def votes_to_pairwise_matrix(self) -> np.ndarray:
-        """ Convert votes to pairwise frequency_matrix. """
+        """ Convert votes to pairwise matrix. """
         matrix = np.zeros([self.num_candidates, self.num_candidates])
         if self.is_pseudo:
-            if self.culture_id in {'identity', 'uniformity', 'antagonism', 'stratification'}:
-                matrix = get_pseudo_matrix_single(self.culture_id, self.num_candidates)
+            if self.culture_id in {
+                'pseudo_identity',
+                'pseudo_uniformity',
+                'pseudo_antagonism',
+                'pseudo_stratification'
+            }:
+                matrix = get_pairwise_matrix_for_guardian(self.culture_id, self.num_candidates)
             elif self.culture_id in PATHS:
                 matrix = get_pseudo_convex(self.culture_id,
                                            self.num_candidates,
                                            self.params,
-                                           get_pseudo_matrix_single)
+                                           get_pairwise_matrix_for_guardian)
 
         else:
             for v in range(self.num_voters):

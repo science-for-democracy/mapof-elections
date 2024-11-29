@@ -4,85 +4,6 @@ from mapof.elections.cultures.params import *
 from mapof.elections.cultures.register import register_pseudo_ordinal_culture
 
 
-@register_pseudo_ordinal_culture('pseudo_uniformity')
-def pseudo_uniformity(num_candidates: int, params: dict = None):
-    """ Returns pseudo culture matrix with uniformity. """
-    return get_pseudo_matrix_single('pseudo_uniformity', num_candidates, params)
-
-
-@register_pseudo_ordinal_culture('pseudo_identity')
-def pseudo_identity(num_candidates: int, params: dict = None):
-    """ Returns pseudo culture matrix with identity. """
-    return get_pseudo_matrix_single('pseudo_identity', num_candidates, params)
-
-
-@register_pseudo_ordinal_culture('pseudo_stratification')
-def pseudo_stratification(num_candidates: int, params: dict = None):
-    """ Returns pseudo culture matrix with stratification. """
-    return get_pseudo_matrix_single('pseudo_stratification', num_candidates, params)
-
-
-@register_pseudo_ordinal_culture('pseudo_antagonism')
-def pseudo_antagonism(num_candidates: int, params: dict = None):
-    """ Returns pseudo culture matrix with antagonism. """
-    return get_pseudo_matrix_single('pseudo_antagonism', num_candidates, params)
-
-
-@register_pseudo_ordinal_culture('pseudo_unid')
-def pseudo_unid(num_candidates: int, params: dict = None):
-    """ Returns pseudo culture matrix with unid path. """
-    return get_pseudo_convex('pseudo_unid', num_candidates, params,
-                             get_frequency_matrix_for_guardian)
-
-
-@register_pseudo_ordinal_culture('pseudo_anid')
-def pseudo_anid(num_candidates: int, params: dict = None):
-    """ Returns pseudo culture matrix with anid path. """
-    return get_pseudo_convex('pseudo_unid', num_candidates, params,
-                             get_frequency_matrix_for_guardian)
-
-
-@register_pseudo_ordinal_culture('pseudo_stid')
-def pseudo_stid(num_candidates: int, params: dict = None):
-    """ Returns pseudo culture matrix with stid path. """
-    return get_pseudo_convex('pseudo_unid', num_candidates, params,
-                             get_frequency_matrix_for_guardian)
-
-
-@register_pseudo_ordinal_culture('pseudo_anun')
-def pseudo_anun(num_candidates: int, params: dict = None):
-    """ Returns pseudo culture matrix with anun path. """
-    return get_pseudo_convex('pseudo_unid', num_candidates, params,
-                             get_frequency_matrix_for_guardian)
-
-
-@register_pseudo_ordinal_culture('pseudo_stun')
-def pseudo_stun(num_candidates: int, params: dict = None):
-    """ Returns pseudo culture matrix with stun path. """
-    return get_pseudo_convex('pseudo_unid', num_candidates, params,
-                             get_frequency_matrix_for_guardian)
-
-
-@register_pseudo_ordinal_culture('pseudo_stan')
-def pseudo_stan(num_candidates: int, params: dict = None):
-    return get_pseudo_convex('pseudo_unid', num_candidates, params,
-                             get_frequency_matrix_for_guardian)
-
-
-def get_pseudo_multiplication(num_candidates, params, model):
-    logging.warning('THIS FUNCTION IS NOT IMPLEMENTED YET.')
-    # params['weight'] = 0.
-    # params['normphi'] = params['alpha']
-    # main_matrix = []
-    # if model == 'conitzer_path':
-    #     main_matrix = get_conitzer_vectors(num_candidates).transpose()
-    # elif model == 'walsh_path':
-    #     main_matrix = get_walsh_vectors(num_candidates).transpose()
-    # mallows_matrix = get_mallows_vectors(num_candidates, params).transpose()
-    # output = np.matmul(main_matrix, mallows_matrix).transpose()
-    return None
-
-
 def get_frequency_matrix_for_guardian(
         culture_id: str,
         num_candidates: int,
@@ -120,6 +41,86 @@ def get_frequency_matrix_for_guardian(
                 vectors[i][num_candidates - i - 1] = 0.5
 
     return vectors
+
+@register_pseudo_ordinal_culture('pseudo_uniformity')
+def pseudo_uniformity(num_candidates: int, params: dict = None):
+    """ Returns pseudo culture frequency matrix with uniformity. """
+    return get_frequency_matrix_for_guardian('pseudo_uniformity', num_candidates, params)
+
+
+@register_pseudo_ordinal_culture('pseudo_identity')
+def pseudo_identity(num_candidates: int, params: dict = None):
+    """ Returns pseudo culture frequency matrix with identity. """
+    return get_frequency_matrix_for_guardian('pseudo_identity', num_candidates, params)
+
+
+@register_pseudo_ordinal_culture('pseudo_stratification')
+def pseudo_stratification(num_candidates: int, params: dict = None):
+    """ Returns pseudo culture frequency matrix with stratification. """
+    return get_frequency_matrix_for_guardian('pseudo_stratification', num_candidates, params)
+
+@register_pseudo_ordinal_culture('pseudo_antagonism')
+def pseudo_antagonism(num_candidates: int, params: dict = None):
+    """ Returns pseudo culture frequency matrix with antagonism. """
+    return get_frequency_matrix_for_guardian('pseudo_antagonism', num_candidates, params)
+
+
+@register_pseudo_ordinal_culture('pseudo_unid')
+def pseudo_unid(num_candidates: int, params: dict = None):
+    """ Returns pseudo culture frequency matrix with unid path. """
+    return get_pseudo_convex('pseudo_unid', num_candidates, params,
+                             get_frequency_matrix_for_guardian)
+
+
+@register_pseudo_ordinal_culture('pseudo_anid')
+def pseudo_anid(num_candidates: int, params: dict = None):
+    """ Returns pseudo culture frequency matrix with anid path. """
+    return get_pseudo_convex('pseudo_anid', num_candidates, params,
+                             get_frequency_matrix_for_guardian)
+
+
+@register_pseudo_ordinal_culture('pseudo_stid')
+def pseudo_stid(num_candidates: int, params: dict = None):
+    """ Returns pseudo culture frequency matrix with stid path. """
+    return get_pseudo_convex('pseudo_stid', num_candidates, params,
+                             get_frequency_matrix_for_guardian)
+
+
+@register_pseudo_ordinal_culture('pseudo_anun')
+def pseudo_anun(num_candidates: int, params: dict = None):
+    """ Returns pseudo culture frequency matrix with anun path. """
+    return get_pseudo_convex('pseudo_anun', num_candidates, params,
+                             get_frequency_matrix_for_guardian)
+
+
+@register_pseudo_ordinal_culture('pseudo_stun')
+def pseudo_stun(num_candidates: int, params: dict = None):
+    """ Returns pseudo culture frequency matrix with stun path. """
+    return get_pseudo_convex('pseudo_stun', num_candidates, params,
+                             get_frequency_matrix_for_guardian)
+
+
+@register_pseudo_ordinal_culture('pseudo_stan')
+def pseudo_stan(num_candidates: int, params: dict = None):
+    """ Returns pseudo culture frequency matrix with stan path. """
+    return get_pseudo_convex('pseudo_stan', num_candidates, params,
+                             get_frequency_matrix_for_guardian)
+
+
+def get_pseudo_multiplication(num_candidates, params, model):
+    logging.warning('THIS FUNCTION IS NOT IMPLEMENTED YET.')
+    # params['weight'] = 0.
+    # params['normphi'] = params['alpha']
+    # main_matrix = []
+    # if model == 'conitzer_path':
+    #     main_matrix = get_conitzer_vectors(num_candidates).transpose()
+    # elif model == 'walsh_path':
+    #     main_matrix = get_walsh_vectors(num_candidates).transpose()
+    # mallows_matrix = get_mallows_vectors(num_candidates, params).transpose()
+    # output = np.matmul(main_matrix, mallows_matrix).transpose()
+    return None
+
+
 
 
 def get_pseudo_convex(
@@ -173,15 +174,11 @@ def convex_combination(
     return output
 
 
-def get_pseudo_matrix_single(
+def get_pairwise_matrix_for_guardian(
         culture_id: str,
         num_candidates: int,
         params: dict = None
 ):
-
-    if params == None:
-        params = {}
-    weight = params.get('weight', 0.5)
 
     matrix = np.zeros([num_candidates, num_candidates])
 
@@ -197,17 +194,20 @@ def get_pseudo_matrix_single(
                     matrix[i][j] = 0.5
 
     elif culture_id == 'pseudo_stratification':
+        if params is None:
+            params = {}
+        weight = params.get('weight', 0.5)
         for i in range(int(num_candidates*weight)):
             for j in range(int(num_candidates*weight), num_candidates):
                 matrix[i][j] = 1
         for i in range(int(num_candidates*weight)):
             for j in range(int(num_candidates*weight)):
                 if i != j:
-                    matrix[i][j] = weight
+                    matrix[i][j] = 0.5
         for i in range(int(num_candidates*weight), num_candidates):
             for j in range(int(num_candidates*weight), num_candidates):
                 if i != j:
-                    matrix[i][j] = 1-weight
+                    matrix[i][j] = 0.5
 
     return matrix
 

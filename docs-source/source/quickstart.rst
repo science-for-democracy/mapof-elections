@@ -680,3 +680,16 @@ There are four possible microscopes that one can create: Ordinal-Voters, Ordinal
      - ``hamming``, ``jaccard``
 
 More details about the microscope can be found in the `Diversity, Agreement, and Polarization in Elections <https://doi.org/10.24963/ijcai.2023/299>`_ paper.
+
+Ordinal Compass
+---------------
+To help us navigate the map, we add four special elections, which we can interpret as compass points.
+
+1. Identity --  all votes are the same.
+
+2. Uniformity -- each possible vote appears once.
+
+3. Antagonism -- two equal-sized groups of voters with
+opposite preference orders.
+
+4. Stratification --

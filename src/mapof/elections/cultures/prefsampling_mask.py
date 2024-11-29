@@ -75,11 +75,9 @@ def group_separable_mask(num_voters=None,
 def euclidean_ordinal_mask(num_voters=None,
                            num_candidates=None,
                            space=None,
-                           dim=2,
+                           num_dimensions=2,
                            **kwargs):
     """ Euclidean Ordinal Masked"""
-
-    num_dimensions = dim
 
     if type(space) is str:
         if space.lower() == 'uniform':

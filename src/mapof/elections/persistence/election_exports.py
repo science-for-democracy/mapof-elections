@@ -30,7 +30,7 @@ def export_votes_to_file(
     -------
         None
     """
-
+    # print(election.culture_id)
     if votes is None:
         votes = election.votes
 

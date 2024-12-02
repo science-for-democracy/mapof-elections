@@ -241,75 +241,75 @@ def import_real_old_soc_election(
         is_shifted=False
 ):
     """ Import real ordinal election form .soc file """
-    print(election_id)
-    logging.warning("Old soc format is no longer supported!")
+    print("HERE", election_id)
+    # logging.warning("Old soc format is no longer supported!")
 
-    # file_name = f'{election_id}.soc'
-    # path = os.path.join(os.getcwd(), "experiments", experiment_id, "elections", file_name)
-    # my_file = open(path, 'r')
-    #
-    # params = 0
-    # first_line = my_file.readline()
-    #
-    # if first_line[0] != '#':
-    #     culture_id = 'empty'
-    #     num_candidates = int(first_line)
-    # else:
-    #     first_line = first_line.strip().split()
-    #     culture_id = first_line[1]
-    #     if experiment_id == 'original_ordinal_map':
-    #         params = {}
-    #         culture_id = _old_name_extractor(first_line)
-    #     else:
-    #         if len(first_line) <= 2:
-    #             params = {}
-    #         else:
-    #             params = ast.literal_eval(" ".join(first_line[2:]))
-    #
-    #     num_candidates = int(my_file.readline())
-    #
-    # alliances = {}
-    # for i in range(num_candidates):
-    #     line = my_file.readline().strip().split()
-    #     if len(line) > 2:
-    #         alliances[i] = int(line[2])
-    #
-    # line = my_file.readline().rstrip("\n").split(',')
-    # num_voters = int(line[0])
-    # num_options = int(line[2])
-    # votes = [[0 for _ in range(num_candidates)] for _ in range(num_voters)]
-    #
-    # it = 0
-    # quantities = []
-    # for j in range(num_options):
-    #     line = list(map(int, my_file.readline().rstrip("\n").split(',')))
-    #     quantity = line[0]
-    #     quantities.append(quantity)
-    #
-    #     for k in range(quantity):
-    #         votes[it] = line[1:num_candidates + 1]
-    #         it += 1
-    #
-    # c = Counter(map(tuple, votes))
-    # counted_votes = [[count, list(row)] for row, count in c.items()]
-    # counted_votes = sorted(counted_votes, reverse=True)
-    # quantities = [a[0] for a in counted_votes]
-    # distinct_votes = [a[1] for a in counted_votes]
-    # num_options = len(counted_votes)
-    #
-    # if is_shifted:
-    #     votes = [[vote - 1 for vote in voter] for voter in votes]
-    # my_file.close()
-    #
-    # return np.array(votes), \
-    #        num_voters, \
-    #        num_candidates, \
-    #        params, \
-    #        culture_id, \
-    #        alliances, \
-    #        num_options, \
-    #        quantities, \
-    #        distinct_votes
+    file_name = f'{election_id}.soc'
+    path = os.path.join(os.getcwd(), "experiments", experiment_id, "elections", file_name)
+    my_file = open(path, 'r')
+
+    params = 0
+    first_line = my_file.readline()
+
+    if first_line[0] != '#':
+        culture_id = 'empty'
+        num_candidates = int(first_line)
+    else:
+        first_line = first_line.strip().split()
+        culture_id = first_line[1]
+        if experiment_id == 'original_ordinal_map':
+            params = {}
+            # culture_id = _old_name_extractor(first_line)
+        else:
+            if len(first_line) <= 2:
+                params = {}
+            else:
+                params = ast.literal_eval(" ".join(first_line[2:]))
+
+        num_candidates = int(my_file.readline())
+
+    alliances = {}
+    for i in range(num_candidates):
+        line = my_file.readline().strip().split()
+        if len(line) > 2:
+            alliances[i] = int(line[2])
+
+    line = my_file.readline().rstrip("\n").split(',')
+    num_voters = int(line[0])
+    num_options = int(line[2])
+    votes = [[0 for _ in range(num_candidates)] for _ in range(num_voters)]
+
+    it = 0
+    quantities = []
+    for j in range(num_options):
+        line = list(map(int, my_file.readline().rstrip("\n").split(',')))
+        quantity = line[0]
+        quantities.append(quantity)
+
+        for k in range(quantity):
+            votes[it] = line[1:num_candidates + 1]
+            it += 1
+
+    c = Counter(map(tuple, votes))
+    counted_votes = [[count, list(row)] for row, count in c.items()]
+    counted_votes = sorted(counted_votes, reverse=True)
+    quantities = [a[0] for a in counted_votes]
+    distinct_votes = [a[1] for a in counted_votes]
+    num_options = len(counted_votes)
+
+    if is_shifted:
+        votes = [[vote - 1 for vote in voter] for voter in votes]
+    my_file.close()
+
+    return np.array(votes), \
+           num_voters, \
+           num_candidates, \
+           params, \
+           culture_id, \
+           alliances, \
+           num_options, \
+           quantities, \
+           distinct_votes
 
 
 
@@ -557,8 +557,6 @@ def import_real_old_app_election(
     #        distinct_votes
 
 
-
-
 def check_if_pseudo(experiment_id, election_id):
     file_ending = 4
     file_name = f'{election_id}.soc'
@@ -620,6 +618,7 @@ def import_pseudo_soc_election(*args):
         return import_pseudo_new_soc_election(*args)
     except:
         return import_pseudo_old_soc_election(*args)
+
 
 def import_real_app_election(**kwargs):
     try:

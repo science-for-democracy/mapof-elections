@@ -81,7 +81,9 @@ class OrdinalElection(Election):
         """ Import ordinal election. """
 
         try:
-            self.is_pseudo = imports.check_if_pseudo(self.experiment_id, self.election_id)
+            # self.is_pseudo = imports.check_if_pseudo(self.experiment_id, self.election_id)
+            # print("HERE", self.election_id, self.is_pseudo)
+            self.is_pseudo = False
 
             if self.is_pseudo:
                 (
@@ -95,6 +97,7 @@ class OrdinalElection(Election):
                     self.election_id
                 )
             else:
+
                 (
                     self.votes,
                     self.num_voters,

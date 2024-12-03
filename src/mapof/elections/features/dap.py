@@ -39,7 +39,7 @@ def _get_potes(election):
     else:
         res = []
         for v in election.votes:
-            res.append(vote2pote(v, election.num_candidates))
+            res.append(_vote2pote(v, election.num_candidates))
         res = np.array(res)
         election.potes = res
         return res
@@ -61,11 +61,11 @@ def _get_vote_dists(election):
     try:
         return election.vote_dists
     except:
-        potes = get_potes(election)
+        potes = _get_potes(election)
         distances = np.zeros([election.num_voters, election.num_voters])
         for v1 in range(election.num_voters):
             for v2 in range(v1 + 1, election.num_voters):
-                distances[v1][v2] = swap_distance_between_potes(potes[v1], potes[v2],
+                distances[v1][v2] = _swap_distance_between_potes(potes[v1], potes[v2],
                                                                 election.num_candidates)
                 distances[v2][v1] = distances[v1][v2]
         election.vote_dists = distances
@@ -76,7 +76,7 @@ def _get_candidate_dists(election):
     try:
         return election.candidate_dists
     except:
-        potes = get_potes(election)
+        potes = _get_potes(election)
         distances = np.zeros([election.num_candidates, election.num_candidates])
         for a in range(election.num_candidates):
             for b in range(a + 1, election.num_candidates):
@@ -271,8 +271,18 @@ def _find_improvement(distances, d, starting, rest, k, l):
     return starting, d, False
 
 
-
-def local_search_kKemeny_single_k(election, k, l, starting=None) -> dict:
+@register_ordinal_election_feature('kkememy_single_k')
+def kkemeny_single_k(election, k, l, starting=None) -> dict:
+    """
+    Calculates approximate value of k-Kemeny for single k, i.e.,
+    the sum of the swap distances between each voter and the closest
+    out of k chosen rankings, where the k chosen rankings are set optimally.
+    The distence is approximated as we search for the chosen rankings only
+    from the rankings that are already present in the election as votes.
+    Further, this distance is approximated using local search approach, where
+    in each iteration, l rankings are changed for another rankings to optimize
+    the sum of swap distances.
+    """
     if starting is None:
         starting = list(range(k))
     distances = _get_vote_dists(election)
@@ -291,48 +301,58 @@ def local_search_kKemeny_single_k(election, k, l, starting=None) -> dict:
                 break
     return {'value': d}
 
-
-def kkemeny_diversity_upto_l(election, l) -> dict:
+@register_ordinal_election_feature('kkemeny_diversity_upto_r')
+def kkemeny_diversity_upto_r(election, r) -> dict:
+    """
+    Calculates the approximate k-Kemeny diversity index as defined in
+    Faliszewski et al., 'Distances Between Top-Truncated Elections of Different Sizes'.
+    It sums the values of approximate k-Kemeny distances for k from 1 to r
+    obtained using the local search method (see `~kkememy_single_k` function).
+    In the paper, the authors use the value of r equal to 5 and they argue that
+    it is good enough.
+    """
     if election.is_pseudo:
         return {'value': None}
-    
     res = 0
-    for k in range(l):
-        res += local_search_kKemeny_single_k(election, k, 1)['value']
-
-    k_1 = 
-    k_2 = local_search_kKemeny_single_k(election, 2, 1)['value']
-    k_3 = local_search_kKemeny_single_k(election, 3, 1)['value']
-    k_4 = local_search_kKemeny_single_k(election, 4, 1)['value']
-    k_5 = local_search_kKemeny_single_k(election, 5, 1)['value']
-
+    for k in range(r):
+        res += kkemeny_single_k(election, k, 1)['value']
     max_dist = (election.num_candidates) * (election.num_candidates - 1) / 2
-    return {'value': (k_1 + k_2 + k_3 + k_4 + k_5) / election.num_voters / max_dist}
+    return {'value': res / election.num_voters / max_dist / r}
 
+@register_ordinal_election_feature('kkemeny_diversity_full')
+def kkemeny_diversity_full(election) -> dict:
+    '''
+    Calculates the approximate k-Kemeny diversity index as defined in
+    Faliszewski et al., 'Diversity, Agreement, and Polarization in Elections'.
+    It sums the values of approximate k-Kemeny distances divided by k
+    for k from 1 to n, where n is the number of voters in the election.
+    The values of the approximate k-Kemeny distances are obtained
+    using the local search method (see `~kkememy_single_k` function).
+    '''
+    if election.is_pseudo:
+        return {'value': None}
+    res = 0
+    for k in range(election.num_voters):
+        res += kkemeny_single_k(election, k, 1)['value']/k
+    max_dist = (election.num_candidates) * (election.num_candidates - 1) / 2
+    return {'value': res / election.num_voters / max_dist}
 
+### Polarization Indices ###
 
 @register_ordinal_election_feature('PolarizationApprox')
 def polarization_index(election) -> dict:
     """
-    Calculates the approx. polarization index of the election.
-
-    Parameters
-    ----------
-        election : OrdinalElection
-
-    Returns
-    -------
-        dict
-            'value': approx. polarization index
+    Calculates the approximate k-Kemeny polarization index as defined in
+    Faliszewski et al., 'Diversity, Agreement, and Polarization in Elections'.
+    It takes the difference between approximate k-Kemeny distance for k=1 and k=2.
+    The values of the approximate k-Kemeny distances are obtained
+    using the local search method (see `~kkememy_single_k` function).
     """
     if election.is_pseudo:
         return {'value': None}
 
-    distances = get_vote_dists(election)
-    best_1 = np.argmin(distances.sum(axis=1))
-    best_vec = distances[best_1]
-    first_kemeny = best_vec.sum()
-    second_kemeny = local_search_kKemeny_single_k(election, 2, 1)['value']
+    first_kemeny = kkemeny_single_k(election, 1, 1)['value']
+    second_kemeny = kkemeny_single_k(election, 2, 1)['value']
 
     max_dist = (election.num_candidates) * (election.num_candidates - 1) / 2
     return {'value': 2 * (first_kemeny - second_kemeny) / election.num_voters / max_dist}

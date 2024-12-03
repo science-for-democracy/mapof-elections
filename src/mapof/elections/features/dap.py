@@ -232,19 +232,6 @@ def avg_dist_to_bord(election) -> dict:
 
 ### DIVERSITY INDICES ###
 
-@register_ordinal_election_feature('cand_pos_dist_std')
-def cand_pos_dist_std(election) -> dict:
-    """
-    For each pair of candidates we calculate the average difference
-    in positions across all voters. Then we take the standard deviation
-    of the values for all pairs.
-    """
-    if election.is_pseudo:
-        return {'value': None}
-    distances = _get_candidate_dists(election)
-    distances = _remove_diag(distances)
-    return {'value': - distances.std() / election.num_voters}
-
 
 def _distances_to_rankings(rankings, distances):
     dists = distances[rankings]
@@ -336,6 +323,77 @@ def kkemeny_diversity_full(election) -> dict:
         res += kkemeny_single_k(election, k, 1)['value']/k
     max_dist = (election.num_candidates) * (election.num_candidates - 1) / 2
     return {'value': res / election.num_voters / max_dist}
+
+@register_ordinal_election_feature('support_diversity')
+def support_diversity(election, tuple_len) -> dict:
+    """
+    Given tuple lenght k, for each k-tuple of candidates counts
+    the number of different orderings of this tuple that
+    can be found within the votes. Then, sums it for all k-tuples.
+    Proposed in Hashemi and Endriss, 'Measuring diversity of preferences in a group'.
+    """
+    if election.is_pseudo:
+        return {'value': None}
+    m = election.num_candidates
+    res = 0
+    for subset in itertools.combinations(range(m), tuple_len):
+        support = []
+        for v in election.votes:
+            trimmed_v = []
+            for c in v:
+                if c in subset:
+                    trimmed_v.append(c)
+            if not (trimmed_v in support):
+                support.append(trimmed_v)
+        res = res + len(support)
+    return {'value': res}
+
+@register_ordinal_election_feature('support_pairs')
+def support_pairs(election):
+    """
+    For each pair of candidates, a and b, checks whether a is always preferred over b.
+    If this is the case assigns value 1 to this pair, otherwise value 2.
+    Then sums it up for all possible pairs of candidates.
+    Proposed in Hashemi and Endriss, 'Measuring diversity of preferences in a group'.
+    """
+    return support_diversity(election, 2)
+
+@register_ordinal_election_feature('support_triplets')
+def support_triplets(election):
+    """
+    For each triplet of candidates, a, b, c,
+    checks how many different orderings of these three candidates
+    can be found withing the votes.
+    Then sums it up for all possible triplets of candidates.
+    Proposed in Hashemi and Endriss, 'Measuring diversity of preferences in a group'.
+    """
+    return support_diversity(election, 3)
+
+
+@register_ordinal_election_feature('support_votes')
+def support_votes(election) -> dict:
+    """
+    Counts the number of unique votes.
+    Proposed as a measure of diversity in
+    Hashemi and Endriss, 'Measuring diversity of preferences in a group'.
+    """
+    if election.is_pseudo:
+        return {'value': None}
+    m = election.num_candidates
+    return {'value': support_diversity(election, m)}
+
+@register_ordinal_election_feature('cand_pos_dist_std')
+def cand_pos_dist_std(election) -> dict:
+    """
+    For each pair of candidates we calculate the average difference
+    in positions across all voters. Then we take the standard deviation
+    of the values for all pairs.
+    """
+    if election.is_pseudo:
+        return {'value': None}
+    distances = _get_candidate_dists(election)
+    distances = _remove_diag(distances)
+    return {'value': - distances.std() / election.num_voters}
 
 ### Polarization Indices ###
 

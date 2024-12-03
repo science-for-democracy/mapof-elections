@@ -58,13 +58,7 @@ def remove_diag(mtrx):
     return res
 
 
-def calculate_borda_scores(election):
-    m = election.num_candidates
-    borda = np.zeros(m, int)
-    for v in election.votes:
-        for i, c in enumerate(v):
-            borda[c] = borda[c] + m - i - 1
-    return borda
+
 
 
 def calculate_cand_dom_dist(election):
@@ -98,48 +92,43 @@ def calculate_vote_swap_dist(election):
 
 # DIVERSITY INDICES
 
-@register_ordinal_election_feature('borda_gini')
-def borda_gini(election) -> dict:
-    if election.is_pseudo:
-        return {'value': None}
-    all_scores = calculate_borda_scores(election)
-    return {'value': gini_coef(all_scores)}
+# @register_ordinal_election_feature('borda_gini')
+# def borda_gini(election) -> dict:
+#     if election.is_pseudo:
+#         return {'value': None}
+#     all_scores = calculate_borda_scores(election)
+#     return {'value': gini_coef(all_scores)}
 
 
-@register_ordinal_election_feature('borda_meandev')
-def borda_meandev(election) -> dict:
-    if election.is_pseudo:
-        return {'value': None}
-    all_scores = calculate_borda_scores(election)
-    all_scores = np.abs(all_scores - all_scores.mean())
-    return {'value': all_scores.mean()}
+# @register_ordinal_election_feature('borda_meandev')
+# def borda_meandev(election) -> dict:
+#     if election.is_pseudo:
+#         return {'value': None}
+#     all_scores = calculate_borda_scores(election)
+#     all_scores = np.abs(all_scores - all_scores.mean())
+#     return {'value': all_scores.mean()}
 
 
-@register_ordinal_election_feature('borda_std')
-def borda_std(election) -> dict:
-    if election.is_pseudo:
-        return {'value': None}
-    all_scores = calculate_borda_scores(election)
-    return {'value': all_scores.std()}
 
 
-@register_ordinal_election_feature('borda_range')
-def borda_range(election) -> dict:
-    if election.is_pseudo:
-        return {'value': None}
-    all_scores = calculate_borda_scores(election)
-    return (np.max(all_scores) - np.min(all_scores))
+
+# @register_ordinal_election_feature('borda_range')
+# def borda_range(election) -> dict:
+#     if election.is_pseudo:
+#         return {'value': None}
+#     all_scores = calculate_borda_scores(election)
+#     return (np.max(all_scores) - np.min(all_scores))
 
 
-@register_ordinal_election_feature('cand_dom_dist_mean')
-def cand_dom_dist_mean(election) -> dict:
-    if election.is_pseudo:
-        return {'value': None}
-    distances = calculate_cand_dom_dist(election)
-    return {'value': distances.sum() / (election.num_candidates - 1) / election.num_candidates * 2}
+# @register_ordinal_election_feature('cand_dom_dist_mean')
+# def cand_dom_dist_mean(election) -> dict:
+#     if election.is_pseudo:
+#         return {'value': None}
+#     distances = calculate_cand_dom_dist(election)
+#     return {'value': distances.sum() / (election.num_candidates - 1) / election.num_candidates * 2}
 
 
-@register_ordinal_election_feature('Agreement')
+@register_ordinal_election_feature('agreement')
 def agreement_index(election) -> dict:
     """
     Calculates the agreement index of the election.
@@ -159,13 +148,13 @@ def agreement_index(election) -> dict:
     return {'value': distances.sum() / (election.num_candidates - 1) / election.num_candidates * 2}
 
 
-@register_ordinal_election_feature('cand_dom_dist_std')
-def cand_dom_dist_std(election) -> dict:
-    if election.is_pseudo:
-        return {'value': None}
-    distances = calculate_cand_dom_dist(election)
-    distances = remove_diag(distances)
-    return {'value': distances.std()}
+# @register_ordinal_election_feature('cand_dom_dist_std')
+# def cand_dom_dist_std(election) -> dict:
+#     if election.is_pseudo:
+#         return {'value': None}
+#     distances = calculate_cand_dom_dist(election)
+#     distances = remove_diag(distances)
+#     return {'value': distances.std()}
 
 
 @register_ordinal_election_feature('cand_pos_dist_std')
@@ -177,166 +166,125 @@ def cand_pos_dist_std(election) -> dict:
     return {'value': distances.std()}
 
 
-@register_ordinal_election_feature('cand_pos_dist_meandev')
-def cand_pos_dist_meandev(election) -> dict:
-    if election.is_pseudo:
-        return {'value': None}
-    distances = calculate_cand_pos_dist(election)
-    distances = remove_diag(distances)
-    distances = np.abs(distances - distances.mean())
-    return {'value': distances.mean()}
+# @register_ordinal_election_feature('cand_pos_dist_meandev')
+# def cand_pos_dist_meandev(election) -> dict:
+#     if election.is_pseudo:
+#         return {'value': None}
+#     distances = calculate_cand_pos_dist(election)
+#     distances = remove_diag(distances)
+#     distances = np.abs(distances - distances.mean())
+#     return {'value': distances.mean()}
 
 
-@register_ordinal_election_feature('cand_pos_dist_gini')
-def cand_pos_dist_gini(election) -> dict:
-    if election.is_pseudo:
-        return {'value': None}
-    distances = calculate_cand_pos_dist(election)
-    distances = remove_diag(distances)
-    return {'value': gini_coef(distances)}
+# @register_ordinal_election_feature('cand_pos_dist_gini')
+# def cand_pos_dist_gini(election) -> dict:
+#     if election.is_pseudo:
+#         return {'value': None}
+#     distances = calculate_cand_pos_dist(election)
+#     distances = remove_diag(distances)
+#     return {'value': gini_coef(distances)}
 
 
-@register_ordinal_election_feature('med_cands_summed')
-def med_cands_summed(election) -> dict:
-    if election.is_pseudo:
-        return {'value': None}
-    m = election.num_candidates
-    distances = calculate_cand_pos_dist(election)
-    res = [0] * m
-    for i in range(1, m):
-        best_d = np.inf
-        for comb in itertools.combinations(range(m), i):
-            d_total = 0
-            for c1 in range(m):
-                min_d = np.inf
-                for c2 in comb:
-                    d_cand = distances[c1, c2]
-                    if d_cand < min_d:
-                        min_d = d_cand
-                d_total = d_total + min_d
-            if d_total < best_d:
-                best_d = d_total
-        res[i] = best_d
-    return {'value': sum(res)}
+# @register_ordinal_election_feature('med_cands_summed')
+# def med_cands_summed(election) -> dict:
+#     if election.is_pseudo:
+#         return {'value': None}
+#     m = election.num_candidates
+#     distances = calculate_cand_pos_dist(election)
+#     res = [0] * m
+#     for i in range(1, m):
+#         best_d = np.inf
+#         for comb in itertools.combinations(range(m), i):
+#             d_total = 0
+#             for c1 in range(m):
+#                 min_d = np.inf
+#                 for c2 in comb:
+#                     d_cand = distances[c1, c2]
+#                     if d_cand < min_d:
+#                         min_d = d_cand
+#                 d_total = d_total + min_d
+#             if d_total < best_d:
+#                 best_d = d_total
+#         res[i] = best_d
+#     return {'value': sum(res)}
 
 
-@register_ordinal_election_feature('vote_dist_mean')
-def vote_dist_mean(election) -> dict:
-    if election.is_pseudo:
-        return {'value': None}
-    distances = calculate_vote_swap_dist(election)
-    return {'value': distances.sum() / election.num_voters / (election.num_voters - 1)}
 
 
-@register_ordinal_election_feature('vote_dist_max')
-def vote_dist_max(election) -> dict:
-    if election.is_pseudo:
-        return {'value': None}
-    distances = calculate_vote_swap_dist(election)
-    return {'value': distances.max()}
+
+# @register_ordinal_election_feature('vote_dist_med')
+# def vote_dist_med(election) -> dict:
+#     if election.is_pseudo:
+#         return {'value': None}
+#     distances = calculate_vote_swap_dist(election)
+#     distances = remove_diag(distances)
+#     return {'value': np.median(distances)}
 
 
-@register_ordinal_election_feature('vote_dist_med')
-def vote_dist_med(election) -> dict:
-    if election.is_pseudo:
-        return {'value': None}
-    distances = calculate_vote_swap_dist(election)
-    distances = remove_diag(distances)
-    return {'value': np.median(distances)}
+# @register_ordinal_election_feature('vote_dist_gini')
+# def vote_dist_gini(election) -> dict:
+#     if election.is_pseudo:
+#         return {'value': None}
+#     distances = calculate_vote_swap_dist(election)
+#     distances = remove_diag(distances)
+#     return {'value': gini_coef(distances)}
 
 
-@register_ordinal_election_feature('vote_dist_gini')
-def vote_dist_gini(election) -> dict:
-    if election.is_pseudo:
-        return {'value': None}
-    distances = calculate_vote_swap_dist(election)
-    distances = remove_diag(distances)
-    return {'value': gini_coef(distances)}
+# @register_ordinal_election_feature('vote_sqr_dist_mean')
+# def vote_sqr_dist_mean(election) -> dict:
+#     if election.is_pseudo:
+#         return {'value': None}
+#     distances = calculate_vote_swap_dist(election)
+#     distances = remove_diag(distances)
+#     distances = np.sqrt(distances)
+#     return {'value': distances.mean()}
 
 
-@register_ordinal_election_feature('vote_sqr_dist_mean')
-def vote_sqr_dist_mean(election) -> dict:
-    if election.is_pseudo:
-        return {'value': None}
-    distances = calculate_vote_swap_dist(election)
-    distances = remove_diag(distances)
-    distances = np.sqrt(distances)
-    return {'value': distances.mean()}
+# @register_ordinal_election_feature('vote_sqr_dist_med')
+# def vote_sqr_dist_med(election) -> dict:
+#     if election.is_pseudo:
+#         return {'value': None}
+#     distances = calculate_vote_swap_dist(election)
+#     distances = remove_diag(distances)
+#     distances = np.sqrt(distances)
+#     return {'value': np.median(distances)}
 
 
-@register_ordinal_election_feature('vote_sqr_dist_med')
-def vote_sqr_dist_med(election) -> dict:
-    if election.is_pseudo:
-        return {'value': None}
-    distances = calculate_vote_swap_dist(election)
-    distances = remove_diag(distances)
-    distances = np.sqrt(distances)
-    return {'value': np.median(distances)}
 
 
-@register_ordinal_election_feature('vote_diversity_Karpov')
-def vote_diversity_Karpov(election):
-    if election.is_pseudo:
-        return {'value': None}
-    distances = calculate_vote_swap_dist(election)
-    distances = remove_diag(distances)
-    distances = distances + 0.5
-    distances[distances == 0.5] = 1
-    return {'value': geom_mean(distances)}
 
 
-@register_ordinal_election_feature('dist_to_Kemeny_mean')
-def dist_to_Kemeny_mean(election):
-    if election.is_pseudo:
-        return {'value': None}
-    _, dist = kemeny_ranking(election)
-    return dist / election.num_voters
 
 
-@register_ordinal_election_feature('dist_to_Borda_mean')
-def dist_to_Borda_mean(election) -> dict:
-    if election.is_pseudo:
-        return {'value': None}
-    m = election.num_candidates
-    borda = calculate_borda_scores(election)
-    ranking = np.argsort(-borda)
-    wmg = election.votes_to_pairwise_matrix()
-    dist = 0
-    for i in range(m):
-        for j in range(i + 1, m):
-            dist = dist + wmg[ranking[j], ranking[i]]
-    return {'value': dist / election.num_voters}
+# @register_ordinal_election_feature('lexi_diversity')
+# def lexi_diversity(election):
+#     if election.is_pseudo:
+#         return {'value': None}
+#     return {'value': None}
 
 
-@register_ordinal_election_feature('lexi_diversity')
-def lexi_diversity(election):
-    if election.is_pseudo:
-        return {'value': None}
-    return {'value': None}
+# @register_ordinal_election_feature('greedy_kKemenys_summed')
+# def greedy_kKemenys_summed(election) -> dict:
+#     if election.is_pseudo:
+#         return {'value': None}
+#     res = [0] * election.num_voters
+#     distances = calculate_vote_swap_dist(election)
+#     best = np.argmin(distances.sum(axis=1))
+#     best_vec = distances[best]
+#     res[0] = best_vec.sum()
+#     distances = np.vstack((distances[:best], distances[best + 1:]))
 
+#     for i in range(1, election.num_voters):
+#         relatives = distances - best_vec
+#         relatives = relatives * (relatives < 0)
+#         best = np.argmin(relatives.sum(axis=1))
+#         best_vec = best_vec + relatives[best]
+#         res[i] = best_vec.sum()
+#         distances = np.vstack((distances[:best], distances[best + 1:]))
 
-@register_ordinal_election_feature('greedy_kKemenys_summed')
-def greedy_kKemenys_summed(election) -> dict:
-    if election.is_pseudo:
-        return {'value': None}
-    res = [0] * election.num_voters
-    distances = calculate_vote_swap_dist(election)
-    best = np.argmin(distances.sum(axis=1))
-    best_vec = distances[best]
-    res[0] = best_vec.sum()
-    distances = np.vstack((distances[:best], distances[best + 1:]))
-
-    for i in range(1, election.num_voters):
-        relatives = distances - best_vec
-        relatives = relatives * (relatives < 0)
-        best = np.argmin(relatives.sum(axis=1))
-        best_vec = best_vec + relatives[best]
-        res[i] = best_vec.sum()
-        distances = np.vstack((distances[:best], distances[best + 1:]))
-
-    return sum(res)
-    max_dist = (election.num_candidates) * (election.num_candidates - 1) / 2
-    return {'value': sum(res) / election.num_voters / max_dist}
+#     return sum(res)
+#     max_dist = (election.num_candidates) * (election.num_candidates - 1) / 2
+#     return {'value': sum(res) / election.num_voters / max_dist}
 
 
 def restore_order(x):
@@ -462,75 +410,75 @@ def diversity_index(election) -> dict:
     return {'value': sum([x / (i + 1) for i, x in enumerate(res)])}
 
 
-@register_ordinal_election_feature('greedy_kKemenys_divk_summed')
-def greedy_kKemenys_divk_summed(election) -> dict:
-    if election.is_pseudo:
-        return {'value': None}
-    res = [0] * election.num_voters
-    distances = calculate_vote_swap_dist(election)
-    best = np.argmin(distances.sum(axis=1))
-    best_vec = distances[best]
-    res[0] = best_vec.sum()
-    distances = np.vstack((distances[:best], distances[best + 1:]))
+# @register_ordinal_election_feature('greedy_kKemenys_divk_summed')
+# def greedy_kKemenys_divk_summed(election) -> dict:
+#     if election.is_pseudo:
+#         return {'value': None}
+#     res = [0] * election.num_voters
+#     distances = calculate_vote_swap_dist(election)
+#     best = np.argmin(distances.sum(axis=1))
+#     best_vec = distances[best]
+#     res[0] = best_vec.sum()
+#     distances = np.vstack((distances[:best], distances[best + 1:]))
 
-    for i in range(1, election.num_voters):
-        relatives = distances - best_vec
-        relatives = relatives * (relatives < 0)
-        best = np.argmin(relatives.sum(axis=1))
-        best_vec = best_vec + relatives[best]
-        res[i] = best_vec.sum() / (i + 1)
-        distances = np.vstack((distances[:best], distances[best + 1:]))
+#     for i in range(1, election.num_voters):
+#         relatives = distances - best_vec
+#         relatives = relatives * (relatives < 0)
+#         best = np.argmin(relatives.sum(axis=1))
+#         best_vec = best_vec + relatives[best]
+#         res[i] = best_vec.sum() / (i + 1)
+#         distances = np.vstack((distances[:best], distances[best + 1:]))
 
-    # res[0] = 0 # for disregarding one Kemeny (AN = ID)
-    max_dist = (election.num_candidates) * (election.num_candidates - 1) / 2
-    return {'value': sum(res) / election.num_voters / max_dist}
-
-
-@register_ordinal_election_feature('greedy_2kKemenys_summed')
-def greedy_2kKemenys_summed(election) -> dict:
-    if election.is_pseudo:
-        return {'value': None}
-    res = []
-    distances = calculate_vote_swap_dist(election)
-    best = np.argmin(distances.sum(axis=1))
-    best_vec = distances[best]
-    res.append(best_vec.sum())
-    distances = np.vstack((distances[:best], distances[best + 1:]))
-
-    k = 2
-    for i in range(1, election.num_voters):
-        relatives = distances - best_vec
-        relatives = relatives * (relatives < 0)
-        best = np.argmin(relatives.sum(axis=1))
-        best_vec = best_vec + relatives[best]
-        if (i + 1) == k:
-            res.append(best_vec.sum())
-            k = k * 2
-        distances = np.vstack((distances[:best], distances[best + 1:]))
-
-    # res[0] = 0 # for disregarding one Kemeny (AN = ID)
-    max_dist = (election.num_candidates) * (election.num_candidates - 1) / 2
-    return {'value': sum(res) / election.num_voters / max_dist / 2}
+#     # res[0] = 0 # for disregarding one Kemeny (AN = ID)
+#     max_dist = (election.num_candidates) * (election.num_candidates - 1) / 2
+#     return {'value': sum(res) / election.num_voters / max_dist}
 
 
-@register_ordinal_election_feature('polarization_1by2Kemenys')
-def polarization_1by2Kemenys(election) -> dict:
-    if election.is_pseudo:
-        return {'value': None}
-    distances = calculate_vote_swap_dist(election)
-    best = np.argmin(distances.sum(axis=1))
-    best_vec = distances[best]
-    first_kemeny = best_vec.sum()
-    distances = np.vstack((distances[:best], distances[best + 1:]))
+# @register_ordinal_election_feature('greedy_2kKemenys_summed')
+# def greedy_2kKemenys_summed(election) -> dict:
+#     if election.is_pseudo:
+#         return {'value': None}
+#     res = []
+#     distances = calculate_vote_swap_dist(election)
+#     best = np.argmin(distances.sum(axis=1))
+#     best_vec = distances[best]
+#     res.append(best_vec.sum())
+#     distances = np.vstack((distances[:best], distances[best + 1:]))
 
-    relatives = distances - best_vec
-    relatives = relatives * (relatives < 0)
-    best = np.argmin(relatives.sum(axis=1))
-    best_vec = best_vec + relatives[best]
-    second_kemeny = best_vec.sum()
+#     k = 2
+#     for i in range(1, election.num_voters):
+#         relatives = distances - best_vec
+#         relatives = relatives * (relatives < 0)
+#         best = np.argmin(relatives.sum(axis=1))
+#         best_vec = best_vec + relatives[best]
+#         if (i + 1) == k:
+#             res.append(best_vec.sum())
+#             k = k * 2
+#         distances = np.vstack((distances[:best], distances[best + 1:]))
 
-    max_dist = (election.num_candidates) * (election.num_candidates - 1) / 2
-    return {'value': (first_kemeny - second_kemeny) / election.num_voters / max_dist}
+#     # res[0] = 0 # for disregarding one Kemeny (AN = ID)
+#     max_dist = (election.num_candidates) * (election.num_candidates - 1) / 2
+#     return {'value': sum(res) / election.num_voters / max_dist / 2}
+
+
+# @register_ordinal_election_feature('polarization_1by2Kemenys')
+# def polarization_1by2Kemenys(election) -> dict:
+#     if election.is_pseudo:
+#         return {'value': None}
+#     distances = calculate_vote_swap_dist(election)
+#     best = np.argmin(distances.sum(axis=1))
+#     best_vec = distances[best]
+#     first_kemeny = best_vec.sum()
+#     distances = np.vstack((distances[:best], distances[best + 1:]))
+
+#     relatives = distances - best_vec
+#     relatives = relatives * (relatives < 0)
+#     best = np.argmin(relatives.sum(axis=1))
+#     best_vec = best_vec + relatives[best]
+#     second_kemeny = best_vec.sum()
+
+#     max_dist = (election.num_candidates) * (election.num_candidates - 1) / 2
+#     return {'value': (first_kemeny - second_kemeny) / election.num_voters / max_dist}
 
 
 @register_ordinal_election_feature('Polarization')
@@ -573,27 +521,27 @@ def polarization_index(election) -> dict:
     return {'value': 2 * (first_kemeny - second_kemeny) / election.num_voters / max_dist}
 
 
-@register_ordinal_election_feature('greedy_kmeans_summed')
-def greedy_kmeans_summed(election) -> dict:
-    if election.is_pseudo:
-        return {'value': None}
-    res = [0] * election.num_voters
-    distances = calculate_vote_swap_dist(election)
-    distances = distances * distances
-    best = np.argmin(distances.sum(axis=1))
-    best_vec = distances[best]
-    res[0] = best_vec.sum()
-    distances = np.vstack((distances[:best], distances[best + 1:]))
+# @register_ordinal_election_feature('greedy_kmeans_summed')
+# def greedy_kmeans_summed(election) -> dict:
+#     if election.is_pseudo:
+#         return {'value': None}
+#     res = [0] * election.num_voters
+#     distances = calculate_vote_swap_dist(election)
+#     distances = distances * distances
+#     best = np.argmin(distances.sum(axis=1))
+#     best_vec = distances[best]
+#     res[0] = best_vec.sum()
+#     distances = np.vstack((distances[:best], distances[best + 1:]))
 
-    for i in range(1, election.num_voters):
-        relatives = distances - best_vec
-        relatives = relatives * (relatives < 0)
-        best = np.argmin(relatives.sum(axis=1))
-        best_vec = best_vec + relatives[best]
-        res[i] = best_vec.sum()
-        distances = np.vstack((distances[:best], distances[best + 1:]))
+#     for i in range(1, election.num_voters):
+#         relatives = distances - best_vec
+#         relatives = relatives * (relatives < 0)
+#         best = np.argmin(relatives.sum(axis=1))
+#         best_vec = best_vec + relatives[best]
+#         res[i] = best_vec.sum()
+#         distances = np.vstack((distances[:best], distances[best + 1:]))
 
-    return {'value': sum(res)}
+#     return {'value': sum(res)}
 
 
 @register_ordinal_election_feature('support_diversity')
@@ -615,68 +563,68 @@ def support_diversity(election, tuple_len) -> dict:
     return {'value': res}
 
 
-@register_ordinal_election_feature('support_diversity_normed')
-def support_diversity_normed(election, tuple_len) -> dict:
-    if election.is_pseudo:
-        return {'value': None}
-    m = election.num_candidates
-    res = 0
-    count = 0
-    for subset in itertools.combinations(range(m), tuple_len):
-        count = count + 1
-        support = []
-        for v in election.votes:
-            trimmed_v = []
-            for c in v:
-                if c in subset:
-                    trimmed_v.append(c)
-            if not (trimmed_v in support):
-                support.append(trimmed_v)
-        res = res + len(support)
-    return {'value': res / count}
+# @register_ordinal_election_feature('support_diversity_normed')
+# def support_diversity_normed(election, tuple_len) -> dict:
+#     if election.is_pseudo:
+#         return {'value': None}
+#     m = election.num_candidates
+#     res = 0
+#     count = 0
+#     for subset in itertools.combinations(range(m), tuple_len):
+#         count = count + 1
+#         support = []
+#         for v in election.votes:
+#             trimmed_v = []
+#             for c in v:
+#                 if c in subset:
+#                     trimmed_v.append(c)
+#             if not (trimmed_v in support):
+#                 support.append(trimmed_v)
+#         res = res + len(support)
+#     return {'value': res / count}
 
 
-@register_ordinal_election_feature('support_diversity_normed2')
-def support_diversity_normed2(election, tuple_len) -> dict:
-    if election.is_pseudo:
-        return {'value': None}
-    m = election.num_candidates
-    res = 0
-    count = 0
-    for subset in itertools.combinations(range(m), tuple_len):
-        count = count + 1
-        support = []
-        for v in election.votes:
-            trimmed_v = []
-            for c in v:
-                if c in subset:
-                    trimmed_v.append(c)
-            if not (trimmed_v in support):
-                support.append(trimmed_v)
-        res = res + len(support)
-    return {'value': res / count / math.factorial(tuple_len)}
+# @register_ordinal_election_feature('support_diversity_normed2')
+# def support_diversity_normed2(election, tuple_len) -> dict:
+#     if election.is_pseudo:
+#         return {'value': None}
+#     m = election.num_candidates
+#     res = 0
+#     count = 0
+#     for subset in itertools.combinations(range(m), tuple_len):
+#         count = count + 1
+#         support = []
+#         for v in election.votes:
+#             trimmed_v = []
+#             for c in v:
+#                 if c in subset:
+#                     trimmed_v.append(c)
+#             if not (trimmed_v in support):
+#                 support.append(trimmed_v)
+#         res = res + len(support)
+#     return {'value': res / count / math.factorial(tuple_len)}
 
 
-@register_ordinal_election_feature('support_diversity_normed3')
-def support_diversity_normed3(election, tuple_len) -> dict:
-    if election.is_pseudo:
-        return {'value': None}
-    m = election.num_candidates
-    res = 0
-    count = 0
-    for subset in itertools.combinations(range(m), tuple_len):
-        count = count + 1
-        support = []
-        for v in election.votes:
-            trimmed_v = []
-            for c in v:
-                if c in subset:
-                    trimmed_v.append(c)
-            if not (trimmed_v in support):
-                support.append(trimmed_v)
-        res = res + len(support)
-    max_times = min(math.factorial(tuple_len), election.num_voters)
-    return {'value': res / count / max_times}
+# @register_ordinal_election_feature('support_diversity_normed3')
+# def support_diversity_normed3(election, tuple_len) -> dict:
+#     if election.is_pseudo:
+#         return {'value': None}
+#     m = election.num_candidates
+#     res = 0
+#     count = 0
+#     for subset in itertools.combinations(range(m), tuple_len):
+#         count = count + 1
+#         support = []
+#         for v in election.votes:
+#             trimmed_v = []
+#             for c in v:
+#                 if c in subset:
+#                     trimmed_v.append(c)
+#             if not (trimmed_v in support):
+#                 support.append(trimmed_v)
+#         res = res + len(support)
+#     max_times = min(math.factorial(tuple_len), election.num_voters)
+#     return {'value': res / count / max_times}
 
 @register_ordinal_election_feature('support_pairs')
 def support_pairs(election):
@@ -694,46 +642,45 @@ def support_votes(election) -> dict:
     m = election.num_candidates
     return {'value': support_diversity(election, m)}
 
-
-@register_ordinal_election_feature('support_diversity_summed')
-def support_diversity_summed(election) -> dict:
-    if election.is_pseudo:
-        return {'value': None}
-    m = election.num_candidates
-    res = 0
-    for i in range(2, m + 1):
-        res = res + support_diversity(election, i)['value']
-    return {'value': res}
-
-
-@register_ordinal_election_feature('support_diversity_normed_summed')
-def support_diversity_normed_summed(election) -> dict:
-    if election.is_pseudo:
-        return {'value': None}
-    m = election.num_candidates
-    res = 0
-    for i in range(2, m + 1):
-        res = res + support_diversity_normed(election, i)['value']
-    return {'value': res}
+# @register_ordinal_election_feature('support_diversity_summed')
+# def support_diversity_summed(election) -> dict:
+#     if election.is_pseudo:
+#         return {'value': None}
+#     m = election.num_candidates
+#     res = 0
+#     for i in range(2, m + 1):
+#         res = res + support_diversity(election, i)['value']
+#     return {'value': res}
 
 
-@register_ordinal_election_feature('support_diversity_normed2_summed')
-def support_diversity_normed2_summed(election) -> dict:
-    if election.is_pseudo:
-        return {'value': None}
-    m = election.num_candidates
-    res = 0
-    for i in range(2, m + 1):
-        res = res + support_diversity_normed2(election, i)['value']
-    return {'value': res}
+# @register_ordinal_election_feature('support_diversity_normed_summed')
+# def support_diversity_normed_summed(election) -> dict:
+#     if election.is_pseudo:
+#         return {'value': None}
+#     m = election.num_candidates
+#     res = 0
+#     for i in range(2, m + 1):
+#         res = res + support_diversity_normed(election, i)['value']
+#     return {'value': res}
 
 
-@register_ordinal_election_feature('support_diversity_normed3_summed')
-def support_diversity_normed3_summed(election) -> dict:
-    if election.is_pseudo:
-        return {'value': None}
-    m = election.num_candidates
-    res = 0
-    for i in range(2, m + 1):
-        res = res + support_diversity_normed3(election, i)['value']
-    return {'value': res}
+# @register_ordinal_election_feature('support_diversity_normed2_summed')
+# def support_diversity_normed2_summed(election) -> dict:
+#     if election.is_pseudo:
+#         return {'value': None}
+#     m = election.num_candidates
+#     res = 0
+#     for i in range(2, m + 1):
+#         res = res + support_diversity_normed2(election, i)['value']
+#     return {'value': res}
+
+
+# @register_ordinal_election_feature('support_diversity_normed3_summed')
+# def support_diversity_normed3_summed(election) -> dict:
+#     if election.is_pseudo:
+#         return {'value': None}
+#     m = election.num_candidates
+#     res = 0
+#     for i in range(2, m + 1):
+#         res = res + support_diversity_normed3(election, i)['value']
+#     return {'value': res}

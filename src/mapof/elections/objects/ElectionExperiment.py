@@ -29,12 +29,6 @@ from mapof.elections.features.register import (
 )
 from mapof.elections.objects.ApprovalElection import ApprovalElection
 from mapof.elections.objects.ElectionFamily import ElectionFamily
-from mapof.elections.objects.ElectionFeatures import (
-    ST_KEY,
-    AN_KEY,
-    ID_KEY,
-    UN_KEY
-)
 from mapof.elections.objects.OrdinalElection import OrdinalElection
 
 try:
@@ -925,19 +919,19 @@ class ElectionExperiment(Experiment):
             election[1].election_features.num_voters = election[1].num_voters
             election[1].election_features.calculate_all()
 
-    def prepare_compass_dictionary(self):
-        for election in self.instances.items():
-            election[1].election_features.votes = election[1].votes
-            election[1].election_features.num_candidates = election[1].num_candidates
-            election[1].election_features.num_voters = election[1].num_voters
-            election[1].election_features.compass_points['ST'] = self.instances[
-                ST_KEY + str(election[1].num_candidates)]
-            election[1].election_features.compass_points['AN'] = self.instances[
-                AN_KEY + str(election[1].num_candidates)]
-            election[1].election_features.compass_points['ID'] = self.instances[
-                ID_KEY + str(election[1].num_candidates)]
-            election[1].election_features.compass_points['UN'] = self.instances[
-                UN_KEY + str(election[1].num_candidates)]
+    # def prepare_compass_dictionary(self):
+    #     for election in self.instances.items():
+    #         election[1].election_features.votes = election[1].votes
+    #         election[1].election_features.num_candidates = election[1].num_candidates
+    #         election[1].election_features.num_voters = election[1].num_voters
+    #         election[1].election_features.compass_points['ST'] = self.instances[
+    #             ST_KEY + str(election[1].num_candidates)]
+    #         election[1].election_features.compass_points['AN'] = self.instances[
+    #             AN_KEY + str(election[1].num_candidates)]
+    #         election[1].election_features.compass_points['ID'] = self.instances[
+    #             ID_KEY + str(election[1].num_candidates)]
+    #         election[1].election_features.compass_points['UN'] = self.instances[
+    #             UN_KEY + str(election[1].num_candidates)]
 
     def calculate_dap(self, id):
         dap = list()

@@ -7,27 +7,21 @@ import os
 from abc import abstractmethod
 
 import numpy as np
-
 from mapof.core.distances import l2
 from mapof.core.objects.Instance import Instance
+from sklearn.decomposition import PCA
 from sklearn.manifold import MDS
 
 import mapof.elections.persistence.election_exports as exports
 import mapof.elections.persistence.election_imports as imports
 from mapof.elections.features import get_local_feature
-from mapof.elections.objects.ElectionFeatures import ElectionFeatures
+from mapof.elections.other.approval_rules import compute_abcvoting_rule_for_single_election
 from mapof.elections.other.glossary import is_pseudo_culture
 from mapof.elections.other.ordinal_rules import (
     compute_sntv_voting_rule,
     compute_borda_voting_rule,
     compute_stv_voting_rule
 )
-
-from sklearn.decomposition import PCA
-
-
-from mapof.elections.other.approval_rules import compute_abcvoting_rule_for_single_election
-
 
 OBJECT_TYPES = ['vote', 'candidate']
 
@@ -76,7 +70,6 @@ class Election(Instance):
         self.is_imported = is_imported
         self.fast_import = fast_import
         self.winning_committee = {}
-        self.election_features = ElectionFeatures(election_id)
 
         self.distances = {}
         self.import_distances()

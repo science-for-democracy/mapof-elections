@@ -9,8 +9,7 @@ Features
     main
     register
     scores
-    diversity
-    dap_approximate
+    dap
     simple_ordinal
     simple_approval
     abc_features

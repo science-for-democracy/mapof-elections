@@ -137,7 +137,7 @@ def _process_toi_line(line: str, votes: list):
     pass
 
 
-def import_real_new_soc_election(
+def import_ordinal_election(
         experiment_id: str = None,
         election_id: str = None,
         is_shifted=False,
@@ -165,17 +165,6 @@ def import_real_new_soc_election(
             line = line[:-1]
         if line[0] != '#':
             is_header = False
-            # if from_file_data_type == 'soc':
-            #     _process_soc_line(line, votes)
-            # elif from_file_data_type == 'soi':
-            #     _process_soi_line(line, votes)
-            # elif from_file_data_type == 'toc':
-            #     _process_toc_line(line, votes)
-            # elif from_file_data_type == 'toi':
-            #     _process_toi_line(line, votes)
-            # else:
-            #     raise ValueError("Unknown data format.")
-            # break
         if is_header:
             if re.search(regex_file_name, line):
                 from_file_file_name = line.split(':')[1][1:-file_ending]
@@ -199,17 +188,13 @@ def import_real_new_soc_election(
                     params = ast.literal_eval(" ".join(line[2:]))
         else:
             if from_file_data_type == 'soc':
-                for line in file:
-                    _process_soc_line(line, votes)
+                _process_soc_line(line, votes)
             elif from_file_data_type == 'soi':
-                for line in file:
-                    _process_soi_line(line, votes)
+                _process_soi_line(line, votes)
             elif from_file_data_type == 'toc':
-                for line in file:
-                    _process_toc_line(line, votes)
+                _process_toc_line(line, votes)
             elif from_file_data_type == 'toi':
-                for line in file:
-                    _process_toi_line(line, votes)
+                _process_toi_line(line, votes)
             else:
                 raise ValueError("Unknown data format.")
 
@@ -222,7 +207,7 @@ def import_real_new_soc_election(
     counted_votes = sorted(counted_votes, reverse=True)
     quantities = [a[0] for a in counted_votes]
     distinct_votes = [a[1] for a in counted_votes]
-    num_options = len(counted_votes)
+    num_distinct_votes = len(counted_votes)
 
     if is_shifted:
         votes = [[vote - 1 for vote in voter] for voter in votes]
@@ -233,176 +218,72 @@ def import_real_new_soc_election(
            params, \
            culture_id, \
            alliances, \
-           num_options, \
+           num_distinct_votes, \
            quantities, \
            distinct_votes
 
 
-def import_real_old_soc_election(
-        experiment_id: str = None,
-        election_id: str = None,
-        is_shifted=False
+
+def import_pseudo_ordinal_election(
+        experiment_id: str,
+        election_id: str,
 ):
-    """ Import real ordinal election form .soc file """
 
-    logging.warning("Old soc format is no longer supported!")
-
-#     file_name = f'{election_id}.soc'
-#     path = os.path.join(os.getcwd(), "experiments", experiment_id, "elections", file_name)
-#     my_file = open(path, 'r')
-
-#     params = 0
-#     first_line = my_file.readline()
-
-#     if first_line[0] != '#':
-#         culture_id = 'empty'
-#         num_candidates = int(first_line)
-#     else:
-#         first_line = first_line.strip().split()
-#         culture_id = first_line[1]
-#         if experiment_id == 'original_ordinal_map':
-#             params = {}
-#             # culture_id = _old_name_extractor(first_line)
-#         else:
-#             if len(first_line) <= 2:
-#                 params = {}
-#             else:
-#                 params = ast.literal_eval(" ".join(first_line[2:]))
-
-#         num_candidates = int(my_file.readline())
-
-#     alliances = {}
-#     for i in range(num_candidates):
-#         line = my_file.readline().strip().split()
-#         if len(line) > 2:
-#             alliances[i] = int(line[2])
-
-#     line = my_file.readline().rstrip("\n").split(',')
-#     num_voters = int(line[0])
-#     num_options = int(line[2])
-#     votes = [[0 for _ in range(num_candidates)] for _ in range(num_voters)]
-
-#     it = 0
-#     quantities = []
-#     for j in range(num_options):
-#         line = list(map(int, my_file.readline().rstrip("\n").split(',')))
-#         quantity = line[0]
-#         quantities.append(quantity)
-
-#         for k in range(quantity):
-#             votes[it] = line[1:num_candidates + 1]
-#             it += 1
-
-#     c = Counter(map(tuple, votes))
-#     counted_votes = [[count, list(row)] for row, count in c.items()]
-#     counted_votes = sorted(counted_votes, reverse=True)
-#     quantities = [a[0] for a in counted_votes]
-#     distinct_votes = [a[1] for a in counted_votes]
-#     num_options = len(counted_votes)
-
-#     if is_shifted:
-#         votes = [[vote - 1 for vote in voter] for voter in votes]
-#     my_file.close()
-
-#     return np.array(votes), \
-#            num_voters, \
-#            num_candidates, \
-#            params, \
-#            culture_id, \
-#            alliances, \
-#            num_options, \
-#            quantities, \
-#            distinct_votes
-
-
-
-
-# def import_pseudo_new_soc_election(
-#         experiment_id: str,
-#         election_id: str,
-# ):
-#     file_ending = 4
-#     file_name = f'{election_id}.soc'
-#     path = os.path.join(os.getcwd(), "experiments", experiment_id, "elections", file_name)
-#     file = open(path, 'r')
-#     params = None
-#     culture_id = None
-#     matrix = []
-#     num_candidates = 0
-#     nr_votes = 0
-#     nr_unique = 0
-#     alternative_names = list()
-#     from_file_file_name = ''
-#     from_file_title = ''
-#     from_file_data_type = ''
-#     # read metadata
-#     for line in file:
-#         if line[-1] == '\n':
-#             line = line[:-1]
-#         if line[0] != '#':
-#             if str(from_file_data_type) == 'soc':
-#                 _process_pseudo_soc_line(line, matrix)
-#             else:
-#                 raise ValueError("Unknown data format.")
-#             break
-#         elif re.search(regex_file_name, line):
-#             from_file_file_name = line.split(':')[1][1:-file_ending]
-#         elif re.search(regex_title, line):
-#             from_file_title = line.split(':')[1].replace(" ", "")
-#         elif re.search(regex_data_type, line):
-#             from_file_data_type = line.split(':')[1].replace(" ", "")
-#         elif re.search(regex_number_alternatives, line):
-#             num_candidates = int(line.split(':')[1])
-#         elif re.search(regex_number_voters, line):
-#             num_voters = int(line.split(':')[1])
-#         elif re.search(regex_number_unique_orders, line):
-#             nr_unique = int(line.split(':')[1])
-#         elif re.search(regex_culture_id, line):
-#             culture_id = str(line.split(':')[1]).replace(" ", "")
-#         elif re.search(regex_params, line):
-#             line = line.strip().split()
-#             if len(line) <= 2:
-#                 params = {}
-#             else:
-#                 params = ast.literal_eval(" ".join(line[2:]))
-
-#     if from_file_data_type == 'soc':
-#         for line in file:
-#             _process_pseudo_soc_line(line, matrix)
-#     else:
-#         raise ValueError("Unknown data format.")
-
-#     file.close()
-
-#     return culture_id, params, num_voters, num_candidates, matrix
-
-
-def import_pseudo_old_soc_election(experiment_id: str, election_id: str):
-    """ Import is_pseudo ordinal election form .soc file """
-
-    print(f"Importing files in old format")
-
+    file_ending = 4
     file_name = f'{election_id}.soc'
     path = os.path.join(os.getcwd(), "experiments", experiment_id, "elections", file_name)
-    my_file = open(path, 'r')
+    file = open(path, 'r')
+    params = None
+    culture_id = None
+    matrix = []
+    num_candidates = 0
+    nr_votes = 0
+    nr_unique = 0
+    alternative_names = list()
+    from_file_file_name = ''
+    from_file_title = ''
+    from_file_data_type = ''
+    # read metadata
+    is_header = True
+    for line in file:
+        if line[-1] == '\n':
+            line = line[:-1]
+        if line[0] != '#':
+            is_header = False
+        if is_header:
+            if re.search(regex_file_name, line):
+                from_file_file_name = line.split(':')[1][1:-file_ending]
+            elif re.search(regex_title, line):
+                from_file_title = line.split(':')[1].replace(" ", "")
+            elif re.search(regex_data_type, line):
+                from_file_data_type = line.split(':')[1].replace(" ", "")
+            elif re.search(regex_number_alternatives, line):
+                num_candidates = int(line.split(':')[1])
+            elif re.search(regex_number_voters, line):
+                num_voters = int(line.split(':')[1])
+            elif re.search(regex_number_unique_orders, line):
+                nr_unique = int(line.split(':')[1])
+            elif re.search(regex_culture_id, line):
+                culture_id = str(line.split(':')[1]).replace(" ", "")
+            elif re.search(regex_params, line):
+                line = line.strip().split()
+                if len(line) <= 2:
+                    params = {}
+                else:
+                    params = ast.literal_eval(" ".join(line[2:]))
+        else:
+            if from_file_data_type == 'soc':
+                _process_pseudo_soc_line(line, matrix)
+            else:
+                raise ValueError("Unknown data format.")
 
-    first_line = my_file.readline()
-    first_line = first_line.strip().split()
-    culture_id = first_line[1]
-    if len(first_line) <= 2:
-        params = {}
-    else:
-        params = ast.literal_eval(" ".join(first_line[2:]))
+    file.close()
 
-    num_candidates = int(my_file.readline())
-    num_voters = int(my_file.readline())
-
-    my_file.close()
-
-    return culture_id, params, num_voters, num_candidates, None
+    return culture_id, params, num_voters, num_candidates, matrix
 
 
-def import_real_new_app_election(
+
+def import_approval_election(
         experiment_id: str = None,
         election_id: str = None,
         is_shifted: bool = False,
@@ -488,77 +369,6 @@ def import_real_new_app_election(
            distinct_votes
 
 
-def import_real_old_app_election(
-        experiment_id: str,
-        election_id: str,
-        is_shifted: bool = False
-):
-    """ Import real approval election from .app file """
-    print(election_id)
-    logging.warning("Old app format is no longer supported!")
-
-    # file_name = f'{election_id}.app'
-    # path = os.path.join(os.getcwd(), "experiments", experiment_id, "elections", file_name)
-    # my_file = open(path, 'r')
-    #
-    # params = 0
-    # first_line = my_file.readline()
-    # if first_line[0] != '#':
-    #     culture_id = 'empty'
-    #     num_candidates = int(first_line)
-    # else:
-    #     first_line = first_line.strip().split()
-    #     culture_id = first_line[1]
-    #     if len(first_line) <= 2:
-    #         params = {}
-    #     else:
-    #         params = ast.literal_eval(" ".join(first_line[2:]))
-    #
-    #     num_candidates = int(my_file.readline())
-    #
-    # for _ in range(num_candidates):
-    #     my_file.readline()
-    #
-    # line = my_file.readline().rstrip("\n").split(',')
-    # num_voters = int(line[0])
-    # num_options = int(line[2])
-    # votes = [set() for _ in range(num_voters)]
-    #
-    # it = 0
-    # for j in range(num_options):
-    #     line = my_file.readline().rstrip("\n").replace("{", ''). \
-    #         replace("}", '').replace(' ', '').split(',')
-    #     if line[1] != '':
-    #         quantity = int(line[0])
-    #         for k in range(quantity):
-    #             for el in range(len(line) - 1):
-    #                 votes[it].add(int(line[el + 1]))
-    #             it += 1
-    #
-    # # if culture_id in NICE_NAME.values():
-    # #     rev_dict = dict(zip(NICE_NAME.values(), NICE_NAME.keys()))
-    # #     culture_id = rev_dict[culture_id]
-    #
-    # if is_shifted:
-    #     votes = [{c - 1 for c in vote} for vote in votes]
-    # my_file.close()
-    #
-    # c = Counter(map(tuple, votes))
-    # counted_votes = [[count, list(row)] for row, count in c.items()]
-    # counted_votes = sorted(counted_votes, reverse=True)
-    # quantities = [a[0] for a in counted_votes]
-    # distinct_votes = [a[1] for a in counted_votes]
-    # num_options = len(counted_votes)
-    #
-    # return votes, \
-    #        num_voters, \
-    #        num_candidates, \
-    #        params, \
-    #        culture_id, \
-    #        num_options, \
-    #        quantities, \
-    #        distinct_votes
-
 
 def check_if_pseudo(experiment_id, election_id):
     file_ending = 4
@@ -608,23 +418,3 @@ def check_if_pseudo(experiment_id, election_id):
                 params = ast.literal_eval(" ".join(line[2:]))
     return is_pseudo_culture(str(culture_id))
 
-
-def import_real_soc_election(**kwargs):
-    try:
-        return import_real_new_soc_election(**kwargs)
-    except:
-        return import_real_old_soc_election(**kwargs)
-
-
-def import_pseudo_soc_election(*args):
-    try:
-        return import_pseudo_new_soc_election(*args)
-    except:
-        return import_pseudo_old_soc_election(*args)
-
-
-def import_real_app_election(**kwargs):
-    try:
-        return import_real_new_app_election(**kwargs)
-    except:
-        return import_real_old_app_election(**kwargs)

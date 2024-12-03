@@ -63,7 +63,7 @@ class ApprovalElection(Election, ABC):
                 self.num_options,
                 self.quantities,
                 self.distinct_votes,
-            ) = imports.import_real_app_election(
+            ) = imports.import_approval_election(
                 experiment_id=self.experiment_id,
                 election_id=self.election_id,
                 is_shifted=self.is_shifted

@@ -3,6 +3,7 @@ import numpy as np
 
 import mapof.elections as mapof
 
+
 registered_ordinal_features_to_test = {
     'highest_borda_score',
     'highest_plurality_score',
@@ -11,61 +12,29 @@ registered_ordinal_features_to_test = {
     'highest_cc_score',
     'highest_hb_score',
     'highest_pav_score',
+    'borda_spread',
     'greedy_approx_cc_score',
-    'removal_approx_cc_score',
     'greedy_approx_hb_score',
-    'removal_approx_hb_score',
     'greedy_approx_pav_score',
+    'removal_approx_cc_score',
+    'removal_approx_hb_score',
     'removal_approx_pav_score',
     'banzhaf_cc_score',
-    'ranging_cc_score',
-    'num_of_diff_votes',
-    'borda_diversity',
-    'borda_std',
-    'borda_range',
-    'borda_gini',
-    'borda_meandev',
-    'cand_dom_dist_mean',
-    'cand_dom_dist_std',
     'cand_pos_dist_std',
-    'cand_pos_dist_gini',
-    'cand_pos_dist_meandev',
-    'med_cands_summed',
-    'vote_dist_mean',
-    'vote_dist_max',
-    'vote_dist_med',
-    'vote_dist_gini',
-    'vote_sqr_dist_mean',
-    'vote_sqr_dist_med',
-    'vote_diversity_Karpov',
-    'greedy_kKemenys_summed',
-    'greedy_2kKemenys_summed',
-    'greedy_kKemenys_divk_summed',
-    'polarization_1by2Kemenys',
-    'greedy_kmeans_summed',
+    'agreement',
+    'kkemeny_diversity_full',
+    'kkemeny_polarization',
     'support_pairs',
     'support_triplets',
     'support_votes',
-    'support_diversity_summed',
-    'support_diversity_normed_summed',
-    'support_diversity_normed2_summed',
-    'support_diversity_normed3_summed',
-    'dist_to_Borda_mean',
-    'dist_to_Kemeny_mean',
-    'borda_spread',
-    'Agreement',
-    'Diversity',
-    'Polarization',
-    'AgreementApprox',
-    'DiversityApprox',
-    'PolarizationApprox',
-    'partylist',
-    'effective_num_candidates',
     'entropy',
     'is_condorcet',
-
-    ## 'rand_approx_pav_score',  # fix this one
+    'effective_num_candidates',
+    'partylist',
+    'ranging_cc_score'
 }
+
+
 
 
 class TestFeaturesSanity:
@@ -80,3 +49,15 @@ class TestFeaturesSanity:
                                                    num_voters=num_voters,
                                                    num_candidates=num_candidates)
         election.compute_feature(feature_id)
+
+
+    def test_parameterized_diversity(self):
+
+        num_voters = np.random.randint(10, 20)
+        num_candidates = np.random.randint(5, 10)
+
+        election = mapof.generate_ordinal_election(culture_id='impartial',
+                                                   num_voters=num_voters,
+                                                   num_candidates=num_candidates)
+        election.compute_feature('kkemeny_diversity_upto_r', r=5)
+

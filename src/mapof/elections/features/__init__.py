@@ -2,9 +2,8 @@
 import mapof.elections.features.approx as approx
 import mapof.elections.features.banzhaf_cc as banzhaf_cc
 import mapof.elections.features.cohesive as cohesive
-import mapof.elections.features.diversity as diversity
+import mapof.elections.features.dap as dap
 import mapof.elections.features.entropy as entropy
-import mapof.elections.features.dap_approximate as dap_approx
 import mapof.elections.features.justified_representation as jr
 import mapof.elections.features.simple_ordinal as simple_ordinal
 import mapof.elections.features.simple_approval as simple_approval
@@ -12,7 +11,6 @@ import mapof.elections.features.partylist as partylist
 import mapof.elections.features.proportionality_degree as prop_deg
 import mapof.elections.features.ranging_cc as ranging_cc
 import mapof.elections.features.scores as scores
-import mapof.elections.features.vc_diversity as vcd
 import mapof.elections.features.abc_features as approval_rule_features
 
 from mapof.elections.features.register import \

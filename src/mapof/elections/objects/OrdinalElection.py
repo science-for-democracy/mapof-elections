@@ -11,21 +11,13 @@ from matplotlib import pyplot as plt
 import mapof.elections.persistence.election_exports as exports
 import mapof.elections.persistence.election_imports as imports
 from mapof.elections.cultures import generate_ordinal_votes, \
-    from_approval, generate_ordinal_alliance_votes, registered_pseudo_ordinal_cultures
-from mapof.elections.cultures.mallows import get_mallows_matrix
-from mapof.elections.cultures.matrices.group_separable_matrices import get_gs_caterpillar_matrix
-from mapof.elections.cultures.matrices.single_crossing_matrices import get_single_crossing_matrix
-from mapof.elections.cultures.matrices.single_peaked_matrices import (
-    get_conitzer_matrix,
-    get_walsh_matrix,
-)
+    generate_ordinal_alliance_votes, registered_pseudo_ordinal_cultures
 from mapof.elections.cultures.pseudo_cultures import (
     get_frequency_matrix_for_guardian,
     get_pairwise_matrix_for_guardian,
     update_params_ordinal,
     get_pseudo_convex,
     get_pseudo_borda_vector,
-    get_pseudo_multiplication,
 )
 from mapof.elections.features.simple_ordinal import is_condorcet
 from mapof.elections.objects.Election import Election
@@ -90,7 +82,7 @@ class OrdinalElection(Election):
                     self.num_voters,
                     self.num_candidates,
                     self.frequency_matrix
-                ) = imports.import_pseudo_soc_election(
+                ) = imports.import_pseudo_ordinal_election(
                     self.experiment_id,
                     self.election_id
                 )
@@ -103,22 +95,16 @@ class OrdinalElection(Election):
                     self.params,
                     self.culture_id,
                     self.alliances,
-                    self.num_options,
+                    self.num_distinct_votes,
                     self.quantities,
                     self.distinct_votes
-                ) = imports.import_real_soc_election(
+                ) = imports.import_ordinal_election(
                     experiment_id=self.experiment_id,
                     election_id=self.election_id,
                     is_shifted=self.is_shifted)
 
-                try:
-                    self.points['voters'] = self.import_ideal_points('voters')
-                    self.points['candidates'] = self.import_ideal_points('candidates')
-                except Exception:
-                    pass
-
-            if not self.fast_import:
-                self._votes_to_frequency_matrix()
+                if not self.fast_import:
+                    self._votes_to_frequency_matrix()
 
         except Exception:
             logging.warning(f'Could not import instance {self.election_id}.')
@@ -308,10 +294,10 @@ class OrdinalElection(Election):
             counted_votes = sorted(counted_votes, reverse=True)
             self.quantities = [a[0] for a in counted_votes]
             self.distinct_votes = [a[1] for a in counted_votes]
-            self.num_options = len(counted_votes)
+            self.num_distinct_votes = len(counted_votes)
         else:
             self.quantities = [self.num_voters]
-            self.num_options = 1
+            self.num_distinct_votes = 1
 
         if is_exported:
             exports.export_election_within_experiment(self, is_aggregated=is_aggregated)
@@ -323,7 +309,7 @@ class OrdinalElection(Election):
 
         self.distinct_potes = convert_votes_to_potes(self.distinct_votes)
         self.num_dist_votes = len(self.distinct_votes)
-        self.num_options = self.num_dist_votes
+        self.num_distinct_votes = self.num_dist_votes
 
         if object_type == 'vote':
             distances = np.zeros([self.num_dist_votes, self.num_dist_votes])

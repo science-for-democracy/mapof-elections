@@ -301,7 +301,7 @@ def kkemeny_diversity_upto_r(election, r) -> dict:
     if election.is_pseudo:
         return {'value': None}
     res = 0
-    for k in range(r):
+    for k in range(1, r+1):
         res += kkemeny_single_k(election, k, 1)['value']
     max_dist = (election.num_candidates) * (election.num_candidates - 1) / 2
     return {'value': res / election.num_voters / max_dist / r}
@@ -319,7 +319,7 @@ def kkemeny_diversity_full(election) -> dict:
     if election.is_pseudo:
         return {'value': None}
     res = 0
-    for k in range(election.num_voters):
+    for k in range(1, election.num_voters + 1):
         res += kkemeny_single_k(election, k, 1)['value']/k
     max_dist = (election.num_candidates) * (election.num_candidates - 1) / 2
     return {'value': res / election.num_voters / max_dist}

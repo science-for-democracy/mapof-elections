@@ -376,7 +376,7 @@ class OrdinalElection(Election):
 
     @staticmethod
     def texify_label(name):
-        return name.replace('phi', '$\phi$'). \
+        return name.replace('phi', '$\\ \\phi$'). \
             replace('alpha', '$\\ \\alpha$'). \
             replace('omega', '$\\ \\omega$'). \
             replace('§', '\n', 1). \

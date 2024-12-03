@@ -135,7 +135,7 @@ def generate_ordinal_election_from_votes(votes=None):
     counted_votes = sorted(counted_votes, reverse=True)
     election.quantities = [a[0] for a in counted_votes]
     election.distinct_votes = [a[1] for a in counted_votes]
-    election.num_options = len(counted_votes)
+    election.num_distinct_votes = len(counted_votes)
     election.is_pseudo = False
     return election
 

@@ -845,6 +845,9 @@ class ElectionExperiment(Experiment):
                                            feature_dict=feature_dict,
                                            saveas=saveas)
 
+        for election_id in self.elections:
+            self.instances[election_id].features[saveas] = feature_dict['value'][election_id]
+
         self.features[saveas] = feature_dict
         return feature_dict
 

@@ -6,7 +6,6 @@ import math
 import os
 from abc import abstractmethod
 
-import matplotlib.pyplot as plt
 import numpy as np
 
 from mapof.core.distances import l2
@@ -301,11 +300,21 @@ class Election(Instance):
                     feature_id,
                     feature_long_id=None,
                     overwrite=False,
+                    compute_if_missing=True,
                     **kwargs):
+
+        if overwrite and not compute_if_missing:
+            raise ValueError('Cannot overwrite without computing the feature.')
+
         if feature_long_id is None:
             feature_long_id = feature_id
+
+        if not compute_if_missing:
+            return self.features[feature_long_id]
+
         if feature_id not in self.features or overwrite:
             self.compute_feature(feature_id, feature_long_id, **kwargs)
+
         return self.features[feature_long_id]
 
     def export_to_file(self, path_to_folder, is_aggregated=False):

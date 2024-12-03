@@ -5,20 +5,29 @@ from mapof.elections.objects import Election
 from mapof.elections.distances.register import register_ordinal_election_distance
 
 
+def _feature_distance(e1: Election, e2: Election, feature_ids: list[str], ord: int):
+    """ L1 or L2 distance between two feature vectors """
+    vector_1 = []
+    vector_2 = []
+    for feature_id in feature_ids:
+        try:
+            vector_1.append(e1.get_feature[feature_id], compute_if_missing=False)
+            vector_2.append(e2.get_feature[feature_id], compute_if_missing=False)
+        except Exception:
+            raise Exception(f"Feature {feature_id} not found in the election objects")
+    return np.linalg.norm(vector_1 - vector_2, ord=ord)
+
+
 @register_ordinal_election_distance("feature_l1")
-def features_vector_l1(e1: Election, e2: Election):
+def features_vector_l1(e1: Election, e2: Election, feature_ids: list[str]):
     """ L1 distance between two feature vectors """
-    vector1 = np.array(e1.election_features.features_vector)
-    vector2 = np.array(e2.election_features.features_vector)
-    return np.linalg.norm(vector1 - vector2, ord=1)
+    return _feature_distance(e1, e2, feature_ids, 1)
 
 
 @register_ordinal_election_distance("feature_l2")
-def features_vector_l2(e1: Election, e2: Election):
+def features_vector_l2(e1: Election, e2: Election, feature_ids: list[str]):
     """ L2 distance between two feature vectors """
-    vector1 = np.array(e1.election_features.features_vector)
-    vector2 = np.array(e2.election_features.features_vector)
-    return np.linalg.norm(vector1 - vector2, ord=2)
+    return _feature_distance(e1, e2, feature_ids, 2)
 
 
 """

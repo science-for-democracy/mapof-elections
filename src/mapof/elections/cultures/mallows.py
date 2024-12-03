@@ -4,7 +4,10 @@ import pickle
 import mapof.core.features.mallows as ml
 import numpy as np
 
-from mapof.elections.cultures.register import register_pseudo_ordinal_culture
+from mapof.elections.cultures.register import (
+    register_pseudo_ordinal_culture,
+    register_ordinal_election_culture,
+)
 
 
 def generate_mallows_votes(*args, **kwargs):
@@ -88,3 +91,8 @@ def get_mallows_matrix(
         params: dict
 ):
     return get_mallows_matrix_help(num_candidates, params).transpose()
+
+
+@register_ordinal_election_culture("mallows_triangle")
+def mallows_triangle(num_voters: int, num_candidates: int, **kwargs):
+    return generate_mallows_votes(num_voters, num_candidates, **kwargs)

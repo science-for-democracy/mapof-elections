@@ -15,6 +15,7 @@ simple_ordinal_cultures_to_test = {
     'single_crossing',
     'mallows',
     'norm_mallows',
+    'mallows_triangle'
 }
 
 cultures_with_even_number_of_voters = {
@@ -165,6 +166,3 @@ class TestCultures:
 
         assert len(election.votes) == num_voters
         assert len(election.votes[0]) == num_candidates
-
-
-

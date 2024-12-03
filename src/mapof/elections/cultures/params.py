@@ -34,10 +34,9 @@ def update_params_ordinal_mallows_matrix_path(params: dict, num_candidates: int)
 
 
 def update_params_ordinal_mallows_triangle(params: dict, num_candidates: int):
-    params['normphi'] = 1 - np.sqrt(np.random.uniform())
+    params['normphi'] = float(1 - np.sqrt(np.random.uniform()))
     params['phi'] = mallows.phi_from_normphi(num_candidates, normphi=params['normphi'])
     params['weight'] = np.random.uniform(0, 0.5)
-    params['alpha'] = params['normphi']
     params['tint'] = params['weight']  # for tint on plots
 
 

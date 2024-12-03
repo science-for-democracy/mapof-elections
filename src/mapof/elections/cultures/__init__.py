@@ -88,30 +88,6 @@ def generate_ordinal_votes(
     return np.array(votes)
 
 
-def approval_votes_to_vectors(votes, num_candidates=None, num_voters=None):
-    vectors = np.zeros([num_candidates, num_candidates])
-    for vote in votes:
-        denom_in = len(vote)
-        denom_out = num_candidates - denom_in
-        for i in range(num_candidates):
-            if i in vote:
-                for j in range(denom_in):
-                    vectors[i][j] += 1 / denom_in / num_voters
-            else:
-                for j in range(denom_out):
-                    vectors[i][denom_in + j] += 1 / denom_out / num_voters
-    return vectors
-
-
-def from_approval(num_candidates: int = None,
-                  num_voters: int = None,
-                  params: dict = None):
-    votes = generate_approval_votes(culture_id=params['pseudo_culture_id'],
-                                    num_candidates=num_candidates, num_voters=num_voters,
-                                    params=params)
-
-    return approval_votes_to_vectors(votes, num_candidates=num_candidates, num_voters=num_voters)
-
 
 def generate_ordinal_alliance_votes(
         culture_id: str = None,
@@ -186,6 +162,17 @@ def add_pseudo_ordinal_culture(name, function) -> None:
     registered_pseudo_ordinal_cultures[name] = function
 
 
+def generate_frequency_matrix(
+        culture_id=None,
+        num_candidates=None,
+        params=None):
+
+    return registered_pseudo_ordinal_cultures[culture_id](
+        num_candidates=num_candidates,
+        params=params
+    )
+
+
 __all__ = [
     'generate_approval_votes',
     'generate_ordinal_votes',
@@ -193,6 +180,5 @@ __all__ = [
     'add_approval_culture',
     'add_ordinal_culture',
     'add_pseudo_ordinal_culture',
-    'approval_votes_to_vectors',
-    'from_approval',
+    'generate_frequency_matrix'
 ]

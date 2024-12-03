@@ -92,3 +92,17 @@ class TestOnlineOrdinalExperiment:
 
         for method in ['sntv', 'borda', 'stv']:
             two_fam_experiment.compute_voting_rule(method=method, committee_size=2)
+
+
+    def test_paths(self):
+        exp = mapof.prepare_online_ordinal_experiment()
+        exp.add_family(
+            culture_id='norm_mallows',
+            num_candidates=5,
+            num_voters=20,
+            size=5,
+            path={
+                'varibale': 'normphi',
+                'start': 0,
+                'step': 0.1}
+        )

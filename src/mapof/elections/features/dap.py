@@ -339,8 +339,8 @@ def kkemeny_diversity_full(election) -> dict:
 
 ### Polarization Indices ###
 
-@register_ordinal_election_feature('PolarizationApprox')
-def polarization_index(election) -> dict:
+@register_ordinal_election_feature('kkemeny_polarization')
+def kkemeny_polarization(election) -> dict:
     """
     Calculates the approximate k-Kemeny polarization index as defined in
     Faliszewski et al., 'Diversity, Agreement, and Polarization in Elections'.

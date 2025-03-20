@@ -177,8 +177,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/main.html">Main</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/register.html">Register</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/scores.html">Scores</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/diversity.html">Diversity</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/dap_approximate.html">Diversity Approximate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/dap.html">Diversity Approximate</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/simple_ordinal.html">Simple Ordinal</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/simple_approval.html">Simple Approval</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/abc_features.html">ABC Features</a></li>
@@ -335,112 +334,6 @@ document.write(`
 <span class="kn">from</span> <span class="nn">mapof.elections.cultures.register</span> <span class="kn">import</span> <span class="n">register_pseudo_ordinal_culture</span>
 
 
-<div class="viewcode-block" id="pseudo_uniformity">
-<a class="viewcode-back" href="../../../../reference/cultures/pseudo_cultures.html#mapof.elections.cultures.pseudo_cultures.pseudo_uniformity">[docs]</a>
-<span class="nd">@register_pseudo_ordinal_culture</span><span class="p">(</span><span class="s1">&#39;pseudo_uniformity&#39;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">pseudo_uniformity</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; Returns pseudo culture matrix with uniformity. &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">get_pseudo_matrix_single</span><span class="p">(</span><span class="s1">&#39;pseudo_uniformity&#39;</span><span class="p">,</span> <span class="n">num_candidates</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span></div>
-
-
-
-<div class="viewcode-block" id="pseudo_identity">
-<a class="viewcode-back" href="../../../../reference/cultures/pseudo_cultures.html#mapof.elections.cultures.pseudo_cultures.pseudo_identity">[docs]</a>
-<span class="nd">@register_pseudo_ordinal_culture</span><span class="p">(</span><span class="s1">&#39;pseudo_identity&#39;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">pseudo_identity</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; Returns pseudo culture matrix with identity. &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">get_pseudo_matrix_single</span><span class="p">(</span><span class="s1">&#39;pseudo_identity&#39;</span><span class="p">,</span> <span class="n">num_candidates</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span></div>
-
-
-
-<div class="viewcode-block" id="pseudo_stratification">
-<a class="viewcode-back" href="../../../../reference/cultures/pseudo_cultures.html#mapof.elections.cultures.pseudo_cultures.pseudo_stratification">[docs]</a>
-<span class="nd">@register_pseudo_ordinal_culture</span><span class="p">(</span><span class="s1">&#39;pseudo_stratification&#39;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">pseudo_stratification</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; Returns pseudo culture matrix with stratification. &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">get_pseudo_matrix_single</span><span class="p">(</span><span class="s1">&#39;pseudo_stratification&#39;</span><span class="p">,</span> <span class="n">num_candidates</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span></div>
-
-
-
-<div class="viewcode-block" id="pseudo_antagonism">
-<a class="viewcode-back" href="../../../../reference/cultures/pseudo_cultures.html#mapof.elections.cultures.pseudo_cultures.pseudo_antagonism">[docs]</a>
-<span class="nd">@register_pseudo_ordinal_culture</span><span class="p">(</span><span class="s1">&#39;pseudo_antagonism&#39;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">pseudo_antagonism</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; Returns pseudo culture matrix with antagonism. &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">get_pseudo_matrix_single</span><span class="p">(</span><span class="s1">&#39;pseudo_antagonism&#39;</span><span class="p">,</span> <span class="n">num_candidates</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span></div>
-
-
-
-<div class="viewcode-block" id="pseudo_unid">
-<a class="viewcode-back" href="../../../../reference/cultures/pseudo_cultures.html#mapof.elections.cultures.pseudo_cultures.pseudo_unid">[docs]</a>
-<span class="nd">@register_pseudo_ordinal_culture</span><span class="p">(</span><span class="s1">&#39;pseudo_unid&#39;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">pseudo_unid</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; Returns pseudo culture matrix with unid path. &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">get_pseudo_convex</span><span class="p">(</span><span class="s1">&#39;pseudo_unid&#39;</span><span class="p">,</span> <span class="n">num_candidates</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span>
-                             <span class="n">get_frequency_matrix_for_guardian</span><span class="p">)</span></div>
-
-
-
-<div class="viewcode-block" id="pseudo_anid">
-<a class="viewcode-back" href="../../../../reference/cultures/pseudo_cultures.html#mapof.elections.cultures.pseudo_cultures.pseudo_anid">[docs]</a>
-<span class="nd">@register_pseudo_ordinal_culture</span><span class="p">(</span><span class="s1">&#39;pseudo_anid&#39;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">pseudo_anid</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; Returns pseudo culture matrix with anid path. &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">get_pseudo_convex</span><span class="p">(</span><span class="s1">&#39;pseudo_unid&#39;</span><span class="p">,</span> <span class="n">num_candidates</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span>
-                             <span class="n">get_frequency_matrix_for_guardian</span><span class="p">)</span></div>
-
-
-
-<div class="viewcode-block" id="pseudo_stid">
-<a class="viewcode-back" href="../../../../reference/cultures/pseudo_cultures.html#mapof.elections.cultures.pseudo_cultures.pseudo_stid">[docs]</a>
-<span class="nd">@register_pseudo_ordinal_culture</span><span class="p">(</span><span class="s1">&#39;pseudo_stid&#39;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">pseudo_stid</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; Returns pseudo culture matrix with stid path. &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">get_pseudo_convex</span><span class="p">(</span><span class="s1">&#39;pseudo_unid&#39;</span><span class="p">,</span> <span class="n">num_candidates</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span>
-                             <span class="n">get_frequency_matrix_for_guardian</span><span class="p">)</span></div>
-
-
-
-<div class="viewcode-block" id="pseudo_anun">
-<a class="viewcode-back" href="../../../../reference/cultures/pseudo_cultures.html#mapof.elections.cultures.pseudo_cultures.pseudo_anun">[docs]</a>
-<span class="nd">@register_pseudo_ordinal_culture</span><span class="p">(</span><span class="s1">&#39;pseudo_anun&#39;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">pseudo_anun</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; Returns pseudo culture matrix with anun path. &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">get_pseudo_convex</span><span class="p">(</span><span class="s1">&#39;pseudo_unid&#39;</span><span class="p">,</span> <span class="n">num_candidates</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span>
-                             <span class="n">get_frequency_matrix_for_guardian</span><span class="p">)</span></div>
-
-
-
-<div class="viewcode-block" id="pseudo_stun">
-<a class="viewcode-back" href="../../../../reference/cultures/pseudo_cultures.html#mapof.elections.cultures.pseudo_cultures.pseudo_stun">[docs]</a>
-<span class="nd">@register_pseudo_ordinal_culture</span><span class="p">(</span><span class="s1">&#39;pseudo_stun&#39;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">pseudo_stun</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; Returns pseudo culture matrix with stun path. &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">get_pseudo_convex</span><span class="p">(</span><span class="s1">&#39;pseudo_unid&#39;</span><span class="p">,</span> <span class="n">num_candidates</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span>
-                             <span class="n">get_frequency_matrix_for_guardian</span><span class="p">)</span></div>
-
-
-
-<span class="nd">@register_pseudo_ordinal_culture</span><span class="p">(</span><span class="s1">&#39;pseudo_stan&#39;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">pseudo_stan</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">get_pseudo_convex</span><span class="p">(</span><span class="s1">&#39;pseudo_unid&#39;</span><span class="p">,</span> <span class="n">num_candidates</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span>
-                             <span class="n">get_frequency_matrix_for_guardian</span><span class="p">)</span>
-
-
-<span class="k">def</span> <span class="nf">get_pseudo_multiplication</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
-    <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;THIS FUNCTION IS NOT IMPLEMENTED YET.&#39;</span><span class="p">)</span>
-    <span class="c1"># params[&#39;weight&#39;] = 0.</span>
-    <span class="c1"># params[&#39;normphi&#39;] = params[&#39;alpha&#39;]</span>
-    <span class="c1"># main_matrix = []</span>
-    <span class="c1"># if model == &#39;conitzer_path&#39;:</span>
-    <span class="c1">#     main_matrix = get_conitzer_vectors(num_candidates).transpose()</span>
-    <span class="c1"># elif model == &#39;walsh_path&#39;:</span>
-    <span class="c1">#     main_matrix = get_walsh_vectors(num_candidates).transpose()</span>
-    <span class="c1"># mallows_matrix = get_mallows_vectors(num_candidates, params).transpose()</span>
-    <span class="c1"># output = np.matmul(main_matrix, mallows_matrix).transpose()</span>
-    <span class="k">return</span> <span class="kc">None</span>
-
-
 <span class="k">def</span> <span class="nf">get_frequency_matrix_for_guardian</span><span class="p">(</span>
         <span class="n">culture_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
@@ -478,6 +371,116 @@ document.write(`
                 <span class="n">vectors</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">num_candidates</span> <span class="o">-</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span>
 
     <span class="k">return</span> <span class="n">vectors</span>
+
+<div class="viewcode-block" id="pseudo_uniformity">
+<a class="viewcode-back" href="../../../../reference/cultures/pseudo_cultures.html#mapof.elections.cultures.pseudo_cultures.pseudo_uniformity">[docs]</a>
+<span class="nd">@register_pseudo_ordinal_culture</span><span class="p">(</span><span class="s1">&#39;pseudo_uniformity&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">pseudo_uniformity</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Returns pseudo culture frequency matrix with uniformity. &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">get_frequency_matrix_for_guardian</span><span class="p">(</span><span class="s1">&#39;pseudo_uniformity&#39;</span><span class="p">,</span> <span class="n">num_candidates</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="pseudo_identity">
+<a class="viewcode-back" href="../../../../reference/cultures/pseudo_cultures.html#mapof.elections.cultures.pseudo_cultures.pseudo_identity">[docs]</a>
+<span class="nd">@register_pseudo_ordinal_culture</span><span class="p">(</span><span class="s1">&#39;pseudo_identity&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">pseudo_identity</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Returns pseudo culture frequency matrix with identity. &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">get_frequency_matrix_for_guardian</span><span class="p">(</span><span class="s1">&#39;pseudo_identity&#39;</span><span class="p">,</span> <span class="n">num_candidates</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="pseudo_stratification">
+<a class="viewcode-back" href="../../../../reference/cultures/pseudo_cultures.html#mapof.elections.cultures.pseudo_cultures.pseudo_stratification">[docs]</a>
+<span class="nd">@register_pseudo_ordinal_culture</span><span class="p">(</span><span class="s1">&#39;pseudo_stratification&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">pseudo_stratification</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Returns pseudo culture frequency matrix with stratification. &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">get_frequency_matrix_for_guardian</span><span class="p">(</span><span class="s1">&#39;pseudo_stratification&#39;</span><span class="p">,</span> <span class="n">num_candidates</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="pseudo_antagonism">
+<a class="viewcode-back" href="../../../../reference/cultures/pseudo_cultures.html#mapof.elections.cultures.pseudo_cultures.pseudo_antagonism">[docs]</a>
+<span class="nd">@register_pseudo_ordinal_culture</span><span class="p">(</span><span class="s1">&#39;pseudo_antagonism&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">pseudo_antagonism</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Returns pseudo culture frequency matrix with antagonism. &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">get_frequency_matrix_for_guardian</span><span class="p">(</span><span class="s1">&#39;pseudo_antagonism&#39;</span><span class="p">,</span> <span class="n">num_candidates</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="pseudo_unid">
+<a class="viewcode-back" href="../../../../reference/cultures/pseudo_cultures.html#mapof.elections.cultures.pseudo_cultures.pseudo_unid">[docs]</a>
+<span class="nd">@register_pseudo_ordinal_culture</span><span class="p">(</span><span class="s1">&#39;pseudo_unid&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">pseudo_unid</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Returns pseudo culture frequency matrix with unid path. &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">get_pseudo_convex</span><span class="p">(</span><span class="s1">&#39;pseudo_unid&#39;</span><span class="p">,</span> <span class="n">num_candidates</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span>
+                             <span class="n">get_frequency_matrix_for_guardian</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="pseudo_anid">
+<a class="viewcode-back" href="../../../../reference/cultures/pseudo_cultures.html#mapof.elections.cultures.pseudo_cultures.pseudo_anid">[docs]</a>
+<span class="nd">@register_pseudo_ordinal_culture</span><span class="p">(</span><span class="s1">&#39;pseudo_anid&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">pseudo_anid</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Returns pseudo culture frequency matrix with anid path. &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">get_pseudo_convex</span><span class="p">(</span><span class="s1">&#39;pseudo_anid&#39;</span><span class="p">,</span> <span class="n">num_candidates</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span>
+                             <span class="n">get_frequency_matrix_for_guardian</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="pseudo_stid">
+<a class="viewcode-back" href="../../../../reference/cultures/pseudo_cultures.html#mapof.elections.cultures.pseudo_cultures.pseudo_stid">[docs]</a>
+<span class="nd">@register_pseudo_ordinal_culture</span><span class="p">(</span><span class="s1">&#39;pseudo_stid&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">pseudo_stid</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Returns pseudo culture frequency matrix with stid path. &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">get_pseudo_convex</span><span class="p">(</span><span class="s1">&#39;pseudo_stid&#39;</span><span class="p">,</span> <span class="n">num_candidates</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span>
+                             <span class="n">get_frequency_matrix_for_guardian</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="pseudo_anun">
+<a class="viewcode-back" href="../../../../reference/cultures/pseudo_cultures.html#mapof.elections.cultures.pseudo_cultures.pseudo_anun">[docs]</a>
+<span class="nd">@register_pseudo_ordinal_culture</span><span class="p">(</span><span class="s1">&#39;pseudo_anun&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">pseudo_anun</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Returns pseudo culture frequency matrix with anun path. &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">get_pseudo_convex</span><span class="p">(</span><span class="s1">&#39;pseudo_anun&#39;</span><span class="p">,</span> <span class="n">num_candidates</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span>
+                             <span class="n">get_frequency_matrix_for_guardian</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="pseudo_stun">
+<a class="viewcode-back" href="../../../../reference/cultures/pseudo_cultures.html#mapof.elections.cultures.pseudo_cultures.pseudo_stun">[docs]</a>
+<span class="nd">@register_pseudo_ordinal_culture</span><span class="p">(</span><span class="s1">&#39;pseudo_stun&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">pseudo_stun</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Returns pseudo culture frequency matrix with stun path. &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">get_pseudo_convex</span><span class="p">(</span><span class="s1">&#39;pseudo_stun&#39;</span><span class="p">,</span> <span class="n">num_candidates</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span>
+                             <span class="n">get_frequency_matrix_for_guardian</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="pseudo_stan">
+<a class="viewcode-back" href="../../../../reference/cultures/pseudo_cultures.html#mapof.elections.cultures.pseudo_cultures.pseudo_stan">[docs]</a>
+<span class="nd">@register_pseudo_ordinal_culture</span><span class="p">(</span><span class="s1">&#39;pseudo_stan&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">pseudo_stan</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Returns pseudo culture frequency matrix with stan path. &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">get_pseudo_convex</span><span class="p">(</span><span class="s1">&#39;pseudo_stan&#39;</span><span class="p">,</span> <span class="n">num_candidates</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span>
+                             <span class="n">get_frequency_matrix_for_guardian</span><span class="p">)</span></div>
+
+
+
+<span class="k">def</span> <span class="nf">get_pseudo_multiplication</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;THIS FUNCTION IS NOT IMPLEMENTED YET.&#39;</span><span class="p">)</span>
+    <span class="c1"># params[&#39;weight&#39;] = 0.</span>
+    <span class="c1"># params[&#39;normphi&#39;] = params[&#39;alpha&#39;]</span>
+    <span class="c1"># main_matrix = []</span>
+    <span class="c1"># if model == &#39;conitzer_path&#39;:</span>
+    <span class="c1">#     main_matrix = get_conitzer_vectors(num_candidates).transpose()</span>
+    <span class="c1"># elif model == &#39;walsh_path&#39;:</span>
+    <span class="c1">#     main_matrix = get_walsh_vectors(num_candidates).transpose()</span>
+    <span class="c1"># mallows_matrix = get_mallows_vectors(num_candidates, params).transpose()</span>
+    <span class="c1"># output = np.matmul(main_matrix, mallows_matrix).transpose()</span>
+    <span class="k">return</span> <span class="kc">None</span>
+
+
 
 
 <span class="k">def</span> <span class="nf">get_pseudo_convex</span><span class="p">(</span>
@@ -531,15 +534,11 @@ document.write(`
     <span class="k">return</span> <span class="n">output</span>
 
 
-<span class="k">def</span> <span class="nf">get_pseudo_matrix_single</span><span class="p">(</span>
+<span class="k">def</span> <span class="nf">get_pairwise_matrix_for_guardian</span><span class="p">(</span>
         <span class="n">culture_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">):</span>
-
-    <span class="k">if</span> <span class="n">params</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="n">weight</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;weight&#39;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
 
     <span class="n">matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">num_candidates</span><span class="p">,</span> <span class="n">num_candidates</span><span class="p">])</span>
 
@@ -555,17 +554,20 @@ document.write(`
                     <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span>
 
     <span class="k">elif</span> <span class="n">culture_id</span> <span class="o">==</span> <span class="s1">&#39;pseudo_stratification&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">params</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">weight</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;weight&#39;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">num_candidates</span><span class="o">*</span><span class="n">weight</span><span class="p">)):</span>
             <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">num_candidates</span><span class="o">*</span><span class="n">weight</span><span class="p">),</span> <span class="n">num_candidates</span><span class="p">):</span>
                 <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">num_candidates</span><span class="o">*</span><span class="n">weight</span><span class="p">)):</span>
             <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">num_candidates</span><span class="o">*</span><span class="n">weight</span><span class="p">)):</span>
                 <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">j</span><span class="p">:</span>
-                    <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">weight</span>
+                    <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">num_candidates</span><span class="o">*</span><span class="n">weight</span><span class="p">),</span> <span class="n">num_candidates</span><span class="p">):</span>
             <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">num_candidates</span><span class="o">*</span><span class="n">weight</span><span class="p">),</span> <span class="n">num_candidates</span><span class="p">):</span>
                 <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">j</span><span class="p">:</span>
-                    <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="o">-</span><span class="n">weight</span>
+                    <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span>
 
     <span class="k">return</span> <span class="n">matrix</span>
 

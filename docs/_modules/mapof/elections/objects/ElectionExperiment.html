@@ -177,8 +177,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/main.html">Main</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/register.html">Register</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/scores.html">Scores</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/diversity.html">Diversity</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/dap_approximate.html">Diversity Approximate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/dap.html">Diversity Approximate</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/simple_ordinal.html">Simple Ordinal</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/simple_approval.html">Simple Approval</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/abc_features.html">ABC Features</a></li>
@@ -360,12 +359,6 @@ document.write(`
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">mapof.elections.objects.ApprovalElection</span> <span class="kn">import</span> <span class="n">ApprovalElection</span>
 <span class="kn">from</span> <span class="nn">mapof.elections.objects.ElectionFamily</span> <span class="kn">import</span> <span class="n">ElectionFamily</span>
-<span class="kn">from</span> <span class="nn">mapof.elections.objects.ElectionFeatures</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">ST_KEY</span><span class="p">,</span>
-    <span class="n">AN_KEY</span><span class="p">,</span>
-    <span class="n">ID_KEY</span><span class="p">,</span>
-    <span class="n">UN_KEY</span>
-<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">mapof.elections.objects.OrdinalElection</span> <span class="kn">import</span> <span class="n">OrdinalElection</span>
 
 <span class="k">try</span><span class="p">:</span>
@@ -1213,6 +1206,9 @@ document.write(`
                                            <span class="n">feature_dict</span><span class="o">=</span><span class="n">feature_dict</span><span class="p">,</span>
                                            <span class="n">saveas</span><span class="o">=</span><span class="n">saveas</span><span class="p">)</span>
 
+        <span class="k">for</span> <span class="n">election_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">elections</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">instances</span><span class="p">[</span><span class="n">election_id</span><span class="p">]</span><span class="o">.</span><span class="n">features</span><span class="p">[</span><span class="n">saveas</span><span class="p">]</span> <span class="o">=</span> <span class="n">feature_dict</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">][</span><span class="n">election_id</span><span class="p">]</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">[</span><span class="n">saveas</span><span class="p">]</span> <span class="o">=</span> <span class="n">feature_dict</span>
         <span class="k">return</span> <span class="n">feature_dict</span></div>
 
@@ -1300,19 +1296,19 @@ document.write(`
             <span class="n">election</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">election_features</span><span class="o">.</span><span class="n">num_voters</span> <span class="o">=</span> <span class="n">election</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">num_voters</span>
             <span class="n">election</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">election_features</span><span class="o">.</span><span class="n">calculate_all</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">prepare_compass_dictionary</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">election</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">instances</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="n">election</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">election_features</span><span class="o">.</span><span class="n">votes</span> <span class="o">=</span> <span class="n">election</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">votes</span>
-            <span class="n">election</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">election_features</span><span class="o">.</span><span class="n">num_candidates</span> <span class="o">=</span> <span class="n">election</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">num_candidates</span>
-            <span class="n">election</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">election_features</span><span class="o">.</span><span class="n">num_voters</span> <span class="o">=</span> <span class="n">election</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">num_voters</span>
-            <span class="n">election</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">election_features</span><span class="o">.</span><span class="n">compass_points</span><span class="p">[</span><span class="s1">&#39;ST&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instances</span><span class="p">[</span>
-                <span class="n">ST_KEY</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">election</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">)]</span>
-            <span class="n">election</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">election_features</span><span class="o">.</span><span class="n">compass_points</span><span class="p">[</span><span class="s1">&#39;AN&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instances</span><span class="p">[</span>
-                <span class="n">AN_KEY</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">election</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">)]</span>
-            <span class="n">election</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">election_features</span><span class="o">.</span><span class="n">compass_points</span><span class="p">[</span><span class="s1">&#39;ID&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instances</span><span class="p">[</span>
-                <span class="n">ID_KEY</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">election</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">)]</span>
-            <span class="n">election</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">election_features</span><span class="o">.</span><span class="n">compass_points</span><span class="p">[</span><span class="s1">&#39;UN&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instances</span><span class="p">[</span>
-                <span class="n">UN_KEY</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">election</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">)]</span>
+    <span class="c1"># def prepare_compass_dictionary(self):</span>
+    <span class="c1">#     for election in self.instances.items():</span>
+    <span class="c1">#         election[1].election_features.votes = election[1].votes</span>
+    <span class="c1">#         election[1].election_features.num_candidates = election[1].num_candidates</span>
+    <span class="c1">#         election[1].election_features.num_voters = election[1].num_voters</span>
+    <span class="c1">#         election[1].election_features.compass_points[&#39;ST&#39;] = self.instances[</span>
+    <span class="c1">#             ST_KEY + str(election[1].num_candidates)]</span>
+    <span class="c1">#         election[1].election_features.compass_points[&#39;AN&#39;] = self.instances[</span>
+    <span class="c1">#             AN_KEY + str(election[1].num_candidates)]</span>
+    <span class="c1">#         election[1].election_features.compass_points[&#39;ID&#39;] = self.instances[</span>
+    <span class="c1">#             ID_KEY + str(election[1].num_candidates)]</span>
+    <span class="c1">#         election[1].election_features.compass_points[&#39;UN&#39;] = self.instances[</span>
+    <span class="c1">#             UN_KEY + str(election[1].num_candidates)]</span>
 
     <span class="k">def</span> <span class="nf">calculate_dap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
         <span class="n">dap</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>

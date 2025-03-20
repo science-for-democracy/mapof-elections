@@ -16,9 +16,9 @@ List of Approval Cultures
    * - culture_id
      - Implementation
    * - ``impartial``
-     - :py:func:`~prefsampling.approval.impartial.impartial`
+     - :py:func:`~prefsampling.approval.impartial.impartial`, :py:func:`~mapof.elections.cultures.prefsampling_mask.impartial_approval_mask`
    * - ``identity``
-     - :py:func:`~prefsampling.approval.identity.identity`, :py:func:`~mapof.elections.cultures.prefsampling_mask.identity_mask`
+     - :py:func:`~prefsampling.approval.identity.identity`, :py:func:`~mapof.elections.cultures.prefsampling_mask.identity_approval_mask`
    * - ``empty``
      - :py:func:`~prefsampling.approval.identity.empty`
    * - ``full``
@@ -57,7 +57,7 @@ List of Ordinal Cultures
    * - ``stratification``
      - :py:func:`~prefsampling.ordinal.impartial.impartial_anonymous`
    * - ``antagonism``
-     - :py:func:`~prefsampling.ordinal.compass.generate_antagonism_votes`
+     - :py:func:`~mapof.elections.cultures.compass.generate_antagonism_votes`
    * - ``urn``
      - :py:func:`~prefsampling.ordinal.urn.urn`
    * - ``didi``
@@ -118,8 +118,8 @@ List of Pseudo Ordinal Cultures
    * - ``pseudo_stan``
      - :py:func:`~mapof.elections.cultures.pseudo_cultures.pseudo_unid`
    * - ``pseudo_sp_conitzer``
-     - :py:func:`~mapof.elections.cultures.sp_matrices.get_conitzer_matrix`
+     - :py:func:`~mapof.elections.cultures.matrices.single_peaked_matrices.get_conitzer_matrix`
    * - ``pseudo_sp_walsh``
-     - :py:func:`~mapof.elections.cultures.sp_matrices.get_walsh_matrix`
+     - :py:func:`~mapof.elections.cultures.matrices.single_peaked_matrices.get_walsh_matrix`
    * - ``pseudo_single-crossing``
-     - :py:func:`~mapof.elections.cultures.sc_matrices.get_single_crossing_matrix`
+     - :py:func:`~mapof.elections.cultures.matrices.single_crossing_matrices.get_single_crossing_matrix`

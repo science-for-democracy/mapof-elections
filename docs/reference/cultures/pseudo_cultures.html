@@ -178,8 +178,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../features/main.html">Main</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../features/register.html">Register</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../features/scores.html">Scores</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../features/diversity.html">Diversity</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../features/dap_approximate.html">Diversity Approximate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../features/dap.html">Diversity Approximate</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../features/simple_ordinal.html">Simple Ordinal</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../features/simple_approval.html">Simple Approval</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../features/abc_features.html">ABC Features</a></li>
@@ -379,6 +378,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.cultures.pseudo_cultures.pseudo_antagonism"><code class="docutils literal notranslate"><span class="pre">pseudo_antagonism()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.cultures.pseudo_cultures.pseudo_anun"><code class="docutils literal notranslate"><span class="pre">pseudo_anun()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.cultures.pseudo_cultures.pseudo_identity"><code class="docutils literal notranslate"><span class="pre">pseudo_identity()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.cultures.pseudo_cultures.pseudo_stan"><code class="docutils literal notranslate"><span class="pre">pseudo_stan()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.cultures.pseudo_cultures.pseudo_stid"><code class="docutils literal notranslate"><span class="pre">pseudo_stid()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.cultures.pseudo_cultures.pseudo_stratification"><code class="docutils literal notranslate"><span class="pre">pseudo_stratification()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.cultures.pseudo_cultures.pseudo_stun"><code class="docutils literal notranslate"><span class="pre">pseudo_stun()</span></code></a></li>
@@ -400,55 +400,61 @@ document.write(`
 <dl class="py function">
 <dt class="sig sig-object py" id="mapof.elections.cultures.pseudo_cultures.pseudo_anid">
 <span class="sig-name descname"><span class="pre">pseudo_anid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_candidates</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mapof/elections/cultures/pseudo_cultures.html#pseudo_anid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.cultures.pseudo_cultures.pseudo_anid" title="Link to this definition">#</a></dt>
-<dd><p>Returns pseudo culture matrix with anid path.</p>
+<dd><p>Returns pseudo culture frequency matrix with anid path.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="mapof.elections.cultures.pseudo_cultures.pseudo_antagonism">
 <span class="sig-name descname"><span class="pre">pseudo_antagonism</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_candidates</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mapof/elections/cultures/pseudo_cultures.html#pseudo_antagonism"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.cultures.pseudo_cultures.pseudo_antagonism" title="Link to this definition">#</a></dt>
-<dd><p>Returns pseudo culture matrix with antagonism.</p>
+<dd><p>Returns pseudo culture frequency matrix with antagonism.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="mapof.elections.cultures.pseudo_cultures.pseudo_anun">
 <span class="sig-name descname"><span class="pre">pseudo_anun</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_candidates</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mapof/elections/cultures/pseudo_cultures.html#pseudo_anun"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.cultures.pseudo_cultures.pseudo_anun" title="Link to this definition">#</a></dt>
-<dd><p>Returns pseudo culture matrix with anun path.</p>
+<dd><p>Returns pseudo culture frequency matrix with anun path.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="mapof.elections.cultures.pseudo_cultures.pseudo_identity">
 <span class="sig-name descname"><span class="pre">pseudo_identity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_candidates</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mapof/elections/cultures/pseudo_cultures.html#pseudo_identity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.cultures.pseudo_cultures.pseudo_identity" title="Link to this definition">#</a></dt>
-<dd><p>Returns pseudo culture matrix with identity.</p>
+<dd><p>Returns pseudo culture frequency matrix with identity.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mapof.elections.cultures.pseudo_cultures.pseudo_stan">
+<span class="sig-name descname"><span class="pre">pseudo_stan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_candidates</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mapof/elections/cultures/pseudo_cultures.html#pseudo_stan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.cultures.pseudo_cultures.pseudo_stan" title="Link to this definition">#</a></dt>
+<dd><p>Returns pseudo culture frequency matrix with stan path.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="mapof.elections.cultures.pseudo_cultures.pseudo_stid">
 <span class="sig-name descname"><span class="pre">pseudo_stid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_candidates</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mapof/elections/cultures/pseudo_cultures.html#pseudo_stid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.cultures.pseudo_cultures.pseudo_stid" title="Link to this definition">#</a></dt>
-<dd><p>Returns pseudo culture matrix with stid path.</p>
+<dd><p>Returns pseudo culture frequency matrix with stid path.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="mapof.elections.cultures.pseudo_cultures.pseudo_stratification">
 <span class="sig-name descname"><span class="pre">pseudo_stratification</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_candidates</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mapof/elections/cultures/pseudo_cultures.html#pseudo_stratification"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.cultures.pseudo_cultures.pseudo_stratification" title="Link to this definition">#</a></dt>
-<dd><p>Returns pseudo culture matrix with stratification.</p>
+<dd><p>Returns pseudo culture frequency matrix with stratification.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="mapof.elections.cultures.pseudo_cultures.pseudo_stun">
 <span class="sig-name descname"><span class="pre">pseudo_stun</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_candidates</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mapof/elections/cultures/pseudo_cultures.html#pseudo_stun"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.cultures.pseudo_cultures.pseudo_stun" title="Link to this definition">#</a></dt>
-<dd><p>Returns pseudo culture matrix with stun path.</p>
+<dd><p>Returns pseudo culture frequency matrix with stun path.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="mapof.elections.cultures.pseudo_cultures.pseudo_unid">
 <span class="sig-name descname"><span class="pre">pseudo_unid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_candidates</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mapof/elections/cultures/pseudo_cultures.html#pseudo_unid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.cultures.pseudo_cultures.pseudo_unid" title="Link to this definition">#</a></dt>
-<dd><p>Returns pseudo culture matrix with unid path.</p>
+<dd><p>Returns pseudo culture frequency matrix with unid path.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="mapof.elections.cultures.pseudo_cultures.pseudo_uniformity">
 <span class="sig-name descname"><span class="pre">pseudo_uniformity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_candidates</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mapof/elections/cultures/pseudo_cultures.html#pseudo_uniformity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.cultures.pseudo_cultures.pseudo_uniformity" title="Link to this definition">#</a></dt>
-<dd><p>Returns pseudo culture matrix with uniformity.</p>
+<dd><p>Returns pseudo culture frequency matrix with uniformity.</p>
 </dd></dl>
 
 </section>
@@ -502,6 +508,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.cultures.pseudo_cultures.pseudo_antagonism"><code class="docutils literal notranslate"><span class="pre">pseudo_antagonism()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.cultures.pseudo_cultures.pseudo_anun"><code class="docutils literal notranslate"><span class="pre">pseudo_anun()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.cultures.pseudo_cultures.pseudo_identity"><code class="docutils literal notranslate"><span class="pre">pseudo_identity()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.cultures.pseudo_cultures.pseudo_stan"><code class="docutils literal notranslate"><span class="pre">pseudo_stan()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.cultures.pseudo_cultures.pseudo_stid"><code class="docutils literal notranslate"><span class="pre">pseudo_stid()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.cultures.pseudo_cultures.pseudo_stratification"><code class="docutils literal notranslate"><span class="pre">pseudo_stratification()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.cultures.pseudo_cultures.pseudo_stun"><code class="docutils literal notranslate"><span class="pre">pseudo_stun()</span></code></a></li>

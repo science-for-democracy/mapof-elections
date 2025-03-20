@@ -43,7 +43,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'reference/distances/feature_distance';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Features" href="../features/index.html" />
+    <link rel="next" title="Subelection Distance" href="ilp_subelections.html" />
     <link rel="prev" title="Committee Distances" href="committee_distances.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -156,27 +156,40 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="../cultures/index.html">Cultures</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../cultures/list_of_cultures.html">List of Cultures</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../cultures/main.html">Main</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../cultures/euclidean.html">Euclidean</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../cultures/guardians.html">Guardians</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../cultures/compass.html">Compass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../cultures/prefsampling_mask.html">Prefsampling Mask</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../cultures/pseudo_cultures.html">Pseudo Cultures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../cultures/params.html">Params</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="index.html">Distances</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="list_of_distances.html">List of Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="main.html">Main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="register.html">Register</a></li>
 <li class="toctree-l3"><a class="reference internal" href="main_approval_distances.html">Approval Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="main_ordinal_distances.html">Ordinal Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="committee_distances.html">Committee Distances</a></li>
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">Feature Distance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ilp_subelections.html">Subelection Distance</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../features/index.html">Features</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../features/list_of_features.html">List of Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../features/main.html">Main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../features/register.html">Register</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../features/scores.html">Scores</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../features/diversity.html">Diversity</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../features/dap_approximate.html">Diversity Approximate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../features/dap.html">Diversity Approximate</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../features/simple_ordinal.html">Simple Ordinal</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../features/simple_approval.html">Simple Approval</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../features/abc_features.html">ABC Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../features/banzhaf_cc.html">Banzhaf CC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../features/ranging_cc.html">Ranging CC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../features/approx.html">Approx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../features/cohesive.html">Cohesive</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../features/entropy.html">Entropy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../features/justified_representation.html">Justified Representation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../features/partylist.html">Partylist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../features/proportionality_degree.html">Proportionality Degree</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../objects/index.html">Objects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -196,6 +209,7 @@
 </details></li>
 </ul>
 </details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources.html">Resources</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../citation.html">Citation Policy</a></li>
 </ul>
 
@@ -377,14 +391,44 @@ document.write(`
 <span id="feature-distance"></span><h1>Feature Distance<a class="headerlink" href="#module-mapof.elections.distances.feature_distance" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="mapof.elections.distances.feature_distance.features_vector_l1">
-<span class="sig-name descname"><span class="pre">features_vector_l1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e1:</span> <span class="pre">&lt;module</span> <span class="pre">'mapof.elections.objects.Election'</span> <span class="pre">from</span> <span class="pre">'/Users/szufa/PyCharmProjects/mapof-elections/src/mapof/elections/objects/Election.py'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e2:</span> <span class="pre">&lt;module</span> <span class="pre">'mapof.elections.objects.Election'</span> <span class="pre">from</span> <span class="pre">'/Users/szufa/PyCharmProjects/mapof-elections/src/mapof/elections/objects/Election.py'&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mapof/elections/distances/feature_distance.html#features_vector_l1"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.distances.feature_distance.features_vector_l1" title="Link to this definition">#</a></dt>
-<dd><p>L1 distance between two feature vectors</p>
+<span class="sig-name descname"><span class="pre">features_vector_l1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">election_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">election_2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../../_modules/mapof/elections/distances/feature_distance.html#features_vector_l1"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.distances.feature_distance.features_vector_l1" title="Link to this definition">#</a></dt>
+<dd><p>Computes ell_1 distance between two feature vectors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>election_1</strong> (<a class="reference internal" href="../objects/OrdinalElection.html#mapof.elections.objects.OrdinalElection.OrdinalElection" title="mapof.elections.objects.OrdinalElection.OrdinalElection"><em>OrdinalElection</em></a>) – First election.</p></li>
+<li><p><strong>election_2</strong> (<a class="reference internal" href="../objects/OrdinalElection.html#mapof.elections.objects.OrdinalElection.OrdinalElection" title="mapof.elections.objects.OrdinalElection.OrdinalElection"><em>OrdinalElection</em></a>) – Second election.</p></li>
+<li><p><strong>feature_ids</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – List of feature ids.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>ell_2 distance between two feature vectors.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>float</em></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="mapof.elections.distances.feature_distance.features_vector_l2">
-<span class="sig-name descname"><span class="pre">features_vector_l2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e1:</span> <span class="pre">&lt;module</span> <span class="pre">'mapof.elections.objects.Election'</span> <span class="pre">from</span> <span class="pre">'/Users/szufa/PyCharmProjects/mapof-elections/src/mapof/elections/objects/Election.py'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e2:</span> <span class="pre">&lt;module</span> <span class="pre">'mapof.elections.objects.Election'</span> <span class="pre">from</span> <span class="pre">'/Users/szufa/PyCharmProjects/mapof-elections/src/mapof/elections/objects/Election.py'&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mapof/elections/distances/feature_distance.html#features_vector_l2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.distances.feature_distance.features_vector_l2" title="Link to this definition">#</a></dt>
-<dd><p>L2 distance between two feature vectors</p>
+<span class="sig-name descname"><span class="pre">features_vector_l2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">election_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">election_2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../../_modules/mapof/elections/distances/feature_distance.html#features_vector_l2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.distances.feature_distance.features_vector_l2" title="Link to this definition">#</a></dt>
+<dd><p>Computes ell_2 distance between two feature vectors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>election_1</strong> (<a class="reference internal" href="../objects/OrdinalElection.html#mapof.elections.objects.OrdinalElection.OrdinalElection" title="mapof.elections.objects.OrdinalElection.OrdinalElection"><em>OrdinalElection</em></a>) – First election.</p></li>
+<li><p><strong>election_2</strong> (<a class="reference internal" href="../objects/OrdinalElection.html#mapof.elections.objects.OrdinalElection.OrdinalElection" title="mapof.elections.objects.OrdinalElection.OrdinalElection"><em>OrdinalElection</em></a>) – Second election.</p></li>
+<li><p><strong>feature_ids</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – List of feature ids.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>ell_2 distance between two feature vectors.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>float</em></p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
@@ -410,11 +454,11 @@ document.write(`
       </div>
     </a>
     <a class="right-next"
-       href="../features/index.html"
+       href="ilp_subelections.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Features</p>
+        <p class="prev-next-title">Subelection Distance</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

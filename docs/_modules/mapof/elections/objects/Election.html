@@ -169,6 +169,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/main_ordinal_distances.html">Ordinal Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/committee_distances.html">Committee Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/feature_distance.html">Feature Distance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/ilp_subelections.html">Subelection Distance</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/features/index.html">Features</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -176,8 +177,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/main.html">Main</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/register.html">Register</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/scores.html">Scores</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/diversity.html">Diversity</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/dap_approximate.html">Diversity Approximate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/dap.html">Diversity Approximate</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/simple_ordinal.html">Simple Ordinal</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/simple_approval.html">Simple Approval</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/abc_features.html">ABC Features</a></li>
@@ -208,6 +208,7 @@
 </details></li>
 </ul>
 </details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../resources.html">Resources</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../citation.html">Citation Policy</a></li>
 </ul>
 
@@ -335,29 +336,22 @@ document.write(`
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">abstractmethod</span>
 
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-
 <span class="kn">from</span> <span class="nn">mapof.core.distances</span> <span class="kn">import</span> <span class="n">l2</span>
 <span class="kn">from</span> <span class="nn">mapof.core.objects.Instance</span> <span class="kn">import</span> <span class="n">Instance</span>
+<span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span>
 <span class="kn">from</span> <span class="nn">sklearn.manifold</span> <span class="kn">import</span> <span class="n">MDS</span>
 
 <span class="kn">import</span> <span class="nn">mapof.elections.persistence.election_exports</span> <span class="k">as</span> <span class="nn">exports</span>
 <span class="kn">import</span> <span class="nn">mapof.elections.persistence.election_imports</span> <span class="k">as</span> <span class="nn">imports</span>
 <span class="kn">from</span> <span class="nn">mapof.elections.features</span> <span class="kn">import</span> <span class="n">get_local_feature</span>
-<span class="kn">from</span> <span class="nn">mapof.elections.objects.ElectionFeatures</span> <span class="kn">import</span> <span class="n">ElectionFeatures</span>
+<span class="kn">from</span> <span class="nn">mapof.elections.other.approval_rules</span> <span class="kn">import</span> <span class="n">compute_abcvoting_rule_for_single_election</span>
 <span class="kn">from</span> <span class="nn">mapof.elections.other.glossary</span> <span class="kn">import</span> <span class="n">is_pseudo_culture</span>
 <span class="kn">from</span> <span class="nn">mapof.elections.other.ordinal_rules</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">compute_sntv_voting_rule</span><span class="p">,</span>
     <span class="n">compute_borda_voting_rule</span><span class="p">,</span>
     <span class="n">compute_stv_voting_rule</span>
 <span class="p">)</span>
-
-<span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span>
-
-
-<span class="kn">from</span> <span class="nn">mapof.elections.other.approval_rules</span> <span class="kn">import</span> <span class="n">compute_abcvoting_rule_for_single_election</span>
-
 
 <span class="n">OBJECT_TYPES</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;vote&#39;</span><span class="p">,</span> <span class="s1">&#39;candidate&#39;</span><span class="p">]</span>
 
@@ -372,7 +366,7 @@ document.write(`
                  <span class="n">election_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">culture_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">votes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                 <span class="n">ballot_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">instance_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                  <span class="n">num_voters</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                  <span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                  <span class="n">label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -380,15 +374,17 @@ document.write(`
                  <span class="n">is_shifted</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                  <span class="n">is_imported</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                  <span class="n">is_exported</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                 <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">experiment_id</span><span class="o">=</span><span class="n">experiment_id</span><span class="p">,</span>
                          <span class="n">instance_id</span><span class="o">=</span><span class="n">election_id</span><span class="p">,</span>
                          <span class="n">culture_id</span><span class="o">=</span><span class="n">culture_id</span><span class="p">,</span>
+                         <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
                          <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">ballot_type</span> <span class="o">=</span> <span class="n">ballot_type</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">format</span> <span class="o">=</span> <span class="n">get_format_from_instance_type</span><span class="p">(</span><span class="n">ballot_type</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">instance_type</span> <span class="o">=</span> <span class="n">instance_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">format</span> <span class="o">=</span> <span class="n">get_format_from_instance_type</span><span class="p">(</span><span class="n">instance_type</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">election_id</span> <span class="o">=</span> <span class="n">election_id</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">label</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">num_voters</span> <span class="o">=</span> <span class="n">num_voters</span>
@@ -406,7 +402,6 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">is_imported</span> <span class="o">=</span> <span class="n">is_imported</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fast_import</span> <span class="o">=</span> <span class="n">fast_import</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">winning_committee</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">election_features</span> <span class="o">=</span> <span class="n">ElectionFeatures</span><span class="p">(</span><span class="n">election_id</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">distances</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">import_distances</span><span class="p">()</span>
@@ -546,14 +541,6 @@ document.write(`
         <span class="k">else</span><span class="p">:</span>
             <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;No such algorithm!&#39;</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">object_type</span> <span class="o">==</span> <span class="s1">&#39;vote&#39;</span><span class="p">:</span>
-            <span class="n">length</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_options</span>
-        <span class="k">elif</span> <span class="n">object_type</span> <span class="o">==</span> <span class="s1">&#39;candidate&#39;</span><span class="p">:</span>
-            <span class="k">pass</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;No such type of object!&#39;</span><span class="p">)</span>
-            <span class="n">length</span> <span class="o">=</span> <span class="kc">None</span>
-
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_dist_zeros</span><span class="p">(</span><span class="n">object_type</span><span class="p">):</span>
             <span class="n">dist</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span>
                 <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coordinates</span><span class="p">[</span><span class="n">object_type</span><span class="p">]),</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coordinates</span><span class="p">[</span><span class="n">object_type</span><span class="p">])])</span>
@@ -590,7 +577,7 @@ document.write(`
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">left_ctr</span> <span class="o">=</span> <span class="mi">0</span>
                 <span class="n">right_ctr</span> <span class="o">=</span> <span class="mi">0</span>
-                <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">length</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coordinates</span><span class="p">[</span><span class="n">object_type</span><span class="p">])):</span>
                     <span class="n">d_left</span> <span class="o">=</span> <span class="n">l2</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coordinates</span><span class="p">[</span><span class="n">object_type</span><span class="p">][</span><span class="n">left</span><span class="p">],</span>
                                 <span class="bp">self</span><span class="o">.</span><span class="n">coordinates</span><span class="p">[</span><span class="n">object_type</span><span class="p">][</span><span class="n">v</span><span class="p">])</span>
                     <span class="n">d_right</span> <span class="o">=</span> <span class="n">l2</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coordinates</span><span class="p">[</span><span class="n">object_type</span><span class="p">][</span><span class="n">right</span><span class="p">],</span>
@@ -653,11 +640,21 @@ document.write(`
                     <span class="n">feature_id</span><span class="p">,</span>
                     <span class="n">feature_long_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                     <span class="n">overwrite</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                    <span class="n">compute_if_missing</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                     <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">overwrite</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">compute_if_missing</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Cannot overwrite without computing the feature.&#39;</span><span class="p">)</span>
+
         <span class="k">if</span> <span class="n">feature_long_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">feature_long_id</span> <span class="o">=</span> <span class="n">feature_id</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">compute_if_missing</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">[</span><span class="n">feature_long_id</span><span class="p">]</span>
+
         <span class="k">if</span> <span class="n">feature_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">features</span> <span class="ow">or</span> <span class="n">overwrite</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">compute_feature</span><span class="p">(</span><span class="n">feature_id</span><span class="p">,</span> <span class="n">feature_long_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">[</span><span class="n">feature_long_id</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">export_to_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path_to_folder</span><span class="p">,</span> <span class="n">is_aggregated</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
@@ -696,11 +693,10 @@ document.write(`
     <span class="k">return</span> <span class="n">election</span>
 
 
-
-<span class="k">def</span> <span class="nf">get_format_from_instance_type</span><span class="p">(</span><span class="n">ballot_type</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">ballot_type</span> <span class="o">==</span> <span class="s1">&#39;approval&#39;</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">get_format_from_instance_type</span><span class="p">(</span><span class="n">instance_type</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">instance_type</span> <span class="o">==</span> <span class="s1">&#39;approval&#39;</span><span class="p">:</span>
         <span class="k">return</span> <span class="s1">&#39;app&#39;</span>
-    <span class="k">elif</span> <span class="n">ballot_type</span> <span class="o">==</span> <span class="s1">&#39;ordinal&#39;</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">instance_type</span> <span class="o">==</span> <span class="s1">&#39;ordinal&#39;</span><span class="p">:</span>
         <span class="k">return</span> <span class="s1">&#39;soc&#39;</span>
 </pre></div>
 

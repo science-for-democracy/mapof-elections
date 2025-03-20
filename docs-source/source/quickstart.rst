@@ -685,11 +685,18 @@ Ordinal Compass
 ---------------
 To help us navigate the map, we add four special elections, which we can interpret as compass points.
 
-1. Identity --  all votes are the same.
+1. Identity (ID) --  Perfect agreement; all voters have the same preference order.
 
-2. Uniformity -- each possible vote appears once.
+2. Uniformity (UN) -- Lack of agreement; each candidate takes each position equally often.
 
-3. Antagonism -- two equal-sized groups of voters with
-opposite preference orders.
+3. Antagonism (AN) -- Conflict; half of the voters have opposite preferences to the other half.
 
-4. Stratification --
+4. Stratification (ST) -- Partial agreement; voters agree that half of the candidates are better
+than the other half, but lack agreement on anything else.
+
+Note that, given a number of candidates and a number of voters it is not always possible to create the exact compass elections (especially for UN and ST).
+In such cases, can either create an approximation of the compass elections or we can directly create a frequency matrix
+(this is always possible, no matter what is the election size). The latter option is particularly useful if one is planning to use the positionwise distance.
+
+
+Moreover, it is possible to create paths.

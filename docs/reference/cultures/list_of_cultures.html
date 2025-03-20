@@ -170,6 +170,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../distances/main_ordinal_distances.html">Ordinal Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../distances/committee_distances.html">Committee Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../distances/feature_distance.html">Feature Distance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../distances/ilp_subelections.html">Subelection Distance</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../features/index.html">Features</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -177,8 +178,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../features/main.html">Main</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../features/register.html">Register</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../features/scores.html">Scores</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../features/diversity.html">Diversity</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../features/dap_approximate.html">Diversity Approximate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../features/dap.html">Diversity Approximate</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../features/simple_ordinal.html">Simple Ordinal</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../features/simple_approval.html">Simple Approval</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../features/abc_features.html">ABC Features</a></li>
@@ -209,6 +209,7 @@
 </details></li>
 </ul>
 </details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources.html">Resources</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../citation.html">Citation Policy</a></li>
 </ul>
 
@@ -404,37 +405,37 @@ document.write(`
 </thead>
 <tbody>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">impartial</span></code></p></td>
-<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/approval/impartial.html#prefsampling.approval.impartial.impartial" title="(in prefsampling v0.1.21)"><code class="xref py py-func docutils literal notranslate"><span class="pre">impartial()</span></code></a></p></td>
+<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/approval/impartial.html#prefsampling.approval.impartial.impartial" title="(in prefsampling v0.1.24)"><code class="xref py py-func docutils literal notranslate"><span class="pre">impartial()</span></code></a>, <a class="reference internal" href="prefsampling_mask.html#mapof.elections.cultures.prefsampling_mask.impartial_approval_mask" title="mapof.elections.cultures.prefsampling_mask.impartial_approval_mask"><code class="xref py py-func docutils literal notranslate"><span class="pre">impartial_approval_mask()</span></code></a></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">identity</span></code></p></td>
-<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/approval/identity.html#prefsampling.approval.identity.identity" title="(in prefsampling v0.1.21)"><code class="xref py py-func docutils literal notranslate"><span class="pre">identity()</span></code></a>, <code class="xref py py-func docutils literal notranslate"><span class="pre">identity_mask()</span></code></p></td>
+<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/approval/identity.html#prefsampling.approval.identity.identity" title="(in prefsampling v0.1.24)"><code class="xref py py-func docutils literal notranslate"><span class="pre">identity()</span></code></a>, <a class="reference internal" href="prefsampling_mask.html#mapof.elections.cultures.prefsampling_mask.identity_approval_mask" title="mapof.elections.cultures.prefsampling_mask.identity_approval_mask"><code class="xref py py-func docutils literal notranslate"><span class="pre">identity_approval_mask()</span></code></a></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">empty</span></code></p></td>
-<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/approval/identity.html#prefsampling.approval.identity.empty" title="(in prefsampling v0.1.21)"><code class="xref py py-func docutils literal notranslate"><span class="pre">empty()</span></code></a></p></td>
+<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/approval/identity.html#prefsampling.approval.identity.empty" title="(in prefsampling v0.1.24)"><code class="xref py py-func docutils literal notranslate"><span class="pre">empty()</span></code></a></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">full</span></code></p></td>
-<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/approval/identity.html#prefsampling.approval.identity.full" title="(in prefsampling v0.1.21)"><code class="xref py py-func docutils literal notranslate"><span class="pre">full()</span></code></a></p></td>
+<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/approval/identity.html#prefsampling.approval.identity.full" title="(in prefsampling v0.1.24)"><code class="xref py py-func docutils literal notranslate"><span class="pre">full()</span></code></a></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">resampling</span></code></p></td>
-<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/approval/resampling.html#prefsampling.approval.resampling.resampling" title="(in prefsampling v0.1.21)"><code class="xref py py-func docutils literal notranslate"><span class="pre">resampling()</span></code></a></p></td>
+<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/approval/resampling.html#prefsampling.approval.resampling.resampling" title="(in prefsampling v0.1.24)"><code class="xref py py-func docutils literal notranslate"><span class="pre">resampling()</span></code></a></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">disjoint_resampling</span></code></p></td>
-<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/approval/resampling.html#prefsampling.approval.resampling.disjoint_resampling" title="(in prefsampling v0.1.21)"><code class="xref py py-func docutils literal notranslate"><span class="pre">disjoint_resampling()</span></code></a></p></td>
+<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/approval/resampling.html#prefsampling.approval.resampling.disjoint_resampling" title="(in prefsampling v0.1.24)"><code class="xref py py-func docutils literal notranslate"><span class="pre">disjoint_resampling()</span></code></a></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">moving_resampling</span></code></p></td>
-<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/approval/resampling.html#prefsampling.approval.resampling.moving_resampling" title="(in prefsampling v0.1.21)"><code class="xref py py-func docutils literal notranslate"><span class="pre">moving_resampling()</span></code></a></p></td>
+<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/approval/resampling.html#prefsampling.approval.resampling.moving_resampling" title="(in prefsampling v0.1.24)"><code class="xref py py-func docutils literal notranslate"><span class="pre">moving_resampling()</span></code></a></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">noise</span></code></p></td>
-<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/approval/noise.html#prefsampling.approval.noise.noise" title="(in prefsampling v0.1.21)"><code class="xref py py-func docutils literal notranslate"><span class="pre">noise()</span></code></a></p></td>
+<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/approval/noise.html#prefsampling.approval.noise.noise" title="(in prefsampling v0.1.24)"><code class="xref py py-func docutils literal notranslate"><span class="pre">noise()</span></code></a></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">urn_partylist</span></code></p></td>
-<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/approval/urn.html#prefsampling.approval.urn.urn_partylist" title="(in prefsampling v0.1.21)"><code class="xref py py-func docutils literal notranslate"><span class="pre">urn_partylist()</span></code></a></p></td>
+<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/approval/urn.html#prefsampling.approval.urn.urn_partylist" title="(in prefsampling v0.1.24)"><code class="xref py py-func docutils literal notranslate"><span class="pre">urn_partylist()</span></code></a></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">truncated_urn</span></code></p></td>
-<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/approval/truncatedordinal.html#prefsampling.approval.truncated_ordinal.truncated_ordinal" title="(in prefsampling v0.1.21)"><code class="xref py py-func docutils literal notranslate"><span class="pre">truncated_ordinal()</span></code></a>, <a class="reference internal" href="prefsampling_mask.html#mapof.elections.cultures.prefsampling_mask.truncated_urn_mask" title="mapof.elections.cultures.prefsampling_mask.truncated_urn_mask"><code class="xref py py-func docutils literal notranslate"><span class="pre">truncated_urn_mask()</span></code></a></p></td>
+<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/approval/truncatedordinal.html#prefsampling.approval.truncated_ordinal.truncated_ordinal" title="(in prefsampling v0.1.24)"><code class="xref py py-func docutils literal notranslate"><span class="pre">truncated_ordinal()</span></code></a>, <a class="reference internal" href="prefsampling_mask.html#mapof.elections.cultures.prefsampling_mask.truncated_urn_mask" title="mapof.elections.cultures.prefsampling_mask.truncated_urn_mask"><code class="xref py py-func docutils literal notranslate"><span class="pre">truncated_urn_mask()</span></code></a></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">euclidean</span></code></p></td>
-<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/approval/euclidean.html#prefsampling.approval.euclidean.euclidean_vcr" title="(in prefsampling v0.1.21)"><code class="xref py py-func docutils literal notranslate"><span class="pre">euclidean_vcr()</span></code></a>, <a class="reference internal" href="prefsampling_mask.html#mapof.elections.cultures.prefsampling_mask.euclidean_approval_mask" title="mapof.elections.cultures.prefsampling_mask.euclidean_approval_mask"><code class="xref py py-func docutils literal notranslate"><span class="pre">euclidean_approval_mask()</span></code></a></p></td>
+<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/approval/euclidean.html#prefsampling.approval.euclidean.euclidean_vcr" title="(in prefsampling v0.1.24)"><code class="xref py py-func docutils literal notranslate"><span class="pre">euclidean_vcr()</span></code></a>, <a class="reference internal" href="prefsampling_mask.html#mapof.elections.cultures.prefsampling_mask.euclidean_approval_mask" title="mapof.elections.cultures.prefsampling_mask.euclidean_approval_mask"><code class="xref py py-func docutils literal notranslate"><span class="pre">euclidean_approval_mask()</span></code></a></p></td>
 </tr>
 </tbody>
 </table>
@@ -454,40 +455,40 @@ document.write(`
 </thead>
 <tbody>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">identity</span></code></p></td>
-<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/ordinal/identity.html#prefsampling.ordinal.identity.identity" title="(in prefsampling v0.1.21)"><code class="xref py py-func docutils literal notranslate"><span class="pre">identity()</span></code></a></p></td>
+<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/ordinal/identity.html#prefsampling.ordinal.identity.identity" title="(in prefsampling v0.1.24)"><code class="xref py py-func docutils literal notranslate"><span class="pre">identity()</span></code></a></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">impartial</span></code></p></td>
-<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/ordinal/impartial.html#prefsampling.ordinal.impartial.impartial" title="(in prefsampling v0.1.21)"><code class="xref py py-func docutils literal notranslate"><span class="pre">impartial()</span></code></a></p></td>
+<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/ordinal/impartial.html#prefsampling.ordinal.impartial.impartial" title="(in prefsampling v0.1.24)"><code class="xref py py-func docutils literal notranslate"><span class="pre">impartial()</span></code></a></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">iac</span></code></p></td>
-<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/ordinal/impartial.html#prefsampling.ordinal.impartial.impartial_anonymous" title="(in prefsampling v0.1.21)"><code class="xref py py-func docutils literal notranslate"><span class="pre">impartial_anonymous()</span></code></a></p></td>
+<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/ordinal/impartial.html#prefsampling.ordinal.impartial.impartial_anonymous" title="(in prefsampling v0.1.24)"><code class="xref py py-func docutils literal notranslate"><span class="pre">impartial_anonymous()</span></code></a></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">stratification</span></code></p></td>
-<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/ordinal/impartial.html#prefsampling.ordinal.impartial.impartial_anonymous" title="(in prefsampling v0.1.21)"><code class="xref py py-func docutils literal notranslate"><span class="pre">impartial_anonymous()</span></code></a></p></td>
+<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/ordinal/impartial.html#prefsampling.ordinal.impartial.impartial_anonymous" title="(in prefsampling v0.1.24)"><code class="xref py py-func docutils literal notranslate"><span class="pre">impartial_anonymous()</span></code></a></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">antagonism</span></code></p></td>
-<td><p><code class="xref py py-func docutils literal notranslate"><span class="pre">generate_antagonism_votes()</span></code></p></td>
+<td><p><a class="reference internal" href="compass.html#mapof.elections.cultures.compass.generate_antagonism_votes" title="mapof.elections.cultures.compass.generate_antagonism_votes"><code class="xref py py-func docutils literal notranslate"><span class="pre">generate_antagonism_votes()</span></code></a></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">urn</span></code></p></td>
-<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/ordinal/urn.html#prefsampling.ordinal.urn.urn" title="(in prefsampling v0.1.21)"><code class="xref py py-func docutils literal notranslate"><span class="pre">urn()</span></code></a></p></td>
+<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/ordinal/urn.html#prefsampling.ordinal.urn.urn" title="(in prefsampling v0.1.24)"><code class="xref py py-func docutils literal notranslate"><span class="pre">urn()</span></code></a></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">didi</span></code></p></td>
-<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/ordinal/didi.html#prefsampling.ordinal.didi.didi" title="(in prefsampling v0.1.21)"><code class="xref py py-func docutils literal notranslate"><span class="pre">didi()</span></code></a></p></td>
+<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/ordinal/didi.html#prefsampling.ordinal.didi.didi" title="(in prefsampling v0.1.24)"><code class="xref py py-func docutils literal notranslate"><span class="pre">didi()</span></code></a></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">plackett-luce</span></code></p></td>
-<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/ordinal/plackettluce.html#prefsampling.ordinal.plackettluce.plackett_luce" title="(in prefsampling v0.1.21)"><code class="xref py py-func docutils literal notranslate"><span class="pre">plackett_luce()</span></code></a></p></td>
+<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/ordinal/plackettluce.html#prefsampling.ordinal.plackettluce.plackett_luce" title="(in prefsampling v0.1.24)"><code class="xref py py-func docutils literal notranslate"><span class="pre">plackett_luce()</span></code></a></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">walsh</span></code></p></td>
-<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/ordinal/singlepeaked.html#prefsampling.ordinal.singlepeaked.single_peaked_walsh" title="(in prefsampling v0.1.21)"><code class="xref py py-func docutils literal notranslate"><span class="pre">single_peaked_walsh()</span></code></a></p></td>
+<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/ordinal/singlepeaked.html#prefsampling.ordinal.singlepeaked.single_peaked_walsh" title="(in prefsampling v0.1.24)"><code class="xref py py-func docutils literal notranslate"><span class="pre">single_peaked_walsh()</span></code></a></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">conitzer</span></code></p></td>
-<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/ordinal/singlepeaked.html#prefsampling.ordinal.singlepeaked.single_peaked_conitzer" title="(in prefsampling v0.1.21)"><code class="xref py py-func docutils literal notranslate"><span class="pre">single_peaked_conitzer()</span></code></a></p></td>
+<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/ordinal/singlepeaked.html#prefsampling.ordinal.singlepeaked.single_peaked_conitzer" title="(in prefsampling v0.1.24)"><code class="xref py py-func docutils literal notranslate"><span class="pre">single_peaked_conitzer()</span></code></a></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">spoc</span></code></p></td>
-<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/ordinal/singlepeaked.html#prefsampling.ordinal.singlepeaked.single_peaked_circle" title="(in prefsampling v0.1.21)"><code class="xref py py-func docutils literal notranslate"><span class="pre">single_peaked_circle()</span></code></a></p></td>
+<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/ordinal/singlepeaked.html#prefsampling.ordinal.singlepeaked.single_peaked_circle" title="(in prefsampling v0.1.24)"><code class="xref py py-func docutils literal notranslate"><span class="pre">single_peaked_circle()</span></code></a></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">spoc</span></code></p></td>
-<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/ordinal/singlecrossing.html#prefsampling.ordinal.singlecrossing.single_crossing" title="(in prefsampling v0.1.21)"><code class="xref py py-func docutils literal notranslate"><span class="pre">single_crossing()</span></code></a></p></td>
+<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/ordinal/singlecrossing.html#prefsampling.ordinal.singlecrossing.single_crossing" title="(in prefsampling v0.1.24)"><code class="xref py py-func docutils literal notranslate"><span class="pre">single_crossing()</span></code></a></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">approx_uniformity</span></code></p></td>
 <td><p><a class="reference internal" href="compass.html#mapof.elections.cultures.compass.generate_approx_uniformity_votes" title="mapof.elections.cultures.compass.generate_approx_uniformity_votes"><code class="xref py py-func docutils literal notranslate"><span class="pre">generate_approx_uniformity_votes()</span></code></a></p></td>
@@ -496,16 +497,16 @@ document.write(`
 <td><p><a class="reference internal" href="compass.html#mapof.elections.cultures.compass.generate_approx_stratification_votes" title="mapof.elections.cultures.compass.generate_approx_stratification_votes"><code class="xref py py-func docutils literal notranslate"><span class="pre">generate_approx_stratification_votes()</span></code></a></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">euclidean</span></code></p></td>
-<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/ordinal/euclidean.html#prefsampling.ordinal.euclidean.euclidean" title="(in prefsampling v0.1.21)"><code class="xref py py-func docutils literal notranslate"><span class="pre">euclidean()</span></code></a>, <a class="reference internal" href="prefsampling_mask.html#mapof.elections.cultures.prefsampling_mask.euclidean_ordinal_mask" title="mapof.elections.cultures.prefsampling_mask.euclidean_ordinal_mask"><code class="xref py py-func docutils literal notranslate"><span class="pre">euclidean_ordinal_mask()</span></code></a></p></td>
+<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/ordinal/euclidean.html#prefsampling.ordinal.euclidean.euclidean" title="(in prefsampling v0.1.24)"><code class="xref py py-func docutils literal notranslate"><span class="pre">euclidean()</span></code></a>, <a class="reference internal" href="prefsampling_mask.html#mapof.elections.cultures.prefsampling_mask.euclidean_ordinal_mask" title="mapof.elections.cultures.prefsampling_mask.euclidean_ordinal_mask"><code class="xref py py-func docutils literal notranslate"><span class="pre">euclidean_ordinal_mask()</span></code></a></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">group-separable</span></code></p></td>
-<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/ordinal/groupseparable.html#prefsampling.ordinal.groupseparable.group_separable" title="(in prefsampling v0.1.21)"><code class="xref py py-func docutils literal notranslate"><span class="pre">group_separable()</span></code></a>, <a class="reference internal" href="prefsampling_mask.html#mapof.elections.cultures.prefsampling_mask.group_separable_mask" title="mapof.elections.cultures.prefsampling_mask.group_separable_mask"><code class="xref py py-func docutils literal notranslate"><span class="pre">group_separable_mask()</span></code></a></p></td>
+<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/ordinal/groupseparable.html#prefsampling.ordinal.groupseparable.group_separable" title="(in prefsampling v0.1.24)"><code class="xref py py-func docutils literal notranslate"><span class="pre">group_separable()</span></code></a>, <a class="reference internal" href="prefsampling_mask.html#mapof.elections.cultures.prefsampling_mask.group_separable_mask" title="mapof.elections.cultures.prefsampling_mask.group_separable_mask"><code class="xref py py-func docutils literal notranslate"><span class="pre">group_separable_mask()</span></code></a></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mallows</span></code></p></td>
-<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/ordinal/mallows.html#prefsampling.ordinal.mallows.mallows" title="(in prefsampling v0.1.21)"><code class="xref py py-func docutils literal notranslate"><span class="pre">mallows()</span></code></a></p></td>
+<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/ordinal/mallows.html#prefsampling.ordinal.mallows.mallows" title="(in prefsampling v0.1.24)"><code class="xref py py-func docutils literal notranslate"><span class="pre">mallows()</span></code></a></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">norm-mallows</span></code></p></td>
-<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/ordinal/mallows.html#prefsampling.ordinal.mallows.norm_mallows" title="(in prefsampling v0.1.21)"><code class="xref py py-func docutils literal notranslate"><span class="pre">norm_mallows()</span></code></a>, <a class="reference internal" href="prefsampling_mask.html#mapof.elections.cultures.prefsampling_mask.norm_mallows_mask" title="mapof.elections.cultures.prefsampling_mask.norm_mallows_mask"><code class="xref py py-func docutils literal notranslate"><span class="pre">norm_mallows_mask()</span></code></a></p></td>
+<td><p><a class="reference external" href="https://comsoc-community.github.io/prefsampling/reference/ordinal/mallows.html#prefsampling.ordinal.mallows.norm_mallows" title="(in prefsampling v0.1.24)"><code class="xref py py-func docutils literal notranslate"><span class="pre">norm_mallows()</span></code></a>, <a class="reference internal" href="prefsampling_mask.html#mapof.elections.cultures.prefsampling_mask.norm_mallows_mask" title="mapof.elections.cultures.prefsampling_mask.norm_mallows_mask"><code class="xref py py-func docutils literal notranslate"><span class="pre">norm_mallows_mask()</span></code></a></p></td>
 </tr>
 </tbody>
 </table>

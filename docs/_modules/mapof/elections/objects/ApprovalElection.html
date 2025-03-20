@@ -177,8 +177,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/main.html">Main</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/register.html">Register</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/scores.html">Scores</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/diversity.html">Diversity</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/dap_approximate.html">Diversity Approximate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/dap.html">Diversity Approximate</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/simple_ordinal.html">Simple Ordinal</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/simple_approval.html">Simple Approval</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/abc_features.html">ABC Features</a></li>
@@ -355,6 +354,7 @@ document.write(`
                  <span class="n">election_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">culture_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">num_candidates</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">fast_import</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                  <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 
@@ -363,6 +363,7 @@ document.write(`
                          <span class="n">culture_id</span><span class="o">=</span><span class="n">culture_id</span><span class="p">,</span>
                          <span class="n">num_candidates</span><span class="o">=</span><span class="n">num_candidates</span><span class="p">,</span>
                          <span class="n">instance_type</span><span class="o">=</span><span class="s1">&#39;approval&#39;</span><span class="p">,</span>
+                         <span class="n">fast_import</span><span class="o">=</span><span class="n">fast_import</span><span class="p">,</span>
                          <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
                          <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
@@ -370,7 +371,7 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">reverse_approvals</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">candidatelikeness_original_vectors</span> <span class="o">=</span> <span class="p">[]</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_imported</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">experiment_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_imported</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">experiment_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">fast_import</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">import_approval_election</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">try_updating_params</span><span class="p">()</span>
@@ -396,7 +397,7 @@ document.write(`
                 <span class="bp">self</span><span class="o">.</span><span class="n">num_options</span><span class="p">,</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">quantities</span><span class="p">,</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">distinct_votes</span><span class="p">,</span>
-            <span class="p">)</span> <span class="o">=</span> <span class="n">imports</span><span class="o">.</span><span class="n">import_real_app_election</span><span class="p">(</span>
+            <span class="p">)</span> <span class="o">=</span> <span class="n">imports</span><span class="o">.</span><span class="n">import_approval_election</span><span class="p">(</span>
                 <span class="n">experiment_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">experiment_id</span><span class="p">,</span>
                 <span class="n">election_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">election_id</span><span class="p">,</span>
                 <span class="n">is_shifted</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">is_shifted</span>

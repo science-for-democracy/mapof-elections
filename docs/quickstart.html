@@ -178,8 +178,7 @@
 <li class="toctree-l3"><a class="reference internal" href="reference/features/main.html">Main</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/features/register.html">Register</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/features/scores.html">Scores</a></li>
-<li class="toctree-l3"><a class="reference internal" href="reference/features/diversity.html">Diversity</a></li>
-<li class="toctree-l3"><a class="reference internal" href="reference/features/dap_approximate.html">Diversity Approximate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/features/dap.html">Diversity Approximate</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/features/simple_ordinal.html">Simple Ordinal</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/features/simple_approval.html">Simple Approval</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/features/abc_features.html">ABC Features</a></li>
@@ -396,6 +395,7 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#map-of-preferences-aka-microscope">Map of Preferences (aka Microscope)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ordinal-compass">Ordinal Compass</a></li>
 </ul>
             </nav>
         </div>
@@ -911,6 +911,21 @@ A list of all implemented distances is available in <a class="reference internal
 </div>
 <p>More details about the microscope can be found in the <a class="reference external" href="https://doi.org/10.24963/ijcai.2023/299">Diversity, Agreement, and Polarization in Elections</a> paper.</p>
 </section>
+<section id="ordinal-compass">
+<h2>Ordinal Compass<a class="headerlink" href="#ordinal-compass" title="Link to this heading">#</a></h2>
+<p>To help us navigate the map, we add four special elections, which we can interpret as compass points.</p>
+<ol class="arabic simple">
+<li><p>Identity (ID) –  Perfect agreement; all voters have the same preference order.</p></li>
+<li><p>Uniformity (UN) – Lack of agreement; each candidate takes each position equally often.</p></li>
+<li><p>Antagonism (AN) – Conflict; half of the voters have opposite preferences to the other half.</p></li>
+</ol>
+<p>4. Stratification (ST) – Partial agreement; voters agree that half of the candidates are better
+than the other half, but lack agreement on anything else.</p>
+<p>Note that, given a number of candidates and a number of voters it is not always possible to create the exact compass elections (especially for UN and ST).
+In such cases, can either create an approximation of the compass elections or we can directly create a frequency matrix
+(this is always possible, no matter what is the election size). The latter option is particularly useful if one is planning to use the positionwise distance.</p>
+<p>Moreover, it is possible to create paths.</p>
+</section>
 </section>
 
 
@@ -979,6 +994,7 @@ A list of all implemented distances is available in <a class="reference internal
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#map-of-preferences-aka-microscope">Map of Preferences (aka Microscope)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ordinal-compass">Ordinal Compass</a></li>
 </ul>
   </nav></div>
 

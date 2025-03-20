@@ -155,27 +155,40 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/cultures/index.html">Cultures</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/list_of_cultures.html">List of Cultures</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/main.html">Main</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/euclidean.html">Euclidean</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/guardians.html">Guardians</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/compass.html">Compass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/prefsampling_mask.html">Prefsampling Mask</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/pseudo_cultures.html">Pseudo Cultures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/params.html">Params</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/distances/index.html">Distances</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/list_of_distances.html">List of Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/main.html">Main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/register.html">Register</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/main_approval_distances.html">Approval Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/main_ordinal_distances.html">Ordinal Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/committee_distances.html">Committee Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/feature_distance.html">Feature Distance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/ilp_subelections.html">Subelection Distance</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/features/index.html">Features</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/list_of_features.html">List of Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/main.html">Main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/register.html">Register</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/scores.html">Scores</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/diversity.html">Diversity</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/dap_approximate.html">Diversity Approximate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/dap.html">Diversity Approximate</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/simple_ordinal.html">Simple Ordinal</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/simple_approval.html">Simple Approval</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/abc_features.html">ABC Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/banzhaf_cc.html">Banzhaf CC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/ranging_cc.html">Ranging CC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/approx.html">Approx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/cohesive.html">Cohesive</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/entropy.html">Entropy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/justified_representation.html">Justified Representation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/partylist.html">Partylist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/proportionality_degree.html">Proportionality Degree</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/objects/index.html">Objects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -195,6 +208,7 @@
 </details></li>
 </ul>
 </details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../resources.html">Resources</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../citation.html">Citation Policy</a></li>
 </ul>
 
@@ -316,67 +330,72 @@ document.write(`
   <h1>Source code for mapof.elections.distances.feature_distance</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">mapof.elections.objects</span> <span class="kn">import</span> <span class="n">Election</span>
-
 <span class="kn">from</span> <span class="nn">mapof.elections.distances.register</span> <span class="kn">import</span> <span class="n">register_ordinal_election_distance</span>
+
+
+<span class="k">def</span> <span class="nf">_feature_distance</span><span class="p">(</span><span class="n">election_1</span><span class="p">,</span> <span class="n">election_2</span><span class="p">,</span> <span class="n">feature_ids</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="nb">ord</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="n">vector_1</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">vector_2</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">feature_id</span> <span class="ow">in</span> <span class="n">feature_ids</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">vector_1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">election_1</span><span class="o">.</span><span class="n">get_feature</span><span class="p">(</span><span class="n">feature_id</span><span class="p">,</span> <span class="n">compute_if_missing</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+            <span class="n">vector_2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">election_2</span><span class="o">.</span><span class="n">get_feature</span><span class="p">(</span><span class="n">feature_id</span><span class="p">,</span> <span class="n">compute_if_missing</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Feature </span><span class="si">{</span><span class="n">feature_id</span><span class="si">}</span><span class="s2"> not found in the election objects&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">vector_1</span> <span class="o">-</span> <span class="n">vector_2</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="nb">ord</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="features_vector_l1">
 <a class="viewcode-back" href="../../../../reference/distances/feature_distance.html#mapof.elections.distances.feature_distance.features_vector_l1">[docs]</a>
 <span class="nd">@register_ordinal_election_distance</span><span class="p">(</span><span class="s2">&quot;feature_l1&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">features_vector_l1</span><span class="p">(</span><span class="n">e1</span><span class="p">:</span> <span class="n">Election</span><span class="p">,</span> <span class="n">e2</span><span class="p">:</span> <span class="n">Election</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; L1 distance between two feature vectors &quot;&quot;&quot;</span>
-    <span class="n">vector1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">e1</span><span class="o">.</span><span class="n">election_features</span><span class="o">.</span><span class="n">features_vector</span><span class="p">)</span>
-    <span class="n">vector2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">e2</span><span class="o">.</span><span class="n">election_features</span><span class="o">.</span><span class="n">features_vector</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">vector1</span> <span class="o">-</span> <span class="n">vector2</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></div>
+<span class="k">def</span> <span class="nf">features_vector_l1</span><span class="p">(</span><span class="n">election_1</span><span class="p">,</span> <span class="n">election_2</span><span class="p">,</span> <span class="n">feature_ids</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes ell_1 distance between two feature vectors.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">        election_1 : OrdinalElection</span>
+<span class="sd">            First election.</span>
+<span class="sd">        election_2 : OrdinalElection</span>
+<span class="sd">            Second election.</span>
+<span class="sd">        feature_ids : list[str]</span>
+<span class="sd">            List of feature ids.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">        float</span>
+<span class="sd">            ell_2 distance between two feature vectors.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_feature_distance</span><span class="p">(</span><span class="n">election_1</span><span class="p">,</span> <span class="n">election_2</span><span class="p">,</span> <span class="n">feature_ids</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span></div>
 
 
 
 <div class="viewcode-block" id="features_vector_l2">
 <a class="viewcode-back" href="../../../../reference/distances/feature_distance.html#mapof.elections.distances.feature_distance.features_vector_l2">[docs]</a>
 <span class="nd">@register_ordinal_election_distance</span><span class="p">(</span><span class="s2">&quot;feature_l2&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">features_vector_l2</span><span class="p">(</span><span class="n">e1</span><span class="p">:</span> <span class="n">Election</span><span class="p">,</span> <span class="n">e2</span><span class="p">:</span> <span class="n">Election</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; L2 distance between two feature vectors &quot;&quot;&quot;</span>
-    <span class="n">vector1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">e1</span><span class="o">.</span><span class="n">election_features</span><span class="o">.</span><span class="n">features_vector</span><span class="p">)</span>
-    <span class="n">vector2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">e2</span><span class="o">.</span><span class="n">election_features</span><span class="o">.</span><span class="n">features_vector</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">vector1</span> <span class="o">-</span> <span class="n">vector2</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span></div>
+<span class="k">def</span> <span class="nf">features_vector_l2</span><span class="p">(</span><span class="n">election_1</span><span class="p">,</span> <span class="n">election_2</span><span class="p">,</span> <span class="n">feature_ids</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes ell_2 distance between two feature vectors.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">        election_1 : OrdinalElection</span>
+<span class="sd">            First election.</span>
+<span class="sd">        election_2 : OrdinalElection</span>
+<span class="sd">            Second election.</span>
+<span class="sd">        feature_ids : list[str]</span>
+<span class="sd">            List of feature ids.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">        float</span>
+<span class="sd">            ell_2 distance between two feature vectors.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_feature_distance</span><span class="p">(</span><span class="n">election_1</span><span class="p">,</span> <span class="n">election_2</span><span class="p">,</span> <span class="n">feature_ids</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span></div>
 
 
-
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Sample driver function of the feature distance.</span>
-
-<span class="sd">For successful calculation the features you decide to use need to be loaded into memory for example as follows:</span>
-
-<span class="sd">experiment.features[&quot;Agreement&quot;] = experiment.import_feature(&quot;AgreementApprox&quot;)</span>
-
-<span class="sd">Then the prepare_feature_vectors function allows to pick which features will be used - codes of the features need to be passed as a list.</span>
-<span class="sd">Currently supported feature codes are the following:</span>
-<span class="sd">d := Diversity</span>
-<span class="sd">a := Agreement</span>
-<span class="sd">p := Polarization</span>
-<span class="sd">e := Entropy</span>
-<span class="sd">e2 := Entropy squared</span>
-
-<span class="sd">Example usage which selects DAP features:</span>
-<span class="sd">experiment.prepare_feature_vectors([&#39;d&#39;, &#39;a&#39;, &#39;p&#39;])</span>
-<span class="sd">Any number of features can be used.</span>
-<span class="sd">To add a new feature to the feature vector either adjust the ElectionExperiment.py file or contact jita-mertlova.</span>
-
-<span class="sd">Full example usage of this distance as the DAP distance, assuming &#39;myExperiment&#39; is an experiment folder containing calculated</span>
-<span class="sd">AgreementApprox, PolarizationApprox and DiversityApprox features.</span>
-
-<span class="sd">experiment = mapof.prepare_offline_ordinal_experiment(experiment_id=&quot;myExperiment&quot;)</span>
-<span class="sd">experiment.features[&quot;Agreement&quot;] = experiment.import_feature(&quot;AgreementApprox&quot;)</span>
-<span class="sd">experiment.features[&quot;Diversity&quot;] = experiment.import_feature(&quot;DiversityApprox&quot;)</span>
-<span class="sd">experiment.features[&quot;Polarization&quot;] = experiment.import_feature(&quot;PolarizationApprox&quot;)</span>
-<span class="sd">experiment.prepare_feature_vectors([&#39;d&#39;, &#39;a&#39;, &#39;p&#39;])</span>
-<span class="sd">experiment.compute_distances(distance_id=&#39;feature_l2&#39;)</span>
-<span class="sd">experiment.embed_2d(embedding_id=&#39;mds&#39;)</span>
-<span class="sd">experiment.print_map_2d()</span>
-<span class="sd">experiment.print_map_2d(legend=False)</span>
-
-<span class="sd">&quot;&quot;&quot;</span>
 
 
 </pre></div>

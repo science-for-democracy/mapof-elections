@@ -177,8 +177,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/features/main.html">Main</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/features/register.html">Register</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/features/scores.html">Scores</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../reference/features/diversity.html">Diversity</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../reference/features/dap_approximate.html">Diversity Approximate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features/dap.html">Diversity Approximate</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/features/simple_ordinal.html">Simple Ordinal</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/features/simple_approval.html">Simple Approval</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/features/abc_features.html">ABC Features</a></li>
@@ -425,30 +424,6 @@ document.write(`
 
 
 
-<span class="k">def</span> <span class="nf">approval_votes_to_vectors</span><span class="p">(</span><span class="n">votes</span><span class="p">,</span> <span class="n">num_candidates</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">num_voters</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="n">vectors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">num_candidates</span><span class="p">,</span> <span class="n">num_candidates</span><span class="p">])</span>
-    <span class="k">for</span> <span class="n">vote</span> <span class="ow">in</span> <span class="n">votes</span><span class="p">:</span>
-        <span class="n">denom_in</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">vote</span><span class="p">)</span>
-        <span class="n">denom_out</span> <span class="o">=</span> <span class="n">num_candidates</span> <span class="o">-</span> <span class="n">denom_in</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">vote</span><span class="p">:</span>
-                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">denom_in</span><span class="p">):</span>
-                    <span class="n">vectors</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">denom_in</span> <span class="o">/</span> <span class="n">num_voters</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">denom_out</span><span class="p">):</span>
-                    <span class="n">vectors</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">denom_in</span> <span class="o">+</span> <span class="n">j</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">denom_out</span> <span class="o">/</span> <span class="n">num_voters</span>
-    <span class="k">return</span> <span class="n">vectors</span>
-
-
-<span class="k">def</span> <span class="nf">from_approval</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                  <span class="n">num_voters</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                  <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-    <span class="n">votes</span> <span class="o">=</span> <span class="n">generate_approval_votes</span><span class="p">(</span><span class="n">culture_id</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;pseudo_culture_id&#39;</span><span class="p">],</span>
-                                    <span class="n">num_candidates</span><span class="o">=</span><span class="n">num_candidates</span><span class="p">,</span> <span class="n">num_voters</span><span class="o">=</span><span class="n">num_voters</span><span class="p">,</span>
-                                    <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">approval_votes_to_vectors</span><span class="p">(</span><span class="n">votes</span><span class="p">,</span> <span class="n">num_candidates</span><span class="o">=</span><span class="n">num_candidates</span><span class="p">,</span> <span class="n">num_voters</span><span class="o">=</span><span class="n">num_voters</span><span class="p">)</span>
-
 
 <span class="k">def</span> <span class="nf">generate_ordinal_alliance_votes</span><span class="p">(</span>
         <span class="n">culture_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -532,6 +507,17 @@ document.write(`
 
 
 
+<span class="k">def</span> <span class="nf">generate_frequency_matrix</span><span class="p">(</span>
+        <span class="n">culture_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">num_candidates</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+    <span class="k">return</span> <span class="n">registered_pseudo_ordinal_cultures</span><span class="p">[</span><span class="n">culture_id</span><span class="p">](</span>
+        <span class="n">num_candidates</span><span class="o">=</span><span class="n">num_candidates</span><span class="p">,</span>
+        <span class="n">params</span><span class="o">=</span><span class="n">params</span>
+    <span class="p">)</span>
+
+
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s1">&#39;generate_approval_votes&#39;</span><span class="p">,</span>
     <span class="s1">&#39;generate_ordinal_votes&#39;</span><span class="p">,</span>
@@ -539,8 +525,7 @@ document.write(`
     <span class="s1">&#39;add_approval_culture&#39;</span><span class="p">,</span>
     <span class="s1">&#39;add_ordinal_culture&#39;</span><span class="p">,</span>
     <span class="s1">&#39;add_pseudo_ordinal_culture&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;approval_votes_to_vectors&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;from_approval&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;generate_frequency_matrix&#39;</span>
 <span class="p">]</span>
 </pre></div>
 

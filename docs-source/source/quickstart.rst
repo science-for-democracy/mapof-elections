@@ -698,5 +698,18 @@ Note that, given a number of candidates and a number of voters it is not always 
 In such cases, can either create an approximation of the compass elections or we can directly create a frequency matrix
 (this is always possible, no matter what is the election size). The latter option is particularly useful if one is planning to use the positionwise distance.
 
+While embedding one can use compass (or any other instances) to help orient the map.
+To do so, one can use the ``left``,``up``,``right``,``down``  arguments in the ``embed_2d()`` function.
 
-Moreover, it is possible to create paths.
+.. code-block:: python
+
+    experiment.embed_2d(embedding_id='kk', left='UN', up='AN', right='ID', down='ST')
+
+In the above example, we use the Kamada-Kawai embedding and we use the compass elections to help us orient the map.
+In practice, it suffice to give only three (out of four) instances to do so.
+For example, the code below will provide the same outcome as the code below.
+
+.. code-block:: python
+
+    experiment.embed_2d(embedding_id='kk', left='UN', up='AN', right='ID')
+

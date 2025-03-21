@@ -924,7 +924,17 @@ than the other half, but lack agreement on anything else.</p>
 <p>Note that, given a number of candidates and a number of voters it is not always possible to create the exact compass elections (especially for UN and ST).
 In such cases, can either create an approximation of the compass elections or we can directly create a frequency matrix
 (this is always possible, no matter what is the election size). The latter option is particularly useful if one is planning to use the positionwise distance.</p>
-<p>Moreover, it is possible to create paths.</p>
+<p>While embedding one can use compass (or any other instances) to help orient the map.
+To do so, one can use the <code class="docutils literal notranslate"><span class="pre">left</span></code>,``up``,``right``,``down``  arguments in the <code class="docutils literal notranslate"><span class="pre">embed_2d()</span></code> function.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span><span class="o">.</span><span class="n">embed_2d</span><span class="p">(</span><span class="n">embedding_id</span><span class="o">=</span><span class="s1">&#39;kk&#39;</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="s1">&#39;UN&#39;</span><span class="p">,</span> <span class="n">up</span><span class="o">=</span><span class="s1">&#39;AN&#39;</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="s1">&#39;ID&#39;</span><span class="p">,</span> <span class="n">down</span><span class="o">=</span><span class="s1">&#39;ST&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In the above example, we use the Kamada-Kawai embedding and we use the compass elections to help us orient the map.
+In practice, it suffice to give only three (out of four) instances to do so.
+For example, the code below will provide the same outcome as the code below.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span><span class="o">.</span><span class="n">embed_2d</span><span class="p">(</span><span class="n">embedding_id</span><span class="o">=</span><span class="s1">&#39;kk&#39;</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="s1">&#39;UN&#39;</span><span class="p">,</span> <span class="n">up</span><span class="o">=</span><span class="s1">&#39;AN&#39;</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="s1">&#39;ID&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
 </section>
 </section>
 

@@ -21,8 +21,16 @@ List of Ordinal Distances
      - :py:func:`~mapof.elections.distances.main_ordinal_distances.bordawise_distance`
    * - ``l1-pairwise``
      - :py:func:`~mapof.elections.distances.main_ordinal_distances.pairwise_distance`
-    * - ``maximum_common_voter_subelection``
+   * - ``maximum_common_voter_subelection``
      - :py:func:`~mapof.elections.distances.ilp_subelections.maximum_common_voter_subelection`
+   * - ``blank_distance``
+     - :py:func:`~mapof.elections.distances.main_ordinal_distances.blank_distance`
+   * - ``spearman_aa``
+     - :py:func:`~mapof.elections.distances.main_ordinal_distances.spearman_distance_fastmap`
+   * - ``swap``
+     - :py:func:`~mapof.elections.distances.main_ordinal_distances.swap_distance`
+   * - ``maximum_common_voter_subelection``
+     - :py:func:`~mapof.elections.distances.main_ordinal_distances.maximum_common_voter_subelection`
 
 
 List of Approval Distances

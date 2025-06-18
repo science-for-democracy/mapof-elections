@@ -149,6 +149,7 @@ class Election(Instance):
                 self.potes = np.array([[list(vote).index(mapping[i]) for i, _ in enumerate(vote)]
                                        for vote in self.votes])
             return self.potes
+        return None
 
     def vector_to_interval(self, vector, precision=None) -> list:
         # discreet version for now

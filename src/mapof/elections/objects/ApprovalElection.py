@@ -1,5 +1,4 @@
 import logging
-import os
 from abc import ABC
 from collections import Counter
 
@@ -12,6 +11,7 @@ import mapof.elections.persistence.election_imports as imports
 from mapof.elections.cultures import generate_approval_votes
 from mapof.elections.cultures.params import update_params_approval
 from mapof.elections.objects.Election import Election
+from mapof.elections.objects.Microscope import Microscope
 
 
 class ApprovalElection(Election, ABC):
@@ -252,76 +252,57 @@ class ApprovalElection(Election, ABC):
         elif object_type == 'candidate':
             return self._compute_distances_between_candidates(distance_id=distance_id)
 
-    def print_map(
+    def set_microscope(
             self,
-            show: bool = True,
             radius: float = None,
-            name: str = None,
             alpha: float = 0.1,
             s=30,
             object_type=None,
             double_gradient=False,
-            saveas=None,
             color='blue',
             marker='o',
             annotate: bool = False
     ):
-        """ Print a map of the election (i.e., microscope). """
+        """Print a map of the election (i.e., microscope) using matplotlib's OO API."""
 
         if object_type is None:
             object_type = self.object_type
 
-        if object_type is None:
-            object_type = self.object_type
+        fig, ax = plt.subplots(figsize=(6.4, 6.4))
 
-        plt.figure(figsize=(6.4, 6.4))
-
-        X = []
-        Y = []
-        for elem in self.coordinates[object_type]:
-            X.append(elem[0])
-            Y.append(elem[1])
+        X = [elem[0] for elem in self.coordinates[object_type]]
+        Y = [elem[1] for elem in self.coordinates[object_type]]
 
         start = False
         if start:
-            plt.scatter(X[0], Y[0],
-                        color='sienna',
-                        s=1000,
-                        alpha=1,
-                        marker='X')
+            ax.scatter(X[0], Y[0],
+                       color='sienna',
+                       s=1000,
+                       alpha=1,
+                       marker='X')
 
         if double_gradient:
             for i in range(len(X)):
                 x = float(self.points['voters'][i][0])
                 y = float(self.points['voters'][i][1])
-                plt.scatter(X[i], Y[i], color=[0, y, x], s=s, alpha=alpha)
+                ax.scatter(X[i], Y[i], color=[0, y, x], s=s, alpha=alpha)
         else:
-            plt.scatter(X, Y, color=color, s=s, alpha=alpha, marker=marker)
+            ax.scatter(X, Y, color=color, s=s, alpha=alpha, marker=marker)
 
         if annotate:
             for i in range(len(X)):
-                plt.annotate(i, (X[i], Y[i]), color='black')
+                ax.annotate(i, (X[i], Y[i]), color='black')
 
         avg_x = np.mean(X)
         avg_y = np.mean(Y)
 
         if radius:
-            plt.xlim([avg_x - radius, avg_x + radius])
-            plt.ylim([avg_y - radius, avg_y + radius])
+            ax.set_xlim([avg_x - radius, avg_x + radius])
+            ax.set_ylim([avg_y - radius, avg_y + radius])
 
-        plt.axis('off')
+        ax.axis('off')
 
-        if saveas is not None:
+        plt.close(fig)
 
-            if saveas == 'default':
-                saveas = f'{self.label}_{object_type}'
-
-            file_name = os.path.join(os.getcwd(), "images", name, f'{saveas}.png')
-            plt.savefig(file_name, bbox_inches='tight', dpi=100)
-
-        if show:
-            plt.show()
-        else:
-            plt.clf()
-
-        plt.close()
+        self.microscope = Microscope(fig, ax, self.experiment_id, self.label, object_type)
+        return self.microscope

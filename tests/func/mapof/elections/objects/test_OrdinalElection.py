@@ -34,7 +34,7 @@ class TestOrdinalElection:
         for distance_id in ['swap', 'spearman']:
             election.compute_distances(distance_id=distance_id, object_type='vote')
             election.embed(object_type='vote')
-            election.print_map(show=False)
+            election.set_microscope()
 
     def test_candidate_microscope(self, num_voters, num_candidates):
         culture_id = 'impartial'
@@ -49,7 +49,7 @@ class TestOrdinalElection:
         for distance_id in ['domination', 'position']:
             election.compute_distances(distance_id=distance_id)
             election.embed()
-            election.print_map(show=False)
+            election.set_microscope()
 
     def test_generate_ordinal_election_from_votes(self):
 

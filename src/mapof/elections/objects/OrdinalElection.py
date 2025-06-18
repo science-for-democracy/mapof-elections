@@ -21,8 +21,10 @@ from mapof.elections.cultures.pseudo_cultures import (
 )
 from mapof.elections.features.simple_ordinal import is_condorcet
 from mapof.elections.objects.Election import Election
+from mapof.elections.objects.Microscope import Microscope
 from mapof.elections.other.glossary import PATHS
 from mapof.elections.other.ordinal_rules import voting_rule
+
 
 
 class OrdinalElection(Election):
@@ -60,6 +62,7 @@ class OrdinalElection(Election):
         self.points = {}
         self.alliances = {}
         self.quantities = None
+        self.microscope = None
 
         if frequency_matrix is not None:
             self.frequency_matrix = frequency_matrix
@@ -379,24 +382,21 @@ class OrdinalElection(Election):
             replace('0.8', '$\\frac{4}{5}$'). \
             replace(' ', '\n', 1)
 
-    def print_map(
+    def set_microscope(
             self,
-            show=True,
             radius=None,
             alpha=0.1,
             s=30,
             object_type=None,
             double_gradient=False,
-            saveas=None,
             color='blue',
             marker='o',
             title_size=20
     ):
-
         if object_type is None:
             object_type = self.object_type
 
-        plt.figure(figsize=(6.4, 6.4))
+        fig, ax = plt.subplots(figsize=(6.4, 6.4))
 
         X = []
         Y = []
@@ -406,61 +406,44 @@ class OrdinalElection(Election):
 
         start = False
         if start:
-            plt.scatter(X[0], Y[0],
-                        color='sienna',
-                        s=1000,
-                        alpha=1,
-                        marker='X')
+            ax.scatter(X[0], Y[0],
+                       color='sienna',
+                       s=1000,
+                       alpha=1,
+                       marker='X')
 
         if object_type == 'vote':
             if double_gradient:
                 for i in range(len(X)):
                     x = float(self.points['voters'][i][0])
                     y = float(self.points['voters'][i][1])
-                    plt.scatter(X[i], Y[i], color=[0, y, x], s=s, alpha=alpha)
+                    ax.scatter(X[i], Y[i], color=[0, y, x], s=s, alpha=alpha)
             else:
                 for i in range(len(X)):
-                    plt.scatter(X[i], Y[i], color=color, alpha=alpha, marker=marker,
-                                s=self.quantities[i] * s)
-
+                    ax.scatter(X[i], Y[i], color=color, alpha=alpha, marker=marker,
+                               s=self.quantities[i] * s)
         elif object_type == 'candidate':
             for i in range(len(X)):
-                plt.scatter(X[i], Y[i], color=color, alpha=alpha, marker=marker,
-                            s=s)
+                ax.scatter(X[i], Y[i], color=color, alpha=alpha, marker=marker, s=s)
 
         avg_x = np.mean(X)
         avg_y = np.mean(Y)
 
         if radius:
-            plt.xlim([avg_x - radius, avg_x + radius])
-            plt.ylim([avg_y - radius, avg_y + radius])
+            ax.set_xlim([avg_x - radius, avg_x + radius])
+            ax.set_ylim([avg_y - radius, avg_y + radius])
 
         try:
-            plt.title(self.texify_label(self.label), size=title_size)  # tmp
+            ax.set_title(self.texify_label(self.label), size=title_size)
         except Exception:
             pass
 
-        plt.axis('off')
+        ax.axis('off')
 
-        if saveas is not None:
+        plt.close(fig)
 
-            if saveas == 'default':
-
-                path_to_folder = os.path.join(os.getcwd(), "images", self.experiment_id)
-                if not os.path.isdir(path_to_folder):
-                    os.mkdir(os.path.join(os.getcwd(), path_to_folder))
-
-                saveas = f'{self.label}_{object_type}'
-
-            file_name = os.path.join(os.getcwd(), "images", self.experiment_id, f'{saveas}.png')
-            plt.savefig(file_name, bbox_inches='tight', dpi=100)
-
-        if show:
-            plt.show()
-        else:
-            plt.clf()
-
-        plt.close()
+        self.microscope = Microscope(fig, ax, self.experiment_id, self.label, object_type)
+        return self.microscope
 
 
 def convert_votes_to_potes(votes) -> np.array:

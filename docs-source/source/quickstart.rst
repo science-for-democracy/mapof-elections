@@ -654,8 +654,8 @@ There are four possible microscopes that one can create: Ordinal-Voters, Ordinal
 
     election.compute_distances(distance_id='swap', object_type='vote')
     election.embed(object_type='vote')
-    election.print_map(alpha=0.2, object_type='vote')
-
+    election.set_microscope(alpha=0.2, object_type='vote')
+    election.microscope.show()
 
 .. rubric:: Available Distances
 

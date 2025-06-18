@@ -11,3 +11,4 @@ Objects
     OrdinalElection
     OrdinalElectionExperiment
     ElectionFamily
+    Microscope

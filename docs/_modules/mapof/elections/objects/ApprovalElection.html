@@ -27,8 +27,8 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -36,7 +36,7 @@
   <script src="../../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../../../../_static/documentation_options.js?v=dea914ae"></script>
-    <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/mapof/elections/objects/ApprovalElection';</script>
@@ -328,28 +328,28 @@ document.write(`
                 <article class="bd-article">
                   
   <h1>Source code for mapof.elections.objects.ApprovalElection</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">ABC</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">Counter</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">mapof.core.distances</span> <span class="kn">import</span> <span class="n">hamming</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mapof.core.distances</span><span class="w"> </span><span class="kn">import</span> <span class="n">hamming</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 
-<span class="kn">import</span> <span class="nn">mapof.elections.persistence.election_exports</span> <span class="k">as</span> <span class="nn">exports</span>
-<span class="kn">import</span> <span class="nn">mapof.elections.persistence.election_imports</span> <span class="k">as</span> <span class="nn">imports</span>
-<span class="kn">from</span> <span class="nn">mapof.elections.cultures</span> <span class="kn">import</span> <span class="n">generate_approval_votes</span>
-<span class="kn">from</span> <span class="nn">mapof.elections.cultures.params</span> <span class="kn">import</span> <span class="n">update_params_approval</span>
-<span class="kn">from</span> <span class="nn">mapof.elections.objects.Election</span> <span class="kn">import</span> <span class="n">Election</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">mapof.elections.persistence.election_exports</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">exports</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">mapof.elections.persistence.election_imports</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">imports</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mapof.elections.cultures</span><span class="w"> </span><span class="kn">import</span> <span class="n">generate_approval_votes</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mapof.elections.cultures.params</span><span class="w"> </span><span class="kn">import</span> <span class="n">update_params_approval</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mapof.elections.objects.Election</span><span class="w"> </span><span class="kn">import</span> <span class="n">Election</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mapof.elections.objects.Microscope</span><span class="w"> </span><span class="kn">import</span> <span class="n">Microscope</span>
 
 
 <div class="viewcode-block" id="ApprovalElection">
 <a class="viewcode-back" href="../../../../reference/objects/ApprovalElection.html#mapof.elections.objects.ApprovalElection.ApprovalElection">[docs]</a>
-<span class="k">class</span> <span class="nc">ApprovalElection</span><span class="p">(</span><span class="n">Election</span><span class="p">,</span> <span class="n">ABC</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ApprovalElection</span><span class="p">(</span><span class="n">Election</span><span class="p">,</span> <span class="n">ABC</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Approval Election class. &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                  <span class="n">experiment_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">election_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">culture_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -378,7 +378,7 @@ document.write(`
 
 <div class="viewcode-block" id="ApprovalElection.import_approval_election">
 <a class="viewcode-back" href="../../../../reference/objects/ApprovalElection.html#mapof.elections.objects.ApprovalElection.ApprovalElection.import_approval_election">[docs]</a>
-    <span class="k">def</span> <span class="nf">import_approval_election</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">import_approval_election</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Imports approval elections from a file.</span>
 
@@ -406,7 +406,7 @@ document.write(`
             <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Could not import instance </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">election_id</span><span class="si">}</span><span class="s1">.&#39;</span><span class="p">)</span></div>
 
 
-    <span class="k">def</span> <span class="nf">try_updating_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">try_updating_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">culture_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="n">update_params_approval</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">,</span>
@@ -415,7 +415,7 @@ document.write(`
 
 <div class="viewcode-block" id="ApprovalElection.votes_to_approvalwise_vector">
 <a class="viewcode-back" href="../../../../reference/objects/ApprovalElection.html#mapof.elections.objects.ApprovalElection.ApprovalElection.votes_to_approvalwise_vector">[docs]</a>
-    <span class="k">def</span> <span class="nf">votes_to_approvalwise_vector</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">votes_to_approvalwise_vector</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Converts votes to approvalwise vectors.</span>
 
@@ -433,7 +433,7 @@ document.write(`
 
 <div class="viewcode-block" id="ApprovalElection.compute_reverse_approvals">
 <a class="viewcode-back" href="../../../../reference/objects/ApprovalElection.html#mapof.elections.objects.ApprovalElection.ApprovalElection.compute_reverse_approvals">[docs]</a>
-    <span class="k">def</span> <span class="nf">compute_reverse_approvals</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute_reverse_approvals</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Computes the reverse approvals.</span>
 
@@ -447,7 +447,7 @@ document.write(`
 
 <div class="viewcode-block" id="ApprovalElection.get_reverse_approvals">
 <a class="viewcode-back" href="../../../../reference/objects/ApprovalElection.html#mapof.elections.objects.ApprovalElection.ApprovalElection.get_reverse_approvals">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_reverse_approvals</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">set</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_reverse_approvals</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">set</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the reverse approvals.</span>
 <span class="sd">        Additionally, if they are not computed, it computes them.</span>
@@ -464,7 +464,7 @@ document.write(`
 
 <div class="viewcode-block" id="ApprovalElection.prepare_instance">
 <a class="viewcode-back" href="../../../../reference/objects/ApprovalElection.html#mapof.elections.objects.ApprovalElection.ApprovalElection.prepare_instance">[docs]</a>
-    <span class="k">def</span> <span class="nf">prepare_instance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">is_exported</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">is_aggregated</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">prepare_instance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">is_exported</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">is_aggregated</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Prepares all the instances within the experiment.</span>
 
@@ -496,7 +496,7 @@ document.write(`
             <span class="n">exports</span><span class="o">.</span><span class="n">export_election_within_experiment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">is_aggregated</span><span class="o">=</span><span class="n">is_aggregated</span><span class="p">)</span></div>
 
 
-    <span class="k">def</span> <span class="nf">_compute_distances_between_votes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">distance_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;hamming&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_compute_distances_between_votes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">distance_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;hamming&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Computes distances between the votes.</span>
 
@@ -530,7 +530,7 @@ document.write(`
 
         <span class="k">return</span> <span class="n">distances</span>
 
-    <span class="k">def</span> <span class="nf">_compute_distances_between_candidates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">distance_id</span><span class="o">=</span><span class="s1">&#39;hamming&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_compute_distances_between_candidates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">distance_id</span><span class="o">=</span><span class="s1">&#39;hamming&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Computes distances between the candidates.</span>
 
@@ -567,14 +567,14 @@ document.write(`
 
         <span class="k">return</span> <span class="n">distances</span>
 
-    <span class="k">def</span> <span class="nf">get_candidatelikeness_original_vectors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">is_recomputed</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_candidatelikeness_original_vectors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">is_recomputed</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">candidatelikeness_original_vectors</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> \
                 <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">candidatelikeness_original_vectors</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> \
                 <span class="ow">and</span> <span class="ow">not</span> <span class="n">is_recomputed</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">candidatelikeness_original_vectors</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_voted_to_candidatelikeness_original_vectors</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">_voted_to_candidatelikeness_original_vectors</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_voted_to_candidatelikeness_original_vectors</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Converts votes to candidate-likeness vectors</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -591,7 +591,7 @@ document.write(`
 
 <div class="viewcode-block" id="ApprovalElection.compute_distances">
 <a class="viewcode-back" href="../../../../reference/objects/ApprovalElection.html#mapof.elections.objects.ApprovalElection.ApprovalElection.compute_distances">[docs]</a>
-    <span class="k">def</span> <span class="nf">compute_distances</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">object_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">distance_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;hamming&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute_distances</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">object_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">distance_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;hamming&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; Computes distances between the votes or candidates. &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">object_type</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">object_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">object_type</span>
@@ -602,81 +602,62 @@ document.write(`
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_distances_between_candidates</span><span class="p">(</span><span class="n">distance_id</span><span class="o">=</span><span class="n">distance_id</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="ApprovalElection.print_map">
-<a class="viewcode-back" href="../../../../reference/objects/ApprovalElection.html#mapof.elections.objects.ApprovalElection.ApprovalElection.print_map">[docs]</a>
-    <span class="k">def</span> <span class="nf">print_map</span><span class="p">(</span>
+<div class="viewcode-block" id="ApprovalElection.set_microscope">
+<a class="viewcode-back" href="../../../../reference/objects/ApprovalElection.html#mapof.elections.objects.ApprovalElection.ApprovalElection.set_microscope">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_microscope</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
-            <span class="n">show</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
             <span class="n">radius</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
             <span class="n">alpha</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span>
             <span class="n">s</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
             <span class="n">object_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">double_gradient</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-            <span class="n">saveas</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span>
             <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span>
             <span class="n">annotate</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot; Print a map of the election (i.e., microscope). &quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Print a map of the election (i.e., microscope) using matplotlib&#39;s OO API.&quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="n">object_type</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">object_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">object_type</span>
 
-        <span class="k">if</span> <span class="n">object_type</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">object_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">object_type</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">6.4</span><span class="p">,</span> <span class="mf">6.4</span><span class="p">))</span>
 
-        <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">6.4</span><span class="p">,</span> <span class="mf">6.4</span><span class="p">))</span>
-
-        <span class="n">X</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">Y</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">coordinates</span><span class="p">[</span><span class="n">object_type</span><span class="p">]:</span>
-            <span class="n">X</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">elem</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-            <span class="n">Y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">elem</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="p">[</span><span class="n">elem</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">coordinates</span><span class="p">[</span><span class="n">object_type</span><span class="p">]]</span>
+        <span class="n">Y</span> <span class="o">=</span> <span class="p">[</span><span class="n">elem</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">coordinates</span><span class="p">[</span><span class="n">object_type</span><span class="p">]]</span>
 
         <span class="n">start</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="k">if</span> <span class="n">start</span><span class="p">:</span>
-            <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">Y</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                        <span class="n">color</span><span class="o">=</span><span class="s1">&#39;sienna&#39;</span><span class="p">,</span>
-                        <span class="n">s</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
-                        <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                        <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">Y</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                       <span class="n">color</span><span class="o">=</span><span class="s1">&#39;sienna&#39;</span><span class="p">,</span>
+                       <span class="n">s</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+                       <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                       <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">double_gradient</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)):</span>
                 <span class="n">x</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">points</span><span class="p">[</span><span class="s1">&#39;voters&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
                 <span class="n">y</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">points</span><span class="p">[</span><span class="s1">&#39;voters&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
-                <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">Y</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="n">s</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">)</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">Y</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="n">s</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">s</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="n">marker</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">s</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="n">marker</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">annotate</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)):</span>
-                <span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">Y</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">Y</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
 
         <span class="n">avg_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
         <span class="n">avg_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">radius</span><span class="p">:</span>
-            <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="n">avg_x</span> <span class="o">-</span> <span class="n">radius</span><span class="p">,</span> <span class="n">avg_x</span> <span class="o">+</span> <span class="n">radius</span><span class="p">])</span>
-            <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="n">avg_y</span> <span class="o">-</span> <span class="n">radius</span><span class="p">,</span> <span class="n">avg_y</span> <span class="o">+</span> <span class="n">radius</span><span class="p">])</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="n">avg_x</span> <span class="o">-</span> <span class="n">radius</span><span class="p">,</span> <span class="n">avg_x</span> <span class="o">+</span> <span class="n">radius</span><span class="p">])</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="n">avg_y</span> <span class="o">-</span> <span class="n">radius</span><span class="p">,</span> <span class="n">avg_y</span> <span class="o">+</span> <span class="n">radius</span><span class="p">])</span>
 
-        <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">saveas</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
 
-            <span class="k">if</span> <span class="n">saveas</span> <span class="o">==</span> <span class="s1">&#39;default&#39;</span><span class="p">:</span>
-                <span class="n">saveas</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">object_type</span><span class="si">}</span><span class="s1">&#39;</span>
-
-            <span class="n">file_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s2">&quot;images&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">saveas</span><span class="si">}</span><span class="s1">.png&#39;</span><span class="p">)</span>
-            <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">show</span><span class="p">:</span>
-            <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">plt</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
-
-        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">microscope</span> <span class="o">=</span> <span class="n">Microscope</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">experiment_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="n">object_type</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">microscope</span></div>
 </div>
 
 </pre></div>

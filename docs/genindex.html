@@ -27,8 +27,8 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -36,7 +36,7 @@
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="_static/documentation_options.js?v=dea914ae"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'genindex';</script>
@@ -199,6 +199,7 @@
 <li class="toctree-l3"><a class="reference internal" href="reference/objects/OrdinalElection.html">OrdinalElection</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/objects/OrdinalElectionExperiment.html">OrdinalElectionExperiment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/objects/ElectionFamily.html">ElectionFamily</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/objects/Microscope.html">Microscope</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="reference/persistence/index.html">Persistence</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -841,8 +842,6 @@ document.write(`
         <li><a href="reference/objects/ApprovalElection.html#module-mapof.elections.objects.ApprovalElection">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     mapof.elections.objects.ApprovalElectionExperiment
 
@@ -850,6 +849,8 @@ document.write(`
         <li><a href="reference/objects/ApprovalElectionExperiment.html#module-mapof.elections.objects.ApprovalElectionExperiment">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     mapof.elections.objects.Election
 
@@ -869,6 +870,13 @@ document.write(`
 
       <ul>
         <li><a href="reference/objects/ElectionFamily.html#module-mapof.elections.objects.ElectionFamily">module</a>
+</li>
+      </ul></li>
+      <li>
+    mapof.elections.objects.Microscope
+
+      <ul>
+        <li><a href="reference/objects/Microscope.html#module-mapof.elections.objects.Microscope">module</a>
 </li>
       </ul></li>
       <li>
@@ -969,6 +977,8 @@ document.write(`
 </li>
         <li><a href="reference/objects/ElectionFamily.html#module-mapof.elections.objects.ElectionFamily">mapof.elections.objects.ElectionFamily</a>
 </li>
+        <li><a href="reference/objects/Microscope.html#module-mapof.elections.objects.Microscope">mapof.elections.objects.Microscope</a>
+</li>
         <li><a href="reference/objects/OrdinalElection.html#module-mapof.elections.objects.OrdinalElection">mapof.elections.objects.OrdinalElection</a>
 </li>
         <li><a href="reference/objects/OrdinalElectionExperiment.html#module-mapof.elections.objects.OrdinalElectionExperiment">mapof.elections.objects.OrdinalElectionExperiment</a>
@@ -1022,12 +1032,10 @@ document.write(`
         <li><a href="reference/objects/OrdinalElection.html#mapof.elections.objects.OrdinalElection.OrdinalElection.prepare_instance">(OrdinalElection method)</a>
 </li>
       </ul></li>
-      <li><a href="reference/objects/ApprovalElection.html#mapof.elections.objects.ApprovalElection.ApprovalElection.print_map">print_map() (ApprovalElection method)</a>
+      <li><a href="reference/cultures/pseudo_cultures.html#mapof.elections.cultures.pseudo_cultures.pseudo_anid">pseudo_anid() (in module mapof.elections.cultures.pseudo_cultures)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="reference/cultures/pseudo_cultures.html#mapof.elections.cultures.pseudo_cultures.pseudo_anid">pseudo_anid() (in module mapof.elections.cultures.pseudo_cultures)</a>
-</li>
       <li><a href="reference/cultures/pseudo_cultures.html#mapof.elections.cultures.pseudo_cultures.pseudo_antagonism">pseudo_antagonism() (in module mapof.elections.cultures.pseudo_cultures)</a>
 </li>
       <li><a href="reference/cultures/pseudo_cultures.html#mapof.elections.cultures.pseudo_cultures.pseudo_anun">pseudo_anun() (in module mapof.elections.cultures.pseudo_cultures)</a>
@@ -1070,10 +1078,12 @@ document.write(`
 </li>
       <li><a href="reference/objects/ElectionExperiment.html#mapof.elections.objects.ElectionExperiment.ElectionExperiment.set_default_num_voters">set_default_num_voters() (ElectionExperiment method)</a>
 </li>
-      <li><a href="reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.spearman_distance">spearman_distance() (in module mapof.elections.distances.main_ordinal_distances)</a>
+      <li><a href="reference/objects/ApprovalElection.html#mapof.elections.objects.ApprovalElection.ApprovalElection.set_microscope">set_microscope() (ApprovalElection method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.spearman_distance">spearman_distance() (in module mapof.elections.distances.main_ordinal_distances)</a>
+</li>
       <li><a href="reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.spearman_distance_fastmap">spearman_distance_fastmap() (in module mapof.elections.distances.main_ordinal_distances)</a>
 </li>
       <li><a href="reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.spearman_distance_ilp_py">spearman_distance_ilp_py() (in module mapof.elections.distances.main_ordinal_distances)</a>

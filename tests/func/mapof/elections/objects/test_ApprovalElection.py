@@ -32,7 +32,7 @@ class TestApprovalElection:
         for distance_id in ['hamming', 'jaccard']:
             election.compute_distances(distance_id=distance_id)
             election.embed()
-            election.print_map(show=False)
+            election.set_microscope()
 
     def test_candidate_microscope(self, num_voters, num_candidates):
         culture_id = 'resampling'
@@ -49,7 +49,7 @@ class TestApprovalElection:
         for distance_id in ['hamming', 'jaccard']:
             election.compute_distances(distance_id=distance_id)
             election.embed()
-            election.print_map(show=False)
+            election.set_microscope()
 
     def test_export_election_without_experiment(self, tmp_path, election_id, num_voters, num_candidates):
         culture_id = 'impartial'

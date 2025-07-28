@@ -24,11 +24,12 @@ class Microscope:
 
     def save_to_file(self, saveas='default'):
         """ Save the microscope plot to a file. """
-        if saveas == 'default':
-            path_to_folder = os.path.join(os.getcwd(), "images", self.experiment_id)
-            if not os.path.isdir(path_to_folder):
-                os.makedirs(path_to_folder, exist_ok=True)
 
+        path_to_folder = os.path.join(os.getcwd(), "images", self.experiment_id)
+        if not os.path.isdir(path_to_folder):
+            os.makedirs(path_to_folder, exist_ok=True)
+
+        if saveas == 'default':
             saveas = f'{self.label}_{self.object_type}'
 
         file_name = os.path.join(os.getcwd(), "images", self.experiment_id, f'{saveas}.png')

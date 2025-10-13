@@ -39,4 +39,5 @@ class TestOrdinalDistances:
                                                 num_candidates=num_candidates)
 
         distance, mapping = mapof.compute_distance(ele_1, ele_2, distance_id=distance_id)
+
         assert type(float(distance)) is float

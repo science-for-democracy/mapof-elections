@@ -175,7 +175,7 @@ def swap_distance(election_1: OrdinalElection,
     """ Compute swap distance between elections (using the C++ extension) """
     if not utils.is_module_loaded("mapof.elections.distances.cppdistances"):
         logging.warning("Using Python implementation instead of the C++ one")
-        return swap_distance_bf(election_1, election_2), None
+        return swap_distance_bf(election_1, election_2)
 
     if election_1.num_candidates < election_2.num_candidates:
         swapd = cppd.tswapd(election_1.votes.tolist(),
@@ -206,7 +206,8 @@ def spearman_distance(election_1: OrdinalElection,
                               election_2: OrdinalElection) -> (int, list):
     """ Compute Spearman distance between elections (using the C++ extension) """
     if not utils.is_module_loaded("mapof.elections.distances.cppdistances"):
-        return spearman_distance_ilp_py(election_1, election_2), None
+        return spearman_distance_ilp_py(election_1, election_2)
+
     speard = cppd.speard(election_1.votes.tolist(),
                          election_2.votes.tolist())
     return speard, None

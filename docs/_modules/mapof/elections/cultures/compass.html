@@ -27,8 +27,8 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -36,7 +36,7 @@
   <script src="../../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../../../../_static/documentation_options.js?v=dea914ae"></script>
-    <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/mapof/elections/cultures/compass';</script>
@@ -199,6 +199,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/OrdinalElection.html">OrdinalElection</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/OrdinalElectionExperiment.html">OrdinalElectionExperiment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/ElectionFamily.html">ElectionFamily</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/Microscope.html">Microscope</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/persistence/index.html">Persistence</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -328,17 +329,17 @@ document.write(`
                 <article class="bd-article">
                   
   <h1>Source code for mapof.elections.cultures.compass</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">itertools</span> <span class="k">as</span> <span class="nn">it</span>
-<span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">import</span> <span class="nn">math</span>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">itertools</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">it</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
-<span class="kn">import</span> <span class="nn">mapof.elections.cultures.sampling.samplemat</span> <span class="k">as</span> <span class="nn">smpl</span>
-<span class="kn">from</span> <span class="nn">mapof.elections.cultures.register</span> <span class="kn">import</span> <span class="n">register_ordinal_election_culture</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">mapof.elections.cultures.sampling.samplemat</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">smpl</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mapof.elections.cultures.register</span><span class="w"> </span><span class="kn">import</span> <span class="n">register_ordinal_election_culture</span>
 
 
-<span class="k">def</span> <span class="nf">_distribute_in_matrix</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_distribute_in_matrix</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">m</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">[]</span>
     <span class="n">k</span> <span class="o">=</span> <span class="n">n</span> <span class="o">//</span> <span class="n">m</span>
@@ -354,7 +355,7 @@ document.write(`
     <span class="k">return</span> <span class="n">matrix</span>
 
 
-<span class="k">def</span> <span class="nf">_distribute_in_block_matrix</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">blocks</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_distribute_in_block_matrix</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">blocks</span><span class="p">):</span>
     <span class="n">before</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">after</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">blocks</span><span class="p">)</span>
     <span class="n">matrix</span> <span class="o">=</span> <span class="p">[]</span>
@@ -367,12 +368,12 @@ document.write(`
     <span class="k">return</span> <span class="p">(</span><span class="n">matrix</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_draw_election</span><span class="p">(</span><span class="n">matrix</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_draw_election</span><span class="p">(</span><span class="n">matrix</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">smpl</span><span class="o">.</span><span class="n">sample_election_using_permanent</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span>
 
 
 <span class="nd">@register_ordinal_election_culture</span><span class="p">(</span><span class="s1">&#39;un_from_list&#39;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">generate_un_from_list</span><span class="p">(</span><span class="n">num_voters</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">generate_un_from_list</span><span class="p">(</span><span class="n">num_voters</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
     <span class="n">id_perm</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">))</span>
     <span class="n">m_fac</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">factorial</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">)</span>
     <span class="n">alls</span> <span class="o">=</span> <span class="n">num_voters</span> <span class="o">//</span> <span class="n">m_fac</span>
@@ -387,7 +388,7 @@ document.write(`
 <div class="viewcode-block" id="generate_approx_uniformity_votes">
 <a class="viewcode-back" href="../../../../reference/cultures/compass.html#mapof.elections.cultures.compass.generate_approx_uniformity_votes">[docs]</a>
 <span class="nd">@register_ordinal_election_culture</span><span class="p">(</span><span class="s1">&#39;approx_uniformity&#39;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">generate_approx_uniformity_votes</span><span class="p">(</span><span class="n">num_voters</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">generate_approx_uniformity_votes</span><span class="p">(</span><span class="n">num_voters</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">    Generates real election that have UN positionwise frequency_matrix.</span>
@@ -412,7 +413,7 @@ document.write(`
 <div class="viewcode-block" id="generate_idan_part_votes">
 <a class="viewcode-back" href="../../../../reference/cultures/compass.html#mapof.elections.cultures.compass.generate_idan_part_votes">[docs]</a>
 <span class="nd">@register_ordinal_election_culture</span><span class="p">(</span><span class="s1">&#39;idan_part&#39;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">generate_idan_part_votes</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">generate_idan_part_votes</span><span class="p">(</span>
         <span class="n">num_voters</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">part_share</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -454,7 +455,7 @@ document.write(`
 <div class="viewcode-block" id="generate_idun_part_votes">
 <a class="viewcode-back" href="../../../../reference/cultures/compass.html#mapof.elections.cultures.compass.generate_idun_part_votes">[docs]</a>
 <span class="nd">@register_ordinal_election_culture</span><span class="p">(</span><span class="s1">&#39;idun_part&#39;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">generate_idun_part_votes</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">generate_idun_part_votes</span><span class="p">(</span>
         <span class="n">num_voters</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">part_share</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -493,7 +494,7 @@ document.write(`
 <div class="viewcode-block" id="generate_idst_part_votes">
 <a class="viewcode-back" href="../../../../reference/cultures/compass.html#mapof.elections.cultures.compass.generate_idst_part_votes">[docs]</a>
 <span class="nd">@register_ordinal_election_culture</span><span class="p">(</span><span class="s1">&#39;idst_part&#39;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">generate_idst_part_votes</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">generate_idst_part_votes</span><span class="p">(</span>
         <span class="n">num_voters</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">part_share</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -535,7 +536,7 @@ document.write(`
 <div class="viewcode-block" id="generate_anun_part_votes">
 <a class="viewcode-back" href="../../../../reference/cultures/compass.html#mapof.elections.cultures.compass.generate_anun_part_votes">[docs]</a>
 <span class="nd">@register_ordinal_election_culture</span><span class="p">(</span><span class="s1">&#39;anun_part&#39;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">generate_anun_part_votes</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">generate_anun_part_votes</span><span class="p">(</span>
         <span class="n">num_voters</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">part_share</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -578,7 +579,7 @@ document.write(`
 <div class="viewcode-block" id="generate_anst_part_votes">
 <a class="viewcode-back" href="../../../../reference/cultures/compass.html#mapof.elections.cultures.compass.generate_anst_part_votes">[docs]</a>
 <span class="nd">@register_ordinal_election_culture</span><span class="p">(</span><span class="s1">&#39;anst_part&#39;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">generate_anst_part_votes</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">generate_anst_part_votes</span><span class="p">(</span>
         <span class="n">num_voters</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">part_share</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -623,7 +624,7 @@ document.write(`
 <div class="viewcode-block" id="generate_unst_part_votes">
 <a class="viewcode-back" href="../../../../reference/cultures/compass.html#mapof.elections.cultures.compass.generate_unst_part_votes">[docs]</a>
 <span class="nd">@register_ordinal_election_culture</span><span class="p">(</span><span class="s1">&#39;unst_part&#39;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">generate_unst_part_votes</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">generate_unst_part_votes</span><span class="p">(</span>
         <span class="n">num_voters</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">part_share</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -665,7 +666,7 @@ document.write(`
 <div class="viewcode-block" id="generate_unst_topsize_votes">
 <a class="viewcode-back" href="../../../../reference/cultures/compass.html#mapof.elections.cultures.compass.generate_unst_topsize_votes">[docs]</a>
 <span class="nd">@register_ordinal_election_culture</span><span class="p">(</span><span class="s1">&#39;unst_topsize&#39;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">generate_unst_topsize_votes</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">generate_unst_topsize_votes</span><span class="p">(</span>
         <span class="n">num_voters</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">top_share</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -688,7 +689,7 @@ document.write(`
 <div class="viewcode-block" id="generate_idst_blocks_votes">
 <a class="viewcode-back" href="../../../../reference/cultures/compass.html#mapof.elections.cultures.compass.generate_idst_blocks_votes">[docs]</a>
 <span class="nd">@register_ordinal_election_culture</span><span class="p">(</span><span class="s1">&#39;idst_blocks&#39;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">generate_idst_blocks_votes</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">generate_idst_blocks_votes</span><span class="p">(</span>
         <span class="n">num_voters</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">num_blocks</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -714,7 +715,7 @@ document.write(`
 <div class="viewcode-block" id="generate_approx_stratification_votes">
 <a class="viewcode-back" href="../../../../reference/cultures/compass.html#mapof.elections.cultures.compass.generate_approx_stratification_votes">[docs]</a>
 <span class="nd">@register_ordinal_election_culture</span><span class="p">(</span><span class="s1">&#39;approx_stratification&#39;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">generate_approx_stratification_votes</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">generate_approx_stratification_votes</span><span class="p">(</span>
         <span class="n">num_voters</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">weight</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span>
@@ -737,7 +738,7 @@ document.write(`
 <div class="viewcode-block" id="generate_antagonism_votes">
 <a class="viewcode-back" href="../../../../reference/cultures/compass.html#mapof.elections.cultures.compass.generate_antagonism_votes">[docs]</a>
 <span class="nd">@register_ordinal_election_culture</span><span class="p">(</span><span class="s1">&#39;antagonism&#39;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">generate_antagonism_votes</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">generate_antagonism_votes</span><span class="p">(</span>
         <span class="n">num_voters</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>

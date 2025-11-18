@@ -27,8 +27,8 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -36,7 +36,7 @@
   <script src="../../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../../../../_static/documentation_options.js?v=dea914ae"></script>
-    <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/mapof/elections/cultures/pseudo_cultures';</script>
@@ -199,6 +199,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/OrdinalElection.html">OrdinalElection</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/OrdinalElectionExperiment.html">OrdinalElectionExperiment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/ElectionFamily.html">ElectionFamily</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/Microscope.html">Microscope</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/persistence/index.html">Persistence</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -328,13 +329,13 @@ document.write(`
                 <article class="bd-article">
                   
   <h1>Source code for mapof.elections.cultures.pseudo_cultures</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
 
-<span class="kn">from</span> <span class="nn">mapof.elections.cultures.params</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">mapof.elections.cultures.register</span> <span class="kn">import</span> <span class="n">register_pseudo_ordinal_culture</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mapof.elections.cultures.params</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mapof.elections.cultures.register</span><span class="w"> </span><span class="kn">import</span> <span class="n">register_pseudo_ordinal_culture</span>
 
 
-<span class="k">def</span> <span class="nf">get_frequency_matrix_for_guardian</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_frequency_matrix_for_guardian</span><span class="p">(</span>
         <span class="n">culture_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span>
@@ -375,7 +376,7 @@ document.write(`
 <div class="viewcode-block" id="pseudo_uniformity">
 <a class="viewcode-back" href="../../../../reference/cultures/pseudo_cultures.html#mapof.elections.cultures.pseudo_cultures.pseudo_uniformity">[docs]</a>
 <span class="nd">@register_pseudo_ordinal_culture</span><span class="p">(</span><span class="s1">&#39;pseudo_uniformity&#39;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">pseudo_uniformity</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">pseudo_uniformity</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Returns pseudo culture frequency matrix with uniformity. &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">get_frequency_matrix_for_guardian</span><span class="p">(</span><span class="s1">&#39;pseudo_uniformity&#39;</span><span class="p">,</span> <span class="n">num_candidates</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span></div>
 
@@ -384,7 +385,7 @@ document.write(`
 <div class="viewcode-block" id="pseudo_identity">
 <a class="viewcode-back" href="../../../../reference/cultures/pseudo_cultures.html#mapof.elections.cultures.pseudo_cultures.pseudo_identity">[docs]</a>
 <span class="nd">@register_pseudo_ordinal_culture</span><span class="p">(</span><span class="s1">&#39;pseudo_identity&#39;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">pseudo_identity</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">pseudo_identity</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Returns pseudo culture frequency matrix with identity. &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">get_frequency_matrix_for_guardian</span><span class="p">(</span><span class="s1">&#39;pseudo_identity&#39;</span><span class="p">,</span> <span class="n">num_candidates</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span></div>
 
@@ -393,7 +394,7 @@ document.write(`
 <div class="viewcode-block" id="pseudo_stratification">
 <a class="viewcode-back" href="../../../../reference/cultures/pseudo_cultures.html#mapof.elections.cultures.pseudo_cultures.pseudo_stratification">[docs]</a>
 <span class="nd">@register_pseudo_ordinal_culture</span><span class="p">(</span><span class="s1">&#39;pseudo_stratification&#39;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">pseudo_stratification</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">pseudo_stratification</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Returns pseudo culture frequency matrix with stratification. &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">get_frequency_matrix_for_guardian</span><span class="p">(</span><span class="s1">&#39;pseudo_stratification&#39;</span><span class="p">,</span> <span class="n">num_candidates</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span></div>
 
@@ -401,7 +402,7 @@ document.write(`
 <div class="viewcode-block" id="pseudo_antagonism">
 <a class="viewcode-back" href="../../../../reference/cultures/pseudo_cultures.html#mapof.elections.cultures.pseudo_cultures.pseudo_antagonism">[docs]</a>
 <span class="nd">@register_pseudo_ordinal_culture</span><span class="p">(</span><span class="s1">&#39;pseudo_antagonism&#39;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">pseudo_antagonism</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">pseudo_antagonism</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Returns pseudo culture frequency matrix with antagonism. &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">get_frequency_matrix_for_guardian</span><span class="p">(</span><span class="s1">&#39;pseudo_antagonism&#39;</span><span class="p">,</span> <span class="n">num_candidates</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span></div>
 
@@ -410,7 +411,7 @@ document.write(`
 <div class="viewcode-block" id="pseudo_unid">
 <a class="viewcode-back" href="../../../../reference/cultures/pseudo_cultures.html#mapof.elections.cultures.pseudo_cultures.pseudo_unid">[docs]</a>
 <span class="nd">@register_pseudo_ordinal_culture</span><span class="p">(</span><span class="s1">&#39;pseudo_unid&#39;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">pseudo_unid</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">pseudo_unid</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Returns pseudo culture frequency matrix with unid path. &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">get_pseudo_convex</span><span class="p">(</span><span class="s1">&#39;pseudo_unid&#39;</span><span class="p">,</span> <span class="n">num_candidates</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span>
                              <span class="n">get_frequency_matrix_for_guardian</span><span class="p">)</span></div>
@@ -420,7 +421,7 @@ document.write(`
 <div class="viewcode-block" id="pseudo_anid">
 <a class="viewcode-back" href="../../../../reference/cultures/pseudo_cultures.html#mapof.elections.cultures.pseudo_cultures.pseudo_anid">[docs]</a>
 <span class="nd">@register_pseudo_ordinal_culture</span><span class="p">(</span><span class="s1">&#39;pseudo_anid&#39;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">pseudo_anid</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">pseudo_anid</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Returns pseudo culture frequency matrix with anid path. &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">get_pseudo_convex</span><span class="p">(</span><span class="s1">&#39;pseudo_anid&#39;</span><span class="p">,</span> <span class="n">num_candidates</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span>
                              <span class="n">get_frequency_matrix_for_guardian</span><span class="p">)</span></div>
@@ -430,7 +431,7 @@ document.write(`
 <div class="viewcode-block" id="pseudo_stid">
 <a class="viewcode-back" href="../../../../reference/cultures/pseudo_cultures.html#mapof.elections.cultures.pseudo_cultures.pseudo_stid">[docs]</a>
 <span class="nd">@register_pseudo_ordinal_culture</span><span class="p">(</span><span class="s1">&#39;pseudo_stid&#39;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">pseudo_stid</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">pseudo_stid</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Returns pseudo culture frequency matrix with stid path. &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">get_pseudo_convex</span><span class="p">(</span><span class="s1">&#39;pseudo_stid&#39;</span><span class="p">,</span> <span class="n">num_candidates</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span>
                              <span class="n">get_frequency_matrix_for_guardian</span><span class="p">)</span></div>
@@ -440,7 +441,7 @@ document.write(`
 <div class="viewcode-block" id="pseudo_anun">
 <a class="viewcode-back" href="../../../../reference/cultures/pseudo_cultures.html#mapof.elections.cultures.pseudo_cultures.pseudo_anun">[docs]</a>
 <span class="nd">@register_pseudo_ordinal_culture</span><span class="p">(</span><span class="s1">&#39;pseudo_anun&#39;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">pseudo_anun</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">pseudo_anun</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Returns pseudo culture frequency matrix with anun path. &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">get_pseudo_convex</span><span class="p">(</span><span class="s1">&#39;pseudo_anun&#39;</span><span class="p">,</span> <span class="n">num_candidates</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span>
                              <span class="n">get_frequency_matrix_for_guardian</span><span class="p">)</span></div>
@@ -450,7 +451,7 @@ document.write(`
 <div class="viewcode-block" id="pseudo_stun">
 <a class="viewcode-back" href="../../../../reference/cultures/pseudo_cultures.html#mapof.elections.cultures.pseudo_cultures.pseudo_stun">[docs]</a>
 <span class="nd">@register_pseudo_ordinal_culture</span><span class="p">(</span><span class="s1">&#39;pseudo_stun&#39;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">pseudo_stun</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">pseudo_stun</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Returns pseudo culture frequency matrix with stun path. &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">get_pseudo_convex</span><span class="p">(</span><span class="s1">&#39;pseudo_stun&#39;</span><span class="p">,</span> <span class="n">num_candidates</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span>
                              <span class="n">get_frequency_matrix_for_guardian</span><span class="p">)</span></div>
@@ -460,14 +461,14 @@ document.write(`
 <div class="viewcode-block" id="pseudo_stan">
 <a class="viewcode-back" href="../../../../reference/cultures/pseudo_cultures.html#mapof.elections.cultures.pseudo_cultures.pseudo_stan">[docs]</a>
 <span class="nd">@register_pseudo_ordinal_culture</span><span class="p">(</span><span class="s1">&#39;pseudo_stan&#39;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">pseudo_stan</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">pseudo_stan</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Returns pseudo culture frequency matrix with stan path. &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">get_pseudo_convex</span><span class="p">(</span><span class="s1">&#39;pseudo_stan&#39;</span><span class="p">,</span> <span class="n">num_candidates</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span>
                              <span class="n">get_frequency_matrix_for_guardian</span><span class="p">)</span></div>
 
 
 
-<span class="k">def</span> <span class="nf">get_pseudo_multiplication</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_pseudo_multiplication</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
     <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;THIS FUNCTION IS NOT IMPLEMENTED YET.&#39;</span><span class="p">)</span>
     <span class="c1"># params[&#39;weight&#39;] = 0.</span>
     <span class="c1"># params[&#39;normphi&#39;] = params[&#39;alpha&#39;]</span>
@@ -483,7 +484,7 @@ document.write(`
 
 
 
-<span class="k">def</span> <span class="nf">get_pseudo_convex</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_pseudo_convex</span><span class="p">(</span>
         <span class="n">culture_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
@@ -513,7 +514,7 @@ document.write(`
     <span class="k">return</span> <span class="n">convex_combination</span><span class="p">(</span><span class="n">base_1</span><span class="p">,</span> <span class="n">base_2</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="n">num_candidates</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">convex_combination</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">convex_combination</span><span class="p">(</span>
         <span class="n">base_1</span><span class="p">,</span>
         <span class="n">base_2</span><span class="p">,</span>
         <span class="n">length</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
@@ -534,7 +535,7 @@ document.write(`
     <span class="k">return</span> <span class="n">output</span>
 
 
-<span class="k">def</span> <span class="nf">get_pairwise_matrix_for_guardian</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_pairwise_matrix_for_guardian</span><span class="p">(</span>
         <span class="n">culture_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span>
@@ -572,7 +573,7 @@ document.write(`
     <span class="k">return</span> <span class="n">matrix</span>
 
 
-<span class="k">def</span> <span class="nf">get_pseudo_borda_vector</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_pseudo_borda_vector</span><span class="p">(</span>
         <span class="n">culture_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">num_voters</span><span class="p">:</span> <span class="nb">int</span>

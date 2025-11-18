@@ -27,8 +27,8 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -36,7 +36,7 @@
   <script src="../../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../../../../_static/documentation_options.js?v=dea914ae"></script>
-    <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/mapof/elections/cultures/params';</script>
@@ -199,6 +199,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/OrdinalElection.html">OrdinalElection</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/OrdinalElectionExperiment.html">OrdinalElectionExperiment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/ElectionFamily.html">ElectionFamily</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/Microscope.html">Microscope</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/persistence/index.html">Persistence</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -328,16 +329,16 @@ document.write(`
                 <article class="bd-article">
                   
   <h1>Source code for mapof.elections.cultures.params</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">mapof.core.features.mallows</span> <span class="k">as</span> <span class="nn">mallows</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">gamma</span>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">mapof.core.features.mallows</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mallows</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">gamma</span>
 
 <span class="c1"># from mapof.elections.cultures.register import registered_approval_cultures</span>
 
 
 <div class="viewcode-block" id="update_params_ordinal_mallows">
 <a class="viewcode-back" href="../../../../reference/cultures/params.html#mapof.elections.cultures.params.update_params_ordinal_mallows">[docs]</a>
-<span class="k">def</span> <span class="nf">update_params_ordinal_mallows</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">update_params_ordinal_mallows</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Updates parameters for ordinal Mallows model. &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="s1">&#39;phi&#39;</span> <span class="ow">in</span> <span class="n">params</span> <span class="ow">and</span> <span class="nb">type</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;phi&#39;</span><span class="p">])</span> <span class="ow">is</span> <span class="nb">list</span><span class="p">:</span>
         <span class="n">params</span><span class="p">[</span><span class="s1">&#39;phi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">low</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;phi&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">high</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;phi&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
@@ -348,7 +349,7 @@ document.write(`
 
 <div class="viewcode-block" id="update_params_ordinal_norm_mallows">
 <a class="viewcode-back" href="../../../../reference/cultures/params.html#mapof.elections.cultures.params.update_params_ordinal_norm_mallows">[docs]</a>
-<span class="k">def</span> <span class="nf">update_params_ordinal_norm_mallows</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">update_params_ordinal_norm_mallows</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Updates parameters for ordinal Norm-Mallows model. &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="s1">&#39;normphi&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">params</span><span class="p">:</span>
         <span class="n">params</span><span class="p">[</span><span class="s1">&#39;normphi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>
@@ -360,26 +361,26 @@ document.write(`
 
 <div class="viewcode-block" id="update_params_ordinal_urn_model">
 <a class="viewcode-back" href="../../../../reference/cultures/params.html#mapof.elections.cultures.params.update_params_ordinal_urn_model">[docs]</a>
-<span class="k">def</span> <span class="nf">update_params_ordinal_urn_model</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">update_params_ordinal_urn_model</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Updates parameters for ordinal Urn model. &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="s1">&#39;alpha&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">params</span><span class="p">:</span>
         <span class="n">params</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">gamma</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="mf">0.8</span><span class="p">))</span></div>
 
 
 
-<span class="k">def</span> <span class="nf">update_params_ordinal_mallows_matrix_path</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">update_params_ordinal_mallows_matrix_path</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
     <span class="n">params</span><span class="p">[</span><span class="s1">&#39;normphi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">]</span>
     <span class="n">params</span><span class="p">[</span><span class="s1">&#39;phi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mallows</span><span class="o">.</span><span class="n">phi_from_normphi</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">,</span> <span class="n">normphi</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;normphi&#39;</span><span class="p">])</span>
 
 
-<span class="k">def</span> <span class="nf">update_params_ordinal_mallows_triangle</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">update_params_ordinal_mallows_triangle</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
     <span class="n">params</span><span class="p">[</span><span class="s1">&#39;normphi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">()))</span>
     <span class="n">params</span><span class="p">[</span><span class="s1">&#39;phi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mallows</span><span class="o">.</span><span class="n">phi_from_normphi</span><span class="p">(</span><span class="n">num_candidates</span><span class="p">,</span> <span class="n">normphi</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;normphi&#39;</span><span class="p">])</span>
     <span class="n">params</span><span class="p">[</span><span class="s1">&#39;weight&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
     <span class="n">params</span><span class="p">[</span><span class="s1">&#39;tint&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;weight&#39;</span><span class="p">]</span>  <span class="c1"># for tint on plots</span>
 
 
-<span class="k">def</span> <span class="nf">update_params_ordinal_alpha</span><span class="p">(</span><span class="n">printing_params</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">update_params_ordinal_alpha</span><span class="p">(</span><span class="n">printing_params</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
     <span class="k">if</span> <span class="s1">&#39;alpha&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">printing_params</span><span class="p">:</span>
         <span class="n">printing_params</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">printing_params</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">])</span> <span class="ow">is</span> <span class="nb">list</span><span class="p">:</span>
@@ -387,7 +388,7 @@ document.write(`
                                                      <span class="n">high</span><span class="o">=</span><span class="n">printing_params</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
 
 
-<span class="k">def</span> <span class="nf">update_params_ordinal</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">update_params_ordinal</span><span class="p">(</span>
         <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
         <span class="n">culture_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span>
@@ -411,7 +412,7 @@ document.write(`
     <span class="k">return</span> <span class="n">params</span>
 
 
-<span class="k">def</span> <span class="nf">update_params_approval_rel_size_central_vote</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">culture_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">update_params_approval_rel_size_central_vote</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">culture_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
     <span class="k">if</span> <span class="s1">&#39;p&#39;</span> <span class="ow">in</span> <span class="n">params</span> <span class="ow">and</span> <span class="n">culture_id</span> <span class="ow">in</span> \
             <span class="p">[</span><span class="s1">&#39;resampling&#39;</span><span class="p">,</span> <span class="s1">&#39;disjoint_resampling&#39;</span><span class="p">,</span> <span class="s1">&#39;moving_resampling&#39;</span><span class="p">,</span> <span class="s1">&#39;noise&#39;</span><span class="p">]:</span>
         <span class="n">params</span><span class="p">[</span><span class="s1">&#39;rel_size_central_vote&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">]</span>
@@ -433,7 +434,7 @@ document.write(`
 <span class="c1">#         params[&#39;p&#39;] = np.random.uniform(low=params[&#39;p&#39;][0], high=params[&#39;p&#39;][1])</span>
 
 
-<span class="k">def</span> <span class="nf">update_params_approval_resampling</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">update_params_approval_resampling</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
     <span class="k">if</span> <span class="s1">&#39;phi&#39;</span> <span class="ow">in</span> <span class="n">params</span> <span class="ow">and</span> <span class="nb">type</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;phi&#39;</span><span class="p">])</span> <span class="ow">is</span> <span class="nb">list</span><span class="p">:</span>
         <span class="n">params</span><span class="p">[</span><span class="s1">&#39;phi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">low</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;phi&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">high</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;phi&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
     <span class="k">elif</span> <span class="s1">&#39;phi&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">params</span><span class="p">:</span>
@@ -445,7 +446,7 @@ document.write(`
         <span class="n">params</span><span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>
 
 
-<span class="k">def</span> <span class="nf">update_params_approval_disjoint</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">update_params_approval_disjoint</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
     <span class="k">if</span> <span class="s1">&#39;phi&#39;</span> <span class="ow">in</span> <span class="n">params</span> <span class="ow">and</span> <span class="nb">type</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;phi&#39;</span><span class="p">])</span> <span class="ow">is</span> <span class="nb">list</span><span class="p">:</span>
         <span class="n">params</span><span class="p">[</span><span class="s1">&#39;phi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">low</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;phi&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">high</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;phi&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
     <span class="k">elif</span> <span class="s1">&#39;phi&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">params</span><span class="p">:</span>
@@ -457,7 +458,7 @@ document.write(`
         <span class="n">params</span><span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">/</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;num_central_votes&#39;</span><span class="p">]</span>
 
 
-<span class="k">def</span> <span class="nf">update_params_approval</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">update_params_approval</span><span class="p">(</span>
         <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
         <span class="n">culture_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
 <span class="p">):</span>
@@ -473,7 +474,7 @@ document.write(`
     <span class="k">return</span> <span class="n">params</span>
 
 
-<span class="k">def</span> <span class="nf">get_params_for_paths</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">extremes</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_params_for_paths</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">extremes</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 
     <span class="n">variable</span> <span class="o">=</span> <span class="n">path</span><span class="p">[</span><span class="s1">&#39;variable&#39;</span><span class="p">]</span>
 

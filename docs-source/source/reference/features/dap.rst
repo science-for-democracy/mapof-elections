@@ -1,5 +1,5 @@
 Diversity Approximate
 =====================
 
-.. automodule:: mapof.elections.features.dap_approximate
+.. automodule:: mapof.elections.features.dap
     :members:

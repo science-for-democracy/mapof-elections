@@ -27,8 +27,8 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -36,7 +36,7 @@
   <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../../../_static/documentation_options.js?v=dea914ae"></script>
-    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/mapof/elections/distances';</script>
@@ -177,8 +177,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/features/main.html">Main</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/features/register.html">Register</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/features/scores.html">Scores</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../reference/features/diversity.html">Diversity</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../reference/features/dap_approximate.html">Diversity Approximate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/features/dap.html">Diversity Approximate</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/features/simple_ordinal.html">Simple Ordinal</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/features/simple_approval.html">Simple Approval</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/features/abc_features.html">ABC Features</a></li>
@@ -200,6 +199,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/objects/OrdinalElection.html">OrdinalElection</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/objects/OrdinalElectionExperiment.html">OrdinalElectionExperiment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/objects/ElectionFamily.html">ElectionFamily</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/objects/Microscope.html">Microscope</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../reference/persistence/index.html">Persistence</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -329,19 +329,19 @@ document.write(`
                 <article class="bd-article">
                   
   <h1>Source code for mapof.elections.distances</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
 
-<span class="kn">from</span> <span class="nn">mapof.core.distances</span> <span class="kn">import</span> <span class="n">map_str_to_func</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mapof.core.distances</span><span class="w"> </span><span class="kn">import</span> <span class="n">map_str_to_func</span>
 
-<span class="kn">from</span> <span class="nn">mapof.elections.distances</span> <span class="kn">import</span> <span class="n">feature_distance</span>
-<span class="kn">from</span> <span class="nn">mapof.elections.distances</span> <span class="kn">import</span> <span class="n">main_approval_distances</span> <span class="k">as</span> <span class="n">mad</span>
-<span class="kn">from</span> <span class="nn">mapof.elections.distances</span> <span class="kn">import</span> <span class="n">main_ordinal_distances</span> <span class="k">as</span> <span class="n">mod</span>
-<span class="kn">from</span> <span class="nn">mapof.elections.distances</span> <span class="kn">import</span> <span class="n">positionwise_infty</span>
-<span class="kn">from</span> <span class="nn">mapof.elections.objects.ApprovalElection</span> <span class="kn">import</span> <span class="n">ApprovalElection</span>
-<span class="kn">from</span> <span class="nn">mapof.elections.objects.OrdinalElection</span> <span class="kn">import</span> <span class="n">OrdinalElection</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mapof.elections.distances</span><span class="w"> </span><span class="kn">import</span> <span class="n">feature_distance</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mapof.elections.distances</span><span class="w"> </span><span class="kn">import</span> <span class="n">main_approval_distances</span> <span class="k">as</span> <span class="n">mad</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mapof.elections.distances</span><span class="w"> </span><span class="kn">import</span> <span class="n">main_ordinal_distances</span> <span class="k">as</span> <span class="n">mod</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mapof.elections.distances</span><span class="w"> </span><span class="kn">import</span> <span class="n">positionwise_infty</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mapof.elections.objects.ApprovalElection</span><span class="w"> </span><span class="kn">import</span> <span class="n">ApprovalElection</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mapof.elections.objects.OrdinalElection</span><span class="w"> </span><span class="kn">import</span> <span class="n">OrdinalElection</span>
 
 
-<span class="kn">from</span> <span class="nn">mapof.elections.distances.register</span> <span class="kn">import</span> \
+<span class="kn">from</span><span class="w"> </span><span class="nn">mapof.elections.distances.register</span><span class="w"> </span><span class="kn">import</span> \
     <span class="n">registered_ordinal_election_distances</span><span class="p">,</span> \
     <span class="n">registered_approval_election_distances</span>
 
@@ -370,7 +370,7 @@ document.write(`
 <span class="c1"># }</span>
 
 
-<span class="k">def</span> <span class="nf">add_approval_distance</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">function</span><span class="p">:</span> <span class="nb">callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_approval_distance</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">function</span><span class="p">:</span> <span class="nb">callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Adds a new approval distance to the list of approval distances.</span>
 
@@ -388,7 +388,7 @@ document.write(`
     <span class="n">registered_approval_election_distances</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">function</span>
 
 
-<span class="k">def</span> <span class="nf">add_ordinal_distance</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">function</span><span class="p">:</span> <span class="nb">callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_ordinal_distance</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">function</span><span class="p">:</span> <span class="nb">callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Adds a new ordinal distance to the list of ordinal distances.</span>
 
@@ -408,7 +408,7 @@ document.write(`
 
 <div class="viewcode-block" id="get_distance">
 <a class="viewcode-back" href="../../../reference/distances/main.html#mapof.elections.distances.get_distance">[docs]</a>
-<span class="k">def</span> <span class="nf">get_distance</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_distance</span><span class="p">(</span>
         <span class="n">election_1</span><span class="p">,</span>
         <span class="n">election_2</span><span class="p">,</span>
         <span class="n">distance_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
@@ -437,7 +437,7 @@ document.write(`
 
 <div class="viewcode-block" id="get_approval_distance">
 <a class="viewcode-back" href="../../../reference/distances/main.html#mapof.elections.distances.get_approval_distance">[docs]</a>
-<span class="k">def</span> <span class="nf">get_approval_distance</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_approval_distance</span><span class="p">(</span>
         <span class="n">election_1</span><span class="p">:</span> <span class="n">ApprovalElection</span><span class="p">,</span>
         <span class="n">election_2</span><span class="p">:</span> <span class="n">ApprovalElection</span><span class="p">,</span>
         <span class="n">distance_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -476,7 +476,7 @@ document.write(`
 
 <div class="viewcode-block" id="get_ordinal_distance">
 <a class="viewcode-back" href="../../../reference/distances/main.html#mapof.elections.distances.get_ordinal_distance">[docs]</a>
-<span class="k">def</span> <span class="nf">get_ordinal_distance</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_ordinal_distance</span><span class="p">(</span>
         <span class="n">election_1</span><span class="p">:</span> <span class="n">OrdinalElection</span><span class="p">,</span>
         <span class="n">election_2</span><span class="p">:</span> <span class="n">OrdinalElection</span><span class="p">,</span>
         <span class="n">distance_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
@@ -512,7 +512,7 @@ document.write(`
 
 
 
-<span class="k">def</span> <span class="nf">_extract_distance_id</span><span class="p">(</span><span class="n">distance_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nb">callable</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_extract_distance_id</span><span class="p">(</span><span class="n">distance_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nb">callable</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Return: inner distance (distance between votes) name and main distance name &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="s1">&#39;-&#39;</span> <span class="ow">in</span> <span class="n">distance_id</span><span class="p">:</span>
         <span class="n">inner_distance</span><span class="p">,</span> <span class="n">main_distance</span> <span class="o">=</span> <span class="n">distance_id</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>

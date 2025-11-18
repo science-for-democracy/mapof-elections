@@ -27,8 +27,8 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -36,7 +36,7 @@
   <script src="../../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../../../../_static/documentation_options.js?v=dea914ae"></script>
-    <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/mapof/elections/persistence/election_exports';</script>
@@ -199,6 +199,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/OrdinalElection.html">OrdinalElection</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/OrdinalElectionExperiment.html">OrdinalElectionExperiment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/ElectionFamily.html">ElectionFamily</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/Microscope.html">Microscope</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/persistence/index.html">Persistence</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -328,16 +329,16 @@ document.write(`
                 <article class="bd-article">
                   
   <h1>Source code for mapof.elections.persistence.election_exports</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">csv</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">csv</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">Counter</span>
 
-<span class="kn">from</span> <span class="nn">mapof.core.utils</span> <span class="kn">import</span> <span class="n">make_folder_if_do_not_exist</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mapof.core.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_folder_if_do_not_exist</span>
 
 
 <div class="viewcode-block" id="export_votes_to_file">
 <a class="viewcode-back" href="../../../../reference/persistence/election_exports.html#mapof.elections.persistence.election_exports.export_votes_to_file">[docs]</a>
-<span class="k">def</span> <span class="nf">export_votes_to_file</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">export_votes_to_file</span><span class="p">(</span>
         <span class="n">election</span><span class="p">,</span>
         <span class="n">path</span><span class="p">,</span>
         <span class="n">votes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -421,7 +422,7 @@ document.write(`
 
 <div class="viewcode-block" id="export_election_without_experiment">
 <a class="viewcode-back" href="../../../../reference/persistence/election_exports.html#mapof.elections.persistence.election_exports.export_election_without_experiment">[docs]</a>
-<span class="k">def</span> <span class="nf">export_election_without_experiment</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">export_election_without_experiment</span><span class="p">(</span>
         <span class="n">election</span><span class="p">,</span>
         <span class="n">path_to_folder</span><span class="p">,</span>
         <span class="n">is_aggregated</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
@@ -457,7 +458,7 @@ document.write(`
 
 <div class="viewcode-block" id="export_election_within_experiment">
 <a class="viewcode-back" href="../../../../reference/persistence/election_exports.html#mapof.elections.persistence.election_exports.export_election_within_experiment">[docs]</a>
-<span class="k">def</span> <span class="nf">export_election_within_experiment</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">export_election_within_experiment</span><span class="p">(</span>
         <span class="n">election</span><span class="p">,</span>
         <span class="n">is_aggregated</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -490,7 +491,7 @@ document.write(`
 
 
 
-<span class="k">def</span> <span class="nf">export_pseudo_ordinal_election</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">export_pseudo_ordinal_election</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
 
     <span class="n">file_</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
     <span class="n">file_</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;# FILE NAME: </span><span class="si">{</span><span class="n">election</span><span class="o">.</span><span class="n">election_id</span><span class="si">}</span><span class="s1">.</span><span class="si">{</span><span class="n">election</span><span class="o">.</span><span class="n">format</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -586,7 +587,7 @@ document.write(`
 
 <div class="viewcode-block" id="export_distances">
 <a class="viewcode-back" href="../../../../reference/persistence/election_exports.html#mapof.elections.persistence.election_exports.export_distances">[docs]</a>
-<span class="k">def</span> <span class="nf">export_distances</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">export_distances</span><span class="p">(</span>
         <span class="n">election</span><span class="p">,</span>
         <span class="n">object_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;vote&#39;</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -620,7 +621,7 @@ document.write(`
 
 <div class="viewcode-block" id="export_coordinates">
 <a class="viewcode-back" href="../../../../reference/persistence/election_exports.html#mapof.elections.persistence.election_exports.export_coordinates">[docs]</a>
-<span class="k">def</span> <span class="nf">export_coordinates</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">export_coordinates</span><span class="p">(</span>
         <span class="n">election</span><span class="p">,</span>
         <span class="n">object_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;vote&#39;</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -654,7 +655,7 @@ document.write(`
 
 <div class="viewcode-block" id="export_frequency_matrices">
 <a class="viewcode-back" href="../../../../reference/persistence/election_exports.html#mapof.elections.persistence.election_exports.export_frequency_matrices">[docs]</a>
-<span class="k">def</span> <span class="nf">export_frequency_matrices</span><span class="p">(</span><span class="n">experiment</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">export_frequency_matrices</span><span class="p">(</span><span class="n">experiment</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Exports frequency matrices to csv files.</span>
 
 <span class="sd">    Parameters</span>
@@ -685,6 +686,7 @@ document.write(`
             <span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">csv_file</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">frequency_matrix</span><span class="p">:</span>
                 <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span><span class="n">row</span><span class="p">)</span></div>
+
 
 </pre></div>
 

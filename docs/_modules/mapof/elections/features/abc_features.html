@@ -27,8 +27,8 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -36,7 +36,7 @@
   <script src="../../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../../../../_static/documentation_options.js?v=dea914ae"></script>
-    <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/mapof/elections/features/abc_features';</script>
@@ -155,8 +155,7 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/cultures/index.html">Cultures</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/list_of_cultures.html">List of Cultures</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/main.html">Main</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/compass_approx.html">Compass Approximation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/compass_true.html">Compass True</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/compass.html">Compass</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/prefsampling_mask.html">Prefsampling Mask</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/pseudo_cultures.html">Pseudo Cultures</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/params.html">Params</a></li>
@@ -170,6 +169,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/main_ordinal_distances.html">Ordinal Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/committee_distances.html">Committee Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/feature_distance.html">Feature Distance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/ilp_subelections.html">Subelection Distance</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/features/index.html">Features</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -177,8 +177,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/main.html">Main</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/register.html">Register</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/scores.html">Scores</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/diversity.html">Diversity</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/dap_approximate.html">Diversity Approximate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/dap.html">Diversity Approximate</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/simple_ordinal.html">Simple Ordinal</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/simple_approval.html">Simple Approval</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/abc_features.html">ABC Features</a></li>
@@ -200,6 +199,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/OrdinalElection.html">OrdinalElection</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/OrdinalElectionExperiment.html">OrdinalElectionExperiment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/ElectionFamily.html">ElectionFamily</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/Microscope.html">Microscope</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/persistence/index.html">Persistence</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -209,6 +209,7 @@
 </details></li>
 </ul>
 </details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../resources.html">Resources</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../citation.html">Citation Policy</a></li>
 </ul>
 
@@ -329,24 +330,24 @@ document.write(`
                   
   <h1>Source code for mapof.elections.features.abc_features</h1><div class="highlight"><pre>
 <span></span><span class="k">try</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">abcvoting.preferences</span> <span class="kn">import</span> <span class="n">Profile</span>
-    <span class="kn">from</span> <span class="nn">abcvoting</span> <span class="kn">import</span> <span class="n">abcrules</span><span class="p">,</span> <span class="n">properties</span>
-    <span class="kn">from</span> <span class="nn">abcvoting.output</span> <span class="kn">import</span> <span class="n">output</span><span class="p">,</span> <span class="n">INFO</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">abcvoting.preferences</span><span class="w"> </span><span class="kn">import</span> <span class="n">Profile</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">abcvoting</span><span class="w"> </span><span class="kn">import</span> <span class="n">abcrules</span><span class="p">,</span> <span class="n">properties</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">abcvoting.output</span><span class="w"> </span><span class="kn">import</span> <span class="n">output</span><span class="p">,</span> <span class="n">INFO</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
     <span class="k">pass</span>
 
 <span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">gurobipy</span> <span class="k">as</span> <span class="nn">gb</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">gurobipy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gb</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
     <span class="k">pass</span>
 
-<span class="kn">from</span> <span class="nn">mapof.elections.features.register</span> <span class="kn">import</span> <span class="n">register_approval_election_feature</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mapof.elections.features.register</span><span class="w"> </span><span class="kn">import</span> <span class="n">register_approval_election_feature</span>
 
 <span class="n">ACCURACY</span> <span class="o">=</span> <span class="mf">1e-8</span>  <span class="c1"># 1e-9 causes problems (some unit tests fail)</span>
 <span class="n">CMP_ACCURACY</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">ACCURACY</span>  <span class="c1"># when comparing float numbers obtained from a MIP</span>
 
 
-<span class="k">def</span> <span class="nf">_set_gurobi_model_parameters</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_set_gurobi_model_parameters</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
     <span class="n">model</span><span class="o">.</span><span class="n">setParam</span><span class="p">(</span><span class="s2">&quot;OutputFlag&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
     <span class="n">model</span><span class="o">.</span><span class="n">setParam</span><span class="p">(</span><span class="s2">&quot;FeasibilityTol&quot;</span><span class="p">,</span> <span class="n">ACCURACY</span><span class="p">)</span>
     <span class="n">model</span><span class="o">.</span><span class="n">setParam</span><span class="p">(</span><span class="s2">&quot;OptimalityTol&quot;</span><span class="p">,</span> <span class="n">ACCURACY</span><span class="p">)</span>
@@ -357,7 +358,7 @@ document.write(`
     <span class="n">model</span><span class="o">.</span><span class="n">setParam</span><span class="p">(</span><span class="s2">&quot;IntegralityFocus&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_check_core_gurobi</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="n">committee</span><span class="p">,</span> <span class="n">committeesize</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_check_core_gurobi</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="n">committee</span><span class="p">,</span> <span class="n">committeesize</span><span class="p">):</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">gb</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s2">&quot;Gurobi (gurobipy) not available.&quot;</span><span class="p">)</span>
@@ -389,7 +390,7 @@ document.write(`
         <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Gurobi returned an unexpected status code: </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">Status</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_check_priceability_gurobi</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="n">committee</span><span class="p">,</span> <span class="n">stable</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_check_priceability_gurobi</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="n">committee</span><span class="p">,</span> <span class="n">stable</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span>
             <span class="p">[</span><span class="n">cand</span> <span class="k">for</span> <span class="n">cand</span> <span class="ow">in</span> <span class="n">profile</span><span class="o">.</span><span class="n">candidates</span> <span class="k">if</span>
@@ -487,7 +488,7 @@ document.write(`
 <div class="viewcode-block" id="get_priceability">
 <a class="viewcode-back" href="../../../../reference/features/abc_features.html#mapof.elections.features.abc_features.get_priceability">[docs]</a>
 <span class="nd">@register_approval_election_feature</span><span class="p">(</span><span class="s2">&quot;priceability&quot;</span><span class="p">,</span> <span class="n">has_params</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">is_rule_related</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">get_priceability</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">feature_params</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_priceability</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">feature_params</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Computes priceability using ABC Python package. &quot;&quot;&quot;</span>
 
     <span class="n">rule</span> <span class="o">=</span> <span class="n">feature_params</span><span class="p">[</span><span class="s1">&#39;rule&#39;</span><span class="p">]</span>
@@ -503,7 +504,7 @@ document.write(`
 <div class="viewcode-block" id="get_core">
 <a class="viewcode-back" href="../../../../reference/features/abc_features.html#mapof.elections.features.abc_features.get_core">[docs]</a>
 <span class="nd">@register_approval_election_feature</span><span class="p">(</span><span class="s2">&quot;core&quot;</span><span class="p">,</span> <span class="n">has_params</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">is_rule_related</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">get_core</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">feature_params</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_core</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">feature_params</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Computes the core using ABC Python package. &quot;&quot;&quot;</span>
 
     <span class="n">rule</span> <span class="o">=</span> <span class="n">feature_params</span><span class="p">[</span><span class="s1">&#39;rule&#39;</span><span class="p">]</span>

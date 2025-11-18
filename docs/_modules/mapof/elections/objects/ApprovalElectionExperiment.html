@@ -27,8 +27,8 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -36,7 +36,7 @@
   <script src="../../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../../../../_static/documentation_options.js?v=dea914ae"></script>
-    <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/mapof/elections/objects/ApprovalElectionExperiment';</script>
@@ -169,6 +169,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/main_ordinal_distances.html">Ordinal Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/committee_distances.html">Committee Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/feature_distance.html">Feature Distance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/ilp_subelections.html">Subelection Distance</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/features/index.html">Features</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -176,8 +177,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/main.html">Main</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/register.html">Register</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/scores.html">Scores</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/diversity.html">Diversity</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/dap_approximate.html">Diversity Approximate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/dap.html">Diversity Approximate</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/simple_ordinal.html">Simple Ordinal</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/simple_approval.html">Simple Approval</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/abc_features.html">ABC Features</a></li>
@@ -199,6 +199,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/OrdinalElection.html">OrdinalElection</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/OrdinalElectionExperiment.html">OrdinalElectionExperiment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/ElectionFamily.html">ElectionFamily</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/Microscope.html">Microscope</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/persistence/index.html">Persistence</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -328,25 +329,25 @@ document.write(`
                 <article class="bd-article">
                   
   <h1>Source code for mapof.elections.objects.ApprovalElectionExperiment</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">csv</span>
-<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span>
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">csv</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">ABC</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">mapof.core.matchings</span> <span class="kn">import</span> <span class="n">solve_matching_vectors</span>
-<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mapof.core.matchings</span><span class="w"> </span><span class="kn">import</span> <span class="n">solve_matching_vectors</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tqdm</span><span class="w"> </span><span class="kn">import</span> <span class="n">tqdm</span>
 
-<span class="kn">import</span> <span class="nn">mapof.elections.cultures</span> <span class="k">as</span> <span class="nn">cultures</span>
-<span class="kn">import</span> <span class="nn">mapof.elections.distances</span> <span class="k">as</span> <span class="nn">distances</span>
-<span class="kn">import</span> <span class="nn">mapof.elections.features</span> <span class="k">as</span> <span class="nn">features</span>
-<span class="kn">from</span> <span class="nn">mapof.elections.objects.ElectionExperiment</span> <span class="kn">import</span> <span class="n">ElectionExperiment</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">mapof.elections.cultures</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cultures</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">mapof.elections.distances</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">distances</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">mapof.elections.features</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">features</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mapof.elections.objects.ElectionExperiment</span><span class="w"> </span><span class="kn">import</span> <span class="n">ElectionExperiment</span>
 
 <span class="k">try</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">sklearn.manifold</span> <span class="kn">import</span> <span class="n">MDS</span>
-    <span class="kn">from</span> <span class="nn">sklearn.manifold</span> <span class="kn">import</span> <span class="n">TSNE</span>
-    <span class="kn">from</span> <span class="nn">sklearn.manifold</span> <span class="kn">import</span> <span class="n">SpectralEmbedding</span>
-    <span class="kn">from</span> <span class="nn">sklearn.manifold</span> <span class="kn">import</span> <span class="n">LocallyLinearEmbedding</span>
-    <span class="kn">from</span> <span class="nn">sklearn.manifold</span> <span class="kn">import</span> <span class="n">Isomap</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.manifold</span><span class="w"> </span><span class="kn">import</span> <span class="n">MDS</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.manifold</span><span class="w"> </span><span class="kn">import</span> <span class="n">TSNE</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.manifold</span><span class="w"> </span><span class="kn">import</span> <span class="n">SpectralEmbedding</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.manifold</span><span class="w"> </span><span class="kn">import</span> <span class="n">LocallyLinearEmbedding</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.manifold</span><span class="w"> </span><span class="kn">import</span> <span class="n">Isomap</span>
 <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
     <span class="n">MDS</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">TSNE</span> <span class="o">=</span> <span class="kc">None</span>
@@ -358,22 +359,22 @@ document.write(`
 
 <div class="viewcode-block" id="ApprovalElectionExperiment">
 <a class="viewcode-back" href="../../../../reference/objects/ApprovalElectionExperiment.html#mapof.elections.objects.ApprovalElectionExperiment.ApprovalElectionExperiment">[docs]</a>
-<span class="k">class</span> <span class="nc">ApprovalElectionExperiment</span><span class="p">(</span><span class="n">ElectionExperiment</span><span class="p">,</span> <span class="n">ABC</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ApprovalElectionExperiment</span><span class="p">(</span><span class="n">ElectionExperiment</span><span class="p">,</span> <span class="n">ABC</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Abstract set of approval elections.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">add_culture</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">function</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_culture</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">function</span><span class="p">):</span>
         <span class="n">cultures</span><span class="o">.</span><span class="n">add_approval_culture</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">function</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">add_feature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">function</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_feature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">function</span><span class="p">):</span>
         <span class="n">features</span><span class="o">.</span><span class="n">add_approval_feature</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">function</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">add_distance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">function</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_distance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">function</span><span class="p">):</span>
         <span class="n">distances</span><span class="o">.</span><span class="n">add_approval_distance</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">function</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">compute_distance_between_rules</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute_distance_between_rules</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">list_of_rules</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">printing</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
@@ -426,7 +427,7 @@ document.write(`
                         <span class="n">mean</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">all_distance</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_elections</span>
                         <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">([</span><span class="n">r1</span><span class="p">,</span> <span class="n">r2</span><span class="p">,</span> <span class="n">mean</span><span class="p">,</span> <span class="mf">0.</span><span class="p">])</span>
 
-    <span class="k">def</span> <span class="nf">compute_rule_features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute_rule_features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                               <span class="n">feature_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                               <span class="n">list_of_rules</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                               <span class="n">feature_params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -448,7 +449,7 @@ document.write(`
             <span class="n">feature_params</span><span class="p">[</span><span class="s1">&#39;rule&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rule</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">compute_feature</span><span class="p">(</span><span class="n">feature_id</span><span class="o">=</span><span class="n">feature_id</span><span class="p">,</span> <span class="n">feature_params</span><span class="o">=</span><span class="n">feature_params</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">print_latex_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">print_latex_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                           <span class="n">feature_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                           <span class="n">column_id</span><span class="o">=</span><span class="s1">&#39;value&#39;</span><span class="p">,</span>
                           <span class="n">list_of_rules</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -485,7 +486,7 @@ document.write(`
             <span class="c1"># print(&quot;&quot;)</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\\\</span><span class="s2"> </span><span class="se">\\</span><span class="s2">midrule&quot;</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">print_latex_multitable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">print_latex_multitable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                                <span class="n">features_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                                <span class="n">columns_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                                <span class="n">list_of_rules</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -525,7 +526,7 @@ document.write(`
 
 <div class="viewcode-block" id="ApprovalElectionExperiment.add_folders_to_experiment">
 <a class="viewcode-back" href="../../../../reference/objects/ApprovalElectionExperiment.html#mapof.elections.objects.ApprovalElectionExperiment.ApprovalElectionExperiment.add_folders_to_experiment">[docs]</a>
-    <span class="k">def</span> <span class="nf">add_folders_to_experiment</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_folders_to_experiment</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Creates the folders within the experiment directory.</span>
 

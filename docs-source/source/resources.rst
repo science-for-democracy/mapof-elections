@@ -20,7 +20,7 @@ List of papers than develop the theory related to the concept of map of election
 
 
 Datasets & Examples
-~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~
 
 In the `mapof-data repository <https://github.com/science-for-democracy/mapof-data>`_
 you can find the datasets used in the papers above and some examples of how to use them.

@@ -27,8 +27,8 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -36,7 +36,7 @@
   <script src="../../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../../../../_static/documentation_options.js?v=dea914ae"></script>
-    <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/mapof/elections/features/approx';</script>
@@ -155,8 +155,7 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/cultures/index.html">Cultures</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/list_of_cultures.html">List of Cultures</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/main.html">Main</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/compass_approx.html">Compass Approximation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/compass_true.html">Compass True</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/compass.html">Compass</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/prefsampling_mask.html">Prefsampling Mask</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/pseudo_cultures.html">Pseudo Cultures</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/params.html">Params</a></li>
@@ -170,6 +169,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/main_ordinal_distances.html">Ordinal Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/committee_distances.html">Committee Distances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/feature_distance.html">Feature Distance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/ilp_subelections.html">Subelection Distance</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/features/index.html">Features</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -177,8 +177,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/main.html">Main</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/register.html">Register</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/scores.html">Scores</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/diversity.html">Diversity</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/dap_approximate.html">Diversity Approximate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/dap.html">Diversity Approximate</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/simple_ordinal.html">Simple Ordinal</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/simple_approval.html">Simple Approval</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/abc_features.html">ABC Features</a></li>
@@ -200,6 +199,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/OrdinalElection.html">OrdinalElection</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/OrdinalElectionExperiment.html">OrdinalElectionExperiment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/ElectionFamily.html">ElectionFamily</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/Microscope.html">Microscope</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/persistence/index.html">Persistence</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -209,6 +209,7 @@
 </details></li>
 </ul>
 </details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../resources.html">Resources</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../citation.html">Citation Policy</a></li>
 </ul>
 
@@ -328,29 +329,29 @@ document.write(`
                 <article class="bd-article">
                   
   <h1>Source code for mapof.elections.features.approx</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">mapof.elections.features.scores</span> <span class="kn">import</span> <span class="n">get_score</span><span class="p">,</span> <span class="n">get_dissat</span>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mapof.elections.features.scores</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_score</span><span class="p">,</span> <span class="n">get_dissat</span>
 
-<span class="kn">from</span> <span class="nn">mapof.elections.features.register</span> <span class="kn">import</span> <span class="n">register_ordinal_election_feature</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mapof.elections.features.register</span><span class="w"> </span><span class="kn">import</span> <span class="n">register_ordinal_election_feature</span>
 
 
 <span class="c1"># GREEDY</span>
 <span class="nd">@register_ordinal_election_feature</span><span class="p">(</span><span class="s1">&#39;greedy_approx_cc_score&#39;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">get_greedy_approx_cc_score</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">committee_size</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_greedy_approx_cc_score</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">committee_size</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">get_greedy_approx_score</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="s1">&#39;cc&#39;</span><span class="p">,</span> <span class="n">committee_size</span><span class="o">=</span><span class="n">committee_size</span><span class="p">)</span>
 
 
 <span class="nd">@register_ordinal_election_feature</span><span class="p">(</span><span class="s1">&#39;greedy_approx_hb_score&#39;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">get_greedy_approx_hb_score</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">committee_size</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_greedy_approx_hb_score</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">committee_size</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">get_greedy_approx_score</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="s1">&#39;hb&#39;</span><span class="p">,</span> <span class="n">committee_size</span><span class="o">=</span><span class="n">committee_size</span><span class="p">)</span>
 
 
 <span class="nd">@register_ordinal_election_feature</span><span class="p">(</span><span class="s1">&#39;greedy_approx_pav_score&#39;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">get_greedy_approx_pav_score</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">committee_size</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_greedy_approx_pav_score</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">committee_size</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">get_greedy_approx_score</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="s1">&#39;pav&#39;</span><span class="p">,</span> <span class="n">committee_size</span><span class="o">=</span><span class="n">committee_size</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">get_greedy_approx_score</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">rule</span><span class="p">,</span> <span class="n">committee_size</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_greedy_approx_score</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">rule</span><span class="p">,</span> <span class="n">committee_size</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">election</span><span class="o">.</span><span class="n">is_pseudo</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;dissat&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
     <span class="n">winners</span> <span class="o">=</span> <span class="n">get_winners_approx_greedy</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">committee_size</span><span class="p">,</span> <span class="n">rule</span><span class="p">)</span>
@@ -360,7 +361,7 @@ document.write(`
 
 <div class="viewcode-block" id="get_winners_approx_greedy">
 <a class="viewcode-back" href="../../../../reference/features/approx.html#mapof.elections.features.approx.get_winners_approx_greedy">[docs]</a>
-<span class="k">def</span> <span class="nf">get_winners_approx_greedy</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">committee_size</span><span class="p">,</span> <span class="n">rule</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_winners_approx_greedy</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">committee_size</span><span class="p">,</span> <span class="n">rule</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; universal function &quot;&quot;&quot;</span>
 
     <span class="n">owa_vector</span><span class="p">,</span> <span class="n">scoring_vector</span> <span class="o">=</span> <span class="n">get_vectors</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">rule</span><span class="p">,</span> <span class="n">committee_size</span><span class="p">)</span>
@@ -378,7 +379,7 @@ document.write(`
         <span class="n">owa_vector</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
         <span class="n">scoring_vector</span> <span class="o">=</span> <span class="p">[</span><span class="n">election</span><span class="o">.</span><span class="n">num_candidates</span> <span class="o">-</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">election</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">)]</span>
 
-    <span class="k">def</span> <span class="nf">simple</span><span class="p">(</span><span class="n">active</span><span class="p">,</span> <span class="n">vote</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">owa_vector</span><span class="p">,</span> <span class="n">scoring_vector</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">simple</span><span class="p">(</span><span class="n">active</span><span class="p">,</span> <span class="n">vote</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">owa_vector</span><span class="p">,</span> <span class="n">scoring_vector</span><span class="p">):</span>
         <span class="n">income</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">ctr</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">vote</span><span class="p">)):</span>
@@ -433,19 +434,19 @@ document.write(`
 
 <span class="c1"># REMOVAL</span>
 <span class="nd">@register_ordinal_election_feature</span><span class="p">(</span><span class="s1">&#39;removal_approx_cc_score&#39;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">get_removal_approx_cc_score</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">committee_size</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_removal_approx_cc_score</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">committee_size</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">get_removal_approx_score</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="s2">&quot;cc&quot;</span><span class="p">,</span> <span class="n">committee_size</span><span class="o">=</span><span class="n">committee_size</span><span class="p">)</span>
 
 <span class="nd">@register_ordinal_election_feature</span><span class="p">(</span><span class="s1">&#39;removal_approx_hb_score&#39;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">get_removal_approx_hb_score</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">committee_size</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_removal_approx_hb_score</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">committee_size</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">get_removal_approx_score</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="s2">&quot;hb&quot;</span><span class="p">,</span> <span class="n">committee_size</span><span class="o">=</span><span class="n">committee_size</span><span class="p">)</span>
 
 <span class="nd">@register_ordinal_election_feature</span><span class="p">(</span><span class="s1">&#39;removal_approx_pav_score&#39;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">get_removal_approx_pav_score</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">committee_size</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_removal_approx_pav_score</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">committee_size</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">get_removal_approx_score</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="s2">&quot;pav&quot;</span><span class="p">,</span> <span class="n">committee_size</span><span class="o">=</span><span class="n">committee_size</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">get_removal_approx_score</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">rule</span><span class="p">,</span> <span class="n">committee_size</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_removal_approx_score</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">rule</span><span class="p">,</span> <span class="n">committee_size</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">election</span><span class="o">.</span><span class="n">is_pseudo</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;dissat&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
     <span class="n">winners</span> <span class="o">=</span> <span class="n">get_winners_approx_removal</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">committee_size</span><span class="p">,</span> <span class="n">rule</span><span class="p">)</span>
@@ -454,11 +455,11 @@ document.write(`
             <span class="s1">&#39;dissat&#39;</span><span class="p">:</span> <span class="n">get_dissat</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">winners</span><span class="p">,</span> <span class="n">rule</span><span class="p">)}</span>
 
 
-<span class="k">def</span> <span class="nf">get_winners_approx_removal</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">committee_size</span><span class="p">,</span> <span class="n">rule</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_winners_approx_removal</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">committee_size</span><span class="p">,</span> <span class="n">rule</span><span class="p">):</span>
 
     <span class="n">owa_vector</span><span class="p">,</span> <span class="n">scoring_vector</span> <span class="o">=</span> <span class="n">get_vectors</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">rule</span><span class="p">,</span> <span class="n">committee_size</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">simple</span><span class="p">(</span><span class="n">active</span><span class="p">,</span> <span class="n">vote</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">owa_vector</span><span class="p">,</span> <span class="n">scoring_vector</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">simple</span><span class="p">(</span><span class="n">active</span><span class="p">,</span> <span class="n">vote</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">owa_vector</span><span class="p">,</span> <span class="n">scoring_vector</span><span class="p">):</span>
         <span class="n">income</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">ctr</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">vote</span><span class="p">)):</span>
@@ -517,7 +518,7 @@ document.write(`
     <span class="k">return</span> <span class="n">winners</span>
 
 
-<span class="k">def</span> <span class="nf">get_vectors</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">rule</span><span class="p">,</span> <span class="n">committee_size</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_vectors</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">rule</span><span class="p">,</span> <span class="n">committee_size</span><span class="p">):</span>
 
     <span class="k">if</span> <span class="n">rule</span> <span class="o">==</span> <span class="s1">&#39;hb&#39;</span><span class="p">:</span>
         <span class="n">owa_vector</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">election</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">)]</span>

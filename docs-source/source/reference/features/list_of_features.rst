@@ -38,11 +38,11 @@ List of Ordinal Features
    * - ``Polarization``
      - :py:func:`~mapof.elections.features.diversity.polarization_index`
    * - ``AgreementApprox``
-     - :py:func:`~mapof.elections.features.dap_approximate.agreement_index`
+     - :py:func:`~mapof.elections.features.dap.agreement_index`
    * - ``DiversityApprox``
-     - :py:func:`~mapof.elections.features.dap_approximate.diversity_index`
+     - :py:func:`~mapof.elections.features.dap.diversity_index`
    * - ``PolarizationApprox``
-     - :py:func:`~mapof.elections.features.dap_approximate.polarization_index`
+     - :py:func:`~mapof.elections.features.dap.polarization_index`
    * - ``is_condorcet``
      - :py:func:`~mapof.elections.features.simple_ordinal.is_condorcet`
    * - ``effective_num_candidates``

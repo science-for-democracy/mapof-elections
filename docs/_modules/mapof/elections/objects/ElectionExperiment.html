@@ -27,8 +27,8 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -36,7 +36,7 @@
   <script src="../../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../../../../_static/documentation_options.js?v=dea914ae"></script>
-    <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/mapof/elections/objects/ElectionExperiment';</script>
@@ -199,6 +199,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/OrdinalElection.html">OrdinalElection</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/OrdinalElectionExperiment.html">OrdinalElectionExperiment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/ElectionFamily.html">ElectionFamily</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/Microscope.html">Microscope</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/persistence/index.html">Persistence</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -328,45 +329,45 @@ document.write(`
                 <article class="bd-article">
                   
   <h1>Source code for mapof.elections.objects.ElectionExperiment</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">ast</span>
-<span class="kn">import</span> <span class="nn">csv</span>
-<span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">import</span> <span class="nn">warnings</span>
-<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABCMeta</span><span class="p">,</span> <span class="n">abstractmethod</span>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">ast</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">csv</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">ABCMeta</span><span class="p">,</span> <span class="n">abstractmethod</span>
 
-<span class="kn">import</span> <span class="nn">mapof.core.persistence.experiment_exports</span> <span class="k">as</span> <span class="nn">exports</span>
-<span class="kn">import</span> <span class="nn">mapof.core.printing</span> <span class="k">as</span> <span class="nn">pr</span>
-<span class="kn">from</span> <span class="nn">mapof.core.features.register</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">mapof.core.persistence.experiment_exports</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">exports</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">mapof.core.printing</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pr</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mapof.core.features.register</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">registered_experiment_features</span><span class="p">,</span>
     <span class="n">features_embedding_related</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">mapof.core.objects.Experiment</span> <span class="kn">import</span> <span class="n">Experiment</span>
-<span class="kn">from</span> <span class="nn">mapof.core.utils</span> <span class="kn">import</span> <span class="n">get_instance_id</span>
-<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mapof.core.objects.Experiment</span><span class="w"> </span><span class="kn">import</span> <span class="n">Experiment</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mapof.core.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_instance_id</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tqdm</span><span class="w"> </span><span class="kn">import</span> <span class="n">tqdm</span>
 
-<span class="kn">import</span> <span class="nn">mapof.elections.other.approval_rules</span> <span class="k">as</span> <span class="nn">rules</span>
-<span class="kn">from</span> <span class="nn">mapof.elections.cultures.register</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">mapof.elections.other.approval_rules</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rules</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mapof.elections.cultures.register</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">registered_ordinal_election_cultures</span><span class="p">,</span>
     <span class="n">registered_pseudo_ordinal_cultures</span><span class="p">,</span>
     <span class="n">registered_approval_election_cultures</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">mapof.elections.distances</span> <span class="kn">import</span> <span class="n">get_distance</span>
-<span class="kn">from</span> <span class="nn">mapof.elections.features.register</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mapof.elections.distances</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_distance</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mapof.elections.features.register</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">features_with_params</span><span class="p">,</span>
     <span class="n">features_rule_related</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">mapof.elections.objects.ApprovalElection</span> <span class="kn">import</span> <span class="n">ApprovalElection</span>
-<span class="kn">from</span> <span class="nn">mapof.elections.objects.ElectionFamily</span> <span class="kn">import</span> <span class="n">ElectionFamily</span>
-<span class="kn">from</span> <span class="nn">mapof.elections.objects.OrdinalElection</span> <span class="kn">import</span> <span class="n">OrdinalElection</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mapof.elections.objects.ApprovalElection</span><span class="w"> </span><span class="kn">import</span> <span class="n">ApprovalElection</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mapof.elections.objects.ElectionFamily</span><span class="w"> </span><span class="kn">import</span> <span class="n">ElectionFamily</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mapof.elections.objects.OrdinalElection</span><span class="w"> </span><span class="kn">import</span> <span class="n">OrdinalElection</span>
 
 <span class="k">try</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">sklearn.manifold</span> <span class="kn">import</span> <span class="n">MDS</span>
-    <span class="kn">from</span> <span class="nn">sklearn.manifold</span> <span class="kn">import</span> <span class="n">TSNE</span>
-    <span class="kn">from</span> <span class="nn">sklearn.manifold</span> <span class="kn">import</span> <span class="n">SpectralEmbedding</span>
-    <span class="kn">from</span> <span class="nn">sklearn.manifold</span> <span class="kn">import</span> <span class="n">LocallyLinearEmbedding</span>
-    <span class="kn">from</span> <span class="nn">sklearn.manifold</span> <span class="kn">import</span> <span class="n">Isomap</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.manifold</span><span class="w"> </span><span class="kn">import</span> <span class="n">MDS</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.manifold</span><span class="w"> </span><span class="kn">import</span> <span class="n">TSNE</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.manifold</span><span class="w"> </span><span class="kn">import</span> <span class="n">SpectralEmbedding</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.manifold</span><span class="w"> </span><span class="kn">import</span> <span class="n">LocallyLinearEmbedding</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.manifold</span><span class="w"> </span><span class="kn">import</span> <span class="n">Isomap</span>
 <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
     <span class="n">MDS</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">TSNE</span> <span class="o">=</span> <span class="kc">None</span>
@@ -378,23 +379,23 @@ document.write(`
 
 <div class="viewcode-block" id="ElectionExperiment">
 <a class="viewcode-back" href="../../../../reference/objects/ElectionExperiment.html#mapof.elections.objects.ElectionExperiment.ElectionExperiment">[docs]</a>
-<span class="k">class</span> <span class="nc">ElectionExperiment</span><span class="p">(</span><span class="n">Experiment</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ElectionExperiment</span><span class="p">(</span><span class="n">Experiment</span><span class="p">):</span>
     <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">ABCMeta</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Abstract set of instances.&quot;&quot;&quot;</span>
 
     <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">add_folders_to_experiment</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_folders_to_experiment</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">pass</span>
 
     <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">add_feature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">function</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_feature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">function</span><span class="p">):</span>
         <span class="k">pass</span>
 
     <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">add_culture</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">function</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_culture</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">function</span><span class="p">):</span>
         <span class="k">pass</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">is_shifted</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">is_shifted</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">is_shifted</span> <span class="o">=</span> <span class="n">is_shifted</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">default_num_candidates</span> <span class="o">=</span> <span class="mi">10</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">default_num_voters</span> <span class="o">=</span> <span class="mi">100</span>
@@ -402,7 +403,7 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">all_winning_committees</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">attr</span> <span class="o">==</span> <span class="s1">&#39;elections&#39;</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instances</span>
         <span class="k">elif</span> <span class="n">attr</span> <span class="o">==</span> <span class="s1">&#39;num_elections&#39;</span><span class="p">:</span>
@@ -410,7 +411,7 @@ document.write(`
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">attr</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;elections&quot;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">instances</span> <span class="o">=</span> <span class="n">value</span>
         <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;num_elections&quot;</span><span class="p">:</span>
@@ -420,7 +421,7 @@ document.write(`
 
 <div class="viewcode-block" id="ElectionExperiment.add_instances_to_experiment">
 <a class="viewcode-back" href="../../../../reference/objects/ElectionExperiment.html#mapof.elections.objects.ElectionExperiment.ElectionExperiment.add_instances_to_experiment">[docs]</a>
-    <span class="k">def</span> <span class="nf">add_instances_to_experiment</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_instances_to_experiment</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add instances to the experiment.</span>
 
@@ -458,7 +459,7 @@ document.write(`
 
 <div class="viewcode-block" id="ElectionExperiment.set_default_num_candidates">
 <a class="viewcode-back" href="../../../../reference/objects/ElectionExperiment.html#mapof.elections.objects.ElectionExperiment.ElectionExperiment.set_default_num_candidates">[docs]</a>
-    <span class="k">def</span> <span class="nf">set_default_num_candidates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_default_num_candidates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets default number of candidates</span>
 
@@ -476,7 +477,7 @@ document.write(`
 
 <div class="viewcode-block" id="ElectionExperiment.set_default_num_voters">
 <a class="viewcode-back" href="../../../../reference/objects/ElectionExperiment.html#mapof.elections.objects.ElectionExperiment.ElectionExperiment.set_default_num_voters">[docs]</a>
-    <span class="k">def</span> <span class="nf">set_default_num_voters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_voters</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_default_num_voters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_voters</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets default number of voters</span>
 
@@ -494,7 +495,7 @@ document.write(`
 
 <div class="viewcode-block" id="ElectionExperiment.set_default_committee_size">
 <a class="viewcode-back" href="../../../../reference/objects/ElectionExperiment.html#mapof.elections.objects.ElectionExperiment.ElectionExperiment.set_default_committee_size">[docs]</a>
-    <span class="k">def</span> <span class="nf">set_default_committee_size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">committee_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_default_committee_size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">committee_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets default size of the committee</span>
 
@@ -510,7 +511,7 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">default_committee_size</span> <span class="o">=</span> <span class="n">committee_size</span></div>
 
 
-    <span class="k">def</span> <span class="nf">add_election_from_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_election_from_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                                  <span class="n">frequency_matrix</span><span class="p">,</span>
                                  <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 
@@ -526,7 +527,7 @@ document.write(`
 
 <div class="viewcode-block" id="ElectionExperiment.add_election">
 <a class="viewcode-back" href="../../../../reference/objects/ElectionExperiment.html#mapof.elections.objects.ElectionExperiment.ElectionExperiment.add_election">[docs]</a>
-    <span class="k">def</span> <span class="nf">add_election</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_election</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                      <span class="n">culture_id</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span>
                      <span class="n">label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                      <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span>
@@ -617,7 +618,7 @@ document.write(`
 
 <div class="viewcode-block" id="ElectionExperiment.add_family">
 <a class="viewcode-back" href="../../../../reference/objects/ElectionExperiment.html#mapof.elections.objects.ElectionExperiment.ElectionExperiment.add_family">[docs]</a>
-    <span class="k">def</span> <span class="nf">add_family</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_family</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                    <span class="n">culture_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;none&quot;</span><span class="p">,</span>
                    <span class="n">size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
                    <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -753,7 +754,7 @@ document.write(`
 
 <div class="viewcode-block" id="ElectionExperiment.add_existing_family_from_dir">
 <a class="viewcode-back" href="../../../../reference/objects/ElectionExperiment.html#mapof.elections.objects.ElectionExperiment.ElectionExperiment.add_existing_family_from_dir">[docs]</a>
-    <span class="k">def</span> <span class="nf">add_existing_family_from_dir</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_existing_family_from_dir</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="nb">dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
             <span class="n">culture_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -814,7 +815,7 @@ document.write(`
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_family</span><span class="p">(</span><span class="n">culture_id</span><span class="o">=</span><span class="n">culture_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 
-    <span class="k">def</span> <span class="nf">_update_map_csv</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_update_map_csv</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">families</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">path_to_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s1">&#39;experiments&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">experiment_id</span><span class="p">,</span> <span class="s1">&#39;map.csv&#39;</span><span class="p">)</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path_to_file</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">csv_file</span><span class="p">:</span>
@@ -857,7 +858,7 @@ document.write(`
 
 <div class="viewcode-block" id="ElectionExperiment.add_empty_family">
 <a class="viewcode-back" href="../../../../reference/objects/ElectionExperiment.html#mapof.elections.objects.ElectionExperiment.ElectionExperiment.add_empty_family">[docs]</a>
-    <span class="k">def</span> <span class="nf">add_empty_family</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_empty_family</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">culture_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;none&quot;</span><span class="p">,</span>
             <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -917,7 +918,7 @@ document.write(`
 
 <div class="viewcode-block" id="ElectionExperiment.prepare_elections">
 <a class="viewcode-back" href="../../../../reference/objects/ElectionExperiment.html#mapof.elections.objects.ElectionExperiment.ElectionExperiment.prepare_elections">[docs]</a>
-    <span class="k">def</span> <span class="nf">prepare_elections</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">export_points</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">is_aggregated</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">prepare_elections</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">export_points</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">is_aggregated</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Prepares elections for a given experiment.</span>
 
@@ -967,7 +968,7 @@ document.write(`
 
 <div class="viewcode-block" id="ElectionExperiment.compute_voting_rule">
 <a class="viewcode-back" href="../../../../reference/objects/ElectionExperiment.html#mapof.elections.objects.ElectionExperiment.ElectionExperiment.compute_voting_rule">[docs]</a>
-    <span class="k">def</span> <span class="nf">compute_voting_rule</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">committee_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute_voting_rule</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">committee_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Computes voting rule for all elections in the experiment.</span>
 
@@ -987,13 +988,13 @@ document.write(`
                 <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span> <span class="n">committee_size</span><span class="o">=</span><span class="n">committee_size</span><span class="p">)</span></div>
 
 
-    <span class="k">def</span> <span class="nf">compute_alternative_winners</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">committee_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">num_parties</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute_alternative_winners</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">committee_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">num_parties</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">election_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">elections</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">party_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_parties</span><span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">elections</span><span class="p">[</span><span class="n">election_id</span><span class="p">]</span><span class="o">.</span><span class="n">compute_alternative_winners</span><span class="p">(</span>
                     <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span> <span class="n">party_id</span><span class="o">=</span><span class="n">party_id</span><span class="p">,</span> <span class="n">committee_size</span><span class="o">=</span><span class="n">committee_size</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">get_distance</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_distance</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">election_1</span><span class="p">,</span>
             <span class="n">election_2</span><span class="p">,</span>
@@ -1002,12 +1003,12 @@ document.write(`
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span> <span class="ow">or</span> <span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">get_distance</span><span class="p">(</span><span class="n">election_1</span><span class="p">,</span> <span class="n">election_2</span><span class="p">,</span> <span class="n">distance_id</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">print_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">print_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">pr</span><span class="o">.</span><span class="n">print_matrix</span><span class="p">(</span><span class="n">experiment</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
 <div class="viewcode-block" id="ElectionExperiment.import_controllers">
 <a class="viewcode-back" href="../../../../reference/objects/ElectionExperiment.html#mapof.elections.objects.ElectionExperiment.ElectionExperiment.import_controllers">[docs]</a>
-    <span class="k">def</span> <span class="nf">import_controllers</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">import_controllers</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Import controllers from a file</span>
 
@@ -1102,7 +1103,7 @@ document.write(`
 
 <div class="viewcode-block" id="ElectionExperiment.compute_feature">
 <a class="viewcode-back" href="../../../../reference/objects/ElectionExperiment.html#mapof.elections.objects.ElectionExperiment.ElectionExperiment.compute_feature">[docs]</a>
-    <span class="k">def</span> <span class="nf">compute_feature</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute_feature</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">feature_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
             <span class="n">feature_params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1215,7 +1216,7 @@ document.write(`
 
 <div class="viewcode-block" id="ElectionExperiment.compute_rules">
 <a class="viewcode-back" href="../../../../reference/objects/ElectionExperiment.html#mapof.elections.objects.ElectionExperiment.ElectionExperiment.compute_rules">[docs]</a>
-    <span class="k">def</span> <span class="nf">compute_rules</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute_rules</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">list_of_rules</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
             <span class="n">committee_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
@@ -1249,7 +1250,7 @@ document.write(`
 
 <div class="viewcode-block" id="ElectionExperiment.import_committees">
 <a class="viewcode-back" href="../../../../reference/objects/ElectionExperiment.html#mapof.elections.objects.ElectionExperiment.ElectionExperiment.import_committees">[docs]</a>
-    <span class="k">def</span> <span class="nf">import_committees</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">list_of_rules</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">import_committees</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">list_of_rules</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Imports the winning committees for a list of rules.</span>
 
@@ -1269,7 +1270,7 @@ document.write(`
 
 <div class="viewcode-block" id="ElectionExperiment.add_election_to_family">
 <a class="viewcode-back" href="../../../../reference/objects/ElectionExperiment.html#mapof.elections.objects.ElectionExperiment.ElectionExperiment.add_election_to_family">[docs]</a>
-    <span class="k">def</span> <span class="nf">add_election_to_family</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">election</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">family_id</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_election_to_family</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">election</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">family_id</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Adds an election to a family.</span>
 
@@ -1289,7 +1290,7 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">families</span><span class="p">[</span><span class="n">family_id</span><span class="p">]</span><span class="o">.</span><span class="n">add_election</span><span class="p">(</span><span class="n">election</span><span class="p">)</span></div>
 
 
-    <span class="k">def</span> <span class="nf">prepare_election_features</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">prepare_election_features</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">election</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">instances</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="n">election</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">election_features</span><span class="o">.</span><span class="n">votes</span> <span class="o">=</span> <span class="n">election</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">votes</span>
             <span class="n">election</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">election_features</span><span class="o">.</span><span class="n">num_candidates</span> <span class="o">=</span> <span class="n">election</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">num_candidates</span>
@@ -1310,14 +1311,14 @@ document.write(`
     <span class="c1">#         election[1].election_features.compass_points[&#39;UN&#39;] = self.instances[</span>
     <span class="c1">#             UN_KEY + str(election[1].num_candidates)]</span>
 
-    <span class="k">def</span> <span class="nf">calculate_dap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">calculate_dap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
         <span class="n">dap</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
         <span class="n">dap</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">[</span><span class="s1">&#39;Diversity&#39;</span><span class="p">][</span><span class="nb">id</span><span class="p">])</span>
         <span class="n">dap</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">[</span><span class="s1">&#39;Agreement&#39;</span><span class="p">][</span><span class="nb">id</span><span class="p">])</span>
         <span class="n">dap</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">[</span><span class="s1">&#39;Polarization&#39;</span><span class="p">][</span><span class="nb">id</span><span class="p">])</span>
         <span class="k">return</span> <span class="n">dap</span>
 
-    <span class="k">def</span> <span class="nf">calculate_features_vector</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">features_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">calculate_features_vector</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">features_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
         <span class="n">vector</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
         <span class="k">if</span> <span class="s1">&#39;d&#39;</span> <span class="ow">in</span> <span class="n">features_list</span><span class="p">:</span>
             <span class="n">vector</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">[</span><span class="s1">&#39;Diversity&#39;</span><span class="p">][</span><span class="nb">id</span><span class="p">])</span>
@@ -1333,11 +1334,11 @@ document.write(`
             <span class="n">vector</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">[</span><span class="s1">&#39;CandidateDistanceStd&#39;</span><span class="p">][</span><span class="nb">id</span><span class="p">])</span>
         <span class="k">return</span> <span class="n">vector</span>
 
-    <span class="k">def</span> <span class="nf">prepare_election_sizes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">prepare_election_sizes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">election</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">instances</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">election_sizes</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">election</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">prepare_feature_vectors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">features</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">prepare_feature_vectors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">features</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">election</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">instances</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="n">election</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">election_features</span><span class="o">.</span><span class="n">votes</span> <span class="o">=</span> <span class="n">election</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">votes</span>
             <span class="n">election</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">election_features</span><span class="o">.</span><span class="n">num_candidates</span> <span class="o">=</span> <span class="n">election</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">num_candidates</span>
@@ -1346,21 +1347,21 @@ document.write(`
                 <span class="n">election</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">election_id</span><span class="p">,</span>
                 <span class="n">features</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">prepare_instances</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">prepare_instances</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">prepare_elections</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">add_instance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_instance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_election</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">__getstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__getstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span>
 
-    <span class="k">def</span> <span class="nf">__setstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__setstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">state</span><span class="p">)</span></div>
 
 
 
-<span class="k">def</span> <span class="nf">_check_if_all_equal</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">subject</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_check_if_all_equal</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">subject</span><span class="p">):</span>
     <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">x</span> <span class="o">!=</span> <span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">values</span><span class="p">):</span>
         <span class="n">text</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Not all </span><span class="si">{</span><span class="n">subject</span><span class="si">}</span><span class="s1"> values are equal!&#39;</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>

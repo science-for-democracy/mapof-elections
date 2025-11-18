@@ -27,8 +27,8 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -36,7 +36,7 @@
   <script src="../../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../../../../_static/documentation_options.js?v=dea914ae"></script>
-    <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/mapof/elections/distances/main_ordinal_distances';</script>
@@ -177,8 +177,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/main.html">Main</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/register.html">Register</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/scores.html">Scores</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/diversity.html">Diversity</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/dap_approximate.html">Diversity Approximate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/dap.html">Diversity Approximate</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/simple_ordinal.html">Simple Ordinal</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/simple_approval.html">Simple Approval</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/abc_features.html">ABC Features</a></li>
@@ -200,6 +199,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/OrdinalElection.html">OrdinalElection</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/OrdinalElectionExperiment.html">OrdinalElectionExperiment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/ElectionFamily.html">ElectionFamily</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/Microscope.html">Microscope</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/persistence/index.html">Persistence</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -329,21 +329,21 @@ document.write(`
                 <article class="bd-article">
                   
   <h1>Source code for mapof.elections.distances.main_ordinal_distances</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">combinations</span><span class="p">,</span> <span class="n">permutations</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">itertools</span><span class="w"> </span><span class="kn">import</span> <span class="n">combinations</span><span class="p">,</span> <span class="n">permutations</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">mapof.core.matchings</span> <span class="kn">import</span> <span class="n">solve_matching_vectors</span><span class="p">,</span> <span class="n">solve_matching_matrices</span>
-<span class="kn">from</span> <span class="nn">mapof.elections.objects.OrdinalElection</span> <span class="kn">import</span> <span class="n">OrdinalElection</span>
-<span class="kn">import</span> <span class="nn">mapof.core.utils</span> <span class="k">as</span> <span class="nn">utils</span>
-<span class="kn">from</span> <span class="nn">mapof.core.distances</span> <span class="kn">import</span> <span class="n">swap_distance</span>
-<span class="kn">import</span> <span class="nn">mapof.elections.distances.ilp_isomorphic</span> <span class="k">as</span> <span class="nn">ilp_iso</span>
-<span class="kn">from</span> <span class="nn">mapof.elections.distances.ilp_subelections</span> <span class="kn">import</span> <span class="n">maximum_common_voter_subelection</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mapof.core.matchings</span><span class="w"> </span><span class="kn">import</span> <span class="n">solve_matching_vectors</span><span class="p">,</span> <span class="n">solve_matching_matrices</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mapof.elections.objects.OrdinalElection</span><span class="w"> </span><span class="kn">import</span> <span class="n">OrdinalElection</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">mapof.core.utils</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">utils</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mapof.core.distances</span><span class="w"> </span><span class="kn">import</span> <span class="n">swap_distance</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">mapof.elections.distances.ilp_isomorphic</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ilp_iso</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mapof.elections.distances.ilp_subelections</span><span class="w"> </span><span class="kn">import</span> <span class="n">maximum_common_voter_subelection</span>
 
-<span class="kn">from</span> <span class="nn">mapof.elections.distances.register</span> <span class="kn">import</span> <span class="n">register_ordinal_election_distance</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mapof.elections.distances.register</span><span class="w"> </span><span class="kn">import</span> <span class="n">register_ordinal_election_distance</span>
 
 <span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">mapof.elections.distances.cppdistances</span> <span class="k">as</span> <span class="nn">cppd</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">mapof.elections.distances.cppdistances</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cppd</span>
 <span class="k">except</span><span class="p">:</span>
     <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;The quick C++ procedures for computing the swap and &quot;</span>
                     <span class="s2">&quot;Spearman distance is unavailable: using the (slow) python one instead&quot;</span><span class="p">)</span>
@@ -352,7 +352,7 @@ document.write(`
 <div class="viewcode-block" id="pos_swap_distance">
 <a class="viewcode-back" href="../../../../reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.pos_swap_distance">[docs]</a>
 <span class="nd">@register_ordinal_election_distance</span><span class="p">(</span><span class="s2">&quot;pos_swap&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">pos_swap_distance</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">pos_swap_distance</span><span class="p">(</span>
         <span class="n">election_1</span><span class="p">:</span> <span class="n">OrdinalElection</span><span class="p">,</span>
         <span class="n">election_2</span><span class="p">:</span> <span class="n">OrdinalElection</span><span class="p">,</span>
         <span class="n">inner_distance</span><span class="p">:</span> <span class="nb">callable</span>
@@ -369,7 +369,7 @@ document.write(`
 <div class="viewcode-block" id="positionwise_distance">
 <a class="viewcode-back" href="../../../../reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.positionwise_distance">[docs]</a>
 <span class="nd">@register_ordinal_election_distance</span><span class="p">(</span><span class="s2">&quot;positionwise&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">positionwise_distance</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">positionwise_distance</span><span class="p">(</span>
         <span class="n">election_1</span><span class="p">,</span>
         <span class="n">election_2</span><span class="p">,</span>
         <span class="n">inner_distance</span><span class="p">:</span> <span class="nb">callable</span>
@@ -399,7 +399,7 @@ document.write(`
 <div class="viewcode-block" id="agg_voterlikeness_distance">
 <a class="viewcode-back" href="../../../../reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.agg_voterlikeness_distance">[docs]</a>
 <span class="nd">@register_ordinal_election_distance</span><span class="p">(</span><span class="s2">&quot;agg_voterlikeness&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">agg_voterlikeness_distance</span><span class="p">(</span><span class="n">election_1</span><span class="p">:</span> <span class="n">OrdinalElection</span><span class="p">,</span> <span class="n">election_2</span><span class="p">:</span> <span class="n">OrdinalElection</span><span class="p">,</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">agg_voterlikeness_distance</span><span class="p">(</span><span class="n">election_1</span><span class="p">:</span> <span class="n">OrdinalElection</span><span class="p">,</span> <span class="n">election_2</span><span class="p">:</span> <span class="n">OrdinalElection</span><span class="p">,</span>
                                        <span class="n">inner_distance</span><span class="p">:</span> <span class="nb">callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Compute Aggregated-Voterlikeness distance between ordinal elections &quot;&quot;&quot;</span>
     <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Aggregated-Voterlikeness distance wasn&#39;t properly tested.&quot;</span><span class="p">)</span>
@@ -412,7 +412,7 @@ document.write(`
 <div class="viewcode-block" id="bordawise_distance">
 <a class="viewcode-back" href="../../../../reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.bordawise_distance">[docs]</a>
 <span class="nd">@register_ordinal_election_distance</span><span class="p">(</span><span class="s2">&quot;bordawise&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">bordawise_distance</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">bordawise_distance</span><span class="p">(</span>
         <span class="n">election_1</span><span class="p">:</span> <span class="n">OrdinalElection</span><span class="p">,</span>
         <span class="n">election_2</span><span class="p">:</span> <span class="n">OrdinalElection</span><span class="p">,</span>
         <span class="n">inner_distance</span><span class="p">:</span> <span class="nb">callable</span>
@@ -443,7 +443,7 @@ document.write(`
 <div class="viewcode-block" id="pairwise_distance">
 <a class="viewcode-back" href="../../../../reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.pairwise_distance">[docs]</a>
 <span class="nd">@register_ordinal_election_distance</span><span class="p">(</span><span class="s2">&quot;pairwise&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">pairwise_distance</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">pairwise_distance</span><span class="p">(</span>
         <span class="n">election_1</span><span class="p">:</span> <span class="n">OrdinalElection</span><span class="p">,</span>
         <span class="n">election_2</span><span class="p">:</span> <span class="n">OrdinalElection</span><span class="p">,</span>
         <span class="n">inner_distance</span><span class="p">:</span> <span class="nb">callable</span>
@@ -475,7 +475,7 @@ document.write(`
 <div class="viewcode-block" id="voterlikeness_distance">
 <a class="viewcode-back" href="../../../../reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.voterlikeness_distance">[docs]</a>
 <span class="nd">@register_ordinal_election_distance</span><span class="p">(</span><span class="s2">&quot;voterlikeness&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">voterlikeness_distance</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">voterlikeness_distance</span><span class="p">(</span>
         <span class="n">election_1</span><span class="p">:</span> <span class="n">OrdinalElection</span><span class="p">,</span>
         <span class="n">election_2</span><span class="p">:</span> <span class="n">OrdinalElection</span><span class="p">,</span>
         <span class="n">inner_distance</span><span class="p">:</span> <span class="nb">callable</span>
@@ -507,7 +507,7 @@ document.write(`
 <div class="viewcode-block" id="swap_distance_bf">
 <a class="viewcode-back" href="../../../../reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.swap_distance_bf">[docs]</a>
 <span class="nd">@register_ordinal_election_distance</span><span class="p">(</span><span class="s2">&quot;swap_bf&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">swap_distance_bf</span><span class="p">(</span><span class="n">election_1</span><span class="p">:</span> <span class="n">OrdinalElection</span><span class="p">,</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">swap_distance_bf</span><span class="p">(</span><span class="n">election_1</span><span class="p">:</span> <span class="n">OrdinalElection</span><span class="p">,</span>
                              <span class="n">election_2</span><span class="p">:</span> <span class="n">OrdinalElection</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Compute swap distance between elections via brute force, in Python.</span>
 <span class="sd">    This is mostly as a fallback to the C++ implementation, which might</span>
@@ -524,12 +524,12 @@ document.write(`
 <div class="viewcode-block" id="swap_distance">
 <a class="viewcode-back" href="../../../../reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.swap_distance">[docs]</a>
 <span class="nd">@register_ordinal_election_distance</span><span class="p">(</span><span class="s2">&quot;swap&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">swap_distance</span><span class="p">(</span><span class="n">election_1</span><span class="p">:</span> <span class="n">OrdinalElection</span><span class="p">,</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">swap_distance</span><span class="p">(</span><span class="n">election_1</span><span class="p">:</span> <span class="n">OrdinalElection</span><span class="p">,</span>
                           <span class="n">election_2</span><span class="p">:</span> <span class="n">OrdinalElection</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Compute swap distance between elections (using the C++ extension) &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_module_loaded</span><span class="p">(</span><span class="s2">&quot;mapof.elections.distances.cppdistances&quot;</span><span class="p">):</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Using Python implementation instead of the C++ one&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">swap_distance_bf</span><span class="p">(</span><span class="n">election_1</span><span class="p">,</span> <span class="n">election_2</span><span class="p">),</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="n">swap_distance_bf</span><span class="p">(</span><span class="n">election_1</span><span class="p">,</span> <span class="n">election_2</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">election_1</span><span class="o">.</span><span class="n">num_candidates</span> <span class="o">&lt;</span> <span class="n">election_2</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">:</span>
         <span class="n">swapd</span> <span class="o">=</span> <span class="n">cppd</span><span class="o">.</span><span class="n">tswapd</span><span class="p">(</span><span class="n">election_1</span><span class="o">.</span><span class="n">votes</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
@@ -548,7 +548,7 @@ document.write(`
 <div class="viewcode-block" id="truncated_swap_distance">
 <a class="viewcode-back" href="../../../../reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.truncated_swap_distance">[docs]</a>
 <span class="nd">@register_ordinal_election_distance</span><span class="p">(</span><span class="s2">&quot;truncated_swap&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">truncated_swap_distance</span><span class="p">(</span><span class="n">election_1</span><span class="p">:</span> <span class="n">OrdinalElection</span><span class="p">,</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">truncated_swap_distance</span><span class="p">(</span><span class="n">election_1</span><span class="p">:</span> <span class="n">OrdinalElection</span><span class="p">,</span>
                                     <span class="n">election_2</span><span class="p">:</span> <span class="n">OrdinalElection</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Compute truncated swap distance between elections &quot;&quot;&quot;</span>
     <span class="n">obj_values</span> <span class="o">=</span> <span class="p">[]</span>
@@ -562,11 +562,12 @@ document.write(`
 <div class="viewcode-block" id="spearman_distance">
 <a class="viewcode-back" href="../../../../reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.spearman_distance">[docs]</a>
 <span class="nd">@register_ordinal_election_distance</span><span class="p">(</span><span class="s2">&quot;spearman&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">spearman_distance</span><span class="p">(</span><span class="n">election_1</span><span class="p">:</span> <span class="n">OrdinalElection</span><span class="p">,</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">spearman_distance</span><span class="p">(</span><span class="n">election_1</span><span class="p">:</span> <span class="n">OrdinalElection</span><span class="p">,</span>
                               <span class="n">election_2</span><span class="p">:</span> <span class="n">OrdinalElection</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Compute Spearman distance between elections (using the C++ extension) &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">utils</span><span class="o">.</span><span class="n">is_module_loaded</span><span class="p">(</span><span class="s2">&quot;mapof.elections.distances.cppdistances&quot;</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">spearman_distance_ilp_py</span><span class="p">(</span><span class="n">election_1</span><span class="p">,</span> <span class="n">election_2</span><span class="p">),</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="n">spearman_distance_ilp_py</span><span class="p">(</span><span class="n">election_1</span><span class="p">,</span> <span class="n">election_2</span><span class="p">)</span>
+
     <span class="n">speard</span> <span class="o">=</span> <span class="n">cppd</span><span class="o">.</span><span class="n">speard</span><span class="p">(</span><span class="n">election_1</span><span class="o">.</span><span class="n">votes</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
                          <span class="n">election_2</span><span class="o">.</span><span class="n">votes</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
     <span class="k">return</span> <span class="n">speard</span><span class="p">,</span> <span class="kc">None</span></div>
@@ -576,7 +577,7 @@ document.write(`
 <div class="viewcode-block" id="spearman_distance_fastmap">
 <a class="viewcode-back" href="../../../../reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.spearman_distance_fastmap">[docs]</a>
 <span class="nd">@register_ordinal_election_distance</span><span class="p">(</span><span class="s2">&quot;spearman_aa&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">spearman_distance_fastmap</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">spearman_distance_fastmap</span><span class="p">(</span>
         <span class="n">election_1</span><span class="p">:</span> <span class="n">OrdinalElection</span><span class="p">,</span>
         <span class="n">election_2</span><span class="p">:</span> <span class="n">OrdinalElection</span><span class="p">,</span>
         <span class="n">method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;aa&quot;</span>
@@ -623,9 +624,9 @@ document.write(`
 <span class="sd">        Tuple of Isomorphic Spearman distance value and None.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="kn">import</span> <span class="nn">fastmap</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">fastmap</span>
     <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s2">&quot;`fastmap` library module not found&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
+        <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s2">&quot;`fastmap` library module not found&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
 
     <span class="n">U</span><span class="p">,</span> <span class="n">V</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">election_1</span><span class="o">.</span><span class="n">votes</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">election_2</span><span class="o">.</span><span class="n">votes</span><span class="p">)</span>
     <span class="n">d</span> <span class="o">=</span> <span class="n">fastmap</span><span class="o">.</span><span class="n">spearman</span><span class="p">(</span><span class="n">U</span><span class="o">=</span><span class="n">U</span><span class="p">,</span> <span class="n">V</span><span class="o">=</span><span class="n">V</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">)</span>
@@ -637,7 +638,7 @@ document.write(`
 <div class="viewcode-block" id="spearman_distance_ilp_py">
 <a class="viewcode-back" href="../../../../reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.spearman_distance_ilp_py">[docs]</a>
 <span class="nd">@register_ordinal_election_distance</span><span class="p">(</span><span class="s2">&quot;ilp_spearman&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">spearman_distance_ilp_py</span><span class="p">(</span><span class="n">election_1</span><span class="p">:</span> <span class="n">OrdinalElection</span><span class="p">,</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">spearman_distance_ilp_py</span><span class="p">(</span><span class="n">election_1</span><span class="p">:</span> <span class="n">OrdinalElection</span><span class="p">,</span>
                                      <span class="n">election_2</span><span class="p">:</span> <span class="n">OrdinalElection</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Computes Spearman distance between elections &quot;&quot;&quot;</span>
     <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;ilp_spearman wasn&#39;t properly tested.&quot;</span><span class="p">)</span>
@@ -655,7 +656,7 @@ document.write(`
 <div class="viewcode-block" id="discrete_distance">
 <a class="viewcode-back" href="../../../../reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.discrete_distance">[docs]</a>
 <span class="nd">@register_ordinal_election_distance</span><span class="p">(</span><span class="s2">&quot;discrete&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">discrete_distance</span><span class="p">(</span><span class="n">election_1</span><span class="p">:</span> <span class="n">OrdinalElection</span><span class="p">,</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">discrete_distance</span><span class="p">(</span><span class="n">election_1</span><span class="p">:</span> <span class="n">OrdinalElection</span><span class="p">,</span>
                               <span class="n">election_2</span><span class="p">:</span> <span class="n">OrdinalElection</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Computes Discrete distance between elections &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">election_1</span><span class="o">.</span><span class="n">num_voters</span> <span class="o">-</span> <span class="n">maximum_common_voter_subelection</span><span class="p">(</span><span class="n">election_1</span><span class="p">,</span> <span class="n">election_2</span><span class="p">),</span> <span class="kc">None</span></div>
@@ -665,7 +666,7 @@ document.write(`
 <span class="c1"># HELPER FUNCTIONS #</span>
 <div class="viewcode-block" id="get_matching_cost_pos_swap">
 <a class="viewcode-back" href="../../../../reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.get_matching_cost_pos_swap">[docs]</a>
-<span class="k">def</span> <span class="nf">get_matching_cost_pos_swap</span><span class="p">(</span><span class="n">election_1</span><span class="p">:</span> <span class="n">OrdinalElection</span><span class="p">,</span> <span class="n">election_2</span><span class="p">:</span> <span class="n">OrdinalElection</span><span class="p">,</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_matching_cost_pos_swap</span><span class="p">(</span><span class="n">election_1</span><span class="p">:</span> <span class="n">OrdinalElection</span><span class="p">,</span> <span class="n">election_2</span><span class="p">:</span> <span class="n">OrdinalElection</span><span class="p">,</span>
                                <span class="n">matching</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Return: Cost table &quot;&quot;&quot;</span>
     <span class="n">votes_1</span> <span class="o">=</span> <span class="n">election_1</span><span class="o">.</span><span class="n">votes</span>
@@ -678,7 +679,7 @@ document.write(`
 
 <div class="viewcode-block" id="get_matching_cost_positionwise">
 <a class="viewcode-back" href="../../../../reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.get_matching_cost_positionwise">[docs]</a>
-<span class="k">def</span> <span class="nf">get_matching_cost_positionwise</span><span class="p">(</span><span class="n">election_1</span><span class="p">:</span> <span class="n">OrdinalElection</span><span class="p">,</span> <span class="n">election_2</span><span class="p">:</span> <span class="n">OrdinalElection</span><span class="p">,</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_matching_cost_positionwise</span><span class="p">(</span><span class="n">election_1</span><span class="p">:</span> <span class="n">OrdinalElection</span><span class="p">,</span> <span class="n">election_2</span><span class="p">:</span> <span class="n">OrdinalElection</span><span class="p">,</span>
                                    <span class="n">inner_distance</span><span class="p">:</span> <span class="nb">callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Return: Cost table &quot;&quot;&quot;</span>
 
@@ -691,7 +692,7 @@ document.write(`
 
 <div class="viewcode-block" id="get_matching_cost_swap_bf">
 <a class="viewcode-back" href="../../../../reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.get_matching_cost_swap_bf">[docs]</a>
-<span class="k">def</span> <span class="nf">get_matching_cost_swap_bf</span><span class="p">(</span><span class="n">election_1</span><span class="p">:</span> <span class="n">OrdinalElection</span><span class="p">,</span> <span class="n">election_2</span><span class="p">:</span> <span class="n">OrdinalElection</span><span class="p">,</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_matching_cost_swap_bf</span><span class="p">(</span><span class="n">election_1</span><span class="p">:</span> <span class="n">OrdinalElection</span><span class="p">,</span> <span class="n">election_2</span><span class="p">:</span> <span class="n">OrdinalElection</span><span class="p">,</span>
                               <span class="n">mapping</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Return: Cost table &quot;&quot;&quot;</span>
     <span class="n">cost_table</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">election_1</span><span class="o">.</span><span class="n">num_voters</span><span class="p">,</span> <span class="n">election_1</span><span class="o">.</span><span class="n">num_voters</span><span class="p">])</span>
@@ -715,7 +716,7 @@ document.write(`
 
 <div class="viewcode-block" id="get_matching_cost_truncated_swap_bf">
 <a class="viewcode-back" href="../../../../reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.get_matching_cost_truncated_swap_bf">[docs]</a>
-<span class="k">def</span> <span class="nf">get_matching_cost_truncated_swap_bf</span><span class="p">(</span><span class="n">election_1</span><span class="p">:</span> <span class="n">OrdinalElection</span><span class="p">,</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_matching_cost_truncated_swap_bf</span><span class="p">(</span><span class="n">election_1</span><span class="p">:</span> <span class="n">OrdinalElection</span><span class="p">,</span>
                                         <span class="n">election_2</span><span class="p">:</span> <span class="n">OrdinalElection</span><span class="p">,</span>
                                         <span class="n">mapping</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Return: Cost table &quot;&quot;&quot;</span>
@@ -741,7 +742,7 @@ document.write(`
 <div class="viewcode-block" id="blank_distance">
 <a class="viewcode-back" href="../../../../reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.blank_distance">[docs]</a>
 <span class="nd">@register_ordinal_election_distance</span><span class="p">(</span><span class="s2">&quot;blank&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">blank_distance</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">blank_distance</span><span class="p">(</span>
         <span class="n">election_1</span><span class="p">:</span> <span class="n">OrdinalElection</span><span class="p">,</span>
         <span class="n">election_2</span><span class="p">:</span> <span class="n">OrdinalElection</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>

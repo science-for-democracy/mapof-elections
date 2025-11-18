@@ -24,7 +24,11 @@ extensions = [
     "sphinx.ext.doctest",
     "sphinx.ext.napoleon",
     "sphinx.ext.viewcode",
-    "sphinx.ext.imgmath",
+    # Use MathJax for rendering math in HTML builds instead of imgmath which
+    # requires a local LaTeX installation with additional packages (such as
+    # anyfontsize). MathJax renders math in the browser and avoids LaTeX
+    # runtime errors when building HTML.
+    "sphinx.ext.mathjax",
     'sphinx.ext.intersphinx'
 ]
 

@@ -27,8 +27,8 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -36,7 +36,7 @@
   <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../../../_static/documentation_options.js?v=dea914ae"></script>
-    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/mapof/elections/features';</script>
@@ -199,6 +199,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/objects/OrdinalElection.html">OrdinalElection</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/objects/OrdinalElectionExperiment.html">OrdinalElectionExperiment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/objects/ElectionFamily.html">ElectionFamily</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/objects/Microscope.html">Microscope</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../reference/persistence/index.html">Persistence</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -329,21 +330,21 @@ document.write(`
                   
   <h1>Source code for mapof.elections.features</h1><div class="highlight"><pre>
 <span></span>
-<span class="kn">import</span> <span class="nn">mapof.elections.features.approx</span> <span class="k">as</span> <span class="nn">approx</span>
-<span class="kn">import</span> <span class="nn">mapof.elections.features.banzhaf_cc</span> <span class="k">as</span> <span class="nn">banzhaf_cc</span>
-<span class="kn">import</span> <span class="nn">mapof.elections.features.cohesive</span> <span class="k">as</span> <span class="nn">cohesive</span>
-<span class="kn">import</span> <span class="nn">mapof.elections.features.dap</span> <span class="k">as</span> <span class="nn">dap</span>
-<span class="kn">import</span> <span class="nn">mapof.elections.features.entropy</span> <span class="k">as</span> <span class="nn">entropy</span>
-<span class="kn">import</span> <span class="nn">mapof.elections.features.justified_representation</span> <span class="k">as</span> <span class="nn">jr</span>
-<span class="kn">import</span> <span class="nn">mapof.elections.features.simple_ordinal</span> <span class="k">as</span> <span class="nn">simple_ordinal</span>
-<span class="kn">import</span> <span class="nn">mapof.elections.features.simple_approval</span> <span class="k">as</span> <span class="nn">simple_approval</span>
-<span class="kn">import</span> <span class="nn">mapof.elections.features.partylist</span> <span class="k">as</span> <span class="nn">partylist</span>
-<span class="kn">import</span> <span class="nn">mapof.elections.features.proportionality_degree</span> <span class="k">as</span> <span class="nn">prop_deg</span>
-<span class="kn">import</span> <span class="nn">mapof.elections.features.ranging_cc</span> <span class="k">as</span> <span class="nn">ranging_cc</span>
-<span class="kn">import</span> <span class="nn">mapof.elections.features.scores</span> <span class="k">as</span> <span class="nn">scores</span>
-<span class="kn">import</span> <span class="nn">mapof.elections.features.abc_features</span> <span class="k">as</span> <span class="nn">approval_rule_features</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">mapof.elections.features.approx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">approx</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">mapof.elections.features.banzhaf_cc</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">banzhaf_cc</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">mapof.elections.features.cohesive</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cohesive</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">mapof.elections.features.dap</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">dap</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">mapof.elections.features.entropy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">entropy</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">mapof.elections.features.justified_representation</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">jr</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">mapof.elections.features.simple_ordinal</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">simple_ordinal</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">mapof.elections.features.simple_approval</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">simple_approval</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">mapof.elections.features.partylist</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">partylist</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">mapof.elections.features.proportionality_degree</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">prop_deg</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">mapof.elections.features.ranging_cc</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ranging_cc</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">mapof.elections.features.scores</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">scores</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">mapof.elections.features.abc_features</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">approval_rule_features</span>
 
-<span class="kn">from</span> <span class="nn">mapof.elections.features.register</span> <span class="kn">import</span> \
+<span class="kn">from</span><span class="w"> </span><span class="nn">mapof.elections.features.register</span><span class="w"> </span><span class="kn">import</span> \
     <span class="n">registered_ordinal_election_features</span><span class="p">,</span> \
     <span class="n">registered_approval_election_features</span>
 
@@ -351,7 +352,7 @@ document.write(`
 
 <div class="viewcode-block" id="get_local_feature">
 <a class="viewcode-back" href="../../../reference/features/main.html#mapof.elections.features.get_local_feature">[docs]</a>
-<span class="k">def</span> <span class="nf">get_local_feature</span><span class="p">(</span><span class="n">feature_id</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_local_feature</span><span class="p">(</span><span class="n">feature_id</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Local feature depends only on a single instance &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="n">feature_id</span> <span class="ow">in</span> <span class="n">registered_approval_election_features</span><span class="p">:</span>
@@ -365,7 +366,7 @@ document.write(`
 
 <div class="viewcode-block" id="add_approval_feature">
 <a class="viewcode-back" href="../../../reference/features/main.html#mapof.elections.features.add_approval_feature">[docs]</a>
-<span class="k">def</span> <span class="nf">add_approval_feature</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">function</span><span class="p">:</span> <span class="nb">callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_approval_feature</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">function</span><span class="p">:</span> <span class="nb">callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Adds a new approval feature to the list of available approval features.</span>
 
@@ -386,7 +387,7 @@ document.write(`
 
 <div class="viewcode-block" id="add_ordinal_feature">
 <a class="viewcode-back" href="../../../reference/features/main.html#mapof.elections.features.add_ordinal_feature">[docs]</a>
-<span class="k">def</span> <span class="nf">add_ordinal_feature</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">function</span><span class="p">:</span> <span class="nb">callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_ordinal_feature</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">function</span><span class="p">:</span> <span class="nb">callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Adds a new approval feature to the list of available approval features.</span>
 

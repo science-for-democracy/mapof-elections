@@ -338,3 +338,4 @@ def export_frequency_matrices(experiment) -> None:
             writer = csv.writer(csv_file, delimiter=';')
             for row in frequency_matrix:
                 writer.writerow(row)
+

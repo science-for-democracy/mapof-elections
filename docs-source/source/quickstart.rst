@@ -448,11 +448,6 @@ Improved Solution:
 The picture created by the improved version is presented in :ref:`fig_ex_2`. Moreover, for illustrative purposes, in :ref:`Example 3 <fig_original>` we present the map for the 10x100 dataset of Szufa et al. [2020]. Note that the labels and arrows are created in PowerPoint and are not part of the mapof software.
 
 
-.. rubric:: Compass
-To be updated.
-
-
-
 Create Map of Approval Elections
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

@@ -273,10 +273,24 @@ class OrdinalElection(Election):
         return vector, len(vector)
 
     def compute_voting_rule(self, method=None, committee_size=None):
+        """Compute winners using the given voting rule and return them.
+
+        This sets `self.winners` (existing behavior) and also returns the winners
+        for convenience so callers can do `w = obj.compute_voting_rule(...)`.
+        """
         self.winners = voting_rule(election=self, method=method, committee_size=committee_size)
+        return self.winners
 
     def compute_winners(self, **kwargs):  # deprecated name / for backward compatibility
-        return self.compute_voting_rule(self, **kwargs)
+        # old callers used compute_winners(method=..., committee_size=...)
+        # emit a deprecation warning and forward kwargs to compute_voting_rule
+        import warnings
+        warnings.warn(
+            "OrdinalElection.compute_winners is deprecated, use compute_voting_rule instead",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+        return self.compute_voting_rule(**kwargs)
 
     def prepare_instance(self, is_exported=None, is_aggregated=True):
         """ Prepares instance """
@@ -306,46 +320,49 @@ class OrdinalElection(Election):
             exports.export_election_within_experiment(self, is_aggregated=is_aggregated)
 
     def compute_distances(self, distance_id='swap', object_type=None):
-        """ Return: distances between votes """
-        if object_type is None:
-            object_type = self.object_type
+         """ Return: distances between votes """
+         if object_type is None:
+             object_type = self.object_type
 
-        self.distinct_potes = convert_votes_to_potes(self.distinct_votes)
-        self.num_dist_votes = len(self.distinct_votes)
-        self.num_distinct_votes = self.num_dist_votes
+         # Ensure distances is always defined regardless of branches below.
+         distances = []
 
-        if object_type == 'vote':
-            distances = np.zeros([self.num_dist_votes, self.num_dist_votes])
-            for v1 in range(self.num_dist_votes):
-                for v2 in range(self.num_dist_votes):
-                    if distance_id == 'swap':
-                        distances[v1][v2] = swap_distance_between_potes(
-                            self.distinct_potes[v1], self.distinct_potes[v2])
-                    elif distance_id == 'spearman':
-                        distances[v1][v2] = spearman_distance_between_potes(
-                            self.distinct_potes[v1], self.distinct_potes[v2])
-        elif object_type == 'candidate':
-            self.compute_potes()
-            if distance_id == 'domination':
-                distances = self.votes_to_pairwise_matrix()
-                distances = np.abs(distances - 0.5) * self.num_voters
-                np.fill_diagonal(distances, 0)
-            elif distance_id == 'position':
-                distances = np.zeros([self.num_candidates, self.num_candidates])
-                for c1 in range(self.num_candidates):
-                    for c2 in range(self.num_candidates):
-                        dist = 0
-                        for pote in self.potes:
-                            dist += abs(pote[c1] - pote[c2])
-                        distances[c1][c2] = dist
-        else:
-            logging.warning('incorrect object_type')
-            distances = []
+         self.distinct_potes = convert_votes_to_potes(self.distinct_votes)
+         self.num_dist_votes = len(self.distinct_votes)
+         self.num_distinct_votes = self.num_dist_votes
 
-        self.distances[object_type] = distances
+         if object_type == 'vote':
+             distances = np.zeros([self.num_dist_votes, self.num_dist_votes])
+             for v1 in range(self.num_dist_votes):
+                 for v2 in range(self.num_dist_votes):
+                     if distance_id == 'swap':
+                         distances[v1][v2] = swap_distance_between_potes(
+                             self.distinct_potes[v1], self.distinct_potes[v2])
+                     elif distance_id == 'spearman':
+                         distances[v1][v2] = spearman_distance_between_potes(
+                             self.distinct_potes[v1], self.distinct_potes[v2])
+         elif object_type == 'candidate':
+             self.compute_potes()
+             if distance_id == 'domination':
+                 distances = self.votes_to_pairwise_matrix()
+                 distances = np.abs(distances - 0.5) * self.num_voters
+                 np.fill_diagonal(distances, 0)
+             elif distance_id == 'position':
+                 distances = np.zeros([self.num_candidates, self.num_candidates])
+                 for c1 in range(self.num_candidates):
+                     for c2 in range(self.num_candidates):
+                         dist = 0
+                         for pote in self.potes:
+                             dist += abs(pote[c1] - pote[c2])
+                         distances[c1][c2] = dist
+         else:
+             logging.warning('incorrect object_type')
+             distances = []
 
-        if self.is_exported:
-            exports.export_distances(self, object_type=object_type)
+         self.distances[object_type] = distances
+
+         if self.is_exported:
+             exports.export_distances(self, object_type=object_type)
 
     def is_condorcet(self):
         """ Check if election witness Condorcet winner"""
@@ -430,8 +447,8 @@ class OrdinalElection(Election):
         avg_y = np.mean(Y)
 
         if radius:
-            ax.set_xlim([avg_x - radius, avg_x + radius])
-            ax.set_ylim([avg_y - radius, avg_y + radius])
+            ax.set_xlim((avg_x - radius, avg_x + radius))
+            ax.set_ylim((avg_y - radius, avg_y + radius))
 
         try:
             ax.set_title(self.texify_label(self.label), size=title_size)

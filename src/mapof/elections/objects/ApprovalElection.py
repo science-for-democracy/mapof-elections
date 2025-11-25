@@ -101,7 +101,11 @@ class ApprovalElection(Election, ABC):
         """
         Returns the reverse approvals, computing them if necessary.
         """
-        if not self.reverse_approvals:
+        # Only compute reverse approvals when the cached value is None.
+        # Previously this used `if not self.reverse_approvals:`, which would
+        # recompute when the cached data is an empty list (falsy). Using `is None`
+        # preserves an intentionally-empty cache.
+        if self.reverse_approvals is None:
             self.compute_reverse_approvals()
         return self.reverse_approvals
 
@@ -297,6 +301,7 @@ class ApprovalElection(Election, ABC):
             double_gradient: bool = False,
             color: str = 'blue',
             marker: str = 'o',
+            title_size = 20,
             annotate: bool = False
     ) -> Microscope:
         """Print a map of the election (i.e., microscope) using matplotlib's OO API."""
@@ -327,6 +332,11 @@ class ApprovalElection(Election, ABC):
         if radius is not None:
             ax.set_xlim((avg_x - radius, avg_x + radius))
             ax.set_ylim((avg_y - radius, avg_y + radius))
+
+        try:
+            ax.set_title(self.texify_label(self.label), size=title_size)
+        except Exception:
+            pass
 
         ax.axis('off')
 

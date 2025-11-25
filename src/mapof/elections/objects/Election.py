@@ -52,7 +52,7 @@ class Election(Instance):
                          **kwargs)
 
         self.instance_type = instance_type
-        self.format = get_format_from_instance_type(instance_type)
+        self.format = _get_format_from_instance_type(instance_type)
         self.election_id = election_id
         self.label = label
         self.num_voters = num_voters
@@ -85,13 +85,17 @@ class Election(Instance):
         -------
             None
         """
-        if not self.fast_import:
-            for object_type in OBJECT_TYPES:
-                try:
-                    self.distances[object_type] = \
-                        imports.import_distances(self.experiment_id, self.election_id, object_type)
-                except Exception:
-                    pass
+        # If we don't have experiment/election identifiers, skip importing.
+        if self.experiment_id is None or self.election_id is None or self.fast_import:
+            return
+
+        for object_type in OBJECT_TYPES:
+            try:
+                self.distances[object_type] = \
+                    imports.import_distances(self.experiment_id, self.election_id, object_type)
+            except Exception:
+                # Keep best-effort import: don't fail on missing files or parse errors.
+                pass
 
     def import_coordinates(self) -> None:
         """
@@ -101,25 +105,33 @@ class Election(Instance):
         -------
             None
         """
+        # If we don't have experiment/election identifiers, skip importing.
+        if self.experiment_id is None or self.election_id is None:
+            return
+
         for object_type in OBJECT_TYPES:
             try:
                 self.coordinates[object_type] = \
                     imports.import_coordinates(self.experiment_id, self.election_id, object_type)
             except Exception:
+                # Best-effort import; ignore missing/invalid files.
                 pass
 
     def get_distances(self, object_type):
         try:
             return self.distances[object_type]
-        except Exception:
+        except KeyError:
+            # Load on demand if missing
             self.distances[object_type] = \
                 imports.import_distances(self.experiment_id, self.election_id, object_type)
             return self.distances[object_type]
 
-    def get_coordiantes(self, object_type):
+    def get_coordinates(self, object_type):
+        """Return coordinates for the given object_type, importing them if missing."""
         try:
             return self.coordinates[object_type]
-        except Exception:
+        except KeyError:
+            # Load on demand if missing
             self.coordinates[object_type] = \
                 imports.import_coordinates(self.experiment_id, self.election_id, object_type)
             return self.coordinates[object_type]
@@ -152,11 +164,35 @@ class Election(Instance):
         return None
 
     def vector_to_interval(self, vector, precision=None) -> list:
-        # discreet version for now
-        interval = []
+        """Convert a vector of length `num_candidates` into a discretized interval list.
+
+        - If `precision` is None, it defaults to `num_candidates` (one sample per candidate).
+        - Ensures the returned list has roughly `precision` elements (uses integer division
+          per-candidate and guarantees at least one sample per candidate).
+
+        Raises
+        ------
+        ValueError: if `vector` length doesn't match `num_candidates` or if
+                    `num_candidates` is not a positive integer.
+        """
+        # Basic sanity checks
+        if self.num_candidates is None or self.num_candidates <= 0:
+            raise ValueError('num_candidates must be a positive integer')
+
+        if len(vector) != self.num_candidates:
+            raise ValueError('vector length must equal num_candidates')
+
+        if precision is None:
+            precision = self.num_candidates
+
+        # Compute number of samples per candidate; ensure at least 1 to avoid div-by-zero.
         w = int(precision / self.num_candidates)
+        if w <= 0:
+            w = 1
+
+        interval = []
         for i in range(self.num_candidates):
-            for j in range(w):
+            for _ in range(w):
                 interval.append(vector[i] / w)
         return interval
 
@@ -164,7 +200,7 @@ class Election(Instance):
 
         election_without_party_id = _remove_candidate_from_election(copy.deepcopy(self),
                                                                     party_id, committee_size)
-        election_without_party_id = map_the_votes(election_without_party_id, party_id, committee_size)
+        election_without_party_id = _map_the_votes(election_without_party_id, party_id, committee_size)
 
         if method == 'sntv':
             winners_without_party_id = compute_sntv_voting_rule(
@@ -221,7 +257,10 @@ class Election(Instance):
             try:
                 d_x = self.coordinates[object_type][a][0] - self.coordinates[object_type][b][0]
                 d_y = self.coordinates[object_type][a][1] - self.coordinates[object_type][b][1]
-                alpha = math.atan(d_x / d_y)
+                # Use atan2 to avoid division-by-zero and get a robust angle.
+                # Note: original code used atan(d_x / d_y); keep the same operand order
+                # to preserve behavior while removing the zero-division risk.
+                alpha = math.atan2(d_x, d_y)
                 self.rotate(alpha - math.pi / 2., object_type)
                 self.rotate(math.pi / 4., object_type)
             except Exception:
@@ -257,10 +296,16 @@ class Election(Instance):
             exports.export_coordinates(self, object_type=object_type)
 
     def all_dist_zeros(self, object_type):
-        if np.abs(self.distances[object_type]).sum():
-            return False
-        else:
+        # Treat missing or None distance matrices as all zeros.
+        dist = self.distances.get(object_type)
+        if dist is None:
             return True
+
+        try:
+            return not bool(np.abs(dist).sum())
+        except Exception:
+            # If dist is not an array-like object, conservatively assume not all zeros.
+            return False
 
     @staticmethod
     def rotate_point(cx, cy, angle, px, py) -> (float, float):
@@ -315,7 +360,7 @@ class Election(Instance):
         return exports.export_election_without_experiment(self, path_to_folder, is_aggregated)
 
 
-def map_the_votes(election, party_id, party_size) -> Election:
+def _map_the_votes(election, party_id, party_size) -> Election:
     new_votes = [[] for _ in range(election.num_voters)]
     for i in range(election.num_voters):
         for j in range(election.num_candidates):
@@ -346,7 +391,7 @@ def _remove_candidate_from_election(election, party_id, party_size) -> Election:
     return election
 
 
-def get_format_from_instance_type(instance_type):
+def _get_format_from_instance_type(instance_type):
     if instance_type == 'approval':
         return 'app'
     elif instance_type == 'ordinal':

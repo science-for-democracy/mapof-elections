@@ -1,4 +1,5 @@
 import os
+import logging
 
 class Microscope:
 
@@ -25,17 +26,27 @@ class Microscope:
     def save_to_file(self, saveas='default'):
         """ Save the microscope plot to a file. """
 
+        # Prepare folder and filename
         path_to_folder = os.path.join(os.getcwd(), "images", self.experiment_id)
-        if not os.path.isdir(path_to_folder):
-            os.makedirs(path_to_folder, exist_ok=True)
+        os.makedirs(path_to_folder, exist_ok=True)
 
         if saveas == 'default':
             saveas = f'{self.label}_{self.object_type}'
 
-        file_name = os.path.join(os.getcwd(), "images", self.experiment_id, f'{saveas}.png')
-        self.fig.savefig(file_name, bbox_inches='tight', dpi=100)
+        # sanitize filename to avoid accidental path traversal
+        saveas = str(saveas).replace(os.sep, '_')
+
+        file_path = os.path.join(path_to_folder, f'{saveas}.png')
+        try:
+            # keep defaults similar to previous behavior
+            self.fig.savefig(file_path, bbox_inches='tight', dpi=100)
+        except Exception as e:
+            logging.exception(f'Failed to save microscope figure to {file_path}: {e}')
+            raise
+
+        return file_path
 
     def show_and_save(self, saveas='default'):
         """ Display the microscope plot and save it to a file. """
         self.show()
-        self.save_to_file(saveas=saveas)
+        return self.save_to_file(saveas=saveas)

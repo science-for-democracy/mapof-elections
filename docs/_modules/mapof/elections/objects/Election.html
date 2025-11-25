@@ -385,7 +385,7 @@ document.write(`
                          <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">instance_type</span> <span class="o">=</span> <span class="n">instance_type</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">format</span> <span class="o">=</span> <span class="n">get_format_from_instance_type</span><span class="p">(</span><span class="n">instance_type</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">format</span> <span class="o">=</span> <span class="n">_get_format_from_instance_type</span><span class="p">(</span><span class="n">instance_type</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">election_id</span> <span class="o">=</span> <span class="n">election_id</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">label</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">num_voters</span> <span class="o">=</span> <span class="n">num_voters</span>
@@ -506,7 +506,7 @@ document.write(`
 
         <span class="n">election_without_party_id</span> <span class="o">=</span> <span class="n">_remove_candidate_from_election</span><span class="p">(</span><span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span>
                                                                     <span class="n">party_id</span><span class="p">,</span> <span class="n">committee_size</span><span class="p">)</span>
-        <span class="n">election_without_party_id</span> <span class="o">=</span> <span class="n">map_the_votes</span><span class="p">(</span><span class="n">election_without_party_id</span><span class="p">,</span> <span class="n">party_id</span><span class="p">,</span> <span class="n">committee_size</span><span class="p">)</span>
+        <span class="n">election_without_party_id</span> <span class="o">=</span> <span class="n">_map_the_votes</span><span class="p">(</span><span class="n">election_without_party_id</span><span class="p">,</span> <span class="n">party_id</span><span class="p">,</span> <span class="n">committee_size</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;sntv&#39;</span><span class="p">:</span>
             <span class="n">winners_without_party_id</span> <span class="o">=</span> <span class="n">compute_sntv_voting_rule</span><span class="p">(</span>
@@ -664,7 +664,7 @@ document.write(`
 
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">map_the_votes</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">party_id</span><span class="p">,</span> <span class="n">party_size</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Election</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_map_the_votes</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">party_id</span><span class="p">,</span> <span class="n">party_size</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Election</span><span class="p">:</span>
     <span class="n">new_votes</span> <span class="o">=</span> <span class="p">[[]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">election</span><span class="o">.</span><span class="n">num_voters</span><span class="p">)]</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">election</span><span class="o">.</span><span class="n">num_voters</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">election</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">):</span>
@@ -695,7 +695,7 @@ document.write(`
     <span class="k">return</span> <span class="n">election</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">get_format_from_instance_type</span><span class="p">(</span><span class="n">instance_type</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_get_format_from_instance_type</span><span class="p">(</span><span class="n">instance_type</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">instance_type</span> <span class="o">==</span> <span class="s1">&#39;approval&#39;</span><span class="p">:</span>
         <span class="k">return</span> <span class="s1">&#39;app&#39;</span>
     <span class="k">elif</span> <span class="n">instance_type</span> <span class="o">==</span> <span class="s1">&#39;ordinal&#39;</span><span class="p">:</span>

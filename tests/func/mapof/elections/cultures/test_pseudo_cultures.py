@@ -145,14 +145,14 @@ class TestFrequencyMatrixOfPseudoElection:
 
         assert frequency_matrix.shape == (num_candidates, num_candidates)
 
-    # def test_pseudo_norm_mallows_frequency_matrix(self):
-    #     num_voters = 12
-    #     num_candidates = 6
-    #
-    #     election = mapof.generate_ordinal_election(culture_id='pseudo_norm_mallows',
-    #                                                num_voters=num_voters,
-    #                                                num_candidates=num_candidates,
-    #                                                params={'normphi': 0.5})
-    #     frequency_matrix = election.get_frequency_matrix()
-    #
-    #     assert frequency_matrix.shape == (num_candidates, num_candidates)
+    def test_pseudo_norm_mallows_frequency_matrix(self):
+        num_voters = 12
+        num_candidates = 6
+
+        election = mapof.generate_ordinal_election(culture_id='pseudo_norm_mallows',
+                                                   num_voters=num_voters,
+                                                   num_candidates=num_candidates,
+                                                   params={'normphi': 0.5})
+        frequency_matrix = election.get_frequency_matrix()
+
+        assert frequency_matrix.shape == (num_candidates, num_candidates)

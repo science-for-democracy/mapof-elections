@@ -43,6 +43,18 @@ List of Ordinal Features
      - :py:func:`~mapof.elections.features.dap.diversity_index`
    * - ``PolarizationApprox``
      - :py:func:`~mapof.elections.features.dap.polarization_index`
+   * - ``PolarizationApprox``
+     - :py:func:`~mapof.elections.features.dap.borda_std`
+   * - ``PolarizationApprox``
+     - :py:func:`~mapof.elections.features.dap.avg_vote_dist`
+   * - ``PolarizationApprox``
+     - :py:func:`~mapof.elections.features.dap.max_vote_dist`
+   * - ``PolarizationApprox``
+     - :py:func:`~mapof.elections.features.dap.karpov_index`
+   * - ``PolarizationApprox``
+     - :py:func:`~mapof.elections.features.dap.avg_dist_to_kemeny`
+   * - ``PolarizationApprox``
+     - :py:func:`~mapof.elections.features.dap.avg_dist_to_borda`
    * - ``is_condorcet``
      - :py:func:`~mapof.elections.features.simple_ordinal.is_condorcet`
    * - ``effective_num_candidates``

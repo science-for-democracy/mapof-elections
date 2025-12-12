@@ -1,4 +1,4 @@
-
+import pytest
 
 import mapof.elections as mapof
 
@@ -50,6 +50,7 @@ class TestWinners:
         )
         assert len(winners) == 3
 
+    @pytest.mark.gurobi
     def test_borda_owa(self):
         winners = compute_standard_voting_rule(
             self.election,
@@ -59,6 +60,7 @@ class TestWinners:
         )
         assert len(winners) == 3
 
+    @pytest.mark.gurobi
     def test_bloc_owa(self):
         winners = compute_standard_voting_rule(
             self.election,

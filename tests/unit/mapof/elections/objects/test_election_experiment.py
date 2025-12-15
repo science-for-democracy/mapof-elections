@@ -293,3 +293,120 @@ def test_check_if_all_equal_silent_for_uniform_values():
         warnings.simplefilter('error')
         _check_if_all_equal([4, 4, 4], 'num_voters')
     assert records == []
+
+
+def test_add_existing_family_from_dir_registers_instances(tmp_path, monkeypatch):
+    monkeypatch.chdir(tmp_path)
+    experiment = ConcreteExperiment(
+        experiment_id='exp',
+        instance_type='ordinal',
+        fast_import=True,
+    )
+
+    constructed_ids = []
+
+    class DummyOrdinalElection:
+        def __init__(self, experiment_id, instance_id, **kwargs):
+            self.experiment_id = experiment_id
+            self.instance_id = instance_id
+            self.kwargs = kwargs
+            constructed_ids.append(instance_id)
+
+    monkeypatch.setattr(
+        "mapof.elections.objects.ElectionExperiment.OrdinalElection",
+        DummyOrdinalElection,
+    )
+
+    source_dir = tmp_path / "source"
+    source_dir.mkdir()
+    (source_dir / "b.soc").write_text("b")
+    (source_dir / "a.soc").write_text("a")
+    (source_dir / "ignore.txt").write_text("skip")
+
+    created_ids = experiment.add_existing_family_from_dir(
+        dir=str(source_dir),
+        culture_id='culture',
+        family_id='fam',
+        label='Family label',
+    )
+
+    assert created_ids == ['fam_0', 'fam_1']
+    assert set(experiment.instances) == {'fam_0', 'fam_1'}
+    assert constructed_ids == ['fam_0', 'fam_1']
+
+    family = experiment.families['fam']
+    assert family.size == 2
+    assert family.label == 'Family label'
+    assert family.instance_ids == ['fam_0', 'fam_1']
+
+    output_dir = Path(tmp_path, 'experiments', 'exp', 'elections')
+    assert output_dir.exists()
+    assert sorted(p.name for p in output_dir.iterdir()) == ['fam_0.soc', 'fam_1.soc']
+
+
+def test_add_existing_family_from_dir_returns_empty_for_missing_files(tmp_path, monkeypatch):
+    monkeypatch.chdir(tmp_path)
+    experiment = ConcreteExperiment(
+        experiment_id='exp',
+        instance_type='ordinal',
+        fast_import=True,
+    )
+
+    source_dir = tmp_path / "empty"
+    source_dir.mkdir()
+
+    created_ids = experiment.add_existing_family_from_dir(
+        dir=str(source_dir),
+        culture_id='culture',
+        family_id='fam',
+    )
+
+    assert created_ids == []
+    assert experiment.families is None
+    assert experiment.instances == {}
+
+
+def test_add_existing_family_from_dir_handles_single_approval_instance(tmp_path, monkeypatch):
+    monkeypatch.chdir(tmp_path)
+    experiment = ConcreteExperiment(
+        experiment_id='exp',
+        instance_type='approval',
+        fast_import=True,
+    )
+
+    constructed_ids = []
+
+    class DummyApprovalElection:
+        def __init__(self, experiment_id, instance_id, **kwargs):
+            self.experiment_id = experiment_id
+            self.instance_id = instance_id
+            self.kwargs = kwargs
+            constructed_ids.append(instance_id)
+
+    monkeypatch.setattr(
+        "mapof.elections.objects.ElectionExperiment.ApprovalElection",
+        DummyApprovalElection,
+    )
+
+    source_dir = tmp_path / "approval"
+    source_dir.mkdir()
+    (source_dir / "only.app").write_text("data")
+
+    created_ids = experiment.add_existing_family_from_dir(
+        dir=str(source_dir),
+        culture_id='approval-culture',
+        family_id='single',
+    )
+
+    assert created_ids == ['single']
+
+    family = experiment.families['single']
+    assert family.size == 1
+    assert family.instance_ids == ['single']
+    assert family.single is True
+    assert set(experiment.instances) == {'single'}
+    assert constructed_ids == ['single']
+
+    output_dir = Path(tmp_path, 'experiments', 'exp', 'elections')
+    assert output_dir.exists()
+    assert sorted(p.name for p in output_dir.iterdir()) == ['single_0.app']

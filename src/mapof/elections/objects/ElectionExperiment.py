@@ -406,53 +406,93 @@ class ElectionExperiment(Experiment):
             self,
             dir: str = None,
             culture_id: str = None,
+            family_id: str = None,
+            label: str = None,
+            color: str = "black",
+            alpha: float = 1.,
+            show: bool = True,
+            marker: str = 'o',
+            ms: int = 20,
             **kwargs
     ) -> list:
         """
         Adds family of elections to the experiment from the given directory.
 
+        This function copies existing election files from the specified directory
+        and imports them into the experiment without regenerating votes.
+
         Parameters
         ----------
             dir : str
-                Directory.
+                Directory containing the election files to import.
             culture_id : str
-                Culture id.
+                Culture id to assign to the imported elections.
+            family_id : str
+                Family id. If None, defaults to culture_id.
+            label : str
+                Label for the family. If None, defaults to family_id.
+            color : str
+                Color for visualization.
+            alpha : float
+                Alpha (transparency) for visualization.
+            show : bool
+                If true the family is shown in visualizations.
+            marker : str
+                Marker style for visualization.
+            ms : int
+                Marker size for visualization.
             **kwargs : dict
-                Additional parameters.
+                Additional parameters passed to ElectionFamily.
 
         Returns
         -------
             list
-                List of the families.
+                List of IDs of added instances.
 
         """
         if dir is None:
             logging.warning('dir not specified')
+            return []
         if culture_id is None:
-            logging.warning('pseudo_culture_id not specified')
+            logging.warning('culture_id not specified')
+            return []
+
+        if family_id is None:
+            family_id = culture_id
+
+        if label is None:
+            label = family_id
 
         # Copy instances from dir to /elections
-
         directory_in = dir
         directory_out = os.path.join(os.getcwd(),
                                      "experiments",
                                      self.experiment_id,
                                      'elections')
 
-        # List all files in the given directory
+        # Ensure the output directory exists
+        os.makedirs(directory_out, exist_ok=True)
+
+        # List all files in the given directory (only .soc or .app files)
         files = [f for f in os.listdir(directory_in) if
-                 os.path.isfile(os.path.join(directory_in, f))]
+                 os.path.isfile(os.path.join(directory_in, f)) and
+                 (f.endswith('.soc') or f.endswith('.app'))]
 
         # Sort the files for consistency
         files.sort()
 
-        # Rename each file
-        for idx, file_name in enumerate(files):
-            # Create the new file name
-            # new_file_name = f"{pseudo_culture_id}_{idx}{os.path.splitext(file_name)[1]}"
-            new_file_name = f"{culture_id}_{idx}.soc"
+        size = len(files)
+        if size == 0:
+            logging.warning(f'No election files found in {dir}')
+            return []
 
-            # Form the full old and new paths
+        # Determine the file extension based on instance type
+        extension = '.soc' if self.instance_type == 'ordinal' else '.app'
+
+        # Copy and rename each file
+        for idx, file_name in enumerate(files):
+            new_file_name = f"{family_id}_{idx}{extension}"
+
             old_path = os.path.join(directory_in, file_name)
             new_path = os.path.join(directory_out, new_file_name)
 
@@ -460,7 +500,74 @@ class ElectionExperiment(Experiment):
             shutil.copy2(old_path, new_path)
             print(f"Copying: {file_name} -> {new_file_name}")
 
-        return self.add_family(culture_id=culture_id, **kwargs)
+        # Determine if it's a single instance
+        single = (size == 1)
+
+        # Initialize families dict if needed
+        if self.families is None:
+            self.families = {}
+
+        # Create the family with the imported elections
+        self.families[family_id] = ElectionFamily(
+            culture_id=culture_id,
+            family_id=family_id,
+            params=kwargs.get('params', {}),
+            label=label,
+            color=color,
+            alpha=alpha,
+            show=show,
+            size=size,
+            marker=marker,
+            ms=ms,
+            starting_from=kwargs.get('starting_from', 0),
+            num_candidates=kwargs.get('num_candidates'),
+            num_voters=kwargs.get('num_voters'),
+            path=kwargs.get('path'),
+            single=single,
+            instance_type=self.instance_type,
+        )
+
+        self.num_families = len(self.families)
+        self.num_elections = sum([self.families[fid].size for fid in self.families])
+        self.main_order = [i for i in range(self.num_elections)]
+
+        # Import the elections from the copied files (instead of regenerating)
+        new_instances = {}
+        ids = []
+        for j in range(size):
+            instance_id = get_instance_id(single, family_id, j)
+            if self.instance_type == 'ordinal':
+                instance = OrdinalElection(
+                    self.experiment_id,
+                    instance_id,
+                    is_imported=True,
+                    fast_import=self.fast_import,
+                    with_matrix=self.with_matrix,
+                    label=label
+                )
+            elif self.instance_type == 'approval':
+                instance = ApprovalElection(
+                    self.experiment_id,
+                    instance_id,
+                    is_imported=True,
+                    fast_import=self.fast_import,
+                    label=label
+                )
+            else:
+                instance = None
+
+            new_instances[instance_id] = instance
+            ids.append(str(instance_id))
+
+        for instance_id in new_instances:
+            self.instances[instance_id] = new_instances[instance_id]
+
+        self.families[family_id].instance_ids = ids
+
+        if self.is_exported:
+            self._update_map_csv()
+
+        return list(new_instances.keys())
 
     def _update_map_csv(self):
         families = {}

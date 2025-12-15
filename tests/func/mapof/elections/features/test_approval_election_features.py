@@ -48,7 +48,6 @@ class TestFeatures:
 
         election.compute_feature(feature_id, feature_params={'committee_size': 2})
 
-    @pytest.mark.gurobi
     def test_priceability(self):
 
         num_voters = np.random.randint(10, 20)
@@ -64,7 +63,6 @@ class TestFeatures:
         election.compute_feature(feature_id='priceability',
                                  feature_params={'committee_size': 2, 'rule': 'av'})
 
-    @pytest.mark.gurobi
     def test_core(self):
 
         num_voters = np.random.randint(10, 20)
@@ -80,7 +78,6 @@ class TestFeatures:
         election.compute_feature(feature_id='core',
                                  feature_params={'committee_size': 2, 'rule': 'av'})
 
-    @pytest.mark.gurobi
     def test_ejr(self):
 
         num_voters = np.random.randint(10, 20)

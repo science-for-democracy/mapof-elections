@@ -53,7 +53,6 @@ class TestFeaturesSanity:
                                                    num_candidates=num_candidates)
         election.compute_feature(feature_id)
 
-    @pytest.mark.gurobi
     @pytest.mark.parametrize("feature_id", registered_ordinal_features_with_gurobi_to_test)
     def test_ordinal_features_with_gurobi_sanity(self, feature_id):
         num_voters = np.random.randint(10, 20)
@@ -63,7 +62,6 @@ class TestFeaturesSanity:
                                                    num_voters=num_voters,
                                                    num_candidates=num_candidates)
         election.compute_feature(feature_id)
-
 
     def test_parameterized_diversity(self):
 

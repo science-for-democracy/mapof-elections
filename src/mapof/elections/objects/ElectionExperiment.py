@@ -2,6 +2,7 @@ import ast
 import csv
 import logging
 import os
+import shutil
 import time
 import warnings
 from abc import ABCMeta, abstractmethod
@@ -455,9 +456,9 @@ class ElectionExperiment(Experiment):
             old_path = os.path.join(directory_in, file_name)
             new_path = os.path.join(directory_out, new_file_name)
 
-            # Rename the file
-            os.rename(old_path, new_path)
-            print(f"Renaming: {file_name} -> {new_file_name}")
+            # Copy the file (preserving metadata)
+            shutil.copy2(old_path, new_path)
+            print(f"Copying: {file_name} -> {new_file_name}")
 
         return self.add_family(culture_id=culture_id, **kwargs)
 

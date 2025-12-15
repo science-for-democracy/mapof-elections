@@ -5,6 +5,7 @@ import logging
 import math
 import os
 from abc import abstractmethod
+from typing import Tuple
 
 import numpy as np
 from mapof.core.distances import l2
@@ -70,6 +71,9 @@ class Election(Instance):
         self.is_imported = is_imported
         self.fast_import = fast_import
         self.winning_committee = {}
+        # Track whether this election represents aggregated votes (default False).
+        # This attribute is referenced by persistence helpers.
+        self.is_aggregated = kwargs.get('is_aggregated', False)
 
         self.distances = {}
         self.import_distances()
@@ -137,9 +141,23 @@ class Election(Instance):
             return self.coordinates[object_type]
 
     def set_default_object_type(self, object_type):
+        """Set the default object type used by methods like embed and get_coordinates.
+
+        Parameters
+        ----------
+        object_type : str
+            One of OBJECT_TYPES (e.g. 'vote' or 'candidate').
+        """
         self.object_type = object_type
 
     def import_matrix(self) -> np.ndarray:
+        """Load a candidate-by-candidate matrix CSV from the experiment's matrices folder.
+
+        Returns
+        -------
+        np.ndarray
+            Square matrix with shape (num_candidates, num_candidates).
+        """
         file_name = f'{self.election_id}.csv'
         path = os.path.join(os.getcwd(), "experiments", self.experiment_id, 'matrices', file_name)
         matrix = np.zeros([self.num_candidates, self.num_candidates])
@@ -152,7 +170,11 @@ class Election(Instance):
         return matrix
 
     def compute_potes(self, mapping=None):
-        """ Convert votes to positional votes (called potes) """
+        """Convert votes to positional scores (potes) and store them in self.potes.
+
+        If `mapping` is provided, candidate indices are remapped before converting.
+        Returns the computed potes array, or None for pseudo-cultures.
+        """
         if not self.is_pseudo:
             if mapping is None:
                 self.potes = np.array([[list(vote).index(i) for i, _ in enumerate(vote)]
@@ -197,6 +219,12 @@ class Election(Instance):
         return interval
 
     def compute_alternative_winners(self, method=None, party_id=None, committee_size=None):
+        """Compute winners for the election after removing a party block of candidates.
+
+        The method removes the specified party (party_id, party_size=committee_size),
+        computes winners using the requested rule and stores the remapped winners in
+        self.alternative_winners keyed by party_id.
+        """
 
         election_without_party_id = _remove_candidate_from_election(copy.deepcopy(self),
                                                                     party_id, committee_size)
@@ -219,9 +247,23 @@ class Election(Instance):
 
     @abstractmethod
     def compute_distances(self):
+        """Abstract method: compute and populate `self.distances` for this election.
+
+        Concrete subclasses must implement this to fill distance matrices for
+        supported object types (e.g. 'vote' and 'candidate').
+        """
         pass
 
     def embed(self, algorithm='mds', object_type=None):
+        """Compute 2D coordinates for instances using PCA or MDS and optionally export.
+
+        Parameters
+        ----------
+        algorithm : str
+            'mds' or 'pca' (case-insensitive).
+        object_type : str or None
+            Object type to embed; defaults to the election's current default.
+        """
 
         if object_type is None:
             object_type = self.object_type
@@ -296,6 +338,7 @@ class Election(Instance):
             exports.export_coordinates(self, object_type=object_type)
 
     def all_dist_zeros(self, object_type):
+        """Return True when the distance matrix for object_type is missing or all zeros."""
         # Treat missing or None distance matrices as all zeros.
         dist = self.distances.get(object_type)
         if dist is None:
@@ -308,8 +351,11 @@ class Election(Instance):
             return False
 
     @staticmethod
-    def rotate_point(cx, cy, angle, px, py) -> (float, float):
-        """ Rotate two-dimensional point by an angle """
+    def rotate_point(cx, cy, angle, px, py) -> Tuple[float, float]:
+        """Rotate a 2D point (px,py) around center (cx,cy) by `angle` radians.
+
+        Returns the rotated (x, y) tuple.
+        """
         s, c = math.sin(angle), math.cos(angle)
         px -= cx
         py -= cy
@@ -319,7 +365,7 @@ class Election(Instance):
         return px, py
 
     def rotate(self, angle, object_type) -> None:
-        """ Rotate all the points by a given angle """
+        """Rotate all stored coordinates for object_type around point (0.5, 0.5)."""
         for instance_id in range(len(self.coordinates[object_type])):
             self.coordinates[object_type][instance_id][0], \
             self.coordinates[object_type][instance_id][1] = \
@@ -327,12 +373,17 @@ class Election(Instance):
                                   self.coordinates[object_type][instance_id][1])
 
     def compute_feature(self, feature_id, feature_long_id=None, **kwargs):
+        """Compute and store a local feature for this election.
+
+        The computed feature is stored in self.features under `feature_long_id`.
+        """
         if feature_long_id is None:
             feature_long_id = feature_id
         feature = get_local_feature(feature_id)
         self.features[feature_long_id] = feature(self, **kwargs)
 
     def compute_rule(self, rule_id, **kwargs):
+        """Compute an ABC voting rule for this election (delegates to abcvoting helper)."""
         compute_abcvoting_rule_for_single_election(self, rule_id, **kwargs)
 
     def get_feature(self,
@@ -341,6 +392,14 @@ class Election(Instance):
                     overwrite=False,
                     compute_if_missing=True,
                     **kwargs):
+
+        """Return a feature value, computing it if missing or when overwrite is True.
+
+        Raises
+        ------
+        ValueError
+            If overwrite is requested but compute_if_missing is False.
+        """
 
         if overwrite and not compute_if_missing:
             raise ValueError('Cannot overwrite without computing the feature.')
@@ -356,11 +415,23 @@ class Election(Instance):
 
         return self.features[feature_long_id]
 
+    def update_votes(self):
+        """Export the election's votes within its experiment (delegates to persistence layer)."""
+        return exports.export_election_within_experiment(self, self.is_aggregated)
+
     def export_to_file(self, path_to_folder, is_aggregated=False):
+        """Export the election to a folder outside of an experiment context."""
         return exports.export_election_without_experiment(self, path_to_folder, is_aggregated)
 
 
+
+
 def _map_the_votes(election, party_id, party_size) -> Election:
+    """Remap vote candidate indices after removing a party block.
+
+    Subtracts party_size from indices of candidates that come after the removed block.
+    Returns the modified election object.
+    """
     new_votes = [[] for _ in range(election.num_voters)]
     for i in range(election.num_voters):
         for j in range(election.num_candidates):
@@ -373,6 +444,10 @@ def _map_the_votes(election, party_id, party_size) -> Election:
 
 
 def _unmap_the_winners(winners, party_id, party_size):
+    """Map winner indices back to the original indexing after unmapping.
+
+    Adds party_size to indices that were shifted by the removal.
+    """
     new_winners = []
     for j in range(len(winners)):
         if winners[j] >= party_id * party_size:
@@ -383,6 +458,10 @@ def _unmap_the_winners(winners, party_id, party_size):
 
 
 def _remove_candidate_from_election(election, party_id, party_size) -> Election:
+    """Remove a contiguous block of candidates (a party) from every vote.
+
+    Modifies election.num_candidates accordingly and returns the election.
+    """
     for vote in election.votes:
         for i in range(party_size):
             _id = party_id * party_size + i
@@ -392,6 +471,12 @@ def _remove_candidate_from_election(election, party_id, party_size) -> Election:
 
 
 def _get_format_from_instance_type(instance_type):
+    """Return a short file/data format code for a given instance_type.
+
+    Supported mappings:
+      - 'approval' -> 'app'
+      - 'ordinal'  -> 'soc'
+    """
     if instance_type == 'approval':
         return 'app'
     elif instance_type == 'ordinal':

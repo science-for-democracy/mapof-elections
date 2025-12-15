@@ -1,7 +1,5 @@
 import logging
 import math
-import os
-from contextlib import suppress
 
 from gurobipy import LinExpr, Model, GRB
 

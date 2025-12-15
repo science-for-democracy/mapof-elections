@@ -18,6 +18,5 @@ class TestOrdinalDistances:
             num_candidates=4
         )
 
-    @pytest.mark.gurobi
     def test_solve_ilp_voter_subelection(self):
         maximum_common_voter_subelection(self.election_1, self.election_2)

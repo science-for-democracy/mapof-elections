@@ -46,7 +46,6 @@ class TestOrdinalDistances:
 
         assert type(float(distance)) is float
 
-    @pytest.mark.gurobi
     @pytest.mark.parametrize("distance_id", registered_ordinal_distances_with_gurobi_to_test)
     def test_ordinal_distances(self, distance_id):
 

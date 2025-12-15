@@ -12,6 +12,8 @@ def _feature_distance(election_1, election_2, feature_ids: list[str], ord: int):
             vector_2.append(election_2.get_feature(feature_id, compute_if_missing=False))
         except Exception:
             raise Exception(f"Feature {feature_id} not found in the election objects")
+    vector_1 = np.array(vector_1, dtype=float)
+    vector_2 = np.array(vector_2, dtype=float)
     return np.linalg.norm(vector_1 - vector_2, ord=ord)
 
 
@@ -59,6 +61,5 @@ def features_vector_l2(election_1, election_2, feature_ids: list[str]) -> float:
 
     """
     return _feature_distance(election_1, election_2, feature_ids, 2)
-
 
 

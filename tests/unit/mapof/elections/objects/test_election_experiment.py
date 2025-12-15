@@ -163,44 +163,74 @@ def _install_test_stubs():
     sys.modules["mapof.core.objects.Family"] = family_mod
     objects_pkg.Family = _BaseFamily
 
-
-_install_test_stubs()
-
-if "mapof.elections.objects.ElectionExperiment" in sys.modules:
-    del sys.modules["mapof.elections.objects.ElectionExperiment"]
-
-from mapof.elections.objects.ElectionExperiment import ElectionExperiment, _check_if_all_equal
+ElectionExperiment = None
+_check_if_all_equal = None
+ConcreteExperiment = None
+RecordingAddElectionExperiment = None
+RecordingFamilyExperiment = None
 
 
-class ConcreteExperiment(ElectionExperiment):
-    def add_folders_to_experiment(self):
-        return None
+def _build_experiment_classes(base_cls):
+    class ConcreteExperiment(base_cls):
+        def add_folders_to_experiment(self):
+            return None
 
-    def add_feature(self, name, function):
-        return (name, function)
+        def add_feature(self, name, function):
+            return (name, function)
 
-    def add_culture(self, name, function):
-        return (name, function)
+        def add_culture(self, name, function):
+            return (name, function)
+
+    class RecordingAddElectionExperiment(ConcreteExperiment):
+        def __init__(self):
+            super().__init__(experiment_id='exp', instance_type='ordinal')
+            self.calls = []
+
+        def add_election(self, **kwargs):
+            self.calls.append(kwargs)
+            return ['ok']
+
+    class RecordingFamilyExperiment(ConcreteExperiment):
+        def __init__(self):
+            super().__init__(experiment_id='exp', instance_type='ordinal')
+            self.family_args = None
+
+        def add_family(self, **kwargs):
+            self.family_args = kwargs
+            return ['family']
+
+    return ConcreteExperiment, RecordingAddElectionExperiment, RecordingFamilyExperiment
 
 
-class RecordingAddElectionExperiment(ConcreteExperiment):
-    def __init__(self):
-        super().__init__(experiment_id='exp', instance_type='ordinal')
-        self.calls = []
+@pytest.fixture(scope="module", autouse=True)
+def stubbed_election_experiment():
+    saved_modules = {
+        name: module
+        for name, module in sys.modules.items()
+        if name.startswith("mapof.core") or name.startswith("sklearn")
+    }
+    _install_test_stubs()
 
-    def add_election(self, **kwargs):
-        self.calls.append(kwargs)
-        return ['ok']
+    if "mapof.elections.objects.ElectionExperiment" in sys.modules:
+        del sys.modules["mapof.elections.objects.ElectionExperiment"]
 
+    module = importlib.import_module("mapof.elections.objects.ElectionExperiment")
+    globals()["_check_if_all_equal"] = module._check_if_all_equal
+    classes = _build_experiment_classes(module.ElectionExperiment)
+    globals()["ConcreteExperiment"], globals()["RecordingAddElectionExperiment"], globals()["RecordingFamilyExperiment"] = classes
+    globals()["ElectionExperiment"] = module.ElectionExperiment
 
-class RecordingFamilyExperiment(ConcreteExperiment):
-    def __init__(self):
-        super().__init__(experiment_id='exp', instance_type='ordinal')
-        self.family_args = None
+    yield
 
-    def add_family(self, **kwargs):
-        self.family_args = kwargs
-        return ['family']
+    for mod_name in [m for m in list(sys.modules) if m.startswith("mapof.core") or m.startswith("sklearn")]:
+        sys.modules.pop(mod_name, None)
+
+    sys.modules.update(saved_modules)
+
+    if "mapof.elections.objects.ElectionExperiment" in sys.modules:
+        del sys.modules["mapof.elections.objects.ElectionExperiment"]
+
+    importlib.import_module("mapof.elections.objects.ElectionExperiment")
 
 
 def test_add_election_from_matrix_requires_square_matrix():

@@ -12,3 +12,4 @@ tikzplotlib~=0.10.1
 gurobipy~=13.0.0
 pulp~=2.9.0
 permanentbis~=0.1
+pytest-mock~=3.15.1

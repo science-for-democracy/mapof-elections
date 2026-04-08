@@ -9,4 +9,6 @@ Cultures
     compass
     prefsampling_mask
     pseudo_cultures
+    single_peaked_matrices
+    single_crossing_matrices
     params

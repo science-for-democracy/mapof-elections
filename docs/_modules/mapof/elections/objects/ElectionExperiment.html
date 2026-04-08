@@ -15,35 +15,39 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link href="../../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
   
-  <link href="../../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
-
-    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=03e43079" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
-  
+  <!-- So that users can add custom icons -->
+  <script src="../../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
     <script src="../../../../_static/documentation_options.js?v=dea914ae"></script>
-    <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../../../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/mapof/elections/objects/ElectionExperiment';</script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -59,19 +63,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../../../../search.html"
       method="get">
@@ -79,7 +72,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search..."
          aria-label="Search..."
          autocomplete="off"
@@ -87,8 +79,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -106,7 +98,8 @@
       
         
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -136,15 +129,11 @@
 </a></div>
         <div class="sidebar-primary-item">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="nav bd-sidenav">
@@ -158,6 +147,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/compass.html">Compass</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/prefsampling_mask.html">Prefsampling Mask</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/pseudo_cultures.html">Pseudo Cultures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/single_peaked_matrices.html">Single Peaked Matrices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/single_crossing_matrices.html">Single Crossing Matrices</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/params.html">Params</a></li>
 </ul>
 </details></li>
@@ -219,9 +210,14 @@
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -271,7 +267,7 @@
 
 
 <button onclick="toggleFullScreen()"
-  class="btn btn-sm btn-fullscreen-button"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
   title="Fullscreen mode"
   data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
@@ -285,24 +281,16 @@
 
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
+</button>
 
 </div></div>
       
@@ -329,45 +317,46 @@ document.write(`
                 <article class="bd-article">
                   
   <h1>Source code for mapof.elections.objects.ElectionExperiment</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">ast</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">csv</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">ABCMeta</span><span class="p">,</span> <span class="n">abstractmethod</span>
+<span></span><span class="kn">import</span> <span class="nn">ast</span>
+<span class="kn">import</span> <span class="nn">csv</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABCMeta</span><span class="p">,</span> <span class="n">abstractmethod</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">mapof.core.persistence.experiment_exports</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">exports</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">mapof.core.printing</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pr</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">mapof.core.features.register</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+<span class="kn">import</span> <span class="nn">mapof.core.persistence.experiment_exports</span> <span class="k">as</span> <span class="nn">exports</span>
+<span class="kn">import</span> <span class="nn">mapof.core.printing</span> <span class="k">as</span> <span class="nn">pr</span>
+<span class="kn">from</span> <span class="nn">mapof.core.features.register</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">registered_experiment_features</span><span class="p">,</span>
     <span class="n">features_embedding_related</span>
 <span class="p">)</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">mapof.core.objects.Experiment</span><span class="w"> </span><span class="kn">import</span> <span class="n">Experiment</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">mapof.core.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_instance_id</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">tqdm</span><span class="w"> </span><span class="kn">import</span> <span class="n">tqdm</span>
+<span class="kn">from</span> <span class="nn">mapof.core.objects.Experiment</span> <span class="kn">import</span> <span class="n">Experiment</span>
+<span class="kn">from</span> <span class="nn">mapof.core.utils</span> <span class="kn">import</span> <span class="n">get_instance_id</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">mapof.elections.other.approval_rules</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rules</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">mapof.elections.cultures.register</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+<span class="kn">import</span> <span class="nn">mapof.elections.other.approval_rules</span> <span class="k">as</span> <span class="nn">rules</span>
+<span class="kn">from</span> <span class="nn">mapof.elections.cultures.register</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">registered_ordinal_election_cultures</span><span class="p">,</span>
     <span class="n">registered_pseudo_ordinal_cultures</span><span class="p">,</span>
     <span class="n">registered_approval_election_cultures</span>
 <span class="p">)</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">mapof.elections.distances</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_distance</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">mapof.elections.features.register</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">mapof.elections.distances</span> <span class="kn">import</span> <span class="n">get_distance</span>
+<span class="kn">from</span> <span class="nn">mapof.elections.features.register</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">features_with_params</span><span class="p">,</span>
     <span class="n">features_rule_related</span>
 <span class="p">)</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">mapof.elections.objects.ApprovalElection</span><span class="w"> </span><span class="kn">import</span> <span class="n">ApprovalElection</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">mapof.elections.objects.ElectionFamily</span><span class="w"> </span><span class="kn">import</span> <span class="n">ElectionFamily</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">mapof.elections.objects.OrdinalElection</span><span class="w"> </span><span class="kn">import</span> <span class="n">OrdinalElection</span>
+<span class="kn">from</span> <span class="nn">mapof.elections.objects.ApprovalElection</span> <span class="kn">import</span> <span class="n">ApprovalElection</span>
+<span class="kn">from</span> <span class="nn">mapof.elections.objects.ElectionFamily</span> <span class="kn">import</span> <span class="n">ElectionFamily</span>
+<span class="kn">from</span> <span class="nn">mapof.elections.objects.OrdinalElection</span> <span class="kn">import</span> <span class="n">OrdinalElection</span>
 
 <span class="k">try</span><span class="p">:</span>
-    <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.manifold</span><span class="w"> </span><span class="kn">import</span> <span class="n">MDS</span>
-    <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.manifold</span><span class="w"> </span><span class="kn">import</span> <span class="n">TSNE</span>
-    <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.manifold</span><span class="w"> </span><span class="kn">import</span> <span class="n">SpectralEmbedding</span>
-    <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.manifold</span><span class="w"> </span><span class="kn">import</span> <span class="n">LocallyLinearEmbedding</span>
-    <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.manifold</span><span class="w"> </span><span class="kn">import</span> <span class="n">Isomap</span>
+    <span class="kn">from</span> <span class="nn">sklearn.manifold</span> <span class="kn">import</span> <span class="n">MDS</span>
+    <span class="kn">from</span> <span class="nn">sklearn.manifold</span> <span class="kn">import</span> <span class="n">TSNE</span>
+    <span class="kn">from</span> <span class="nn">sklearn.manifold</span> <span class="kn">import</span> <span class="n">SpectralEmbedding</span>
+    <span class="kn">from</span> <span class="nn">sklearn.manifold</span> <span class="kn">import</span> <span class="n">LocallyLinearEmbedding</span>
+    <span class="kn">from</span> <span class="nn">sklearn.manifold</span> <span class="kn">import</span> <span class="n">Isomap</span>
 <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
     <span class="n">MDS</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">TSNE</span> <span class="o">=</span> <span class="kc">None</span>
@@ -379,23 +368,23 @@ document.write(`
 
 <div class="viewcode-block" id="ElectionExperiment">
 <a class="viewcode-back" href="../../../../reference/objects/ElectionExperiment.html#mapof.elections.objects.ElectionExperiment.ElectionExperiment">[docs]</a>
-<span class="k">class</span><span class="w"> </span><span class="nc">ElectionExperiment</span><span class="p">(</span><span class="n">Experiment</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">ElectionExperiment</span><span class="p">(</span><span class="n">Experiment</span><span class="p">):</span>
     <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">ABCMeta</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Abstract set of instances.&quot;&quot;&quot;</span>
 
     <span class="nd">@abstractmethod</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">add_folders_to_experiment</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">add_folders_to_experiment</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">pass</span>
 
     <span class="nd">@abstractmethod</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">add_feature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">function</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">add_feature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">function</span><span class="p">):</span>
         <span class="k">pass</span>
 
     <span class="nd">@abstractmethod</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">add_culture</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">function</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">add_culture</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">function</span><span class="p">):</span>
         <span class="k">pass</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">is_shifted</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">is_shifted</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">is_shifted</span> <span class="o">=</span> <span class="n">is_shifted</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">default_num_candidates</span> <span class="o">=</span> <span class="mi">10</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">default_num_voters</span> <span class="o">=</span> <span class="mi">100</span>
@@ -403,7 +392,7 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">all_winning_committees</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">attr</span> <span class="o">==</span> <span class="s1">&#39;elections&#39;</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instances</span>
         <span class="k">elif</span> <span class="n">attr</span> <span class="o">==</span> <span class="s1">&#39;num_elections&#39;</span><span class="p">:</span>
@@ -411,7 +400,7 @@ document.write(`
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">attr</span><span class="p">]</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;elections&quot;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">instances</span> <span class="o">=</span> <span class="n">value</span>
         <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;num_elections&quot;</span><span class="p">:</span>
@@ -421,7 +410,7 @@ document.write(`
 
 <div class="viewcode-block" id="ElectionExperiment.add_instances_to_experiment">
 <a class="viewcode-back" href="../../../../reference/objects/ElectionExperiment.html#mapof.elections.objects.ElectionExperiment.ElectionExperiment.add_instances_to_experiment">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">add_instances_to_experiment</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">add_instances_to_experiment</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add instances to the experiment.</span>
 
@@ -459,7 +448,7 @@ document.write(`
 
 <div class="viewcode-block" id="ElectionExperiment.set_default_num_candidates">
 <a class="viewcode-back" href="../../../../reference/objects/ElectionExperiment.html#mapof.elections.objects.ElectionExperiment.ElectionExperiment.set_default_num_candidates">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">set_default_num_candidates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">set_default_num_candidates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_candidates</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets default number of candidates</span>
 
@@ -477,7 +466,7 @@ document.write(`
 
 <div class="viewcode-block" id="ElectionExperiment.set_default_num_voters">
 <a class="viewcode-back" href="../../../../reference/objects/ElectionExperiment.html#mapof.elections.objects.ElectionExperiment.ElectionExperiment.set_default_num_voters">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">set_default_num_voters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_voters</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">set_default_num_voters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_voters</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets default number of voters</span>
 
@@ -495,7 +484,7 @@ document.write(`
 
 <div class="viewcode-block" id="ElectionExperiment.set_default_committee_size">
 <a class="viewcode-back" href="../../../../reference/objects/ElectionExperiment.html#mapof.elections.objects.ElectionExperiment.ElectionExperiment.set_default_committee_size">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">set_default_committee_size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">committee_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">set_default_committee_size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">committee_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets default size of the committee</span>
 
@@ -511,7 +500,7 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">default_committee_size</span> <span class="o">=</span> <span class="n">committee_size</span></div>
 
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">add_election_from_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+    <span class="k">def</span> <span class="nf">add_election_from_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                                  <span class="n">frequency_matrix</span><span class="p">,</span>
                                  <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 
@@ -527,7 +516,7 @@ document.write(`
 
 <div class="viewcode-block" id="ElectionExperiment.add_election">
 <a class="viewcode-back" href="../../../../reference/objects/ElectionExperiment.html#mapof.elections.objects.ElectionExperiment.ElectionExperiment.add_election">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">add_election</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+    <span class="k">def</span> <span class="nf">add_election</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                      <span class="n">culture_id</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span>
                      <span class="n">label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                      <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span>
@@ -618,7 +607,7 @@ document.write(`
 
 <div class="viewcode-block" id="ElectionExperiment.add_family">
 <a class="viewcode-back" href="../../../../reference/objects/ElectionExperiment.html#mapof.elections.objects.ElectionExperiment.ElectionExperiment.add_family">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">add_family</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+    <span class="k">def</span> <span class="nf">add_family</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                    <span class="n">culture_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;none&quot;</span><span class="p">,</span>
                    <span class="n">size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
                    <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -754,68 +743,175 @@ document.write(`
 
 <div class="viewcode-block" id="ElectionExperiment.add_existing_family_from_dir">
 <a class="viewcode-back" href="../../../../reference/objects/ElectionExperiment.html#mapof.elections.objects.ElectionExperiment.ElectionExperiment.add_existing_family_from_dir">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">add_existing_family_from_dir</span><span class="p">(</span>
+    <span class="k">def</span> <span class="nf">add_existing_family_from_dir</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="nb">dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
             <span class="n">culture_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">family_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">color</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;black&quot;</span><span class="p">,</span>
+            <span class="n">alpha</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.</span><span class="p">,</span>
+            <span class="n">show</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="n">marker</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span>
+            <span class="n">ms</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
             <span class="o">**</span><span class="n">kwargs</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Adds family of elections to the experiment from the given directory.</span>
 
+<span class="sd">        This function copies existing election files from the specified directory</span>
+<span class="sd">        and imports them into the experiment without regenerating votes.</span>
+
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">            dir : str</span>
-<span class="sd">                Directory.</span>
+<span class="sd">                Directory containing the election files to import.</span>
 <span class="sd">            culture_id : str</span>
-<span class="sd">                Culture id.</span>
+<span class="sd">                Culture id to assign to the imported elections.</span>
+<span class="sd">            family_id : str</span>
+<span class="sd">                Family id. If None, defaults to culture_id.</span>
+<span class="sd">            label : str</span>
+<span class="sd">                Label for the family. If None, defaults to family_id.</span>
+<span class="sd">            color : str</span>
+<span class="sd">                Color for visualization.</span>
+<span class="sd">            alpha : float</span>
+<span class="sd">                Alpha (transparency) for visualization.</span>
+<span class="sd">            show : bool</span>
+<span class="sd">                If true the family is shown in visualizations.</span>
+<span class="sd">            marker : str</span>
+<span class="sd">                Marker style for visualization.</span>
+<span class="sd">            ms : int</span>
+<span class="sd">                Marker size for visualization.</span>
 <span class="sd">            **kwargs : dict</span>
-<span class="sd">                Additional parameters.</span>
+<span class="sd">                Additional parameters passed to ElectionFamily.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">            list</span>
-<span class="sd">                List of the families.</span>
+<span class="sd">                List of IDs of added instances.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">dir</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;dir not specified&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">[]</span>
         <span class="k">if</span> <span class="n">culture_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;pseudo_culture_id not specified&#39;</span><span class="p">)</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;culture_id not specified&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">[]</span>
+
+        <span class="k">if</span> <span class="n">family_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">family_id</span> <span class="o">=</span> <span class="n">culture_id</span>
+
+        <span class="k">if</span> <span class="n">label</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">label</span> <span class="o">=</span> <span class="n">family_id</span>
 
         <span class="c1"># Copy instances from dir to /elections</span>
-
         <span class="n">directory_in</span> <span class="o">=</span> <span class="nb">dir</span>
         <span class="n">directory_out</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span>
                                      <span class="s2">&quot;experiments&quot;</span><span class="p">,</span>
                                      <span class="bp">self</span><span class="o">.</span><span class="n">experiment_id</span><span class="p">,</span>
                                      <span class="s1">&#39;elections&#39;</span><span class="p">)</span>
 
-        <span class="c1"># List all files in the given directory</span>
+        <span class="c1"># Ensure the output directory exists</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">directory_out</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># List all files in the given directory (only .soc or .app files)</span>
         <span class="n">files</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">directory_in</span><span class="p">)</span> <span class="k">if</span>
-                 <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory_in</span><span class="p">,</span> <span class="n">f</span><span class="p">))]</span>
+                 <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory_in</span><span class="p">,</span> <span class="n">f</span><span class="p">))</span> <span class="ow">and</span>
+                 <span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.soc&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.app&#39;</span><span class="p">))]</span>
 
         <span class="c1"># Sort the files for consistency</span>
         <span class="n">files</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
 
-        <span class="c1"># Rename each file</span>
-        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">file_name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">files</span><span class="p">):</span>
-            <span class="c1"># Create the new file name</span>
-            <span class="c1"># new_file_name = f&quot;{pseudo_culture_id}_{idx}{os.path.splitext(file_name)[1]}&quot;</span>
-            <span class="n">new_file_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">culture_id</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">idx</span><span class="si">}</span><span class="s2">.soc&quot;</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;No election files found in </span><span class="si">{</span><span class="nb">dir</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">[]</span>
 
-            <span class="c1"># Form the full old and new paths</span>
+        <span class="c1"># Determine the file extension based on instance type</span>
+        <span class="n">extension</span> <span class="o">=</span> <span class="s1">&#39;.soc&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance_type</span> <span class="o">==</span> <span class="s1">&#39;ordinal&#39;</span> <span class="k">else</span> <span class="s1">&#39;.app&#39;</span>
+
+        <span class="c1"># Copy and rename each file</span>
+        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">file_name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">files</span><span class="p">):</span>
+            <span class="n">new_file_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">family_id</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">idx</span><span class="si">}{</span><span class="n">extension</span><span class="si">}</span><span class="s2">&quot;</span>
+
             <span class="n">old_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory_in</span><span class="p">,</span> <span class="n">file_name</span><span class="p">)</span>
             <span class="n">new_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory_out</span><span class="p">,</span> <span class="n">new_file_name</span><span class="p">)</span>
 
-            <span class="c1"># Rename the file</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">old_path</span><span class="p">,</span> <span class="n">new_path</span><span class="p">)</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Renaming: </span><span class="si">{</span><span class="n">file_name</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="n">new_file_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="c1"># Copy the file (preserving metadata)</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">copy2</span><span class="p">(</span><span class="n">old_path</span><span class="p">,</span> <span class="n">new_path</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Copying: </span><span class="si">{</span><span class="n">file_name</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="n">new_file_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_family</span><span class="p">(</span><span class="n">culture_id</span><span class="o">=</span><span class="n">culture_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+        <span class="c1"># Determine if it&#39;s a single instance</span>
+        <span class="n">single</span> <span class="o">=</span> <span class="p">(</span><span class="n">size</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># Initialize families dict if needed</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">families</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">families</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="c1"># Create the family with the imported elections</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">families</span><span class="p">[</span><span class="n">family_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">ElectionFamily</span><span class="p">(</span>
+            <span class="n">culture_id</span><span class="o">=</span><span class="n">culture_id</span><span class="p">,</span>
+            <span class="n">family_id</span><span class="o">=</span><span class="n">family_id</span><span class="p">,</span>
+            <span class="n">params</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;params&#39;</span><span class="p">,</span> <span class="p">{}),</span>
+            <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span>
+            <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span>
+            <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span>
+            <span class="n">show</span><span class="o">=</span><span class="n">show</span><span class="p">,</span>
+            <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">,</span>
+            <span class="n">marker</span><span class="o">=</span><span class="n">marker</span><span class="p">,</span>
+            <span class="n">ms</span><span class="o">=</span><span class="n">ms</span><span class="p">,</span>
+            <span class="n">starting_from</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;starting_from&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="n">num_candidates</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;num_candidates&#39;</span><span class="p">),</span>
+            <span class="n">num_voters</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;num_voters&#39;</span><span class="p">),</span>
+            <span class="n">path</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">),</span>
+            <span class="n">single</span><span class="o">=</span><span class="n">single</span><span class="p">,</span>
+            <span class="n">instance_type</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">instance_type</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_families</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">families</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_elections</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">families</span><span class="p">[</span><span class="n">fid</span><span class="p">]</span><span class="o">.</span><span class="n">size</span> <span class="k">for</span> <span class="n">fid</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">families</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">main_order</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_elections</span><span class="p">)]</span>
+
+        <span class="c1"># Import the elections from the copied files (instead of regenerating)</span>
+        <span class="n">new_instances</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">ids</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">):</span>
+            <span class="n">instance_id</span> <span class="o">=</span> <span class="n">get_instance_id</span><span class="p">(</span><span class="n">single</span><span class="p">,</span> <span class="n">family_id</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance_type</span> <span class="o">==</span> <span class="s1">&#39;ordinal&#39;</span><span class="p">:</span>
+                <span class="n">instance</span> <span class="o">=</span> <span class="n">OrdinalElection</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">experiment_id</span><span class="p">,</span>
+                    <span class="n">instance_id</span><span class="p">,</span>
+                    <span class="n">is_imported</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                    <span class="n">fast_import</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fast_import</span><span class="p">,</span>
+                    <span class="n">with_matrix</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">with_matrix</span><span class="p">,</span>
+                    <span class="n">label</span><span class="o">=</span><span class="n">label</span>
+                <span class="p">)</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance_type</span> <span class="o">==</span> <span class="s1">&#39;approval&#39;</span><span class="p">:</span>
+                <span class="n">instance</span> <span class="o">=</span> <span class="n">ApprovalElection</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">experiment_id</span><span class="p">,</span>
+                    <span class="n">instance_id</span><span class="p">,</span>
+                    <span class="n">is_imported</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                    <span class="n">fast_import</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fast_import</span><span class="p">,</span>
+                    <span class="n">label</span><span class="o">=</span><span class="n">label</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">instance</span> <span class="o">=</span> <span class="kc">None</span>
+
+            <span class="n">new_instances</span><span class="p">[</span><span class="n">instance_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">instance</span>
+            <span class="n">ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">instance_id</span><span class="p">))</span>
+
+        <span class="k">for</span> <span class="n">instance_id</span> <span class="ow">in</span> <span class="n">new_instances</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">instances</span><span class="p">[</span><span class="n">instance_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_instances</span><span class="p">[</span><span class="n">instance_id</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">families</span><span class="p">[</span><span class="n">family_id</span><span class="p">]</span><span class="o">.</span><span class="n">instance_ids</span> <span class="o">=</span> <span class="n">ids</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_exported</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_update_map_csv</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">new_instances</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span></div>
 
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">_update_map_csv</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_update_map_csv</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">families</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">path_to_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s1">&#39;experiments&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">experiment_id</span><span class="p">,</span> <span class="s1">&#39;map.csv&#39;</span><span class="p">)</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path_to_file</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">csv_file</span><span class="p">:</span>
@@ -858,7 +954,7 @@ document.write(`
 
 <div class="viewcode-block" id="ElectionExperiment.add_empty_family">
 <a class="viewcode-back" href="../../../../reference/objects/ElectionExperiment.html#mapof.elections.objects.ElectionExperiment.ElectionExperiment.add_empty_family">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">add_empty_family</span><span class="p">(</span>
+    <span class="k">def</span> <span class="nf">add_empty_family</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">culture_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;none&quot;</span><span class="p">,</span>
             <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -918,7 +1014,7 @@ document.write(`
 
 <div class="viewcode-block" id="ElectionExperiment.prepare_elections">
 <a class="viewcode-back" href="../../../../reference/objects/ElectionExperiment.html#mapof.elections.objects.ElectionExperiment.ElectionExperiment.prepare_elections">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">prepare_elections</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">export_points</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">is_aggregated</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">prepare_elections</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">export_points</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">is_aggregated</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Prepares elections for a given experiment.</span>
 
@@ -968,7 +1064,7 @@ document.write(`
 
 <div class="viewcode-block" id="ElectionExperiment.compute_voting_rule">
 <a class="viewcode-back" href="../../../../reference/objects/ElectionExperiment.html#mapof.elections.objects.ElectionExperiment.ElectionExperiment.compute_voting_rule">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">compute_voting_rule</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">committee_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">compute_voting_rule</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">committee_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Computes voting rule for all elections in the experiment.</span>
 
@@ -988,13 +1084,13 @@ document.write(`
                 <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span> <span class="n">committee_size</span><span class="o">=</span><span class="n">committee_size</span><span class="p">)</span></div>
 
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">compute_alternative_winners</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">committee_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">num_parties</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">compute_alternative_winners</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">committee_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">num_parties</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">election_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">elections</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">party_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_parties</span><span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">elections</span><span class="p">[</span><span class="n">election_id</span><span class="p">]</span><span class="o">.</span><span class="n">compute_alternative_winners</span><span class="p">(</span>
                     <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span> <span class="n">party_id</span><span class="o">=</span><span class="n">party_id</span><span class="p">,</span> <span class="n">committee_size</span><span class="o">=</span><span class="n">committee_size</span><span class="p">)</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">get_distance</span><span class="p">(</span>
+    <span class="k">def</span> <span class="nf">get_distance</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">election_1</span><span class="p">,</span>
             <span class="n">election_2</span><span class="p">,</span>
@@ -1003,12 +1099,12 @@ document.write(`
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span> <span class="ow">or</span> <span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">get_distance</span><span class="p">(</span><span class="n">election_1</span><span class="p">,</span> <span class="n">election_2</span><span class="p">,</span> <span class="n">distance_id</span><span class="p">)</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">print_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">print_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">pr</span><span class="o">.</span><span class="n">print_matrix</span><span class="p">(</span><span class="n">experiment</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
 <div class="viewcode-block" id="ElectionExperiment.import_controllers">
 <a class="viewcode-back" href="../../../../reference/objects/ElectionExperiment.html#mapof.elections.objects.ElectionExperiment.ElectionExperiment.import_controllers">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">import_controllers</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">import_controllers</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Import controllers from a file</span>
 
@@ -1103,7 +1199,7 @@ document.write(`
 
 <div class="viewcode-block" id="ElectionExperiment.compute_feature">
 <a class="viewcode-back" href="../../../../reference/objects/ElectionExperiment.html#mapof.elections.objects.ElectionExperiment.ElectionExperiment.compute_feature">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">compute_feature</span><span class="p">(</span>
+    <span class="k">def</span> <span class="nf">compute_feature</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">feature_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
             <span class="n">feature_params</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1216,7 +1312,7 @@ document.write(`
 
 <div class="viewcode-block" id="ElectionExperiment.compute_rules">
 <a class="viewcode-back" href="../../../../reference/objects/ElectionExperiment.html#mapof.elections.objects.ElectionExperiment.ElectionExperiment.compute_rules">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">compute_rules</span><span class="p">(</span>
+    <span class="k">def</span> <span class="nf">compute_rules</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">list_of_rules</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
             <span class="n">committee_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
@@ -1250,7 +1346,7 @@ document.write(`
 
 <div class="viewcode-block" id="ElectionExperiment.import_committees">
 <a class="viewcode-back" href="../../../../reference/objects/ElectionExperiment.html#mapof.elections.objects.ElectionExperiment.ElectionExperiment.import_committees">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">import_committees</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">list_of_rules</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">import_committees</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">list_of_rules</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Imports the winning committees for a list of rules.</span>
 
@@ -1270,7 +1366,7 @@ document.write(`
 
 <div class="viewcode-block" id="ElectionExperiment.add_election_to_family">
 <a class="viewcode-back" href="../../../../reference/objects/ElectionExperiment.html#mapof.elections.objects.ElectionExperiment.ElectionExperiment.add_election_to_family">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">add_election_to_family</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">election</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">family_id</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">add_election_to_family</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">election</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">family_id</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Adds an election to a family.</span>
 
@@ -1290,7 +1386,7 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">families</span><span class="p">[</span><span class="n">family_id</span><span class="p">]</span><span class="o">.</span><span class="n">add_election</span><span class="p">(</span><span class="n">election</span><span class="p">)</span></div>
 
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">prepare_election_features</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">prepare_election_features</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">election</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">instances</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="n">election</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">election_features</span><span class="o">.</span><span class="n">votes</span> <span class="o">=</span> <span class="n">election</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">votes</span>
             <span class="n">election</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">election_features</span><span class="o">.</span><span class="n">num_candidates</span> <span class="o">=</span> <span class="n">election</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">num_candidates</span>
@@ -1311,14 +1407,14 @@ document.write(`
     <span class="c1">#         election[1].election_features.compass_points[&#39;UN&#39;] = self.instances[</span>
     <span class="c1">#             UN_KEY + str(election[1].num_candidates)]</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">calculate_dap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">calculate_dap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
         <span class="n">dap</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
         <span class="n">dap</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">[</span><span class="s1">&#39;Diversity&#39;</span><span class="p">][</span><span class="nb">id</span><span class="p">])</span>
         <span class="n">dap</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">[</span><span class="s1">&#39;Agreement&#39;</span><span class="p">][</span><span class="nb">id</span><span class="p">])</span>
         <span class="n">dap</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">[</span><span class="s1">&#39;Polarization&#39;</span><span class="p">][</span><span class="nb">id</span><span class="p">])</span>
         <span class="k">return</span> <span class="n">dap</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">calculate_features_vector</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">features_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">calculate_features_vector</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">features_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
         <span class="n">vector</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
         <span class="k">if</span> <span class="s1">&#39;d&#39;</span> <span class="ow">in</span> <span class="n">features_list</span><span class="p">:</span>
             <span class="n">vector</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">[</span><span class="s1">&#39;Diversity&#39;</span><span class="p">][</span><span class="nb">id</span><span class="p">])</span>
@@ -1334,11 +1430,11 @@ document.write(`
             <span class="n">vector</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">features</span><span class="p">[</span><span class="s1">&#39;CandidateDistanceStd&#39;</span><span class="p">][</span><span class="nb">id</span><span class="p">])</span>
         <span class="k">return</span> <span class="n">vector</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">prepare_election_sizes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">prepare_election_sizes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">election</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">instances</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">election_sizes</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">election</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">)</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">prepare_feature_vectors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">features</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">prepare_feature_vectors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">features</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">election</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">instances</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="n">election</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">election_features</span><span class="o">.</span><span class="n">votes</span> <span class="o">=</span> <span class="n">election</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">votes</span>
             <span class="n">election</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">election_features</span><span class="o">.</span><span class="n">num_candidates</span> <span class="o">=</span> <span class="n">election</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">num_candidates</span>
@@ -1347,21 +1443,21 @@ document.write(`
                 <span class="n">election</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">election_id</span><span class="p">,</span>
                 <span class="n">features</span><span class="p">)</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">prepare_instances</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">prepare_instances</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">prepare_elections</span><span class="p">()</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">add_instance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">add_instance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_election</span><span class="p">()</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">__getstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__getstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">__setstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__setstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">state</span><span class="p">)</span></div>
 
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">_check_if_all_equal</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">subject</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_check_if_all_equal</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">subject</span><span class="p">):</span>
     <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">x</span> <span class="o">!=</span> <span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">values</span><span class="p">):</span>
         <span class="n">text</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Not all </span><span class="si">{</span><span class="n">subject</span><span class="si">}</span><span class="s1"> values are equal!&#39;</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
@@ -1427,8 +1523,8 @@ By Stanisław Szufa and Andrzej Kaczmarczyk
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
   </footer>

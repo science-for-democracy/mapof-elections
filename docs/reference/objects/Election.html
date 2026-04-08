@@ -6,7 +6,7 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Election &#8212; Map of Elections</title>
   
@@ -16,30 +16,33 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
   
-  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
-
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
-  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
     <script src="../../_static/documentation_options.js?v=dea914ae"></script>
-    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'reference/objects/Election';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -47,6 +50,7 @@
     <link rel="prev" title="Objects" href="index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -62,19 +66,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../../search.html"
       method="get">
@@ -82,7 +75,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search..."
          aria-label="Search..."
          autocomplete="off"
@@ -90,8 +82,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -107,7 +99,8 @@
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -137,15 +130,11 @@
 </a></div>
         <div class="sidebar-primary-item">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
@@ -159,6 +148,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../cultures/compass.html">Compass</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../cultures/prefsampling_mask.html">Prefsampling Mask</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../cultures/pseudo_cultures.html">Pseudo Cultures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../cultures/single_peaked_matrices.html">Single Peaked Matrices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../cultures/single_crossing_matrices.html">Single Crossing Matrices</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../cultures/params.html">Params</a></li>
 </ul>
 </details></li>
@@ -220,9 +211,14 @@
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -320,7 +316,7 @@
 
 
 <button onclick="toggleFullScreen()"
-  class="btn btn-sm btn-fullscreen-button"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
   title="Fullscreen mode"
   data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
@@ -334,25 +330,17 @@
 
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
 </div></div>
@@ -376,11 +364,24 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.Election.Election"><code class="docutils literal notranslate"><span class="pre">Election</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.Election.Election.all_dist_zeros"><code class="docutils literal notranslate"><span class="pre">Election.all_dist_zeros()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.Election.Election.compute_alternative_winners"><code class="docutils literal notranslate"><span class="pre">Election.compute_alternative_winners()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.Election.Election.compute_distances"><code class="docutils literal notranslate"><span class="pre">Election.compute_distances()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.Election.Election.compute_feature"><code class="docutils literal notranslate"><span class="pre">Election.compute_feature()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.Election.Election.compute_potes"><code class="docutils literal notranslate"><span class="pre">Election.compute_potes()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.Election.Election.compute_rule"><code class="docutils literal notranslate"><span class="pre">Election.compute_rule()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.Election.Election.embed"><code class="docutils literal notranslate"><span class="pre">Election.embed()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.Election.Election.export_to_file"><code class="docutils literal notranslate"><span class="pre">Election.export_to_file()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.Election.Election.get_coordinates"><code class="docutils literal notranslate"><span class="pre">Election.get_coordinates()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.Election.Election.get_feature"><code class="docutils literal notranslate"><span class="pre">Election.get_feature()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.Election.Election.import_coordinates"><code class="docutils literal notranslate"><span class="pre">Election.import_coordinates()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.Election.Election.import_distances"><code class="docutils literal notranslate"><span class="pre">Election.import_distances()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.Election.Election.import_matrix"><code class="docutils literal notranslate"><span class="pre">Election.import_matrix()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.Election.Election.rotate"><code class="docutils literal notranslate"><span class="pre">Election.rotate()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.Election.Election.rotate_point"><code class="docutils literal notranslate"><span class="pre">Election.rotate_point()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.Election.Election.set_default_object_type"><code class="docutils literal notranslate"><span class="pre">Election.set_default_object_type()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.Election.Election.update_votes"><code class="docutils literal notranslate"><span class="pre">Election.update_votes()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.Election.Election.vector_to_interval"><code class="docutils literal notranslate"><span class="pre">Election.vector_to_interval()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -398,12 +399,87 @@ document.write(`
 <span id="election"></span><h1>Election<a class="headerlink" href="#module-mapof.elections.objects.Election" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="mapof.elections.objects.Election.Election">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Election</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">experiment_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">election_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">culture_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">votes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_voters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_candidates</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fast_import</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_shifted</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_imported</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_exported</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mapof/elections/objects/Election.html#Election"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.objects.Election.Election" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Election</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">experiment_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">election_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">culture_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">votes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_voters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_candidates</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fast_import</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_shifted</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_imported</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_exported</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mapof/elections/objects/Election.html#Election"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.objects.Election.Election" title="Link to this definition">#</a></dt>
 <dd><p>(Abstract) Election class.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mapof.elections.objects.Election.Election.all_dist_zeros">
+<span class="sig-name descname"><span class="pre">all_dist_zeros</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object_type</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mapof/elections/objects/Election.html#Election.all_dist_zeros"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.objects.Election.Election.all_dist_zeros" title="Link to this definition">#</a></dt>
+<dd><p>Return True when the distance matrix for object_type is missing or all zeros.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mapof.elections.objects.Election.Election.compute_alternative_winners">
+<span class="sig-name descname"><span class="pre">compute_alternative_winners</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">party_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">committee_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mapof/elections/objects/Election.html#Election.compute_alternative_winners"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.objects.Election.Election.compute_alternative_winners" title="Link to this definition">#</a></dt>
+<dd><p>Compute winners for the election after removing a party block of candidates.</p>
+<p>The method removes the specified party (party_id, party_size=committee_size),
+computes winners using the requested rule and stores the remapped winners in
+self.alternative_winners keyed by party_id.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mapof.elections.objects.Election.Election.compute_distances">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">compute_distances</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mapof/elections/objects/Election.html#Election.compute_distances"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.objects.Election.Election.compute_distances" title="Link to this definition">#</a></dt>
+<dd><p>Abstract method: compute and populate <cite>self.distances</cite> for this election.</p>
+<p>Concrete subclasses must implement this to fill distance matrices for
+supported object types (e.g. ‘vote’ and ‘candidate’).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mapof.elections.objects.Election.Election.compute_feature">
+<span class="sig-name descname"><span class="pre">compute_feature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">feature_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature_long_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mapof/elections/objects/Election.html#Election.compute_feature"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.objects.Election.Election.compute_feature" title="Link to this definition">#</a></dt>
+<dd><p>Compute and store a local feature for this election.</p>
+<p>The computed feature is stored in self.features under <cite>feature_long_id</cite>.</p>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="mapof.elections.objects.Election.Election.compute_potes">
 <span class="sig-name descname"><span class="pre">compute_potes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mapping</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mapof/elections/objects/Election.html#Election.compute_potes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.objects.Election.Election.compute_potes" title="Link to this definition">#</a></dt>
-<dd><p>Convert votes to positional votes (called potes)</p>
+<dd><p>Convert votes to positional scores (potes) and store them in self.potes.</p>
+<p>If <cite>mapping</cite> is provided, candidate indices are remapped before converting.
+Returns the computed potes array, or None for pseudo-cultures.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mapof.elections.objects.Election.Election.compute_rule">
+<span class="sig-name descname"><span class="pre">compute_rule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rule_id</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mapof/elections/objects/Election.html#Election.compute_rule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.objects.Election.Election.compute_rule" title="Link to this definition">#</a></dt>
+<dd><p>Compute an ABC voting rule for this election (delegates to abcvoting helper).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mapof.elections.objects.Election.Election.embed">
+<span class="sig-name descname"><span class="pre">embed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">algorithm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mds'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mapof/elections/objects/Election.html#Election.embed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.objects.Election.Election.embed" title="Link to this definition">#</a></dt>
+<dd><p>Compute 2D coordinates for instances using PCA or MDS and optionally export.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>algorithm</strong> (<em>str</em>) – ‘mds’ or ‘pca’ (case-insensitive).</p></li>
+<li><p><strong>object_type</strong> (<em>str</em><em> or </em><em>None</em>) – Object type to embed; defaults to the election’s current default.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mapof.elections.objects.Election.Election.export_to_file">
+<span class="sig-name descname"><span class="pre">export_to_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_to_folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_aggregated</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mapof/elections/objects/Election.html#Election.export_to_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.objects.Election.Election.export_to_file" title="Link to this definition">#</a></dt>
+<dd><p>Export the election to a folder outside of an experiment context.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mapof.elections.objects.Election.Election.get_coordinates">
+<span class="sig-name descname"><span class="pre">get_coordinates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object_type</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mapof/elections/objects/Election.html#Election.get_coordinates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.objects.Election.Election.get_coordinates" title="Link to this definition">#</a></dt>
+<dd><p>Return coordinates for the given object_type, importing them if missing.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mapof.elections.objects.Election.Election.get_feature">
+<span class="sig-name descname"><span class="pre">get_feature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">feature_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature_long_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compute_if_missing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mapof/elections/objects/Election.html#Election.get_feature"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.objects.Election.Election.get_feature" title="Link to this definition">#</a></dt>
+<dd><p>Return a feature value, computing it if missing or when overwrite is True.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – If overwrite is requested but compute_if_missing is False.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -429,15 +505,63 @@ document.write(`
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="mapof.elections.objects.Election.Election.import_matrix">
+<span class="sig-name descname"><span class="pre">import_matrix</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="../../_modules/mapof/elections/objects/Election.html#Election.import_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.objects.Election.Election.import_matrix" title="Link to this definition">#</a></dt>
+<dd><p>Load a candidate-by-candidate matrix CSV from the experiment’s matrices folder.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Square matrix with shape (num_candidates, num_candidates).</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="mapof.elections.objects.Election.Election.rotate">
 <span class="sig-name descname"><span class="pre">rotate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">angle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object_type</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../../_modules/mapof/elections/objects/Election.html#Election.rotate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.objects.Election.Election.rotate" title="Link to this definition">#</a></dt>
-<dd><p>Rotate all the points by a given angle</p>
+<dd><p>Rotate all stored coordinates for object_type around point (0.5, 0.5).</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mapof.elections.objects.Election.Election.rotate_point">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">rotate_point</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">px</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">py)</span> <span class="pre">-&gt;</span> <span class="pre">(&lt;class</span> <span class="pre">'float'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">&lt;class</span> <span class="pre">'float'&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mapof/elections/objects/Election.html#Election.rotate_point"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.objects.Election.Election.rotate_point" title="Link to this definition">#</a></dt>
-<dd><p>Rotate two-dimensional point by an angle</p>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">rotate_point</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">px</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">py</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/mapof/elections/objects/Election.html#Election.rotate_point"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.objects.Election.Election.rotate_point" title="Link to this definition">#</a></dt>
+<dd><p>Rotate a 2D point (px,py) around center (cx,cy) by <cite>angle</cite> radians.</p>
+<p>Returns the rotated (x, y) tuple.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mapof.elections.objects.Election.Election.set_default_object_type">
+<span class="sig-name descname"><span class="pre">set_default_object_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object_type</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mapof/elections/objects/Election.html#Election.set_default_object_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.objects.Election.Election.set_default_object_type" title="Link to this definition">#</a></dt>
+<dd><p>Set the default object type used by methods like embed and get_coordinates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>object_type</strong> (<em>str</em>) – One of OBJECT_TYPES (e.g. ‘vote’ or ‘candidate’).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mapof.elections.objects.Election.Election.update_votes">
+<span class="sig-name descname"><span class="pre">update_votes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mapof/elections/objects/Election.html#Election.update_votes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.objects.Election.Election.update_votes" title="Link to this definition">#</a></dt>
+<dd><p>Export the election’s votes within its experiment (delegates to persistence layer).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mapof.elections.objects.Election.Election.vector_to_interval">
+<span class="sig-name descname"><span class="pre">vector_to_interval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vector</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">precision</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="reference internal" href="../../_modules/mapof/elections/objects/Election.html#Election.vector_to_interval"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mapof.elections.objects.Election.Election.vector_to_interval" title="Link to this definition">#</a></dt>
+<dd><p>Convert a vector of length <cite>num_candidates</cite> into a discretized interval list.</p>
+<ul class="simple">
+<li><p>If <cite>precision</cite> is None, it defaults to <cite>num_candidates</cite> (one sample per candidate).</p></li>
+<li><p>Ensures the returned list has roughly <cite>precision</cite> elements (uses integer division
+per-candidate and guarantees at least one sample per candidate).</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – if <cite>vector</cite> length doesn’t match <cite>num_candidates</cite> or if: <cite>num_candidates</cite> is not a positive integer.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -480,21 +604,36 @@ document.write(`
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
     <i class="fa-solid fa-list"></i> Contents
   </div>
-  <nav class="bd-toc-nav page-toc">
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.Election.Election"><code class="docutils literal notranslate"><span class="pre">Election</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.Election.Election.all_dist_zeros"><code class="docutils literal notranslate"><span class="pre">Election.all_dist_zeros()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.Election.Election.compute_alternative_winners"><code class="docutils literal notranslate"><span class="pre">Election.compute_alternative_winners()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.Election.Election.compute_distances"><code class="docutils literal notranslate"><span class="pre">Election.compute_distances()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.Election.Election.compute_feature"><code class="docutils literal notranslate"><span class="pre">Election.compute_feature()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.Election.Election.compute_potes"><code class="docutils literal notranslate"><span class="pre">Election.compute_potes()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.Election.Election.compute_rule"><code class="docutils literal notranslate"><span class="pre">Election.compute_rule()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.Election.Election.embed"><code class="docutils literal notranslate"><span class="pre">Election.embed()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.Election.Election.export_to_file"><code class="docutils literal notranslate"><span class="pre">Election.export_to_file()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.Election.Election.get_coordinates"><code class="docutils literal notranslate"><span class="pre">Election.get_coordinates()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.Election.Election.get_feature"><code class="docutils literal notranslate"><span class="pre">Election.get_feature()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.Election.Election.import_coordinates"><code class="docutils literal notranslate"><span class="pre">Election.import_coordinates()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.Election.Election.import_distances"><code class="docutils literal notranslate"><span class="pre">Election.import_distances()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.Election.Election.import_matrix"><code class="docutils literal notranslate"><span class="pre">Election.import_matrix()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.Election.Election.rotate"><code class="docutils literal notranslate"><span class="pre">Election.rotate()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.Election.Election.rotate_point"><code class="docutils literal notranslate"><span class="pre">Election.rotate_point()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.Election.Election.set_default_object_type"><code class="docutils literal notranslate"><span class="pre">Election.set_default_object_type()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.Election.Election.update_votes"><code class="docutils literal notranslate"><span class="pre">Election.update_votes()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mapof.elections.objects.Election.Election.vector_to_interval"><code class="docutils literal notranslate"><span class="pre">Election.vector_to_interval()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -545,8 +684,8 @@ By Stanisław Szufa and Andrzej Kaczmarczyk
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
   </footer>

@@ -1,0 +1,852 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mapof.elections.features.dap &#8212; Map of Elections</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../../../_static/documentation_options.js?v=dea914ae"></script>
+    <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/mapof/elections/features/dap';</script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Map of Elections</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../../index.html">Mapof-Elections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../quickstart.html">Quick Start</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../reference/index.html">Code Reference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/cultures/index.html">Cultures</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/list_of_cultures.html">List of Cultures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/main.html">Main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/compass.html">Compass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/prefsampling_mask.html">Prefsampling Mask</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/pseudo_cultures.html">Pseudo Cultures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/single_peaked_matrices.html">Single Peaked Matrices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/single_crossing_matrices.html">Single Crossing Matrices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/params.html">Params</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/distances/index.html">Distances</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/list_of_distances.html">List of Distances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/main.html">Main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/register.html">Register</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/main_approval_distances.html">Approval Distances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/main_ordinal_distances.html">Ordinal Distances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/committee_distances.html">Committee Distances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/feature_distance.html">Feature Distance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/ilp_subelections.html">Subelection Distance</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/features/index.html">Features</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/list_of_features.html">List of Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/main.html">Main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/register.html">Register</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/scores.html">Scores</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/dap.html">Diversity Approximate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/simple_ordinal.html">Simple Ordinal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/simple_approval.html">Simple Approval</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/abc_features.html">ABC Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/banzhaf_cc.html">Banzhaf CC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/ranging_cc.html">Ranging CC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/approx.html">Approx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/cohesive.html">Cohesive</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/entropy.html">Entropy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/justified_representation.html">Justified Representation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/partylist.html">Partylist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/proportionality_degree.html">Proportionality Degree</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/objects/index.html">Objects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/Election.html">Election</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/ElectionExperiment.html">ElectionExperiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/ApprovalElection.html">ApprovalElection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/ApprovalElectionExperiment.html">ApprovalElectionExperiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/OrdinalElection.html">OrdinalElection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/OrdinalElectionExperiment.html">OrdinalElectionExperiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/ElectionFamily.html">ElectionFamily</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/Microscope.html">Microscope</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/persistence/index.html">Persistence</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/persistence/election_imports.html">Election Imports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/persistence/election_exports.html">Election Exports</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../resources.html">Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../citation.html">Citation Policy</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/science-for-democracy/mapof-elections" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for mapof.elections.features.dap</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">itertools</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">mapof.elections.features.register</span> <span class="kn">import</span> <span class="n">register_ordinal_election_feature</span>
+
+<span class="c1">### AUXILLIARY FUNCTIONS ###</span>
+
+<span class="k">def</span> <span class="nf">_remove_diag</span><span class="p">(</span><span class="n">mtrx</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Return: Input frequency_matrix with diagonal removed (shape[1] - 1) &quot;&quot;&quot;</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">mtrx</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">mtrx</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">mtrx</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">mtrx</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="k">if</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">i</span><span class="p">:</span>
+                <span class="n">res</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">mtrx</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="n">j</span> <span class="o">&gt;</span> <span class="n">i</span><span class="p">:</span>
+                <span class="n">res</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">mtrx</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">res</span>
+
+
+<span class="k">def</span> <span class="nf">_vote2pote</span><span class="p">(</span><span class="n">vote</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
+    <span class="n">reported</span> <span class="o">=</span> <span class="n">vote</span><span class="p">[</span><span class="n">vote</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">part_pote</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">reported</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">non_reported_pos</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">reported</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">m</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">reported</span><span class="p">))</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">reported</span><span class="p">:</span>
+            <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">part_pote</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">non_reported_pos</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_get_potes</span><span class="p">(</span><span class="n">election</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">election</span><span class="o">.</span><span class="n">potes</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">election</span><span class="o">.</span><span class="n">potes</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">election</span><span class="o">.</span><span class="n">votes</span><span class="p">:</span>
+            <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_vote2pote</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">election</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">))</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+        <span class="n">election</span><span class="o">.</span><span class="n">potes</span> <span class="o">=</span> <span class="n">res</span>
+        <span class="k">return</span> <span class="n">res</span>
+
+
+<span class="k">def</span> <span class="nf">_swap_distance_between_potes</span><span class="p">(</span><span class="n">pote_1</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">pote_2</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">m</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Return: Swap distance between two potes &quot;&quot;&quot;</span>
+    <span class="n">swap_distance</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">pote_1</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">pote_1</span><span class="p">[</span><span class="n">b</span><span class="p">]</span> <span class="ow">and</span> <span class="n">pote_2</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">pote_2</span><span class="p">[</span><span class="n">b</span><span class="p">]):</span>
+                <span class="n">swap_distance</span> <span class="o">+=</span> <span class="mf">0.5</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">pote_1</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">pote_1</span><span class="p">[</span><span class="n">b</span><span class="p">]</span> <span class="ow">and</span> <span class="n">pote_2</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">pote_2</span><span class="p">[</span><span class="n">b</span><span class="p">]):</span>
+                <span class="n">swap_distance</span> <span class="o">+=</span> <span class="mf">0.5</span>
+    <span class="k">return</span> <span class="n">swap_distance</span>
+
+
+<span class="k">def</span> <span class="nf">_get_vote_dists</span><span class="p">(</span><span class="n">election</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">election</span><span class="o">.</span><span class="n">vote_dists</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="n">potes</span> <span class="o">=</span> <span class="n">_get_potes</span><span class="p">(</span><span class="n">election</span><span class="p">)</span>
+        <span class="n">distances</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">election</span><span class="o">.</span><span class="n">num_voters</span><span class="p">,</span> <span class="n">election</span><span class="o">.</span><span class="n">num_voters</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">v1</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">election</span><span class="o">.</span><span class="n">num_voters</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">v2</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">v1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">election</span><span class="o">.</span><span class="n">num_voters</span><span class="p">):</span>
+                <span class="n">distances</span><span class="p">[</span><span class="n">v1</span><span class="p">][</span><span class="n">v2</span><span class="p">]</span> <span class="o">=</span> <span class="n">_swap_distance_between_potes</span><span class="p">(</span><span class="n">potes</span><span class="p">[</span><span class="n">v1</span><span class="p">],</span> <span class="n">potes</span><span class="p">[</span><span class="n">v2</span><span class="p">],</span>
+                                                                <span class="n">election</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">)</span>
+                <span class="n">distances</span><span class="p">[</span><span class="n">v2</span><span class="p">][</span><span class="n">v1</span><span class="p">]</span> <span class="o">=</span> <span class="n">distances</span><span class="p">[</span><span class="n">v1</span><span class="p">][</span><span class="n">v2</span><span class="p">]</span>
+        <span class="n">election</span><span class="o">.</span><span class="n">vote_dists</span> <span class="o">=</span> <span class="n">distances</span>
+        <span class="k">return</span> <span class="n">distances</span>
+
+
+<span class="k">def</span> <span class="nf">_get_candidate_dists</span><span class="p">(</span><span class="n">election</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">election</span><span class="o">.</span><span class="n">candidate_dists</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="n">potes</span> <span class="o">=</span> <span class="n">_get_potes</span><span class="p">(</span><span class="n">election</span><span class="p">)</span>
+        <span class="n">distances</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">election</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">,</span> <span class="n">election</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">election</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">election</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">election</span><span class="o">.</span><span class="n">num_voters</span><span class="p">):</span>
+                    <span class="n">distances</span><span class="p">[</span><span class="n">a</span><span class="p">][</span><span class="n">b</span><span class="p">]</span> <span class="o">+=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">potes</span><span class="p">[</span><span class="n">v</span><span class="p">][</span><span class="n">a</span><span class="p">]</span> <span class="o">-</span> <span class="n">potes</span><span class="p">[</span><span class="n">v</span><span class="p">][</span><span class="n">b</span><span class="p">])</span>
+                <span class="n">distances</span><span class="p">[</span><span class="n">b</span><span class="p">][</span><span class="n">a</span><span class="p">]</span> <span class="o">=</span> <span class="n">distances</span><span class="p">[</span><span class="n">a</span><span class="p">][</span><span class="n">b</span><span class="p">]</span>
+        <span class="n">election</span><span class="o">.</span><span class="n">candidate_dists</span> <span class="o">=</span> <span class="n">distances</span>
+        <span class="k">return</span> <span class="n">distances</span>
+
+
+<span class="k">def</span> <span class="nf">_calculate_borda_scores</span><span class="p">(</span><span class="n">election</span><span class="p">):</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">election</span><span class="o">.</span><span class="n">num_candidates</span>
+    <span class="n">borda</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">election</span><span class="o">.</span><span class="n">votes</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+            <span class="n">borda</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="n">borda</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">+</span> <span class="n">m</span> <span class="o">-</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">borda</span>
+
+<span class="k">def</span> <span class="nf">_geom_mean</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+
+<span class="k">def</span> <span class="nf">_kemeny_ranking</span><span class="p">(</span><span class="n">election</span><span class="p">):</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">election</span><span class="o">.</span><span class="n">num_candidates</span>
+    <span class="n">wmg</span> <span class="o">=</span> <span class="n">election</span><span class="o">.</span><span class="n">votes_to_pairwise_matrix</span><span class="p">()</span>
+    <span class="n">best_d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+    <span class="k">for</span> <span class="n">test_ranking</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">permutations</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">))):</span>
+        <span class="n">dist</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
+                <span class="n">dist</span> <span class="o">=</span> <span class="n">dist</span> <span class="o">+</span> <span class="n">wmg</span><span class="p">[</span><span class="n">test_ranking</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">test_ranking</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+            <span class="k">if</span> <span class="n">dist</span> <span class="o">&gt;</span> <span class="n">best_d</span><span class="p">:</span>
+                <span class="k">break</span>
+        <span class="k">if</span> <span class="n">dist</span> <span class="o">&lt;</span> <span class="n">best_d</span><span class="p">:</span>
+            <span class="n">best</span> <span class="o">=</span> <span class="n">test_ranking</span>
+            <span class="n">best_d</span> <span class="o">=</span> <span class="n">dist</span>
+    <span class="k">return</span> <span class="n">best</span><span class="p">,</span> <span class="n">best_d</span>
+    
+
+<span class="c1">### AGREEMENT INDICES ###</span>
+
+<div class="viewcode-block" id="agreement_index">
+<a class="viewcode-back" href="../../../../reference/features/dap.html#mapof.elections.features.dap.agreement_index">[docs]</a>
+<span class="nd">@register_ordinal_election_feature</span><span class="p">(</span><span class="s1">&#39;agreement&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">agreement_index</span><span class="p">(</span><span class="n">election</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates the agreement index of the election as defined in</span>
+<span class="sd">    Faliszewski et al. &#39;Diversity, Agreement, and Polarization in Elections&#39;.</span>
+<span class="sd">    Agreement for a specific pair of candidates is defined as</span>
+<span class="sd">    the difference between the number of their supporters</span>
+<span class="sd">    divided by the total number of voters.</span>
+<span class="sd">    Agreement index of an election is the average agreement</span>
+<span class="sd">    between each pair of voters.</span>
+
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">        election : OrdinalElection</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">        dict</span>
+<span class="sd">            &#39;value&#39;: agreement index</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">election</span><span class="o">.</span><span class="n">is_pseudo</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+    <span class="n">potes</span> <span class="o">=</span> <span class="n">_get_potes</span><span class="p">(</span><span class="n">election</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">combinations</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">election</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">),</span> <span class="mi">2</span><span class="p">):</span>
+        <span class="n">a_b</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">b_a</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">potes</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">p</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">p</span><span class="p">[</span><span class="n">b</span><span class="p">]:</span>
+                <span class="n">a_b</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="n">p</span><span class="p">[</span><span class="n">b</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">p</span><span class="p">[</span><span class="n">a</span><span class="p">]:</span>
+                <span class="n">b_a</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">a_b</span> <span class="o">-</span> <span class="n">b_a</span><span class="p">),</span> <span class="n">election</span><span class="o">.</span><span class="n">num_voters</span> <span class="o">-</span> <span class="n">a_b</span> <span class="o">-</span> <span class="n">b_a</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="n">res</span> <span class="o">/</span> <span class="n">election</span><span class="o">.</span><span class="n">num_voters</span> <span class="o">/</span> <span class="p">(</span>
+                <span class="n">election</span><span class="o">.</span><span class="n">num_candidates</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">election</span><span class="o">.</span><span class="n">num_candidates</span> <span class="o">*</span> <span class="mi">2</span><span class="p">}</span></div>
+
+
+
+<div class="viewcode-block" id="borda_std">
+<a class="viewcode-back" href="../../../../reference/features/dap.html#mapof.elections.features.dap.borda_std">[docs]</a>
+<span class="nd">@register_ordinal_election_feature</span><span class="p">(</span><span class="s1">&#39;borda_std&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">borda_std</span><span class="p">(</span><span class="n">election</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Standard deviation of Borda scores of all candidates.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">election</span><span class="o">.</span><span class="n">is_pseudo</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+    <span class="n">all_scores</span> <span class="o">=</span> <span class="n">_calculate_borda_scores</span><span class="p">(</span><span class="n">election</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="n">all_scores</span><span class="o">.</span><span class="n">std</span><span class="p">()}</span></div>
+
+
+
+<div class="viewcode-block" id="avg_vote_dist">
+<a class="viewcode-back" href="../../../../reference/features/dap.html#mapof.elections.features.dap.avg_vote_dist">[docs]</a>
+<span class="nd">@register_ordinal_election_feature</span><span class="p">(</span><span class="s1">&#39;avg_vote_dist&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">avg_vote_dist</span><span class="p">(</span><span class="n">election</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Average swap distance between voters.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">election</span><span class="o">.</span><span class="n">is_pseudo</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+    <span class="n">distances</span> <span class="o">=</span> <span class="n">_get_vote_dists</span><span class="p">(</span><span class="n">election</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="n">distances</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="n">election</span><span class="o">.</span><span class="n">num_voters</span> <span class="o">/</span> <span class="p">(</span><span class="n">election</span><span class="o">.</span><span class="n">num_voters</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)}</span></div>
+
+
+
+<div class="viewcode-block" id="max_vote_dist">
+<a class="viewcode-back" href="../../../../reference/features/dap.html#mapof.elections.features.dap.max_vote_dist">[docs]</a>
+<span class="nd">@register_ordinal_election_feature</span><span class="p">(</span><span class="s1">&#39;max_vote_dist&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">max_vote_dist</span><span class="p">(</span><span class="n">election</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Maximum swap distance between voters.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">election</span><span class="o">.</span><span class="n">is_pseudo</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+    <span class="n">distances</span> <span class="o">=</span> <span class="n">_get_vote_dists</span><span class="p">(</span><span class="n">election</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="n">distances</span><span class="o">.</span><span class="n">max</span><span class="p">()}</span></div>
+
+
+<div class="viewcode-block" id="karpov_index">
+<a class="viewcode-back" href="../../../../reference/features/dap.html#mapof.elections.features.dap.karpov_index">[docs]</a>
+<span class="nd">@register_ordinal_election_feature</span><span class="p">(</span><span class="s1">&#39;karpov_index&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">karpov_index</span><span class="p">(</span><span class="n">election</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Geometric mean based index proposed in</span>
+<span class="sd">    Karpov&#39;s &#39;Preference diversity orderings&#39; paper.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">election</span><span class="o">.</span><span class="n">is_pseudo</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+    <span class="n">distances</span> <span class="o">=</span> <span class="n">_get_vote_dists</span><span class="p">(</span><span class="n">election</span><span class="p">)</span>
+    <span class="n">distances</span> <span class="o">=</span> <span class="n">_remove_diag</span><span class="p">(</span><span class="n">distances</span><span class="p">)</span>
+    <span class="n">distances</span> <span class="o">=</span> <span class="n">distances</span> <span class="o">+</span> <span class="mf">0.5</span>
+    <span class="n">distances</span><span class="p">[</span><span class="n">distances</span> <span class="o">==</span> <span class="mf">0.5</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="n">_geom_mean</span><span class="p">(</span><span class="n">distances</span><span class="p">)}</span></div>
+
+
+<div class="viewcode-block" id="avg_dist_to_kemeny">
+<a class="viewcode-back" href="../../../../reference/features/dap.html#mapof.elections.features.dap.avg_dist_to_kemeny">[docs]</a>
+<span class="nd">@register_ordinal_election_feature</span><span class="p">(</span><span class="s1">&#39;avg_dist_to_kemeny&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">avg_dist_to_kemeny</span><span class="p">(</span><span class="n">election</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Average swap distance between each voter and the Kemeny ranking.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">election</span><span class="o">.</span><span class="n">is_pseudo</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">dist</span> <span class="o">=</span> <span class="n">_kemeny_ranking</span><span class="p">(</span><span class="n">election</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">dist</span> <span class="o">/</span> <span class="n">election</span><span class="o">.</span><span class="n">num_voters</span></div>
+
+
+<div class="viewcode-block" id="avg_dist_to_bord">
+<a class="viewcode-back" href="../../../../reference/features/dap.html#mapof.elections.features.dap.avg_dist_to_bord">[docs]</a>
+<span class="nd">@register_ordinal_election_feature</span><span class="p">(</span><span class="s1">&#39;avg_dist_to_borda&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">avg_dist_to_bord</span><span class="p">(</span><span class="n">election</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Average swap distance between each voter and the Borda ranking.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">election</span><span class="o">.</span><span class="n">is_pseudo</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">election</span><span class="o">.</span><span class="n">num_candidates</span>
+    <span class="n">borda</span> <span class="o">=</span> <span class="n">_calculate_borda_scores</span><span class="p">(</span><span class="n">election</span><span class="p">)</span>
+    <span class="n">ranking</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="o">-</span><span class="n">borda</span><span class="p">)</span>
+    <span class="n">wmg</span> <span class="o">=</span> <span class="n">election</span><span class="o">.</span><span class="n">votes_to_pairwise_matrix</span><span class="p">()</span>
+    <span class="n">dist</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
+            <span class="n">dist</span> <span class="o">=</span> <span class="n">dist</span> <span class="o">+</span> <span class="n">wmg</span><span class="p">[</span><span class="n">ranking</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">ranking</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="n">dist</span> <span class="o">/</span> <span class="n">election</span><span class="o">.</span><span class="n">num_voters</span><span class="p">}</span></div>
+
+
+
+<span class="c1">### DIVERSITY INDICES ###</span>
+
+
+<span class="k">def</span> <span class="nf">_distances_to_rankings</span><span class="p">(</span><span class="n">rankings</span><span class="p">,</span> <span class="n">distances</span><span class="p">):</span>
+    <span class="n">dists</span> <span class="o">=</span> <span class="n">distances</span><span class="p">[</span><span class="n">rankings</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dists</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">_find_improvement</span><span class="p">(</span><span class="n">distances</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">starting</span><span class="p">,</span> <span class="n">rest</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">l</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">cut</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">combinations</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">),</span> <span class="n">l</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">paste</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">combinations</span><span class="p">(</span><span class="n">rest</span><span class="p">,</span> <span class="n">l</span><span class="p">):</span>
+            <span class="n">ranks</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">cut</span><span class="p">:</span>
+                    <span class="n">ranks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">paste</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+                    <span class="n">j</span> <span class="o">=</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">1</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">ranks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">starting</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="c1"># check if unique</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">ranks</span><span class="p">))</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">ranks</span><span class="p">):</span>
+                <span class="c1"># check if better</span>
+                <span class="n">d_new</span> <span class="o">=</span> <span class="n">_distances_to_rankings</span><span class="p">(</span><span class="n">ranks</span><span class="p">,</span> <span class="n">distances</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">d</span> <span class="o">&gt;</span> <span class="n">d_new</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">ranks</span><span class="p">,</span> <span class="n">d_new</span><span class="p">,</span> <span class="kc">True</span>
+    <span class="k">return</span> <span class="n">starting</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="kc">False</span>
+
+
+<div class="viewcode-block" id="kkemeny_single_k">
+<a class="viewcode-back" href="../../../../reference/features/dap.html#mapof.elections.features.dap.kkemeny_single_k">[docs]</a>
+<span class="nd">@register_ordinal_election_feature</span><span class="p">(</span><span class="s1">&#39;kkememy_single_k&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">kkemeny_single_k</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">starting</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates approximate value of k-Kemeny for single k, i.e.,</span>
+<span class="sd">    the sum of the swap distances between each voter and the closest</span>
+<span class="sd">    out of k chosen rankings, where the k chosen rankings are set optimally.</span>
+<span class="sd">    The distence is approximated as we search for the chosen rankings only</span>
+<span class="sd">    from the rankings that are already present in the election as votes.</span>
+<span class="sd">    Further, this distance is approximated using local search approach, where</span>
+<span class="sd">    in each iteration, l rankings are changed for another rankings to optimize</span>
+<span class="sd">    the sum of swap distances.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">starting</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">starting</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">))</span>
+    <span class="n">distances</span> <span class="o">=</span> <span class="n">_get_vote_dists</span><span class="p">(</span><span class="n">election</span><span class="p">)</span>
+
+    <span class="n">n</span> <span class="o">=</span> <span class="n">election</span><span class="o">.</span><span class="n">num_voters</span>
+
+    <span class="n">d</span> <span class="o">=</span> <span class="n">_distances_to_rankings</span><span class="p">(</span><span class="n">starting</span><span class="p">,</span> <span class="n">distances</span><span class="p">)</span>
+    <span class="nb">iter</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">check</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">check</span><span class="p">):</span>
+        <span class="nb">iter</span> <span class="o">=</span> <span class="nb">iter</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">rest</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">starting</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">l</span><span class="p">):</span>
+            <span class="n">starting</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">check</span> <span class="o">=</span> <span class="n">_find_improvement</span><span class="p">(</span><span class="n">distances</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">starting</span><span class="p">,</span> <span class="n">rest</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">check</span><span class="p">:</span>
+                <span class="k">break</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="n">d</span><span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="kkemeny_diversity_upto_r">
+<a class="viewcode-back" href="../../../../reference/features/dap.html#mapof.elections.features.dap.kkemeny_diversity_upto_r">[docs]</a>
+<span class="nd">@register_ordinal_election_feature</span><span class="p">(</span><span class="s1">&#39;kkemeny_diversity_upto_r&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">kkemeny_diversity_upto_r</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates the approximate k-Kemeny diversity index as defined in</span>
+<span class="sd">    Faliszewski et al., &#39;Distances Between Top-Truncated Elections of Different Sizes&#39;.</span>
+<span class="sd">    It sums the values of approximate k-Kemeny distances for k from 1 to r</span>
+<span class="sd">    obtained using the local search method (see `~kkememy_single_k` function).</span>
+<span class="sd">    In the paper, the authors use the value of r equal to 5 and they argue that</span>
+<span class="sd">    it is good enough.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">election</span><span class="o">.</span><span class="n">is_pseudo</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">r</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="n">kkemeny_single_k</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span>
+    <span class="n">max_dist</span> <span class="o">=</span> <span class="p">(</span><span class="n">election</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">election</span><span class="o">.</span><span class="n">num_candidates</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="n">res</span> <span class="o">/</span> <span class="n">election</span><span class="o">.</span><span class="n">num_voters</span> <span class="o">/</span> <span class="n">max_dist</span> <span class="o">/</span> <span class="n">r</span><span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="kkemeny_diversity_full">
+<a class="viewcode-back" href="../../../../reference/features/dap.html#mapof.elections.features.dap.kkemeny_diversity_full">[docs]</a>
+<span class="nd">@register_ordinal_election_feature</span><span class="p">(</span><span class="s1">&#39;kkemeny_diversity_full&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">kkemeny_diversity_full</span><span class="p">(</span><span class="n">election</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Calculates the approximate k-Kemeny diversity index as defined in</span>
+<span class="sd">    Faliszewski et al., &#39;Diversity, Agreement, and Polarization in Elections&#39;.</span>
+<span class="sd">    It sums the values of approximate k-Kemeny distances divided by k</span>
+<span class="sd">    for k from 1 to n, where n is the number of voters in the election.</span>
+<span class="sd">    The values of the approximate k-Kemeny distances are obtained</span>
+<span class="sd">    using the local search method (see `~kkememy_single_k` function).</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="n">election</span><span class="o">.</span><span class="n">is_pseudo</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">election</span><span class="o">.</span><span class="n">num_voters</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="n">kkemeny_single_k</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">k</span>
+    <span class="n">max_dist</span> <span class="o">=</span> <span class="p">(</span><span class="n">election</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">election</span><span class="o">.</span><span class="n">num_candidates</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="n">res</span> <span class="o">/</span> <span class="n">election</span><span class="o">.</span><span class="n">num_voters</span> <span class="o">/</span> <span class="n">max_dist</span><span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="support_diversity">
+<a class="viewcode-back" href="../../../../reference/features/dap.html#mapof.elections.features.dap.support_diversity">[docs]</a>
+<span class="nd">@register_ordinal_election_feature</span><span class="p">(</span><span class="s1">&#39;support_diversity&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">support_diversity</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">tuple_len</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Given tuple lenght k, for each k-tuple of candidates counts</span>
+<span class="sd">    the number of different orderings of this tuple that</span>
+<span class="sd">    can be found within the votes. Then, sums it for all k-tuples.</span>
+<span class="sd">    Proposed in Hashemi and Endriss, &#39;Measuring diversity of preferences in a group&#39;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">election</span><span class="o">.</span><span class="n">is_pseudo</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">election</span><span class="o">.</span><span class="n">num_candidates</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">subset</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">combinations</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">),</span> <span class="n">tuple_len</span><span class="p">):</span>
+        <span class="n">support</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">election</span><span class="o">.</span><span class="n">votes</span><span class="p">:</span>
+            <span class="n">trimmed_v</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">v</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">subset</span><span class="p">:</span>
+                    <span class="n">trimmed_v</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">trimmed_v</span> <span class="ow">in</span> <span class="n">support</span><span class="p">):</span>
+                <span class="n">support</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">trimmed_v</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">res</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">support</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="n">res</span><span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="support_pairs">
+<a class="viewcode-back" href="../../../../reference/features/dap.html#mapof.elections.features.dap.support_pairs">[docs]</a>
+<span class="nd">@register_ordinal_election_feature</span><span class="p">(</span><span class="s1">&#39;support_pairs&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">support_pairs</span><span class="p">(</span><span class="n">election</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    For each pair of candidates, a and b, checks whether a is always preferred over b.</span>
+<span class="sd">    If this is the case assigns value 1 to this pair, otherwise value 2.</span>
+<span class="sd">    Then sums it up for all possible pairs of candidates.</span>
+<span class="sd">    Proposed in Hashemi and Endriss, &#39;Measuring diversity of preferences in a group&#39;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">support_diversity</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="support_triplets">
+<a class="viewcode-back" href="../../../../reference/features/dap.html#mapof.elections.features.dap.support_triplets">[docs]</a>
+<span class="nd">@register_ordinal_election_feature</span><span class="p">(</span><span class="s1">&#39;support_triplets&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">support_triplets</span><span class="p">(</span><span class="n">election</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    For each triplet of candidates, a, b, c,</span>
+<span class="sd">    checks how many different orderings of these three candidates</span>
+<span class="sd">    can be found withing the votes.</span>
+<span class="sd">    Then sums it up for all possible triplets of candidates.</span>
+<span class="sd">    Proposed in Hashemi and Endriss, &#39;Measuring diversity of preferences in a group&#39;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">support_diversity</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="support_votes">
+<a class="viewcode-back" href="../../../../reference/features/dap.html#mapof.elections.features.dap.support_votes">[docs]</a>
+<span class="nd">@register_ordinal_election_feature</span><span class="p">(</span><span class="s1">&#39;support_votes&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">support_votes</span><span class="p">(</span><span class="n">election</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Counts the number of unique votes.</span>
+<span class="sd">    Proposed as a measure of diversity in</span>
+<span class="sd">    Hashemi and Endriss, &#39;Measuring diversity of preferences in a group&#39;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">election</span><span class="o">.</span><span class="n">is_pseudo</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">election</span><span class="o">.</span><span class="n">num_candidates</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="n">support_diversity</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">m</span><span class="p">)}</span></div>
+
+
+<div class="viewcode-block" id="cand_pos_dist_std">
+<a class="viewcode-back" href="../../../../reference/features/dap.html#mapof.elections.features.dap.cand_pos_dist_std">[docs]</a>
+<span class="nd">@register_ordinal_election_feature</span><span class="p">(</span><span class="s1">&#39;cand_pos_dist_std&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">cand_pos_dist_std</span><span class="p">(</span><span class="n">election</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    For each pair of candidates we calculate the average difference</span>
+<span class="sd">    in positions across all voters. Then we take the standard deviation</span>
+<span class="sd">    of the values for all pairs.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">election</span><span class="o">.</span><span class="n">is_pseudo</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+    <span class="n">distances</span> <span class="o">=</span> <span class="n">_get_candidate_dists</span><span class="p">(</span><span class="n">election</span><span class="p">)</span>
+    <span class="n">distances</span> <span class="o">=</span> <span class="n">_remove_diag</span><span class="p">(</span><span class="n">distances</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="o">-</span> <span class="n">distances</span><span class="o">.</span><span class="n">std</span><span class="p">()</span> <span class="o">/</span> <span class="n">election</span><span class="o">.</span><span class="n">num_voters</span><span class="p">}</span></div>
+
+
+<span class="c1">### Polarization Indices ###</span>
+
+<div class="viewcode-block" id="kkemeny_polarization">
+<a class="viewcode-back" href="../../../../reference/features/dap.html#mapof.elections.features.dap.kkemeny_polarization">[docs]</a>
+<span class="nd">@register_ordinal_election_feature</span><span class="p">(</span><span class="s1">&#39;kkemeny_polarization&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">kkemeny_polarization</span><span class="p">(</span><span class="n">election</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates the approximate k-Kemeny polarization index as defined in</span>
+<span class="sd">    Faliszewski et al., &#39;Diversity, Agreement, and Polarization in Elections&#39;.</span>
+<span class="sd">    It takes the difference between approximate k-Kemeny distance for k=1 and k=2.</span>
+<span class="sd">    The values of the approximate k-Kemeny distances are obtained</span>
+<span class="sd">    using the local search method (see `~kkememy_single_k` function).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">election</span><span class="o">.</span><span class="n">is_pseudo</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+
+    <span class="n">first_kemeny</span> <span class="o">=</span> <span class="n">kkemeny_single_k</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span>
+    <span class="n">second_kemeny</span> <span class="o">=</span> <span class="n">kkemeny_single_k</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span>
+
+    <span class="n">max_dist</span> <span class="o">=</span> <span class="p">(</span><span class="n">election</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">election</span><span class="o">.</span><span class="n">num_candidates</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">first_kemeny</span> <span class="o">-</span> <span class="n">second_kemeny</span><span class="p">)</span> <span class="o">/</span> <span class="n">election</span><span class="o">.</span><span class="n">num_voters</span> <span class="o">/</span> <span class="n">max_dist</span><span class="p">}</span></div>
+
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Stanisław Szufa and Andrzej Kaczmarczyk
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024, Stanisław Szufa and Andrzej Kaczmarczyk.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

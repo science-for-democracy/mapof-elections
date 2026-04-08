@@ -15,35 +15,39 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
   
-  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
-
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
-  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
     <script src="_static/documentation_options.js?v=dea914ae"></script>
-    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'genindex';</script>
     <link rel="index" title="Index" href="#" />
     <link rel="search" title="Search" href="search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -59,19 +63,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="search.html"
       method="get">
@@ -79,7 +72,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search..."
          aria-label="Search..."
          autocomplete="off"
@@ -87,8 +79,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -106,7 +98,8 @@
       
         
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -136,15 +129,11 @@
 </a></div>
         <div class="sidebar-primary-item">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="nav bd-sidenav">
@@ -158,6 +147,8 @@
 <li class="toctree-l3"><a class="reference internal" href="reference/cultures/compass.html">Compass</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/cultures/prefsampling_mask.html">Prefsampling Mask</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/cultures/pseudo_cultures.html">Pseudo Cultures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/cultures/single_peaked_matrices.html">Single Peaked Matrices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="reference/cultures/single_crossing_matrices.html">Single Crossing Matrices</a></li>
 <li class="toctree-l3"><a class="reference internal" href="reference/cultures/params.html">Params</a></li>
 </ul>
 </details></li>
@@ -219,9 +210,14 @@
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -271,7 +267,7 @@
 
 
 <button onclick="toggleFullScreen()"
-  class="btn btn-sm btn-fullscreen-button"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
   title="Fullscreen mode"
   data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
@@ -285,24 +281,16 @@
 
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
+</button>
 
 </div></div>
       
@@ -394,6 +382,8 @@ document.write(`
 </li>
       <li><a href="reference/features/dap.html#mapof.elections.features.dap.agreement_index">agreement_index() (in module mapof.elections.features.dap)</a>
 </li>
+      <li><a href="reference/objects/Election.html#mapof.elections.objects.Election.Election.all_dist_zeros">all_dist_zeros() (Election method)</a>
+</li>
       <li><a href="reference/objects/ApprovalElection.html#mapof.elections.objects.ApprovalElection.ApprovalElection">ApprovalElection (class in mapof.elections.objects.ApprovalElection)</a>
 </li>
       <li><a href="reference/objects/ApprovalElectionExperiment.html#mapof.elections.objects.ApprovalElectionExperiment.ApprovalElectionExperiment">ApprovalElectionExperiment (class in mapof.elections.objects.ApprovalElectionExperiment)</a>
@@ -432,24 +422,38 @@ document.write(`
 </li>
       <li><a href="reference/features/dap.html#mapof.elections.features.dap.cand_pos_dist_std">cand_pos_dist_std() (in module mapof.elections.features.dap)</a>
 </li>
+      <li><a href="reference/objects/Election.html#mapof.elections.objects.Election.Election.compute_alternative_winners">compute_alternative_winners() (Election method)</a>
+</li>
       <li><a href="reference/objects/ApprovalElection.html#mapof.elections.objects.ApprovalElection.ApprovalElection.compute_distances">compute_distances() (ApprovalElection method)</a>
 
       <ul>
+        <li><a href="reference/objects/Election.html#mapof.elections.objects.Election.Election.compute_distances">(Election method)</a>
+</li>
         <li><a href="reference/objects/OrdinalElection.html#mapof.elections.objects.OrdinalElection.OrdinalElection.compute_distances">(OrdinalElection method)</a>
 </li>
       </ul></li>
-      <li><a href="reference/objects/ElectionExperiment.html#mapof.elections.objects.ElectionExperiment.ElectionExperiment.compute_feature">compute_feature() (ElectionExperiment method)</a>
+      <li><a href="reference/objects/Election.html#mapof.elections.objects.Election.Election.compute_feature">compute_feature() (Election method)</a>
+
+      <ul>
+        <li><a href="reference/objects/ElectionExperiment.html#mapof.elections.objects.ElectionExperiment.ElectionExperiment.compute_feature">(ElectionExperiment method)</a>
 </li>
-      <li><a href="reference/objects/Election.html#mapof.elections.objects.Election.Election.compute_potes">compute_potes() (Election method)</a>
-</li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/objects/Election.html#mapof.elections.objects.Election.Election.compute_potes">compute_potes() (Election method)</a>
+</li>
       <li><a href="reference/objects/ApprovalElection.html#mapof.elections.objects.ApprovalElection.ApprovalElection.compute_reverse_approvals">compute_reverse_approvals() (ApprovalElection method)</a>
+</li>
+      <li><a href="reference/objects/Election.html#mapof.elections.objects.Election.Election.compute_rule">compute_rule() (Election method)</a>
 </li>
       <li><a href="reference/objects/ElectionExperiment.html#mapof.elections.objects.ElectionExperiment.ElectionExperiment.compute_rules">compute_rules() (ElectionExperiment method)</a>
 </li>
       <li><a href="reference/objects/ElectionExperiment.html#mapof.elections.objects.ElectionExperiment.ElectionExperiment.compute_voting_rule">compute_voting_rule() (ElectionExperiment method)</a>
+
+      <ul>
+        <li><a href="reference/objects/OrdinalElection.html#mapof.elections.objects.OrdinalElection.OrdinalElection.compute_voting_rule">(OrdinalElection method)</a>
 </li>
+      </ul></li>
       <li><a href="reference/objects/OrdinalElection.html#mapof.elections.objects.OrdinalElection.convert_votes_to_potes">convert_votes_to_potes() (in module mapof.elections.objects.OrdinalElection)</a>
 </li>
       <li><a href="reference/features/cohesive.html#mapof.elections.features.cohesive.count_number_of_cohesive_groups_brute">count_number_of_cohesive_groups_brute() (in module mapof.elections.features.cohesive)</a>
@@ -476,6 +480,8 @@ document.write(`
 </li>
       <li><a href="reference/objects/ElectionFamily.html#mapof.elections.objects.ElectionFamily.ElectionFamily">ElectionFamily (class in mapof.elections.objects.ElectionFamily)</a>
 </li>
+      <li><a href="reference/objects/Election.html#mapof.elections.objects.Election.Election.embed">embed() (Election method)</a>
+</li>
       <li><a href="reference/cultures/prefsampling_mask.html#mapof.elections.cultures.prefsampling_mask.euclidean_approval_mask">euclidean_approval_mask() (in module mapof.elections.cultures.prefsampling_mask)</a>
 </li>
       <li><a href="reference/cultures/prefsampling_mask.html#mapof.elections.cultures.prefsampling_mask.euclidean_ordinal_mask">euclidean_ordinal_mask() (in module mapof.elections.cultures.prefsampling_mask)</a>
@@ -496,6 +502,8 @@ document.write(`
         <li><a href="reference/objects/OrdinalElectionExperiment.html#mapof.elections.objects.OrdinalElectionExperiment.OrdinalElectionExperiment.export_frequency_matrices">(OrdinalElectionExperiment method)</a>
 </li>
       </ul></li>
+      <li><a href="reference/objects/Election.html#mapof.elections.objects.Election.Election.export_to_file">export_to_file() (Election method)</a>
+</li>
       <li><a href="reference/persistence/election_exports.html#mapof.elections.persistence.election_exports.export_votes_to_file">export_votes_to_file() (in module mapof.elections.persistence.election_exports)</a>
 </li>
   </ul></td>
@@ -544,6 +552,12 @@ document.write(`
 </li>
       <li><a href="reference/distances/main.html#mapof.elections.distances.get_approval_distance">get_approval_distance() (in module mapof.elections.distances)</a>
 </li>
+      <li><a href="reference/objects/OrdinalElection.html#mapof.elections.objects.OrdinalElection.OrdinalElection.get_bordawise_vector">get_bordawise_vector() (OrdinalElection method)</a>
+</li>
+      <li><a href="reference/cultures/single_peaked_matrices.html#mapof.elections.cultures.matrices.single_peaked_matrices.get_conitzer_matrix">get_conitzer_matrix() (in module mapof.elections.cultures.matrices.single_peaked_matrices)</a>
+</li>
+      <li><a href="reference/objects/Election.html#mapof.elections.objects.Election.Election.get_coordinates">get_coordinates() (Election method)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/features/abc_features.html#mapof.elections.features.abc_features.get_core">get_core() (in module mapof.elections.features.abc_features)</a>
@@ -551,6 +565,8 @@ document.write(`
       <li><a href="reference/distances/main.html#mapof.elections.distances.get_distance">get_distance() (in module mapof.elections.distances)</a>
 </li>
       <li><a href="reference/features/simple_ordinal.html#mapof.elections.features.simple_ordinal.get_effective_num_candidates">get_effective_num_candidates() (in module mapof.elections.features.simple_ordinal)</a>
+</li>
+      <li><a href="reference/objects/Election.html#mapof.elections.objects.Election.Election.get_feature">get_feature() (Election method)</a>
 </li>
       <li><a href="reference/objects/OrdinalElection.html#mapof.elections.objects.OrdinalElection.OrdinalElection.get_frequency_matrix">get_frequency_matrix() (OrdinalElection method)</a>
 </li>
@@ -571,6 +587,10 @@ document.write(`
       <li><a href="reference/features/abc_features.html#mapof.elections.features.abc_features.get_priceability">get_priceability() (in module mapof.elections.features.abc_features)</a>
 </li>
       <li><a href="reference/objects/ApprovalElection.html#mapof.elections.objects.ApprovalElection.ApprovalElection.get_reverse_approvals">get_reverse_approvals() (ApprovalElection method)</a>
+</li>
+      <li><a href="reference/cultures/single_crossing_matrices.html#mapof.elections.cultures.matrices.single_crossing_matrices.get_single_crossing_matrix">get_single_crossing_matrix() (in module mapof.elections.cultures.matrices.single_crossing_matrices)</a>
+</li>
+      <li><a href="reference/cultures/single_peaked_matrices.html#mapof.elections.cultures.matrices.single_peaked_matrices.get_walsh_matrix">get_walsh_matrix() (in module mapof.elections.cultures.matrices.single_peaked_matrices)</a>
 </li>
       <li><a href="reference/features/approx.html#mapof.elections.features.approx.get_winners_approx_greedy">get_winners_approx_greedy() (in module mapof.elections.features.approx)</a>
 </li>
@@ -632,6 +652,10 @@ document.write(`
         <li><a href="reference/persistence/election_imports.html#mapof.elections.persistence.election_imports.import_distances">(in module mapof.elections.persistence.election_imports)</a>
 </li>
       </ul></li>
+      <li><a href="reference/objects/OrdinalElection.html#mapof.elections.objects.OrdinalElection.OrdinalElection.import_ideal_points">import_ideal_points() (OrdinalElection method)</a>
+</li>
+      <li><a href="reference/objects/Election.html#mapof.elections.objects.Election.Election.import_matrix">import_matrix() (Election method)</a>
+</li>
       <li><a href="reference/persistence/election_imports.html#mapof.elections.persistence.election_imports.import_ordinal_election">import_ordinal_election() (in module mapof.elections.persistence.election_imports)</a>
 
       <ul>
@@ -696,6 +720,20 @@ document.write(`
 
       <ul>
         <li><a href="reference/cultures/compass.html#module-mapof.elections.cultures.compass">module</a>
+</li>
+      </ul></li>
+      <li>
+    mapof.elections.cultures.matrices.single_crossing_matrices
+
+      <ul>
+        <li><a href="reference/cultures/single_crossing_matrices.html#module-mapof.elections.cultures.matrices.single_crossing_matrices">module</a>
+</li>
+      </ul></li>
+      <li>
+    mapof.elections.cultures.matrices.single_peaked_matrices
+
+      <ul>
+        <li><a href="reference/cultures/single_peaked_matrices.html#module-mapof.elections.cultures.matrices.single_peaked_matrices">module</a>
 </li>
       </ul></li>
       <li>
@@ -880,6 +918,8 @@ document.write(`
         <li><a href="reference/objects/ApprovalElection.html#module-mapof.elections.objects.ApprovalElection">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     mapof.elections.objects.ApprovalElectionExperiment
 
@@ -887,8 +927,6 @@ document.write(`
         <li><a href="reference/objects/ApprovalElectionExperiment.html#module-mapof.elections.objects.ApprovalElectionExperiment">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     mapof.elections.objects.Election
 
@@ -958,6 +996,10 @@ document.write(`
         <li><a href="reference/cultures/main.html#module-mapof.elections.cultures">mapof.elections.cultures</a>
 </li>
         <li><a href="reference/cultures/compass.html#module-mapof.elections.cultures.compass">mapof.elections.cultures.compass</a>
+</li>
+        <li><a href="reference/cultures/single_crossing_matrices.html#module-mapof.elections.cultures.matrices.single_crossing_matrices">mapof.elections.cultures.matrices.single_crossing_matrices</a>
+</li>
+        <li><a href="reference/cultures/single_peaked_matrices.html#module-mapof.elections.cultures.matrices.single_peaked_matrices">mapof.elections.cultures.matrices.single_peaked_matrices</a>
 </li>
         <li><a href="reference/cultures/params.html#module-mapof.elections.cultures.params">mapof.elections.cultures.params</a>
 </li>
@@ -1120,14 +1162,20 @@ document.write(`
 </li>
       <li><a href="reference/objects/ElectionExperiment.html#mapof.elections.objects.ElectionExperiment.ElectionExperiment.set_default_num_voters">set_default_num_voters() (ElectionExperiment method)</a>
 </li>
+      <li><a href="reference/objects/Election.html#mapof.elections.objects.Election.Election.set_default_object_type">set_default_object_type() (Election method)</a>
+</li>
       <li><a href="reference/objects/ApprovalElection.html#mapof.elections.objects.ApprovalElection.ApprovalElection.set_microscope">set_microscope() (ApprovalElection method)</a>
+
+      <ul>
+        <li><a href="reference/objects/OrdinalElection.html#mapof.elections.objects.OrdinalElection.OrdinalElection.set_microscope">(OrdinalElection method)</a>
 </li>
+      </ul></li>
       <li><a href="reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.spearman_distance">spearman_distance() (in module mapof.elections.distances.main_ordinal_distances)</a>
-</li>
-      <li><a href="reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.spearman_distance_fastmap">spearman_distance_fastmap() (in module mapof.elections.distances.main_ordinal_distances)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.spearman_distance_fastmap">spearman_distance_fastmap() (in module mapof.elections.distances.main_ordinal_distances)</a>
+</li>
       <li><a href="reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.spearman_distance_ilp_py">spearman_distance_ilp_py() (in module mapof.elections.distances.main_ordinal_distances)</a>
 </li>
       <li><a href="reference/features/dap.html#mapof.elections.features.dap.support_diversity">support_diversity() (in module mapof.elections.features.dap)</a>
@@ -1148,11 +1196,15 @@ document.write(`
 <h2 id="T">T</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/objects/OrdinalElection.html#mapof.elections.objects.OrdinalElection.OrdinalElection.texify_label">texify_label() (OrdinalElection static method)</a>
+</li>
       <li><a href="reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.truncated_swap_distance">truncated_swap_distance() (in module mapof.elections.distances.main_ordinal_distances)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/cultures/prefsampling_mask.html#mapof.elections.cultures.prefsampling_mask.truncated_urn_mask">truncated_urn_mask() (in module mapof.elections.cultures.prefsampling_mask)</a>
+</li>
+      <li><a href="reference/objects/OrdinalElection.html#mapof.elections.objects.OrdinalElection.OrdinalElection.try_updating_params">try_updating_params() (OrdinalElection method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -1162,11 +1214,13 @@ document.write(`
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/cultures/params.html#mapof.elections.cultures.params.update_params_ordinal_mallows">update_params_ordinal_mallows() (in module mapof.elections.cultures.params)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/cultures/params.html#mapof.elections.cultures.params.update_params_ordinal_norm_mallows">update_params_ordinal_norm_mallows() (in module mapof.elections.cultures.params)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="reference/cultures/params.html#mapof.elections.cultures.params.update_params_ordinal_urn_model">update_params_ordinal_urn_model() (in module mapof.elections.cultures.params)</a>
+</li>
+      <li><a href="reference/objects/Election.html#mapof.elections.objects.Election.Election.update_votes">update_votes() (Election method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -1174,6 +1228,8 @@ document.write(`
 <h2 id="V">V</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference/objects/Election.html#mapof.elections.objects.Election.Election.vector_to_interval">vector_to_interval() (Election method)</a>
+</li>
       <li><a href="reference/distances/main_ordinal_distances.html#mapof.elections.distances.main_ordinal_distances.voterlikeness_distance">voterlikeness_distance() (in module mapof.elections.distances.main_ordinal_distances)</a>
 </li>
       <li><a href="reference/objects/OrdinalElection.html#mapof.elections.objects.OrdinalElection.OrdinalElection.votes_to_agg_voterlikeness_vector">votes_to_agg_voterlikeness_vector() (OrdinalElection method)</a>
@@ -1251,8 +1307,8 @@ By Stanisław Szufa and Andrzej Kaczmarczyk
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
   </footer>

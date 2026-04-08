@@ -15,35 +15,39 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link href="../../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
   
-  <link href="../../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
-
-    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=03e43079" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
-  
+  <!-- So that users can add custom icons -->
+  <script src="../../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
     <script src="../../../../_static/documentation_options.js?v=dea914ae"></script>
-    <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../../../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/mapof/elections/features/cohesive';</script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -59,19 +63,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../../../../search.html"
       method="get">
@@ -79,7 +72,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search..."
          aria-label="Search..."
          autocomplete="off"
@@ -87,8 +79,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -106,7 +98,8 @@
       
         
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -136,15 +129,11 @@
 </a></div>
         <div class="sidebar-primary-item">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="nav bd-sidenav">
@@ -158,6 +147,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/compass.html">Compass</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/prefsampling_mask.html">Prefsampling Mask</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/pseudo_cultures.html">Pseudo Cultures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/single_peaked_matrices.html">Single Peaked Matrices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/single_crossing_matrices.html">Single Crossing Matrices</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/params.html">Params</a></li>
 </ul>
 </details></li>
@@ -219,9 +210,14 @@
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -271,7 +267,7 @@
 
 
 <button onclick="toggleFullScreen()"
-  class="btn btn-sm btn-fullscreen-button"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
   title="Fullscreen mode"
   data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
@@ -285,24 +281,16 @@
 
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
+</button>
 
 </div></div>
       
@@ -329,17 +317,17 @@ document.write(`
                 <article class="bd-article">
                   
   <h1>Source code for mapof.elections.features.cohesive</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">itertools</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">defaultdict</span>
+<span></span><span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">mapof.elections.features.register</span><span class="w"> </span><span class="kn">import</span> <span class="n">register_approval_election_feature</span>
+<span class="kn">from</span> <span class="nn">mapof.elections.features.register</span> <span class="kn">import</span> <span class="n">register_approval_election_feature</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">ceil</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">ceil</span>
 
 <span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span><span class="w"> </span><span class="nn">pulp</span>
+    <span class="kn">import</span> <span class="nn">pulp</span>
 <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
     <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Pulp not found. Some features may not work.&quot;</span><span class="p">)</span>
     <span class="n">pulp</span> <span class="o">=</span> <span class="kc">None</span>
@@ -348,7 +336,7 @@ document.write(`
 <div class="viewcode-block" id="count_number_of_cohesive_groups_brute">
 <a class="viewcode-back" href="../../../../reference/features/cohesive.html#mapof.elections.features.cohesive.count_number_of_cohesive_groups_brute">[docs]</a>
 <span class="nd">@register_approval_election_feature</span><span class="p">(</span><span class="s1">&#39;number_of_cohesive_groups_brute&#39;</span><span class="p">,</span> <span class="n">has_params</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">count_number_of_cohesive_groups_brute</span><span class="p">(</span>
+<span class="k">def</span> <span class="nf">count_number_of_cohesive_groups_brute</span><span class="p">(</span>
     <span class="n">election</span><span class="p">,</span>
     <span class="n">feature_params</span><span class="p">:</span> <span class="nb">dict</span>
 <span class="p">):</span>
@@ -378,7 +366,7 @@ document.write(`
 
 <div class="viewcode-block" id="powerset">
 <a class="viewcode-back" href="../../../../reference/features/cohesive.html#mapof.elections.features.cohesive.powerset">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">powerset</span><span class="p">(</span><span class="n">iterable</span><span class="p">,</span> <span class="n">min_size</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">powerset</span><span class="p">(</span><span class="n">iterable</span><span class="p">,</span> <span class="n">min_size</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
     <span class="s2">&quot;powerset([1,2,3]) --&gt; () (1,) (2,) (3,) (1,2) (1,3) (2,3) (1,2,3)&quot;</span>
     <span class="n">s</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">iterable</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="o">.</span><span class="n">from_iterable</span><span class="p">(</span>
@@ -386,7 +374,7 @@ document.write(`
 
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">newton</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">newton</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">k</span> <span class="o">&gt;</span> <span class="n">n</span><span class="p">:</span>
         <span class="k">return</span> <span class="mi">0</span>
     <span class="n">answer</span> <span class="o">=</span> <span class="mi">1</span>
@@ -398,7 +386,7 @@ document.write(`
 
 
 <span class="nd">@register_approval_election_feature</span><span class="p">(</span><span class="s1">&#39;number_of_cohesive_groups&#39;</span><span class="p">,</span> <span class="n">has_params</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">count_number_of_cohesive_groups</span><span class="p">(</span>
+<span class="k">def</span> <span class="nf">count_number_of_cohesive_groups</span><span class="p">(</span>
     <span class="n">election</span><span class="p">,</span>
     <span class="n">feature_params</span><span class="p">:</span> <span class="nb">dict</span>
 <span class="p">):</span>
@@ -427,7 +415,7 @@ document.write(`
 <span class="c1">####################################################################################################</span>
 
 <span class="nd">@register_approval_election_feature</span><span class="p">(</span><span class="s1">&#39;cohesiveness&#39;</span><span class="p">,</span> <span class="n">has_params</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">count_largest_cohesiveness_level_l_of_cohesive_group</span><span class="p">(</span>
+<span class="k">def</span> <span class="nf">count_largest_cohesiveness_level_l_of_cohesive_group</span><span class="p">(</span>
     <span class="n">election</span><span class="p">,</span>
     <span class="n">feature_params</span><span class="p">:</span> <span class="nb">dict</span>
 <span class="p">):</span>
@@ -441,7 +429,7 @@ document.write(`
     <span class="k">return</span> <span class="n">l_ans</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">solve_ilp_instance</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">committee_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">solve_ilp_instance</span><span class="p">(</span><span class="n">election</span><span class="p">,</span> <span class="n">committee_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="n">pulp</span><span class="o">.</span><span class="n">getSolver</span><span class="p">(</span><span class="s1">&#39;GUROBI&#39;</span><span class="p">)</span>
     <span class="n">model</span> <span class="o">=</span> <span class="n">pulp</span><span class="o">.</span><span class="n">LpProblem</span><span class="p">(</span><span class="s2">&quot;cohesiveness_level_l&quot;</span><span class="p">,</span> <span class="n">pulp</span><span class="o">.</span><span class="n">LpMaximize</span><span class="p">)</span>
     <span class="n">X</span> <span class="o">=</span> <span class="p">[</span><span class="n">pulp</span><span class="o">.</span><span class="n">LpVariable</span><span class="p">(</span><span class="s2">&quot;x_&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">cat</span><span class="o">=</span><span class="s1">&#39;Binary&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span>
@@ -545,8 +533,8 @@ By Stanisław Szufa and Andrzej Kaczmarczyk
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
   </footer>

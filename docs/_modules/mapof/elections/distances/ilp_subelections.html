@@ -1,0 +1,490 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mapof.elections.distances.ilp_subelections &#8212; Map of Elections</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../../../_static/documentation_options.js?v=dea914ae"></script>
+    <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/mapof/elections/distances/ilp_subelections';</script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Map of Elections</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../../index.html">Mapof-Elections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../quickstart.html">Quick Start</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../reference/index.html">Code Reference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/cultures/index.html">Cultures</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/list_of_cultures.html">List of Cultures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/main.html">Main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/compass.html">Compass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/prefsampling_mask.html">Prefsampling Mask</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/pseudo_cultures.html">Pseudo Cultures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/single_peaked_matrices.html">Single Peaked Matrices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/single_crossing_matrices.html">Single Crossing Matrices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/cultures/params.html">Params</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/distances/index.html">Distances</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/list_of_distances.html">List of Distances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/main.html">Main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/register.html">Register</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/main_approval_distances.html">Approval Distances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/main_ordinal_distances.html">Ordinal Distances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/committee_distances.html">Committee Distances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/feature_distance.html">Feature Distance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/distances/ilp_subelections.html">Subelection Distance</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/features/index.html">Features</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/list_of_features.html">List of Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/main.html">Main</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/register.html">Register</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/scores.html">Scores</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/dap.html">Diversity Approximate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/simple_ordinal.html">Simple Ordinal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/simple_approval.html">Simple Approval</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/abc_features.html">ABC Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/banzhaf_cc.html">Banzhaf CC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/ranging_cc.html">Ranging CC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/approx.html">Approx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/cohesive.html">Cohesive</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/entropy.html">Entropy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/justified_representation.html">Justified Representation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/partylist.html">Partylist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/features/proportionality_degree.html">Proportionality Degree</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/objects/index.html">Objects</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/Election.html">Election</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/ElectionExperiment.html">ElectionExperiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/ApprovalElection.html">ApprovalElection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/ApprovalElectionExperiment.html">ApprovalElectionExperiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/OrdinalElection.html">OrdinalElection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/OrdinalElectionExperiment.html">OrdinalElectionExperiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/ElectionFamily.html">ElectionFamily</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/objects/Microscope.html">Microscope</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/persistence/index.html">Persistence</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/persistence/election_imports.html">Election Imports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/persistence/election_exports.html">Election Exports</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../resources.html">Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../citation.html">Citation Policy</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/science-for-democracy/mapof-elections" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for mapof.elections.distances.ilp_subelections</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="kn">import</span> <span class="nn">gurobipy</span> <span class="k">as</span> <span class="nn">gp</span>
+<span class="kn">from</span> <span class="nn">gurobipy</span> <span class="kn">import</span> <span class="n">GRB</span>
+
+<span class="kn">from</span> <span class="nn">mapof.elections.distances.register</span> <span class="kn">import</span> <span class="n">register_ordinal_election_distance</span>
+
+
+<span class="c1"># THIS FUNCTION HAS NOT BEEN TESTED SINCE CONVERSION TO GUROBI</span>
+<div class="viewcode-block" id="maximum_common_voter_subelection">
+<a class="viewcode-back" href="../../../../reference/distances/ilp_subelections.html#mapof.elections.distances.ilp_subelections.maximum_common_voter_subelection">[docs]</a>
+<span class="nd">@register_ordinal_election_distance</span><span class="p">(</span><span class="s2">&quot;maximum_common_voter_subelection&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">maximum_common_voter_subelection</span><span class="p">(</span><span class="n">election_1</span><span class="p">,</span> <span class="n">election_2</span><span class="p">,</span> <span class="n">metric_name</span><span class="o">=</span><span class="s1">&#39;0&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function solves the maximum common voter subelection problem between two elections.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">        election_1 : Election</span>
+<span class="sd">            The first election.</span>
+<span class="sd">        election_2 : Election</span>
+<span class="sd">            The second election.</span>
+<span class="sd">        metric_name : str</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">        int</span>
+<span class="sd">            The maximum number of common voters between the two elections.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Initialize model</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">gp</span><span class="o">.</span><span class="n">Model</span><span class="p">()</span>
+
+    <span class="c1"># Limit the number of threads</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">setParam</span><span class="p">(</span><span class="s1">&#39;Threads&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># OBJECTIVE FUNCTION</span>
+    <span class="n">names</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">v1</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">election_1</span><span class="o">.</span><span class="n">num_voters</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">v2</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">election_2</span><span class="o">.</span><span class="n">num_voters</span><span class="p">):</span>
+            <span class="n">names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;N&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">v1</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">v2</span><span class="p">))</span>
+
+    <span class="c1"># Add variables</span>
+    <span class="n">N_vars</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">addVars</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">vtype</span><span class="o">=</span><span class="n">GRB</span><span class="o">.</span><span class="n">BINARY</span><span class="p">,</span> <span class="n">obj</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;N&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Set objective to maximize</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">ModelSense</span> <span class="o">=</span> <span class="n">GRB</span><span class="o">.</span><span class="n">MAXIMIZE</span>
+
+    <span class="c1"># FIRST CONSTRAINT FOR VOTERS</span>
+    <span class="k">for</span> <span class="n">v1</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">election_1</span><span class="o">.</span><span class="n">num_voters</span><span class="p">):</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">addConstr</span><span class="p">(</span><span class="n">gp</span><span class="o">.</span><span class="n">quicksum</span><span class="p">(</span>
+            <span class="n">N_vars</span><span class="p">[</span><span class="s1">&#39;N&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">v1</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">v2</span><span class="p">)]</span> <span class="k">for</span> <span class="n">v2</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">election_2</span><span class="o">.</span><span class="n">num_voters</span><span class="p">))</span> <span class="o">&lt;=</span> <span class="mf">1.0</span><span class="p">,</span>
+                        <span class="n">name</span><span class="o">=</span><span class="s1">&#39;C1_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">v1</span><span class="p">))</span>
+
+    <span class="c1"># SECOND CONSTRAINT FOR VOTERS</span>
+    <span class="k">for</span> <span class="n">v2</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">election_2</span><span class="o">.</span><span class="n">num_voters</span><span class="p">):</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">addConstr</span><span class="p">(</span><span class="n">gp</span><span class="o">.</span><span class="n">quicksum</span><span class="p">(</span>
+            <span class="n">N_vars</span><span class="p">[</span><span class="s1">&#39;N&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">v1</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">v2</span><span class="p">)]</span> <span class="k">for</span> <span class="n">v1</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">election_1</span><span class="o">.</span><span class="n">num_voters</span><span class="p">))</span> <span class="o">&lt;=</span> <span class="mf">1.0</span><span class="p">,</span>
+                        <span class="n">name</span><span class="o">=</span><span class="s1">&#39;C2_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">v2</span><span class="p">))</span>
+
+    <span class="c1"># ADD VARIABLES FOR CANDIDATES</span>
+    <span class="n">M_names</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">c1</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">election_1</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">c2</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">election_2</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">):</span>
+            <span class="n">M_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;M&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">c1</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">c2</span><span class="p">))</span>
+
+    <span class="n">M_vars</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">addVars</span><span class="p">(</span><span class="n">M_names</span><span class="p">,</span> <span class="n">vtype</span><span class="o">=</span><span class="n">GRB</span><span class="o">.</span><span class="n">BINARY</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;M&quot;</span><span class="p">)</span>
+
+    <span class="c1"># FIRST CONSTRAINT FOR CANDIDATES</span>
+    <span class="k">for</span> <span class="n">c1</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">election_1</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">):</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">addConstr</span><span class="p">(</span><span class="n">gp</span><span class="o">.</span><span class="n">quicksum</span><span class="p">(</span><span class="n">M_vars</span><span class="p">[</span><span class="s1">&#39;M&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">c1</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">c2</span><span class="p">)]</span> <span class="k">for</span> <span class="n">c2</span> <span class="ow">in</span>
+                                    <span class="nb">range</span><span class="p">(</span><span class="n">election_2</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">))</span> <span class="o">==</span> <span class="mf">1.0</span><span class="p">,</span>
+                        <span class="n">name</span><span class="o">=</span><span class="s1">&#39;C3_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">c1</span><span class="p">))</span>
+
+    <span class="c1"># SECOND CONSTRAINT FOR CANDIDATES</span>
+    <span class="k">for</span> <span class="n">c2</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">election_2</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">):</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">addConstr</span><span class="p">(</span><span class="n">gp</span><span class="o">.</span><span class="n">quicksum</span><span class="p">(</span><span class="n">M_vars</span><span class="p">[</span><span class="s1">&#39;M&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">c1</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">c2</span><span class="p">)]</span> <span class="k">for</span> <span class="n">c1</span> <span class="ow">in</span>
+                                    <span class="nb">range</span><span class="p">(</span><span class="n">election_1</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">))</span> <span class="o">==</span> <span class="mf">1.0</span><span class="p">,</span>
+                        <span class="n">name</span><span class="o">=</span><span class="s1">&#39;C4_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">c2</span><span class="p">))</span>
+
+    <span class="c1"># MAIN CONSTRAINT FOR VOTES</span>
+    <span class="n">potes_1</span> <span class="o">=</span> <span class="n">election_1</span><span class="o">.</span><span class="n">get_potes</span><span class="p">()</span>
+    <span class="n">potes_2</span> <span class="o">=</span> <span class="n">election_2</span><span class="o">.</span><span class="n">get_potes</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">v1</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">election_1</span><span class="o">.</span><span class="n">num_voters</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">v2</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">election_2</span><span class="o">.</span><span class="n">num_voters</span><span class="p">):</span>
+            <span class="n">M_constr</span> <span class="o">=</span> <span class="n">gp</span><span class="o">.</span><span class="n">LinExpr</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">c1</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">election_1</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">c2</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">election_2</span><span class="o">.</span><span class="n">num_candidates</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">potes_1</span><span class="p">[</span><span class="n">v1</span><span class="p">][</span><span class="n">c1</span><span class="p">]</span> <span class="o">-</span> <span class="n">potes_2</span><span class="p">[</span><span class="n">v2</span><span class="p">][</span><span class="n">c2</span><span class="p">])</span> <span class="o">&lt;=</span> <span class="nb">int</span><span class="p">(</span><span class="n">metric_name</span><span class="p">):</span>
+                        <span class="n">M_constr</span> <span class="o">+=</span> <span class="n">M_vars</span><span class="p">[</span><span class="s1">&#39;M&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">c1</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">c2</span><span class="p">)]</span>
+            <span class="n">M_constr</span> <span class="o">-=</span> <span class="n">N_vars</span><span class="p">[</span><span class="s1">&#39;N&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">v1</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">v2</span><span class="p">)]</span> <span class="o">*</span> <span class="n">election_1</span><span class="o">.</span><span class="n">num_candidates</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">addConstr</span><span class="p">(</span><span class="n">M_constr</span> <span class="o">&gt;=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;C5_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">v1</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">v2</span><span class="p">))</span>
+
+    <span class="c1"># Optimize the model</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">optimize</span><span class="p">()</span>
+
+    <span class="c1"># Return the objective value</span>
+    <span class="k">if</span> <span class="n">model</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="n">GRB</span><span class="o">.</span><span class="n">OPTIMAL</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">model</span><span class="o">.</span><span class="n">objVal</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;No optimal solution found&quot;</span><span class="p">)</span></div>
+
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Stanisław Szufa and Andrzej Kaczmarczyk
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024, Stanisław Szufa and Andrzej Kaczmarczyk.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

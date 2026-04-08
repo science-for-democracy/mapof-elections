@@ -70,7 +70,7 @@ List of Ordinal Cultures
      - :py:func:`~prefsampling.ordinal.singlepeaked.single_peaked_conitzer`
    * - ``spoc``
      - :py:func:`~prefsampling.ordinal.singlepeaked.single_peaked_circle`
-   * - ``spoc``
+   * - ``single-crossing``
      - :py:func:`~prefsampling.ordinal.singlecrossing.single_crossing`
    * - ``approx_uniformity``
      - :py:func:`~mapof.elections.cultures.compass.generate_approx_uniformity_votes`
@@ -97,7 +97,7 @@ List of Pseudo Ordinal Cultures
    * - culture_id
      - Implementation
 
-   * - ``pseudo_uniformity``
+   * - ``pseudo_identity``
      - :py:func:`~mapof.elections.cultures.pseudo_cultures.pseudo_identity`
    * - ``pseudo_uniformity``
      - :py:func:`~mapof.elections.cultures.pseudo_cultures.pseudo_uniformity`

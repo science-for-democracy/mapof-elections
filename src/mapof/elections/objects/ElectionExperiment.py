@@ -69,6 +69,7 @@ class ElectionExperiment(Experiment):
         self.default_num_voters = 100
         self.default_committee_size = 1
         self.all_winning_committees = {}
+        self.feature_ids = None
         super().__init__(**kwargs)
 
     def __getattr__(self, attr):
@@ -746,7 +747,52 @@ class ElectionExperiment(Experiment):
             distance_id: str = None,
             **kwargs
     ) -> float or (float, list):
-        return get_distance(election_1, election_2, distance_id)
+        if self.feature_ids is not None:
+            kwargs['feature_ids'] = self.feature_ids
+        return get_distance(election_1, election_2, distance_id, **kwargs)
+
+    def compute_distances(
+            self,
+            distance_id: str = None,
+            feature_ids: list[str] = None,
+            **kwargs
+    ) -> None:
+        """
+        Computes distances between elections (see core ``Experiment.compute_distances``).
+
+        Parameters
+        ----------
+            distance_id : str
+                Name of the distance.
+            feature_ids : list[str]
+                Features forming the vectors compared by feature distances
+                ('feature_l1', 'feature_l2'). Each has to be present in
+                ``self.features`` (computed with ``compute_feature``,
+                imported with ``import_feature`` or assigned manually).
+            kwargs
+                Passed on to core ``Experiment.compute_distances``.
+        """
+        self.feature_ids = feature_ids
+        if feature_ids is not None:
+            self._attach_features_to_elections(feature_ids)
+        super().compute_distances(distance_id=distance_id, **kwargs)
+
+    def _attach_features_to_elections(self, feature_ids: list[str]) -> None:
+        """ Copies values of the given experiment features to election.features """
+        for feature_id in feature_ids:
+            if feature_id not in self.features:
+                raise ValueError(
+                    f"Feature {feature_id} not found in experiment.features; compute it with "
+                    f"compute_feature or load it with import_feature first.")
+            values = self.features[feature_id]
+            # compute_feature stores {'value': {...}, 'time': {...}},
+            # import_feature returns {instance_id: value}
+            if isinstance(values.get('value'), dict):
+                values = values['value']
+            for election_id, election in self.instances.items():
+                if election_id not in values:
+                    raise ValueError(f"Feature {feature_id} has no value for {election_id}.")
+                election.features[feature_id] = values[election_id]
 
     def print_matrix(self, **kwargs):
         pr.print_matrix(experiment=self, **kwargs)
@@ -1041,41 +1087,9 @@ class ElectionExperiment(Experiment):
     #         election[1].election_features.compass_points['UN'] = self.instances[
     #             UN_KEY + str(election[1].num_candidates)]
 
-    def calculate_dap(self, id):
-        dap = list()
-        dap.append(self.features['Diversity'][id])
-        dap.append(self.features['Agreement'][id])
-        dap.append(self.features['Polarization'][id])
-        return dap
-
-    def calculate_features_vector(self, id, features_list: list):
-        vector = list()
-        if 'd' in features_list:
-            vector.append(self.features['Diversity'][id])
-        if 'a' in features_list:
-            vector.append(self.features['Agreement'][id])
-        if 'p' in features_list:
-            vector.append(self.features['Polarization'][id])
-        if 'e' in features_list:
-            vector.append(self.features['Entropy'][id])
-        if 'e2' in features_list:
-            vector.append(self.features['Entropy'][id] * self.features['Entropy'][id])
-        if 'cds' in features_list:
-            vector.append(self.features['CandidateDistanceStd'][id])
-        return vector
-
     def prepare_election_sizes(self):
         for election in self.instances.items():
             self.election_sizes.add(election[1].num_candidates)
-
-    def prepare_feature_vectors(self, features: list):
-        for election in self.instances.items():
-            election[1].election_features.votes = election[1].votes
-            election[1].election_features.num_candidates = election[1].num_candidates
-            election[1].election_features.num_voters = election[1].num_voters
-            election[1].election_features.features_vector = self.calculate_features_vector(
-                election[1].election_id,
-                features)
 
     def prepare_instances(self):
         return self.prepare_elections()

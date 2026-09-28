@@ -3,6 +3,7 @@ import mapof.elections.features.approx as approx
 import mapof.elections.features.banzhaf_cc as banzhaf_cc
 import mapof.elections.features.cohesive as cohesive
 import mapof.elections.features.dap as dap
+import mapof.elections.features.dap_approx as dap_approx
 import mapof.elections.features.entropy as entropy
 import mapof.elections.features.justified_representation as jr
 import mapof.elections.features.simple_ordinal as simple_ordinal

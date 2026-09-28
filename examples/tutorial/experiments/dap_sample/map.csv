@@ -1,0 +1,7 @@
+size;num_candidates;num_voters;culture_id;params;family_id;label;color;alpha;marker;ms;path;show
+2;8;96;identity;{};ID;Identity;blue;1;x;30;{};True
+2;8;96;impartial;{};IC;Impartial Culture;black;1;o;30;{};True
+2;8;96;urn;{'alpha': 0.2};Urn;Urn (alpha=0.2);orange;1;o;30;{};True
+2;8;96;mallows;{'phi': 0.5};Mallows;Mallows (phi=0.5);red;1;o;30;{};True
+2;8;96;single_peaked_conitzer;{};SP;SP by Conitzer;green;1;o;30;{};True
+2;8;96;single_crossing;{};SC;Single-Crossing;purple;1;o;30;{};True

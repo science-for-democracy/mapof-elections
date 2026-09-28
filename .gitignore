@@ -11,6 +11,7 @@ mapel/projects/data
 
 images/
 experiments/
+!examples/tutorial/experiments/
 mapel/raw_data/
 mapel/real_data/
 mapel/_past/

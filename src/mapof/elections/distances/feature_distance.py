@@ -34,7 +34,7 @@ def features_vector_l1(election_1, election_2, feature_ids: list[str]) -> float:
     Returns
     -------
         float
-            ell_2 distance between two feature vectors.
+            ell_1 distance between two feature vectors.
 
     """
     return _feature_distance(election_1, election_2, feature_ids, 1)

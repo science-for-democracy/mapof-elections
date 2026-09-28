@@ -1,0 +1,7 @@
+# FILE NAME: ID_1.soc
+# DATA TYPE: soc 
+# CULTURE ID: identity 
+# PARAMS: {} 
+# NUMBER ALTERNATIVES: 8 
+# NUMBER VOTERS: 96 
+96: 0, 1, 2, 3, 4, 5, 6, 7

@@ -78,7 +78,8 @@ def add_ordinal_distance(name: str, function: callable) -> None:
 def get_distance(
         election_1,
         election_2,
-        distance_id: str = None
+        distance_id: str = None,
+        **kwargs
 ) -> float or (float, list):
     """
     Computes distance between elections, (if applicable) optimal matching.
@@ -91,12 +92,14 @@ def get_distance(
             Second election.
         distance_id : str
             Name of the distance.
+        kwargs
+            Passed on to the distance function (e.g., ``feature_ids``).
     """
 
     if type(election_1) is ApprovalElection and type(election_2) is ApprovalElection:
-        return get_approval_distance(election_1, election_2, distance_id=distance_id)
+        return get_approval_distance(election_1, election_2, distance_id=distance_id, **kwargs)
     elif type(election_1) is OrdinalElection and type(election_2) is OrdinalElection:
-        return get_ordinal_distance(election_1, election_2, distance_id=distance_id)
+        return get_ordinal_distance(election_1, election_2, distance_id=distance_id, **kwargs)
     else:
         logging.warning('No such instance!')
 
